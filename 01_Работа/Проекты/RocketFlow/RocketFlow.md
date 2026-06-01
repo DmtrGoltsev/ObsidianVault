@@ -40,7 +40,7 @@ id: "proj-rocketflow"
 - Три волны (A, B, C) завершены
 - Wave C.1 завершён (web scheduling authoring)
 - Текущая стадия: [[MVP3_Упрощение]]
-- Ветка: `MVP3` (20 коммитов от ca1055f до b041ac1)
+- Ветка: `MVP3` (21 коммит от ca1055f до 9825a40)
 - Backend тесты зелёные
 - Web build зелёный
 - Android build зелёный
