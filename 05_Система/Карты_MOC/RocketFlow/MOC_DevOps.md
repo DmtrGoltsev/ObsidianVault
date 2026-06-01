@@ -1,5 +1,6 @@
 ---
 id: "moc-devops"
+тип: "MOC"
 статус: "активно"
 проект: "RocketFlow"
 владелец: "rocketflow-team"

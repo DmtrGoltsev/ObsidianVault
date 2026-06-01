@@ -1,5 +1,6 @@
 ---
 id: "moc-rocketflow-main"
+тип: "MOC"
 статус: "активно"
 проект: "RocketFlow"
 владелец: "rocketflow-team"

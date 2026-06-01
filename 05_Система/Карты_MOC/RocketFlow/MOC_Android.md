@@ -1,5 +1,6 @@
 ---
 id: "moc-android"
+тип: "MOC"
 статус: "активно"
 проект: "RocketFlow"
 владелец: "rocketflow-team"

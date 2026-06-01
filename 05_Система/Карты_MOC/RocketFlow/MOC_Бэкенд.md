@@ -1,5 +1,6 @@
 ---
 id: "moc-backend"
+тип: "MOC"
 статус: "активно"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
