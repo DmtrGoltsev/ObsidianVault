@@ -24,6 +24,12 @@ id: "moc-all-projects"
 - **Стадия:** MVP3 (упрощение и полировка)
 - **Под-MOC:** [[MOC_Бэкенд]], [[MOC_Веб]], [[MOC_Android]], [[MOC_DevOps]]
 
+### [[Finance]]
+- **Тип:** ручной учёт личных и семейных финансов
+- **Стек:** Python/FastAPI + React PWA + Kotlin Android + PostgreSQL
+- **Стадия:** Production MVP functional GO (2026-05-19)
+- **Под-MOC:** [[MOC_Finance]]
+
 ### Новые проекты
 _(добавлять новые проекты сюда по шаблону выше)_
 
