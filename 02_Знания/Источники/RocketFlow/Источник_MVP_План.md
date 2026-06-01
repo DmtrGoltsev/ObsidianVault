@@ -5,7 +5,7 @@ id: "src-mvp-plan"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-05-31"
+обновлено: "2026-06-01"
 уверенность: "высокая"
 источники: ["docs/01-primary-mvp-plan.md"]
 доказательства: []
@@ -24,7 +24,7 @@ id: "src-mvp-plan"
 
 ## Краткое содержание
 
-Документ описывает три волны поставки: Wave A (фундамент бэкенда, sharing, CI), Wave B (calendar, notifications, web planning), Wave C (collaboration, Android, нотификации). Определяет MVP scope и что оставлено за рамками.
+Документ описывает три волны поставки: Wave A (фундамент бэкенда, sharing, CI), Wave B (calendar, notifications, web planning), Wave C (collaboration, Android, нотификации). Определяет MVP scope и что оставлено за рамками. Добавлена секция MVP3 simplification overlay — упрощённый план финальной полировки.
 
 ## Статус актуальности
 

@@ -5,7 +5,7 @@ id: "src-qa-strategy"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-05-31"
+обновлено: "2026-06-01"
 уверенность: "высокая"
 источники: ["docs/06-qa-strategy.md"]
 доказательства: []
@@ -24,7 +24,7 @@ id: "src-qa-strategy"
 
 ## Краткое содержание
 
-Пирамида тестирования: backend unit tests (JUnit), backend integration tests (Embedded PostgreSQL), web build verification, Android Robolectric tests, notification E2E smoke. CI-воркфлоу для каждого уровня. Proof-стандарт для доказательств.
+Пирамида тестирования: backend unit tests (JUnit), backend integration tests (Embedded PostgreSQL), web build verification, Android Robolectric tests, notification E2E smoke. CI-воркфлоу для каждого уровня. Proof-стандарт для доказательств. Добавлены требования MVP3 UI Tests и Android parity — проверка UI на соответствие между web и Android клиентами.
 
 ## Статус актуальности
 

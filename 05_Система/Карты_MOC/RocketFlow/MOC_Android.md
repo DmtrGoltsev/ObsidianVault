@@ -5,7 +5,7 @@ id: "moc-android"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-05-31"
+обновлено: "2026-06-01"
 уверенность: "средняя"
 источники: ["docs/04-architecture-blueprint.md", "docs/50-notification-runtime-clean-pass.md"]
 доказательства: ["Док_Android_Build", "Док_Нотификации_E2E"]
@@ -40,7 +40,7 @@ id: "moc-android"
 Аутентификация, хранение токенов, автообновление сессии.
 
 ### planning
-Управление [[Folder|папками]], [[Goal|целями]], [[Task|задачами]]. [[Green_Task]], [[Red_Task]], [[Priority_Decay]].
+Полный цикл офлайн-планирования с синхронизацией. [[TaskPlan|План задач]] с приоритетной сортировкой, drag-drop. [[PlanningSync|Офлайн-синхронизация]] через PlanningSyncWorker, ConflictResolver.
 
 ### browse
 Навигация по дереву: папки → цели → задачи.
@@ -49,10 +49,10 @@ id: "moc-android"
 Детальный просмотр задачи/цели, редактирование.
 
 ### notifications
-[[Notification_Delivery|Доставка уведомлений]]. [[Device_Registration|Регистрация устройства]]. Интеграция с [[FCM]].
+[[Notification_Delivery|Доставка уведомлений]]. [[Device_Registration|Регистрация устройства]]. Интеграция с [[FCM]]. Расширен: TaskReminderAlarmActivity, AlarmReceiver, AlarmScheduler — fullscreen alarm при просроченных напоминаниях.
 
 ### sharing
-[[Share_Invitation|Совместный доступ]], управление [[Collaborator|соавторами]].
+[[Share_Invitation|Совместный доступ]], управление [[Collaborator|соавторами]]. Модели: ShareTarget, ShareInvitation, fullAccess.
 
 ## FCM
 

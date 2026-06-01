@@ -5,7 +5,7 @@ id: "moc-backend"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-05-31"
+обновлено: "2026-06-01"
 уверенность: "высокая"
 источники: ["docs/04-architecture-blueprint.md", "docs/03-domain-specification.md"]
 доказательства: []
@@ -32,6 +32,12 @@ id: "moc-backend"
 - **reminders** — [[Reminder_Rule|напоминания]], интеграция с [[FCM]]
 - **prioritypolicy** — политика [[Priority_Decay|снижения приоритета]]
 - **notifications** — [[Notification_Delivery|доставка уведомлений]], [[Device_Registration|регистрация устройств]]
+- **ideas** — [[Idea|идеи]] внутри папки с историей правок
+- **links** — обобщённые [[EntityLink|связи]] между сущностями (goal/task/idea/note)
+- **notes** — [[FolderNote|заметки]] в папке (замена folder_notes)
+- **health** — health-check endpoint
+- **common** — ApiError, ApiException, унифицированная обработка ошибок
+- **config** — конфигурация безопасности, CORS, аутентификации
 
 ## API эндпоинты
 

@@ -5,7 +5,7 @@ id: "mvp3-simplification"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-05-31"
+обновлено: "2026-06-01"
 уверенность: "высокая"
 источники: ["docs/33-current-state-summary.md", "docs/62-mvp3-design-simplification-contract.md"]
 доказательства: []
@@ -15,6 +15,17 @@ id: "mvp3-simplification"
 # MVP3: Упрощение дизайна и полировка
 
 ## Статус: активно (текущая стадия)
+
+## Прогресс
+
+20 коммитов в ветке `MVP3` (ca1055f..b041ac1):
+- Android UX: drag-drop, иерархия папок, fullscreen alarms (TaskReminderAlarmActivity, AlarmReceiver, AlarmScheduler)
+- Sync: офлайн-планирование с синхронизацией (PlanningSyncWorker, ConflictResolver)
+- Модуль `planning`: полный цикл офлайн-планирования
+- Модуль `sharing`: модели шеринга (ShareTarget, ShareInvitation, fullAccess)
+- Последний коммит: `b041ac1` — Hide archived planning records
+
+QA-модель приёмки создана ([[Источник_MVP3_QA_Модель|docs/63]]), BA-пути описаны ([[Источник_MVP3_BA_Пути|docs/64]]). Тесты по QA-модели не выполнены.
 
 ## Цель
 
@@ -29,6 +40,9 @@ id: "mvp3-simplification"
 - Сертификация нотификаций на staging
 
 Источник контракта: [[Источник_MVP3_Контракт]]
+
+QA-модель: [[Источник_MVP3_QA_Модель]]
+BA-пути: [[Источник_MVP3_BA_Пути]]
 
 ## Критерии завершения
 
