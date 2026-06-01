@@ -6,7 +6,7 @@ id: "term-hexcore"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
 обновлено: "2026-05-31"
-уверенность: "высокая"
+уверенность: "средняя"
 источники: ["docs/60-hexcore-prod-runbook.md", "docs/33-current-state-summary.md"]
 доказательства: []
 теги: ["devops", "развертывание", "production"]
