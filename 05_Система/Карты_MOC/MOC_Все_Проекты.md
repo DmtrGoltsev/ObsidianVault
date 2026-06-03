@@ -30,6 +30,12 @@ id: "moc-all-projects"
 - **Стадия:** Production MVP functional GO (2026-05-19)
 - **Под-MOC:** [[MOC_Finance]]
 
+### [[Focus]]
+- **Тип:** планировщик задач (ответвление от RocketFlow)
+- **Стек:** Java/Spring Boot + React + Android/Kotlin + PostgreSQL
+- **Стадия:** Init (документирование и настройка, 2026-06-01)
+- **Под-MOC:** [[MOC_Focus]]
+
 ### Новые проекты
 _(добавлять новые проекты сюда по шаблону выше)_
 
