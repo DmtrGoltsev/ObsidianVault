@@ -66,25 +66,18 @@ id: "proj-focus-001"
 ## Текущий статус
 
 - Проект инициализирован: 2026-06-01
-- Стадия: **MVP v2 — бэкенд + фронтенд + Android реализованы и протестированы**
 - Ветка: `agent/opencode/focus-init`
-- Структура Obsidian vault создана
-- Backend: ✅ Spring Boot 3.4.1, компилируется, запускается, API проверен
-- Frontend: ✅ React 18 + Vite 5, `npm run build` зелёный
-- Android: ✅ Kotlin, `assembleDebug` зелёный, API контракты синхронизированы
-- CI/CD: ✅ 4 workflow файла в `.github/workflows/`
-- Тесты: ✅ 5 тестовых классов, `mvn test` зелёный
+- **Стадия: MVP v2 — требует доработки. См. [[Аудит_Реальный_Статус]]**
+- План исправлений: [[План_Исправлений_Focus]]
 
-### Исправления (2026-06-04)
+### Реальная оценка (2026-06-04)
 
-- Создан `.gitignore` в корне проекта
-- ReminderScheduler: исправлена логика AT_START/BT_START, добавлен PostgreSQL advisory lock
-- ReminderScheduler: исправлен LazyInitializationException через JOIN FETCH
-- API контракты фронтенда/Android/бэкенда полностью синхронизированы
-- PriorityPolicyService: реализован time-based decay (по дням/неделям/месяцам)
-- ShareController: добавлены `GET /api/shares`, `GET /api/shares/accepted`
-- Бэкенд проверен через curl: register → login → folders → goals → tasks — все CRUD работают
-- Добавлен `docker-compose.yml` и `Dockerfile.backend` для деплоя
+Из 24 бизнес-требований: **9 работают полностью, 7 частично, 8 не реализованы**.
+Ключевые проблемы: FCM мёртвый, Sharing не даёт доступ, Decay settings не сохраняются,
+Recurrence/Reminders/Links нет в UI, Offline sync только CREATE.
+
+См. полный аудит: [[Аудит_Реальный_Статус]]
+См. план исправлений: [[План_Исправлений_Focus]]
 
 ## Риски
 
