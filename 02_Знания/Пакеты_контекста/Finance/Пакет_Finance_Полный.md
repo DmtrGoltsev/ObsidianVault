@@ -4,7 +4,7 @@ id: "context-package-finance-full"
 проект: "Finance"
 название: "Пакет Finance — Полный контекст"
 создано: "2026-06-01"
-обновлено: "2026-06-01"
+обновлено: "2026-06-05"
 уверенность: "высокая"
 теги: ["пакет_контекста", "finance", "агрегация"]
 источники:
@@ -13,6 +13,9 @@ id: "context-package-finance-full"
   - "[[Источник_Текущий_Статус]]"
   - "[[Источник_ADR_0001]]"
   - "[[Источник_Security_Baseline]]"
+  - "[[Источник_OpenAPI]]"
+  - "[[Источник_Domain_Model]]"
+  - "[[Источник_Access_Model]]"
 ссылки:
   - "[[MOC_Finance]]"
   - "[[Finance]]"
@@ -50,6 +53,41 @@ id: "context-package-finance-full"
 | [[Transaction]] | Финансовая операция |
 | [[Transfer]] | Перевод между счетами |
 | [[Capture_Draft]] | OCR черновик |
+| [[OCR_Pipeline]] | Конвейер распознавания (layout-aware) |
+| [[OCR_Layout_Parser]] | Layout-aware парсинг aggregate rows |
+| [[Capture_Draft_Lifecycle]] | Жизненный цикл черновика |
+| [[Auth_Model]] | Модель аутентификации |
+| [[DB_Schema]] | Схема базы данных |
+| [[Account]] | Счёт |
+| [[Category]] | Категория |
+| [[Membership]] | Членство в household |
+| [[Scope_Isolation]] | Изоляция scope |
+| [[Immutable_Scope]] | Immutable scope triggers |
+| [[Capture_Category_Mapping]] | Маппинг OCR-категорий |
+| [[Rate_Limiting]] | Rate limiting |
+| [[Neutral_Response]] | Нейтральный ответ |
+| [[Session_Token]] | Сессионный токен |
+| [[Screenshot_Source]] | Screenshot OCR source |
+| [[Money]] | Money value object |
+| [[Report]] | Отчёт |
+| [[Testing_Strategy]] | Стратегия тестирования |
+
+## Решения (ADR)
+
+| ADR | Тема |
+|-----|------|
+| [[ADR_0002_Auth_Model]] | Двухплатформенная модель аутентификации |
+| [[ADR_0003_OCR_Architecture]] | OCR архитектура |
+| [[ADR_0004_Capture_Drafts_Lifecycle]] | Lifecycle capture drafts |
+| [[ADR_0005_Scope_Isolation]] | Scope isolation через DB triggers |
+
+## Пакеты контекста
+
+| Пакет | Описание |
+|-------|----------|
+| [[Кворум_Finance]] | Кворум-саммари |
+| [[Android_Architecture]] | Архитектура Android |
+| [[PWA_Architecture]] | Архитектура Web PWA + iOS |
 
 ## Кворум
 

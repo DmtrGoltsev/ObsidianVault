@@ -4,7 +4,7 @@ id: "quorum-finance"
 проект: "Finance"
 название: "Кворум Finance — саммари высокой уверенности"
 создано: "2026-06-01"
-обновлено: "2026-06-01"
+обновлено: "2026-06-05"
 уверенность: "высокая"
 теги: ["кворум", "finance", "саммари"]
 источники:
@@ -12,7 +12,10 @@ id: "quorum-finance"
   - "[[Источник_Продукт_MVP]]"
   - "[[Источник_ADR_0001]]"
   - "[[Источник_Security_Baseline]]"
-  - "[[Источник_Текущий_Статус]]"
+  - "[[Источник_Tekushchiy_Status]]"
+  - "[[Источник_OpenAPI]]"
+  - "[[Источник_Domain_Model]]"
+  - "[[Источник_Access_Model]]"
 ссылки:
   - "[[MOC_Finance]]"
   - "[[Finance]]"
@@ -54,7 +57,16 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 
 ## Ключевые термины (18)
 
-Household, Personal, Shared, Membership (invited/active/left/revoked), Active member, Invited/Former Member, Invite (hash-only), Account (cash/bank/deposit/brokerage, personal/shared), Transaction (income/expense/transfer/brokerage, sourceType=manual), Transfer (personal_same_owner/household_same_household), Category (income/expense, personal/household), Report (shared_family_report, combined_viewer_overview), Capture Draft (pending/confirmed/discarded), Source type manual, Neutral response, Filter-before-aggregate.
+Household, Personal, Shared, Membership (invited/active/left/revoked), Active member, Invited/Former Member, Invite (hash-only), Account (cash/card/savings/brokerage, personal/shared), Transaction (income/expense/transfer/brokerage, sourceType=manual), Transfer (personal_same_owner/household_same_household), Category (income/expense, personal/household), Report (shared_family_report, combined_viewer_overview), Capture Draft (pending/confirmed/discarded), Source type manual, Neutral response, Filter-before-aggregate, OCR Pipeline (layout-aware парсер), Capture Draft Lifecycle, Auth Model, DB Schema.
+
+**Детальные заметки:** [[OCR_Pipeline]], [[Capture_Draft_Lifecycle]], [[Auth_Model]], [[DB_Schema]], [[Account]], [[Category]], [[Membership]], [[Scope_Isolation]], [[Immutable_Scope]], [[Neutral_Response]], [[Session_Token]], [[Money]], [[Report]], [[Testing_Strategy]]
+
+## Архитектурные решения (ADR)
+
+- [[ADR_0002_Auth_Model]] — двухплатформенная модель аутентификации
+- [[ADR_0003_OCR_Architecture]] — OCR архитектура (ML Kit + Tesseract)
+- [[ADR_0004_Capture_Drafts_Lifecycle]] — lifecycle capture drafts
+- [[ADR_0005_Scope_Isolation]] — scope isolation через DB triggers
 
 ## Privacy/Security инварианты (10)
 
