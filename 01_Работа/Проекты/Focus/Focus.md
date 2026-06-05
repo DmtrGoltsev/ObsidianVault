@@ -5,12 +5,16 @@ id: "proj-focus-001"
 проект: "Focus"
 владелец: "DmtrGoltsev"
 создано: "2026-06-01"
-обновлено: "2026-06-04"
+обновлено: "2026-06-06"
 уверенность: "высокая"
 источники:
   - "[[Источник_Промпт]]"
   - "[[Источник_Архитектура]]"
   - "[[Источник_API]]"
+доказательства:
+  - "[[QA_Результаты]]"
+  - "[[QA_Фиксы]]"
+  - "[[QA_ТестКейсы_v2]]"
 теги:
   - "focus"
   - "планировщик"
@@ -21,59 +25,66 @@ id: "proj-focus-001"
 
 # Focus
 
-## Цель проекта
+## Цель продукта
 
-Приложение для планирования задач с приоритетами, напоминаниями и совместным доступом. Помогает пользователю фокусироваться на важном через систему зелёных/красных задач, автоснижения приоритета при прокрастинации и повторяющихся задач. Проект Focus — ответвление от [[RocketFlow]], выделяющее core-логику в независимый продукт.
+Focus — планировщик задач, который помогает пользователю фокусироваться на важном. Ключевая механика: задачи делятся на два типа — **Green** (выполнение двигает к успеху) и **Red** (невыполнение создаёт негативные последствия). Пользователь организует работу в иерархии: **Папки → Цели → Задачи**. Цели и задачи можно шарить с другими пользователями по email-инвайту.
 
 ## Стек технологий
 
 | Слой | Технологии |
 |------|-----------|
-| Backend | Java 21, Spring Boot 3.4.5, Spring Security, Spring Data JPA, Flyway, PostgreSQL 16 |
-| Web | React 18, TypeScript 5, Vite 5, react-router-dom 6, lucide-react |
-| Android | Kotlin 1.9.24, minSdk 26, targetSdk 34, WorkManager 2.9.1, FCM 24.1.0 |
-| CI/CD | GitHub Actions (ubuntu-24.04) |
+| Backend | Java 21, Spring Boot 3.4.1, Spring Security, Spring Data JPA, Flyway, PostgreSQL 18 |
+| Web | React 18, TypeScript 5, Vite 5, react-router-dom 6 |
+| Android | Kotlin, minSdk 26, targetSdk 34, Room, WorkManager 2.9.1, FCM |
+| CI/CD | GitHub Actions |
 | Production | systemd + Nginx |
-| Тестирование | JUnit + Embedded PostgreSQL (zonky), Robolectric 4.12.2 |
 
 ## Архитектура
 
-[[Modular_Monolith]] — один бэкенд, одна БД, один фоновый планировщик, web SPA, Android клиент.
+**Modular Monolith** — один бэкенд, одна БД, REST API с JWT (access + refresh). Soft delete для folders/goals/tasks. Optimistic locking через @Version. In-process scheduler для напоминаний.
 
 Решение: [[ADR_Modular_Monolith]]
 
 ## Модули бэкенда
 
-- `auth` — аутентификация и управление токенами (JWT)
-- `accounts` — профили пользователей, регистрация, управление аккаунтом
-- `settings` — настройки пользователя (часовой пояс, язык, уведомления)
-- `folders` — папки/проекты для группировки задач
-- `goals` — цели пользователя с привязкой к задачам
-- `tasks` — CRUD задач, зелёные/красные, приоритеты, drag-and-drop
-- `sharing` — совместный доступ к папкам и задачам
-- `calendar` — представление задач в календаре
-- `recurrence` — правила повторения задач ([[Recurrence_Rule]])
+- `auth` — аутентификация, JWT access/refresh, логаут
+- `accounts` — профиль пользователя, часовой пояс
+- `settings` — язык интерфейса, политики priority decay
+- `folders` — CRUD папок, порядок отображения
+- `goals` — CRUD целей внутри папок
+- `tasks` — CRUD задач, green/red, приоритет 1-10, статусы, теги, связи
+- `sharing` — инвайты по email, goal/task sharing
+- `calendar` — day/week/month проекции
+- `recurrence` — правила повторения ([[Recurrence_Rule]])
 - `reminders` — правила напоминаний ([[Reminder_Rule]])
-- `prioritypolicy` — политика автоснижения приоритета ([[Priority_Decay]])
-- `notifications` — push-уведомления через FCM
-- `ideas` — идеи/входящие, инбокс
-- `links` — ссылки, прикреплённые к задачам
-- `notes` — заметки к задачам
-- `health` — health-check эндпоинты и метрики
-- `common` — общие утилиты, DTO, исключения
-- `config` — конфигурация Spring, CORS, security
+- `prioritypolicy` — автоснижение приоритета ([[Priority_Decay]])
+- `notifications` — push через FCM, регистрация устройств
+- `health` — health-check
 
 ## Текущий статус
 
-- Проект инициализирован: 2026-06-01
-- Ветка: `agent/opencode/focus-init`
-- **Стадия: MVP v2 — требует доработки. См. [[Аудит_Реальный_Статус]]**
-- План исправлений: [[План_Исправлений_Focus]]
+**Активная разработка + QA тестирование**
 
-### Реальная оценка (2026-06-04)
+- Backend: функционально завершён, 18 фиксов применено (FIX-A — FIX-R)
+- Frontend: ретро-стиль UI, SPA с роутингом
+- Android: офлайн-first компаньон, Room + WorkManager
+
+### QA прогресс (2026-06-06)
+
+| Метрика | Значение |
+|---|---|
+| Всего тест-кейсов | 253 |
+| Протестировано (Волны 1-3) | ~65 |
+| PASS | ~63 |
+| FAIL (открытые баги) | 1 (BE-101) |
+| Фиксов применено | 18 |
+
+См. подробности: [[QA_Результаты]], [[QA_Фиксы]], [[QA_ТестКейсы_v2]]
+
+### Предыдущий аудит (2026-06-04)
 
 Из 24 бизнес-требований: **9 работают полностью, 7 частично, 8 не реализованы**.
-Ключевые проблемы: FCM мёртвый, Sharing не даёт доступ, Decay settings не сохраняются,
+Ключевые проблемы: FCM мёртвый, Sharing не давал доступ (FIX-O), Decay settings не сохранялись (FIX-M),
 Recurrence/Reminders/Links нет в UI, Offline sync только CREATE.
 
 См. полный аудит: [[Аудит_Реальный_Статус]]
@@ -81,11 +92,10 @@ Recurrence/Reminders/Links нет в UI, Offline sync только CREATE.
 
 ## Риски
 
-- Отделение от [[RocketFlow]] может привести к дублированию кода
-- Выбор модульного монолита требует строгой дисциплины границ модулей
-- JWT-аутентификация требует безопасного хранения refresh-токенов на клиентах
-- FCM push-уведомления — заглушка, нужна реальная интеграция Firebase
-- Android testing — нужны инструментальные тесты (Espresso)
+- BE-101: Goal owner не может редактировать task созданный shared user → 404
+- Android: ANR при холодном старте (FIX-E: lazy TokenManager)
+- FCM push — заглушка, нужна реальная интеграция Firebase
+- Offline sync — только CREATE, нет UPDATE/DELETE sync
 
 ## Ссылки
 
