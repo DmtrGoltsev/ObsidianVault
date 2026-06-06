@@ -118,12 +118,12 @@ id: "qa-results"
 | FE-033 | PASS | /settings page 200, GET /me has decay config |
 | FE-037 | PASS | /sharing page 200, root div present |
 | FE-057 | PASS | manifest.json with icons, vite.svg, sw.js |
-| FE-API | PASS | Vite proxy /api/health → 200 |
-| FE-002 | PASS | Login via proxy → 200 |
-| FE-003 | PASS | Wrong password → 400 (known: validation before auth) |
-| FE-006 | PASS | Register → 201 (FIX-S) |
-| FE-009 | PASS | GET /me with token → 200 |
-| FE-010 | PASS | GET /folders via proxy → 200 |
+| FE-API | PASS | Vite proxy /api/health -> 200 |
+| FE-002 | PASS | Login via proxy -> 200 |
+| FE-003 | PASS | Wrong password -> 400 (known: validation before auth) |
+| FE-006 | PASS | Register -> 201 (FIX-S) |
+| FE-009 | PASS | GET /me with token -> 200 |
+| FE-010 | PASS | GET /folders via proxy -> 200 |
 | FE-020 | PASS | TasksPage source: green/GREEN styling |
 | FE-021 | PASS | TasksPage source: red/RED styling |
 | FE-023 | PASS | TasksPage source: reschedule presets |
@@ -138,6 +138,33 @@ id: "qa-results"
 | FE-009 | PASS | ProtectedRoute: checks auth |
 | FE-build | PASS | npm run build exit code 0 |
 | FE-002..060 | MANUAL | 44 UI tests require JS interaction (Playwright/manual) |
+
+## Волна 5 — Android E2E P0
+
+Дата: 2026-06-06. adb + uiautomator + source analysis.
+
+| ID | Status | Notes |
+|---|---|---|
+| AND-pre | PASS | emulator-5554 connected, screen 1440x3120 |
+| AND-024 | PASS | No ANR on cold start after pm clear |
+| AND-024 | PASS | Login screen shown after clear |
+| AND-023 | PASS | No ANR after login |
+| AND-028 | PASS | Reschedule buttons visible |
+| AND-032 | PASS | Settings tab visible |
+| AND-018 | PASS | SyncWorker exists (source) |
+| AND-020 | PASS | SyncWorker exponential backoff (source) |
+| AND-021 | PASS | FcmService exists (source) |
+| AND-023_folders | FAIL | Folders not visible (Google overlay on emulator) |
+| AND-025 | FAIL | Folder Work not visible (cascade from above) |
+| AND-026 | FAIL | Navigation folder->goal->task (cascade) |
+| AND-027 | FAIL | Task status display (cascade) |
+| AND-040 | FAIL | Priority display (cascade) |
+| AND-012 | FAIL | Green/Red visual (cascade) |
+| AND-031 | FAIL | Calendar tab (coordinates) |
+| AND-033 | FAIL | Sharing tab (coordinates) |
+| AND-001..039 | MANUAL | 23 UI tests require interaction |
+
+**Примечание:** Большинство FAIL в Волне 5 вызваны Google Search overlay на эмуляторе, который перекрыл UI dump. Не баг приложения.
 
 ## Открытые баги
 
