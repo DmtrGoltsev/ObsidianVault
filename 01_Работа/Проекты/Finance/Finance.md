@@ -5,7 +5,7 @@ id: "project-finance"
 статус: "активно"
 владелец: "rocketflow-team"
 создано: "2026-06-01"
-обновлено: "2026-06-01"
+обновлено: "2026-06-06"
 уверенность: "средняя"
 теги: ["проект", "finance", "финансы", "учёт", "MVP"]
 источники:
@@ -68,10 +68,43 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 
 **Production MVP functional GO (2026-05-19)** — закрытый MVP в production.
 
+### Обновление 2026-06-06
+
+- **Русификация:** 44 строки UI переведены на русский
+- **QA-аудит:** 25 багов найдено (3 P0, 8 P1, 14 P2), 12 исправлено
+- **API-аудит:** 26 endpoint'ов проверено, 0 критических расхождений
+- **Тест-кейсы:** 91 кейс создан (`docs/testing/mvp-android-qa-test-cases.md`)
+- **APK:** `artifacts/apk/finance-mvp-0.1.0-debug.apk` (51.72 MB), production URL `http://45.10.110.42/finance-api`
+
+### Поставка Assets UI + account edit + backend PATCH (2026-06-06)
+
+- **Backend/API:** `PATCH account` принимает `name`, `currentBalance`, `currency`, `version`; `initialBalance` не меняется.
+- **Конфликты API:** `CONFLICTING_UPDATE`, `ACCOUNT_CURRENCY_IMMUTABLE_AFTER_TRANSACTIONS`.
+- **Бизнес-решение:** нельзя менять валюту счёта, если у счёта уже есть транзакции.
+- **Бизнес-решение:** удаление виртуальной категории активов архивирует все активные счета группы.
+- **Android Assets UI:** tap по категории раскрывает/сворачивает группу; редактирование имени группы без refresh icon; long press >1s показывает подтверждение и архивирует счета группы.
+- **Android account edit:** диалог редактирования счёта поддерживает `name`, `balance`, `currency`; для XAU используется label `граммы` и иконка gold bar.
+- **QA:** backend targeted tests — `22 passed, 1 warning`; Android `assembleDebug -PfinanceApiBaseUrl=http://45.10.110.42/finance-api` — `BUILD SUCCESSFUL in 57s`; `git diff --check` — exit 0, только CRLF warnings.
+- **Runtime smoke:** только эмулятор `Codex`; `Android1` не трогали; APK установлен и `MainActivity` открыт. Account edit flow — `NOT_RUN`, потому что на `Codex` нет активных счетов/данных.
+
+### Открытые баги (P1)
+
+- BUG-006: AddAccountSheet всегда создаёт shared-счёт
+- BUG-007: Нет защиты от double-tap на деструктивные действия
+- BUG-008: Удаление транзакции без подтверждения
+- BUG-009: Суммирование мультивалют без конвертации
+- BUG-023: quickAddCategoryFor молча подменяет выбор
+
 ## Ветки
 
-- `codex/auto-capture-drafts` — текущая активная ветка
+- `fix/aggregate-parser-multiline-labels` — текущая активная ветка (UI overhaul + bug fixes)
 - `main` — стабильная
+
+## Правила поставки
+
+- После завершения конечной задачи исполнитель автоматически обновляет релевантную базу знаний Obsidian по проекту Finance, затем выполняется commit изменений.
+- Ветка для изменений должна быть человекочитаемой и отражать проект и модель/агента, которыми выполнялись изменения, например `codex/finance-gpt5-update-kb-and-rules`.
+- Основной чат-оркестратор не обновляет базу знаний и не делает commit напрямую: он поручает это ограниченному исполнителю или git-агенту.
 
 ## Окружения
 
