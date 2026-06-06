@@ -170,6 +170,76 @@ id: "qa-results-finance"
 | Архивация группы может примениться частично, если последовательный `archiveAccount` упадёт | OPEN |
 | Имя виртуальной группы хранится только в локальном UI state | OPEN |
 
+## Волна 3: Аналитика -> Планирование MVP (2026-06-06)
+
+**Метод:** full backend pytest, targeted planning/openapi/db tests, OpenAPI parse, Android debug build, runtime smoke на эмуляторе `Codex`, `dev_seed` smoke.
+
+**Scope:** Planning MVP во вкладке Analytics, backend planning API/DB, Android planning UI и локальные reminders.
+
+### Сводка
+
+| Проверка | Результат |
+|----------|-----------|
+| `python -m pytest` | `224 passed`, 4 warnings |
+| Targeted planning/openapi/db tests | `29 passed` |
+| Android build | `BUILD SUCCESSFUL` |
+| OpenAPI parse | OK |
+| OpenAPI paths | `PATH_COUNT=37`, все planning paths присутствуют |
+| `dev_seed` smoke | login 201, planning history 200, personal plan 200, без internal server error |
+| `git diff --check` | pass, только LF/CRLF warnings |
+| Runtime smoke | Planning screen открыт на `Codex`, показал следующий месяц/current plan/totals |
+| Эмуляторы | `Codex` использован; `Android1` не targeted |
+
+### Возможности
+
+| Область | Результат |
+|---------|-----------|
+| Scope | personal + shared |
+| Валюта | one currency |
+| Income sources | `amount`, `source`, `dayOfMonth` |
+| Reminders | local Android reminders per income |
+| Confirm | обновляет только план, транзакции не создаёт |
+| Allocations | expense categories, accounts, assets, investments |
+| Allocation mode | `amount` или `percent` |
+| Контроль заполнения | underallocated banner, overallocated warning |
+| История | history/copy |
+| Создание сущностей | category/account creation inherits scope |
+
+### Backend/API
+
+| Проверка | Результат |
+|----------|-----------|
+| Package | new planning package |
+| DB tables | `planning_plans`, `planning_income_sources`, `planning_allocations` |
+| Migration | `20260606_0010` |
+| OpenAPI | planning endpoints добавлены |
+| Authz personal | owner-only |
+| Authz household | active-member |
+| Totals | derived totals |
+| Copy | attention rows |
+| Validation | positive income validation |
+| Seed/runtime | `dev_seed` planning runtime fix |
+
+### Android
+
+| Область | Результат |
+|---------|-----------|
+| API client | planning DTO/methods в `ApiClient` |
+| UI | `PlanningUi` во вкладках Analytics |
+| Notifications | `AlarmManager` + `BroadcastReceiver` |
+| Permission | `POST_NOTIFICATIONS` |
+| Explicitly excluded | без FCM/SMS/NotificationListener/exact alarm |
+| Runtime | Codex smoke |
+
+### Остаточные риски
+
+| Риск | Статус |
+|------|--------|
+| Exact visual/end-to-end creation flow только smoke-tested, не exhaustive manual scenario | OPEN |
+| Local alarms reset if app force-stopped; boot/package replace covered | OPEN |
+| `dev_seed` planning targets need sync if demo seed expands | OPEN |
+| Past plans not strictly read-only at API level; history/copy implemented | OPEN |
+
 ## Открытые вопросы (NEEDS_CLARIFICATION)
 
 1. Фильтрация категорий — какие типы доступны в каких режимах?

@@ -43,6 +43,21 @@ id: "qa-fixes-finance"
 | ACCOUNT-CONFLICT | Optimistic conflict для PATCH account: `CONFLICTING_UPDATE` | Backend/API | 2026-06-06 | Да (`22 passed, 1 warning`) |
 | VIRTUAL-ASSET-GROUP-DELETE | Удаление виртуальной категории активов архивирует все активные счета группы | Android + business rule | 2026-06-06 | Частично (сборка OK; риск частичного применения при sequential `archiveAccount` failure) |
 
+## Волна 3 (2026-06-06)
+
+| ID | Описание | Область | Дата | Верифицирован |
+|----|----------|---------|------|---------------|
+| PLANNING-BACKEND | Planning package, таблицы `planning_plans`/`planning_income_sources`/`planning_allocations`, миграция `20260606_0010`, derived totals, copy attention rows | Backend/DB | 2026-06-06 | Да (`224 passed`, targeted `29 passed`) |
+| PLANNING-OPENAPI | Planning endpoints добавлены в OpenAPI; parse OK, `PATH_COUNT=37`, все planning paths присутствуют | API contract | 2026-06-06 | Да (OpenAPI parse OK) |
+| PLANNING-AUTHZ | personal owner-only и household active-member для planning API | Backend/API | 2026-06-06 | Да (targeted planning tests) |
+| PLANNING-VALIDATION | Positive income validation; confirm обновляет только план и не создаёт транзакции | Backend/API + business rule | 2026-06-06 | Да (targeted planning tests) |
+| PLANNING-ALLOCATIONS | Allocations to expense categories/accounts/assets/investments; режим `amount` или `percent`; underallocated/overallocated states | Backend/API + Android UI | 2026-06-06 | Да (`29 passed`, runtime smoke Planning screen) |
+| PLANNING-SCOPE-INHERIT | Создание категории/счёта наследует scope текущего планирования | Backend/API + Android UI | 2026-06-06 | Да (targeted tests + build) |
+| PLANNING-ANDROID-API | Planning DTO/methods добавлены в `ApiClient` | Android API client | 2026-06-06 | Да (`assembleDebug` BUILD SUCCESSFUL) |
+| PLANNING-ANDROID-UI | `PlanningUi` добавлен во вкладки Analytics; экран показал следующий месяц/current plan/totals | Android UI | 2026-06-06 | Частично (runtime smoke на `Codex`; exhaustive manual scenario не проводился) |
+| PLANNING-REMINDERS | Локальные reminders per income через `AlarmManager`/`BroadcastReceiver`, `POST_NOTIFICATIONS`; без FCM/SMS/NotificationListener/exact alarm | Android notifications | 2026-06-06 | Да (`assembleDebug` BUILD SUCCESSFUL, Codex runtime smoke) |
+| PLANNING-DEV-SEED | Runtime fix для `dev_seed`: login 201, planning history 200, personal plan 200, без internal server error | Dev seed/runtime | 2026-06-06 | Да (`dev_seed` smoke) |
+
 ## Коммиты
 
 | Хэш | Описание |

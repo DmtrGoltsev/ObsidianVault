@@ -87,6 +87,19 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 - **QA:** backend targeted tests — `22 passed, 1 warning`; Android `assembleDebug -PfinanceApiBaseUrl=http://45.10.110.42/finance-api` — `BUILD SUCCESSFUL in 57s`; `git diff --check` — exit 0, только CRLF warnings.
 - **Runtime smoke:** только эмулятор `Codex`; `Android1` не трогали; APK установлен и `MainActivity` открыт. Account edit flow — `NOT_RUN`, потому что на `Codex` нет активных счетов/данных.
 
+### Поставка Аналитика -> Планирование MVP (2026-06-06)
+
+- **Возможности:** personal + shared scope, одна валюта плана, источники дохода `amount`/`source`/`dayOfMonth`, локальные Android reminders по каждому доходу.
+- **Планирование:** подтверждение обновляет только план и не создаёт транзакции; allocations поддерживают категории расходов, счета, активы и инвестиции; режимы `amount` или `percent`.
+- **Контроль:** underallocated banner, overallocated warning, history/copy; создание категории или счёта наследует scope текущего планирования.
+- **Backend/API:** добавлен planning package, таблицы `planning_plans`, `planning_income_sources`, `planning_allocations`, миграция `20260606_0010`, OpenAPI planning endpoints.
+- **Authz/валидации:** personal owner-only, household active-member, derived totals, copy attention rows, positive income validation; исправлен runtime `dev_seed` для planning.
+- **Android:** planning DTO/methods в `ApiClient`, `PlanningUi` во вкладках Analytics, локальные уведомления через `AlarmManager`/`BroadcastReceiver`, `POST_NOTIFICATIONS`; без FCM/SMS/NotificationListener/exact alarm.
+- **QA:** `python -m pytest` — `224 passed`, 4 warnings; targeted planning/openapi/db tests — `29 passed`; Android `assembleDebug` — `BUILD SUCCESSFUL`; OpenAPI parse ok, `PATH_COUNT=37`, все planning paths присутствуют.
+- **Runtime smoke:** только `Codex`; `Android1` не targeted. Экран Planning открылся и показал следующий месяц, текущий план и totals.
+- **Dev seed smoke:** login 201, planning history 200, personal plan 200, без internal server error.
+- **Diff hygiene:** `git diff --check` pass, только LF/CRLF warnings.
+
 ### Открытые баги (P1)
 
 - BUG-006: AddAccountSheet всегда создаёт shared-счёт
