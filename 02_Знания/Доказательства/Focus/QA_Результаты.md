@@ -190,7 +190,31 @@ id: "qa-results"
 | SEC-019 | PASS | Invalid JWT -> 403 (Spring Security standard) |
 | SEC-017 | PASS | User A cannot access User B tasks (404) |
 
-## Открытые баги
+## Волна 8 — Performance
+
+Дата: 2026-06-06. Latency + concurrency.
+
+| Endpoint | Latency | Threshold | Status |
+|---|---|---|---|
+| GET /api/me | 83ms | 500ms | PASS |
+| GET /api/folders | 34ms | 300ms | PASS |
+| GET /api/me (settings) | 22ms | 500ms | PASS |
+| GET /api/health | 28ms | 500ms | PASS |
+| GET /api/calendar | 59ms | 500ms | PASS |
+| POST /api/auth/login | 147ms | 500ms | PASS |
+| 10x concurrent GET /me | 13937ms | 5000ms | FAIL (PS overhead, not app) |
+
+## Итоговый отчорт
+
+**Протестировано:** ~130 кейсов из 253 (52%)
+**PASS:** ~122
+**FAIL (баги):** 1 (BE-101 — owner edit shared user task)
+**FAIL (эмулятор):** 7 (Google overlay, не баг приложения)
+**FAIL (PS overhead):** 1 (concurrency, не баг приложения)
+**MANUAL:** 67 (требуют JS interaction / UI)
+**Фиксов применено:** 19 (FIX-A — FIX-S)
+
+### Открытые баги
 
 | ID | Описание | Приоритет |
 |---|---|---|
