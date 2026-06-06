@@ -19,10 +19,11 @@ id: "qa-results"
 | Метрика | Значение |
 |---|---|
 | Всего тест-кейсов | 253 |
-| Протестировано | ~105 |
-| PASS | ~100 |
-| FAIL (баги) | 1 |
-| MANUAL (требует JS) | 44 |
+| Протестировано | ~120 |
+| PASS | ~112 |
+| FAIL (баги) | 1 (BE-101) |
+| FAIL (эмулятор) | 7 (Google overlay) |
+| MANUAL (требует UI) | 67 |
 | Фиксов применено | 19 (FIX-A — FIX-S) |
 
 ## Волна 1 — Backend retests after @Valid fix
@@ -164,7 +165,30 @@ id: "qa-results"
 | AND-033 | FAIL | Sharing tab (coordinates) |
 | AND-001..039 | MANUAL | 23 UI tests require interaction |
 
-**Примечание:** Большинство FAIL в Волне 5 вызваны Google Search overlay на эмуляторе, который перекрыл UI dump. Не баг приложения.
+**Note:** Most Wave 5 FAILs caused by Google Search overlay on emulator. Not app bugs.
+
+## Волна 6 — Integration P0
+
+Дата: 2026-06-06. HTTP сценарии через backend API.
+
+| ID | Status | Notes |
+|---|---|---|
+| INT-013 | PASS | lastDecayAppliedAt unchanged by title update |
+| INT-015 | PASS | WEEKLY recurrence: next occurrence on correct day |
+| INT-018 | PASS | Multi-reminder 3 reminders (BEFORE_START, AT_START, BEFORE_DEADLINE) |
+| INT-014 | PARTIAL | Share+accept flow works, but owner-edit shared user task needs further investigation |
+
+## Волна 7 — Security P0
+
+Дата: 2026-06-06. Security tests via HTTP.
+
+| ID | Status | Notes |
+|---|---|---|
+| SEC-014 | PASS | 10 brute force attempts all rejected (400/401) |
+| SEC-016 | PASS | No stack trace in error responses |
+| SEC-018 | PASS | CORS blocks evil.com origin |
+| SEC-019 | PASS | Invalid JWT -> 403 (Spring Security standard) |
+| SEC-017 | PASS | User A cannot access User B tasks (404) |
 
 ## Открытые баги
 
