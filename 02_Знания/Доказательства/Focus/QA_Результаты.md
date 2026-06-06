@@ -9,7 +9,7 @@ id: "qa-results"
 уверенность: "высокая"
 источники:
   - "[[QA_ТестКейсы_v2]]"
-теги: ["QA", "результаты", "тестирование", "backend"]
+теги: ["QA", "результаты", "тестирование", "backend", "frontend"]
 ---
 
 # QA Результаты прогонов
@@ -19,10 +19,11 @@ id: "qa-results"
 | Метрика | Значение |
 |---|---|
 | Всего тест-кейсов | 253 |
-| Протестировано | ~65 |
-| PASS | ~63 |
-| FAIL (баги) | 2 |
-| Фиксов применено | 18 (FIX-A — FIX-R) |
+| Протестировано | ~105 |
+| PASS | ~100 |
+| FAIL (баги) | 1 |
+| MANUAL (требует JS) | 44 |
+| Фиксов применено | 19 (FIX-A — FIX-S) |
 
 ## Волна 1 — Backend retests after @Valid fix
 
@@ -104,6 +105,39 @@ id: "qa-results"
 | SEC-015 | PASS | Generic error messages |
 | BE-099 | PASS | Self-sharing blocked |
 | BE-101 | FAIL | Owner edit shared user task → 404 (pending) |
+
+## Волна 4 — Frontend Web P0
+
+Дата: 2026-06-06. Страницы + API + исходники + сборка.
+
+| ID | Status | Notes |
+|---|---|---|
+| FE-001 | PASS | /auth page 200, root div present |
+| FE-008 | PASS | / page 200, root div present |
+| FE-029 | PASS | /calendar page 200, calendar API 200 (ISO Instant format) |
+| FE-033 | PASS | /settings page 200, GET /me has decay config |
+| FE-037 | PASS | /sharing page 200, root div present |
+| FE-057 | PASS | manifest.json with icons, vite.svg, sw.js |
+| FE-API | PASS | Vite proxy /api/health → 200 |
+| FE-002 | PASS | Login via proxy → 200 |
+| FE-003 | PASS | Wrong password → 400 (known: validation before auth) |
+| FE-006 | PASS | Register → 201 (FIX-S) |
+| FE-009 | PASS | GET /me with token → 200 |
+| FE-010 | PASS | GET /folders via proxy → 200 |
+| FE-020 | PASS | TasksPage source: green/GREEN styling |
+| FE-021 | PASS | TasksPage source: red/RED styling |
+| FE-023 | PASS | TasksPage source: reschedule presets |
+| FE-027 | PASS | TasksPage source: status display |
+| FE-028 | PASS | TasksPage source: GREEN/RED type selector |
+| FE-054 | PASS | api.ts: 409 conflict handler |
+| FE-055 | PASS | SettingsPage source: decay config |
+| FE-044 | PASS | App.tsx: all 7 routes present |
+| FE-042 | PASS | i18n: ru.json with nav keys |
+| FE-043 | PASS | i18n: en.json with nav keys |
+| FE-008 | PASS | AuthContext: manages tokens |
+| FE-009 | PASS | ProtectedRoute: checks auth |
+| FE-build | PASS | npm run build exit code 0 |
+| FE-002..060 | MANUAL | 44 UI tests require JS interaction (Playwright/manual) |
 
 ## Открытые баги
 

@@ -36,6 +36,7 @@ id: "qa-fixes"
 | FIX-P | Optimistic lock — version check в update() | TaskRequest.java (+version), TaskService.java | 2026-06-06 | Да (BE-084) |
 | FIX-Q | taskType default GREEN при null | TaskService.java:117 | 2026-06-06 | Да (BE-103) |
 | FIX-R | WEEKLY daysOfWeek validation — parseDaysOfWeek бросает BadRequestException | TaskService.java:495-507 | 2026-06-06 | Да (BE-114) |
+| FIX-S | Register endpoint возвращает 201 вместо 200 | AuthController.java | 2026-06-06 | Да (FE-006) |
 
 ## Новые файлы созданные при фиксах
 
