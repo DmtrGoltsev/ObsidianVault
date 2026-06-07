@@ -62,11 +62,13 @@ id: "context-package-finance-full"
 | Область | Статус |
 |---------|--------|
 | KB branch | `codex/finance-kb-planning-mvp-gpt5` |
-| KB baseline | `56fc7e3` — Planning MVP delivery записан, но найден недосинхрон MOC/package/QA fixes |
+| KB previous commit | `b7729f9` |
 | Code branch | `codex/finance-planning-mvp-gpt5` |
-| Code HEAD | `0780944` — `feat(finance): add planning MVP` |
-| Code WIP поверх HEAD | незакоммиченные изменения: явный Planning `targetType=asset`, OpenAPI/backend/Android sync, миграция `20260607_0011_planning_allocation_asset_target.py`, `.gitignore` hygiene для raw QA artifacts |
-| Deploy/финальный QA | не утверждено в KB; ожидается финальная QA/deploy-сводка от оркестратора/QA |
+| Project commit | `5bb7ab493d7c3faa323d711ffa1febb2d94b4f7c` — `fix(planning): support asset allocation targets` |
+| Backend release | backend-only `20260607T121851Z-5bb7ab4` в `/opt/finance/releases/20260607T121851Z-5bb7ab4`; `/opt/finance/current` указывает на новый release |
+| QA | backend full pytest `228 passed, 4 warnings`; OpenAPI `AllocationTargetType` = `expense_category`, `account`, `asset`; Android gate `BUILD SUCCESSFUL` |
+| Backup/migrations | backup SHA256 `adbed3574f02a4fad94c41ac0fa2e18b4abe3e3cd21d527c3bf08cab04c1a8ae`; migrations `20260531_0009 -> 20260606_0010 -> 20260607_0011`, after `20260607_0011 (head)` |
+| Delivery boundary | web frontend не деплоился; Android APK delivered locally |
 
 ## Стек (кратко)
 
@@ -74,17 +76,17 @@ Python 3.12 / FastAPI / PostgreSQL 16 / React 19 + Vite 7 PWA / Kotlin Jetpack C
 
 ## Стадия
 
-Production MVP functional GO (2026-05-19). Planning MVP расширяется на ветке `codex/finance-planning-mvp-gpt5`; текущий asset-target WIP документируется без заявления о production deploy success.
+Production MVP functional GO (2026-05-19). Planning MVP asset-target release `5bb7ab4` развернут backend-only в production 2026-06-07; web frontend не деплоился, Android APK доставлен локально.
 
 ## Planning MVP (текущий контекст)
 
 - Вкладка Analytics получила Planning flow: personal/shared scope, income sources, allocations, history/copy, локальные Android reminders.
 - Backend/API включает planning package, таблицы `planning_plans`, `planning_income_sources`, `planning_allocations`, OpenAPI planning endpoints и authz/validation правила.
-- Allocation targets поддерживают expense categories, accounts, assets, investments; текущий WIP синхронизирует явный `targetType=asset` для asset/investment целей на backend/OpenAPI/Android.
-- Новая миграция WIP: `20260607_0011_planning_allocation_asset_target.py`.
+- Allocation targets поддерживают expense categories, accounts и явный asset target; OpenAPI `AllocationTargetType` enum = `expense_category`, `account`, `asset`.
+- Миграция release: `20260607_0011_planning_allocation_asset_target.py`.
 - Android flow расширен выбором и созданием asset/investment из planning flow.
-- QA evidence по Planning лежит в [[QA_Результаты#Волна 3 Аналитика - Планирование MVP (2026-06-06)]] и [[QA_Фиксы#Волна 4 (2026-06-07)]]. Финальные цифры по расширенному asset-target WIP пока не зафиксированы.
+- QA evidence по Planning лежит в [[QA_Результаты#Волна 3 Аналитика - Планирование MVP (2026-06-06)]] и [[QA_Фиксы#Волна 4 (2026-06-07)]]. Финальные цифры по asset-target release зафиксированы: backend full pytest `228 passed, 4 warnings`, Android gate `BUILD SUCCESSFUL`, production smoke OK.
 
 ## Риски
 
-P1-B02, P1-B03, tag misalignment; Planning asset-target WIP требует финальной QA/deploy фиксации после завершения оркестратором/QA.
+P1-B02, P1-B03, tag misalignment; asset-target backend release зафиксирован, web frontend не деплоился.

@@ -240,9 +240,9 @@ id: "qa-results-finance"
 | `dev_seed` planning targets need sync if demo seed expands | OPEN |
 | Past plans not strictly read-only at API level; history/copy implemented | OPEN |
 
-## Волна 4: Planning asset target sync (WIP, 2026-06-07)
+## Волна 4: Planning asset target production release (2026-06-07)
 
-**Метод:** ожидается финальная QA-сводка от оркестратора/QA. Текущая KB-запись фиксирует только известный scope и branch state.
+**Метод:** full backend pytest, OpenAPI enum verification, Android unit/Kotlin/APK gate, backend-only production deploy, migration verification, production smoke через direct backend и nginx.
 
 **Scope:** явный Planning `targetType=asset` на backend/OpenAPI/Android; миграция `20260607_0011_planning_allocation_asset_target.py`; Android выбор/создание asset/investment из planning flow; `.gitignore` hygiene для raw QA artifacts.
 
@@ -251,10 +251,27 @@ id: "qa-results-finance"
 | Проверка | Результат |
 |----------|-----------|
 | Code branch | `codex/finance-planning-mvp-gpt5` |
-| Code HEAD | `0780944` (`feat(finance): add planning MVP`) |
-| WIP поверх HEAD | Есть незакоммиченные изменения asset-target sync |
-| Backend/OpenAPI/Android QA | Ожидает финальные цифры |
-| Deploy status | Не утвержден / не записан как success |
+| Project commit | `5bb7ab493d7c3faa323d711ffa1febb2d94b4f7c` (`fix(planning): support asset allocation targets`) |
+| KB previous commit | `b7729f9` |
+| Backend full pytest | `228 passed, 4 warnings` |
+| OpenAPI AllocationTargetType enum | `expense_category`, `account`, `asset` |
+| Android gate | `:app:testDebugUnitTest :app:compileDebugKotlin :app:assembleDebug -PfinanceApiBaseUrl=http://45.10.110.42/finance-api --console=plain` -> `BUILD SUCCESSFUL` |
+| APK | `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-0.1.0-debug.apk` |
+| APK size | `54235660` |
+| APK SHA256 | `9E3814A5ABBBD1A9EFB8D484A94C973E4CA2598D21D921B990EE1DFCA568C6D8` |
+| APK time | `2026-06-07 15:00:20 +03:00` |
+| Production release | backend-only `20260607T121851Z-5bb7ab4`, `/opt/finance/releases/20260607T121851Z-5bb7ab4` |
+| Current symlink | `/opt/finance/current` points to new release |
+| Backup | `/opt/finance/backups/20260607T122105Z-59603b0/finance_prod.dump` |
+| Backup SHA256 | `adbed3574f02a4fad94c41ac0fa2e18b4abe3e3cd21d527c3bf08cab04c1a8ae` |
+| Migration before | `20260531_0009` |
+| Migration applied | `20260531_0009 -> 20260606_0010 -> 20260607_0011` |
+| Migration after | `20260607_0011 (head)` |
+| Service status | active |
+| Health smoke | `/health` direct and nginx OK |
+| Auth smoke | unauth `sessions/current` -> 401 |
+| Web frontend | не деплоился |
+| Android delivery | APK delivered locally |
 
 ## Открытые вопросы (NEEDS_CLARIFICATION)
 

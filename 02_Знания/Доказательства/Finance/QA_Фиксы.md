@@ -60,15 +60,18 @@ id: "qa-fixes-finance"
 
 ## Волна 4 (2026-06-07)
 
-Текущий статус: кодовая ветка `codex/finance-planning-mvp-gpt5`, HEAD `0780944` (`feat(finance): add planning MVP`). Поверх HEAD есть незакоммиченный WIP по asset-target sync; финальный deploy success и финальные QA-цифры в KB не утверждаются до отчета оркестратора/QA.
+Финальный статус: кодовая ветка `codex/finance-planning-mvp-gpt5`, project commit `5bb7ab493d7c3faa323d711ffa1febb2d94b4f7c` (`fix(planning): support asset allocation targets`). Backend-only production release `20260607T121851Z-5bb7ab4` развернут в `/opt/finance/releases/20260607T121851Z-5bb7ab4`; `/opt/finance/current` указывает на новый release. Web frontend не деплоился; Android APK delivered locally.
 
 | ID | Описание | Область | Дата | Верифицирован |
 |----|----------|---------|------|---------------|
-| PLANNING-ASSET-TARGET-BACKEND | Явный Planning `targetType=asset` на backend; allocation target enum/schema/service/tests синхронизируются с asset/investment целями | Backend/API | 2026-06-07 | WIP / ожидает финальную QA-сводку |
-| PLANNING-ASSET-TARGET-OPENAPI | OpenAPI контракт обновляется под явный `targetType=asset` для planning allocation targets | API contract | 2026-06-07 | WIP / ожидает OpenAPI parse + contract evidence |
-| PLANNING-ASSET-TARGET-DB | Новая миграция `20260607_0011_planning_allocation_asset_target.py` для planning allocation asset target | DB migration | 2026-06-07 | WIP / ожидает migration/test evidence |
-| PLANNING-ASSET-TARGET-ANDROID | Android planning flow поддерживает выбор/создание asset/investment целей из planning flow | Android UI/API | 2026-06-07 | WIP / ожидает build/runtime evidence |
-| QA-ARTIFACT-HYGIENE | `.gitignore` hygiene для raw QA artifacts | Repo hygiene | 2026-06-07 | WIP / ожидает финальную проверку diff/status |
+| PLANNING-ASSET-TARGET-BACKEND | Явный Planning `targetType=asset` на backend; allocation target enum/schema/service/tests синхронизированы с asset/investment целями | Backend/API | 2026-06-07 | Да (`228 passed, 4 warnings`) |
+| PLANNING-ASSET-TARGET-OPENAPI | OpenAPI контракт обновлен под явный `targetType=asset` для planning allocation targets; `AllocationTargetType` enum = `expense_category`, `account`, `asset` | API contract | 2026-06-07 | Да (OpenAPI enum evidence) |
+| PLANNING-ASSET-TARGET-DB | Миграция `20260607_0011_planning_allocation_asset_target.py` для planning allocation asset target | DB migration | 2026-06-07 | Да (`20260531_0009 -> 20260606_0010 -> 20260607_0011`, after `20260607_0011 (head)`) |
+| PLANNING-ASSET-TARGET-ANDROID | Android planning flow поддерживает выбор/создание asset/investment целей из planning flow | Android UI/API | 2026-06-07 | Да (`:app:testDebugUnitTest :app:compileDebugKotlin :app:assembleDebug ...` -> `BUILD SUCCESSFUL`) |
+| QA-ARTIFACT-HYGIENE | `.gitignore` hygiene для raw QA artifacts | Repo hygiene | 2026-06-07 | Да (project commit `5bb7ab4`) |
+| PROD-BACKEND-DEPLOY | Backend-only deploy release `20260607T121851Z-5bb7ab4`; service active; `/health` direct/nginx OK; unauth `sessions/current` 401 | Production deploy | 2026-06-07 | Да |
+| PROD-BACKUP | Backup `/opt/finance/backups/20260607T122105Z-59603b0/finance_prod.dump`, SHA256 `adbed3574f02a4fad94c41ac0fa2e18b4abe3e3cd21d527c3bf08cab04c1a8ae` | Production backup | 2026-06-07 | Да |
+| ANDROID-APK-DELIVERY | APK `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-0.1.0-debug.apk`, size `54235660`, SHA256 `9E3814A5ABBBD1A9EFB8D484A94C973E4CA2598D21D921B990EE1DFCA568C6D8`, time `2026-06-07 15:00:20 +03:00` | Android delivery | 2026-06-07 | Да |
 
 ## Коммиты
 
@@ -78,4 +81,4 @@ id: "qa-fixes-finance"
 | `50a8f8c` | fix: 12 bugs fixed (P0-P2), full Russian localization, 91 QA test cases |
 | `274c88f` | fix(finance): update assets UI and account patch flow |
 | `0780944` | feat(finance): add planning MVP |
-| WIP | Незакоммиченный planning asset-target sync поверх `0780944`: backend/OpenAPI/Android, миграция `20260607_0011...`, `.gitignore` hygiene; финальный commit hash ожидается |
+| `5bb7ab4` | fix(planning): support asset allocation targets |

@@ -36,7 +36,7 @@ _(под-MOC проекта будут добавляться по мере ро
 - [[Transaction]] — операция (income/expense/transfer/brokerage)
 - [[Transfer]] — перевод между счетами
 - [[Capture_Draft]] — OCR черновик
-- Planning MVP — планирование доходов и распределений во вкладке Analytics; текущий WIP закрывает явный `targetType=asset` для asset/investment целей
+- Planning MVP — планирование доходов и распределений во вкладке Analytics; release `5bb7ab4` закрыл явный `targetType=asset` для asset/investment целей
 
 ## Источники
 
@@ -64,7 +64,7 @@ _(архитектурные и проектные решения — см. `04_
 - [[QA_Результаты]] — результаты прогонов тестирования
 - [[QA_Фиксы]] — журнал фиксов багов
 - Planning evidence — см. [[QA_Фиксы#Волна 3 (2026-06-06)]] и [[QA_Фиксы#Волна 4 (2026-06-07)]]
-- Release context — кодовая ветка `codex/finance-planning-mvp-gpt5`, KB ветка `codex/finance-kb-planning-mvp-gpt5`; финальный deploy/QA статус не зафиксирован в KB
+- Release context — кодовая ветка `codex/finance-planning-mvp-gpt5`, project commit `5bb7ab4`; backend-only production release `20260607T121851Z-5bb7ab4`, QA green, web frontend не деплоился
 
 ## Схемы
 

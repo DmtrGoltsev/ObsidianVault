@@ -100,14 +100,18 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 - **Dev seed smoke:** login 201, planning history 200, personal plan 200, без internal server error.
 - **Diff hygiene:** `git diff --check` pass, только LF/CRLF warnings.
 
-### Planning asset target sync (WIP, 2026-06-07)
+### Planning asset target production release (2026-06-07)
 
-- **Кодовая ветка:** `codex/finance-planning-mvp-gpt5`; HEAD `0780944` (`feat(finance): add planning MVP`), поверх HEAD есть незакоммиченный WIP.
-- **Asset target gap:** закрывается явный Planning `targetType=asset` на backend/OpenAPI/Android.
-- **DB:** добавлена миграция `20260607_0011_planning_allocation_asset_target.py`.
-- **Android:** planning flow расширен выбором/созданием asset/investment целей.
-- **Repo hygiene:** `.gitignore` обновляется для raw QA artifacts.
-- **Важно:** финальные QA/deploy цифры и deploy success пока не зафиксированы; их должен добавить оркестратор/QA после завершения проверки.
+- **Кодовый commit:** `5bb7ab493d7c3faa323d711ffa1febb2d94b4f7c` (`fix(planning): support asset allocation targets`); KB previous commit `b7729f9`.
+- **Asset target gap:** закрыт явный Planning `targetType=asset` на backend/OpenAPI/Android.
+- **OpenAPI:** `AllocationTargetType` enum = `expense_category`, `account`, `asset`.
+- **DB/deploy:** backend-only release `20260607T121851Z-5bb7ab4` в `/opt/finance/releases/20260607T121851Z-5bb7ab4`; `/opt/finance/current` указывает на новый release.
+- **Миграции:** before `20260531_0009`; applied `20260531_0009 -> 20260606_0010 -> 20260607_0011`; after `20260607_0011 (head)`.
+- **Backup:** `/opt/finance/backups/20260607T122105Z-59603b0/finance_prod.dump`, SHA256 `adbed3574f02a4fad94c41ac0fa2e18b4abe3e3cd21d527c3bf08cab04c1a8ae`.
+- **QA:** backend full pytest — `228 passed, 4 warnings`; Android gate `:app:testDebugUnitTest :app:compileDebugKotlin :app:assembleDebug -PfinanceApiBaseUrl=http://45.10.110.42/finance-api --console=plain` — `BUILD SUCCESSFUL`.
+- **Production smoke:** service active; `/health` direct and nginx OK; unauth `sessions/current` returns 401.
+- **Android APK:** `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-0.1.0-debug.apk`, size `54235660`, SHA256 `9E3814A5ABBBD1A9EFB8D484A94C973E4CA2598D21D921B990EE1DFCA568C6D8`, time `2026-06-07 15:00:20 +03:00`.
+- **Delivery boundary:** web frontend не деплоился; Android APK delivered locally.
 
 ### Открытые баги (P1)
 
@@ -119,7 +123,7 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 
 ## Ветки
 
-- `codex/finance-planning-mvp-gpt5` — текущая кодовая ветка Planning MVP / asset-target WIP
+- `codex/finance-planning-mvp-gpt5` — кодовая ветка Planning MVP / asset-target production release `5bb7ab4`
 - `fix/aggregate-parser-multiline-labels` — базовая ветка UI overhaul + bug fixes
 - `main` — стабильная
 
