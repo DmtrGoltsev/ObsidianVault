@@ -5,16 +5,16 @@ id: "moc-devops"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-05-31"
+обновлено: "2026-06-07"
 уверенность: "высокая"
 источники: ["docs/33-current-state-summary.md", "docs/04-architecture-blueprint.md"]
-доказательства: []
+доказательства: ["Док_Cleanup_Manifest", "Док_Prod_Deploy_State"]
 теги: ["moc", "devops", "rocketflow"]
 ---
 
 # MOC DevOps
 
-Карта DevOps и CI/CD RocketFlow. GitHub Actions (ubuntu-24.04), [[HexCore]] production, [[Docker_Image|Docker]], [[Flyway]].
+Карта DevOps и CI/CD RocketFlow. GitHub Actions (ubuntu-24.04), [[HexCore]] production, jar/systemd + web static deploy, [[Flyway]]. [[Docker_Image|Docker/GHCR]] остаётся open gate.
 
 ## CI/CD воркфлоу (4 основных)
 
@@ -31,17 +31,20 @@ id: "moc-devops"
 - Статус: build-only (без runtime тестов) — см. [[Задача_CI_Runtime_Lanes]]
 
 ### 3. android-verify.yml
-- `assembleDebug` — сборка Android
+- Unit/build/lint lane: Android unit tests, debug build, lint
 - Триггер: push, pull_request в android/
 - См. [[Док_Android_Build]]
-- Статус: build-only (без runtime тестов) — см. [[Задача_CI_Runtime_Lanes]]
+- Статус: не build-only; instrumented/runtime verifier остаётся отдельным gate — см. [[Док_Android_Verification]], [[Задача_CI_Runtime_Lanes]]
 
-### 4. production-deploy.yml
-- Сборка [[Docker_Image|Docker-образа]] бэкенда
-- Публикация в GHCR — см. [[Задача_GHCR_Publish]]
-- Деплой на [[HexCore]]
+### 4. backend-hexcore-prod-deploy.yml
+- Деплой backend jar на [[HexCore]] через systemd
+- Деплой web static через Nginx
 - [[Flyway]] миграции при старте
-- См. [[Регламент_Деплоя]]
+- См. [[Регламент_Деплоя]], [[Док_Prod_Deploy_State]]
+
+### GHCR publish
+- Актуальный GHCR workflow отсутствует или требует восстановления
+- Docker/GHCR не считать resolved без отдельного evidence — см. [[Задача_GHCR_Publish]]
 
 ## HexCore (production)
 
@@ -49,25 +52,26 @@ id: "moc-devops"
 - systemd — управление сервисами
 - Nginx — reverse proxy + статика веб-клиента
 - PostgreSQL 16 — база данных
-- Docker — контейнеризация бэкенда
+- Production model — Java jar под systemd + web static через Nginx
 
 ## Окружения
 
-- **local** — локальная разработка (Docker Compose)
+- **local** — локальная разработка
 - **CI** — GitHub Actions (сборка и тесты)
 - **staging** — предпродакшен (опционально)
 - **production** — [[HexCore]]
 
 ## Скрипты автоматизации
 
-- `docker-compose.yml` — локальное окружение
-- `Dockerfile` — сборка образа бэкенда
+- `backend-hexcore-prod-deploy.yml` — фактический production deploy workflow
+- `Dockerfile` — сборка образа бэкенда; GHCR publish остаётся open gate
 - Flyway миграции — автозапуск при старте
 
 ## Бэкапы
 
 - PostgreSQL — pg_dump по расписанию (определяется runbook)
-- Docker-образы — хранение в GHCR
+- Релизные tar.gz архивы вынесены в `C:\Users\style\Documents\RocketFlow_Archive\release-packages\`
+- Docker-образы/GHCR — open gate
 
 ## Мониторинг и оповещения
 
@@ -85,3 +89,5 @@ id: "moc-devops"
 - [[Задача_GHCR_Publish]]
 - [[Задача_CI_Runtime_Lanes]]
 - [[Ограничения_и_Риски]]
+- [[Док_Cleanup_Manifest]]
+- [[Док_Prod_Deploy_State]]

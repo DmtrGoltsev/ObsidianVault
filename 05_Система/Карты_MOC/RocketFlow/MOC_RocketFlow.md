@@ -5,10 +5,10 @@ id: "moc-rocketflow-main"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-06-01"
+обновлено: "2026-06-07"
 уверенность: "высокая"
 источники: ["docs/33-current-state-summary.md", "README.md"]
-доказательства: []
+доказательства: ["Док_Cleanup_Manifest", "Док_Backend_Verification", "Док_Web_Verification", "Док_Android_Verification", "Док_Artifacts_Retention_Policy", "Док_Prod_Deploy_State"]
 теги: ["moc", "навигация", "rocketflow"]
 ---
 
@@ -86,6 +86,7 @@ id: "moc-rocketflow-main"
 - [[Источник_MVP3_QA_Модель]] — QA-модель приёмки MVP3
 - [[Источник_MVP3_BA_Пути]] — BA-контракт: пользовательские пути MVP3
 - [[Источник_Бэкап_Runbook]] — runbook скачивания production backup
+- [[Источник_Android_Local_Setup]] — локальная Android SDK/emulator конфигурация
 - [[Источник_AGENTS]] — AGENTS.md
 
 ## Агенты
@@ -147,6 +148,12 @@ id: "moc-rocketflow-main"
 - [[Док_Web_Build]]
 - [[Док_Android_Build]]
 - [[Док_Нотификации_E2E]]
+- [[Док_Cleanup_Manifest]]
+- [[Док_Backend_Verification]]
+- [[Док_Web_Verification]]
+- [[Док_Android_Verification]]
+- [[Док_Artifacts_Retention_Policy]]
+- [[Док_Prod_Deploy_State]]
 
 ## Пакеты контекста
 

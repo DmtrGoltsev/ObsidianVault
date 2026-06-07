@@ -5,10 +5,10 @@ id: "proof-web-build"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-05-31"
+обновлено: "2026-06-07"
 уверенность: "высокая"
 источники: [".github/workflows/web-verify.yml"]
-доказательства: []
+доказательства: ["Док_Web_Verification"]
 теги: ["доказательство", "сборка", "web", "ci"]
 ---
 
@@ -31,6 +31,7 @@ CI: web-verify.yml
 - Сборка завершается успешно (зелёный билд)
 - Vite 5 генерирует статические файлы (JS, CSS, HTML)
 - TypeScript-компиляция без ошибок
+- Audit 2026-06-07: web test scripts отсутствуют; см. [[Док_Web_Verification]]
 
 ## Ограничение
 
@@ -44,3 +45,4 @@ GitHub Actions → web-verify.yml
 
 - [[MOC_Веб]]
 - [[Регламент_CI_CD]]
+- [[Док_Web_Verification]]

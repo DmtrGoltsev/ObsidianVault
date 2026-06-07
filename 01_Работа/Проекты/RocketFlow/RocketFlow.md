@@ -5,10 +5,10 @@ id: "proj-rocketflow"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-06-01"
+обновлено: "2026-06-07"
 уверенность: "высокая"
 источники: ["docs/33-current-state-summary.md", "README.md", "docs/04-architecture-blueprint.md"]
-доказательства: ["docs/50-notification-runtime-clean-pass.md"]
+доказательства: ["docs/50-notification-runtime-clean-pass.md", "Док_Cleanup_Manifest", "Док_Backend_Verification", "Док_Web_Verification", "Док_Android_Verification", "Док_Prod_Deploy_State"]
 теги: ["проект", "rocketflow", "mvp"]
 ---
 
@@ -40,12 +40,14 @@ id: "proj-rocketflow"
 - Три волны (A, B, C) завершены
 - Wave C.1 завершён (web scheduling authoring)
 - Текущая стадия: [[MVP3_Упрощение]]
-- Ветка: `MVP3` (21 коммит от ca1055f до 9825a40)
-- Backend тесты зелёные
-- Web build зелёный
-- Android build зелёный
+- Ветка: `MVP3`, tracking `origin/MVP3`, HEAD `9825a40f6d2e4b909b785ef228aacc5393acec0b`, latest short `9825a40`
+- `git rev-list --count MVP2..MVP3` = 21
+- Backend: финальный `mvn --batch-mode --no-transfer-progress test` зелёный; `63/0/0/0`, `BUILD SUCCESS`, total `03:47`
+- Web: финальный `npm run build` зелёный; 1792 modules transformed, built in `2.09s`; test scripts отсутствуют
+- Android: финальный `.\gradlew.bat :app:testDebugUnitTest :app:assembleDebug :app:lintDebug --no-daemon` зелёный, exit code `0`
+- Cleanup/repo audit завершён: evidence сохранены в [[Док_Cleanup_Manifest]], cleanup invariants healthy, `.gitignore` покрывает generated paths и `android/local.properties`
 - Notification E2E доказан локально
-- Production развёрнут на [[HexCore]]
+- Production развёрнут на [[HexCore]] как jar/systemd + web static; Docker/GHCR остаётся open gate
 
 Источник: [[Источник_Текущее_Состояние]]
 
@@ -61,14 +63,14 @@ id: "proj-rocketflow"
 
 ## Активные гейты
 
-- GHCR publish (`backend-image-publish`)
+- GHCR publish/workflow восстановление (workflow отсутствует/open gate)
 - Staging notification certification
 
 ## Известные риски
 
 - Notification smoke на staging ещё не сертифицирован
-- GHCR интеграция требует проверки credentials (предположение)
-- Android push-tap flow требует staging-валидации
+- GHCR интеграция не закрыта: workflow отсутствует или требует восстановления, credentials не подтверждены
+- Android push-tap flow требует staging-валидации; локальный Android full gate после cleanup зелёный
 
 ## Документация
 
@@ -77,12 +79,16 @@ id: "proj-rocketflow"
 - [[Источник_Архитектура]] — архитектурный блюпринт
 - [[Источник_API_Контракты]] — API
 - [[Источник_Текущее_Состояние]] — текущий статус
+- [[Источник_Android_Local_Setup]] — локальная Android SDK/emulator конфигурация
 - [[Источник_CI_CD_Политика]] — CI/CD
 - [[Источник_Продакшен_Runbook]] — production runbook
 - [[Источник_MVP2_Иерархия]] — контракт MVP2: иерархия, заметки, связи
 - [[Источник_MVP3_QA_Модель]] — QA-модель приёмки MVP3
 - [[Источник_MVP3_BA_Пути]] — BA-контракт: пользовательские пути MVP3
 - [[Источник_Бэкап_Runbook]] — runbook скачивания production backup
+- [[Док_Cleanup_Manifest]] — cleanup/evidence manifest
+- [[Док_Backend_Verification]], [[Док_Web_Verification]], [[Док_Android_Verification]] — статус verification после audit
+- [[Док_Prod_Deploy_State]] — фактическая production deploy model
 
 ## Скрипты
 

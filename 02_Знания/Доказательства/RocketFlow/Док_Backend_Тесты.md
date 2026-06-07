@@ -5,10 +5,10 @@ id: "proof-backend-tests"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-05-31"
+обновлено: "2026-06-07"
 уверенность: "высокая"
 источники: [".github/workflows/backend-verify.yml"]
-доказательства: []
+доказательства: ["Док_Backend_Verification"]
 теги: ["доказательство", "тесты", "backend", "ci"]
 ---
 
@@ -31,6 +31,7 @@ CI: backend-verify.yml
 - Все тесты проходят (зелёный билд)
 - Используется Embedded PostgreSQL (zonky) для изоляции от внешней БД
 - Покрытие: модули auth, accounts, folders, goals, tasks, sharing, calendar, recurrence, reminders, prioritypolicy, notifications
+- Audit 2026-06-07: backend inventory — 16 test files / 63 tests; см. [[Док_Backend_Verification]]
 
 ## Ссылка на CI
 
@@ -40,3 +41,4 @@ GitHub Actions → backend-verify.yml
 
 - [[MOC_Бэкенд]]
 - [[Регламент_CI_CD]]
+- [[Док_Backend_Verification]]

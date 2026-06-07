@@ -5,10 +5,10 @@ id: "reg-cicd"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-05-31"
+обновлено: "2026-06-07"
 уверенность: "высокая"
 источники: ["docs/58-github-cicd-policy.md"]
-доказательства: []
+доказательства: ["Док_Backend_Verification", "Док_Web_Verification", "Док_Android_Verification", "Док_Prod_Deploy_State"]
 теги: ["регламент", "ci-cd", "процесс"]
 ---
 
@@ -28,14 +28,14 @@ id: "reg-cicd"
 |----------|------|---------|----------|
 | Backend Verify | `backend-verify.yml` | push, PR в main | mvn test, Docker build, /actuator/health smoke |
 | Web Verify | `web-verify.yml` | push, PR в main | npm run build |
-| Android Verify | `android-verify.yml` | push, PR в main | assembleDebug |
+| Android Verify | `android-verify.yml` | push, PR | unit tests, debug build, lint |
 | Backend Deploy | `backend-hexcore-prod-deploy.yml` | manual / merge в main | Деплой на [[HexCore]] |
-| Image Publish | `backend-image-publish` | manual workflow_dispatch | Публикация в GHCR |
+| Image Publish | отсутствует / open gate | n/a | GHCR workflow требует восстановления или явного отказа |
 
 ## Триггеры запуска
 
 - **Автоматически:** push в main, pull request
-- **Вручную:** workflow_dispatch для деплоя и публикации образа
+- **Вручную:** workflow_dispatch для deploy workflow; GHCR publish не считать доступным без актуального workflow evidence
 
 ## Участники
 
@@ -50,6 +50,7 @@ id: "reg-cicd"
 - Все verify-воркфлоу зелёные
 - PR не мёрджится при красных проверках
 - Production деплой только при зелёном backend-verify
+- Android gate не считать закрытым после cleanup без финального verifier evidence
 
 ## Эскалация
 
@@ -59,4 +60,6 @@ id: "reg-cicd"
 
 - [[Источник_CI_CD_Политика]] — политика-источник
 - [[Регламент_Деплоя]] — связанный регламент
+- [[Док_Prod_Deploy_State]] — фактический production deploy state
+- [[Док_Android_Verification]] — Android verifier после cleanup
 - [[Агент_DevOps]] — ответственный

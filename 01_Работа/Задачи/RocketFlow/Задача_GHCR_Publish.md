@@ -5,10 +5,10 @@ id: "task-ghcr-publish"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-05-31"
+обновлено: "2026-06-07"
 уверенность: "высокая"
 источники: ["docs/33-current-state-summary.md"]
-доказательства: []
+доказательства: ["Док_Prod_Deploy_State"]
 теги: ["задача", "docker", "ghcr", "devops"]
 ---
 
@@ -20,17 +20,19 @@ id: "task-ghcr-publish"
 
 ## Контекст
 
-Бэкенд уже собирается локально через Docker. Необходимо автоматизировать публикацию образа в GHCR для последующего деплоя на [[HexCore]].
+Бэкенд может собираться как Docker image, но фактическая production model сейчас jar/systemd + web static на [[HexCore]]. Актуальный GHCR publish workflow отсутствует или требует восстановления; `production-deploy.yml` не является текущим deploy workflow. Фактический deploy workflow: `backend-hexcore-prod-deploy.yml`.
 
 ## Критерии приёмки
 
 - [ ] Docker-образ бэкенда опубликован в GHCR
 - [ ] Тег образа соответствует версии/коммиту
-- [ ] CI-воркфлоу production-deploy.yml успешно выполняет publish
-- [ ] [[HexCore]] может pull-ить образ из GHCR
+- [ ] GHCR workflow создан/восстановлен и успешно выполняет publish, либо принято явное решение не использовать GHCR в MVP3 production
+- [ ] Если GHCR используется: [[HexCore]] может pull-ить образ из GHCR
+- [ ] [[Док_Prod_Deploy_State]] обновлён после решения
 
 ## Связанные заметки
 
 - [[MOC_DevOps]]
 - [[Docker_Image]]
 - [[Регламент_Деплоя]]
+- [[Док_Prod_Deploy_State]]

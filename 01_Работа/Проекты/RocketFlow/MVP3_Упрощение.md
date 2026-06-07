@@ -5,10 +5,10 @@ id: "mvp3-simplification"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-06-01"
+обновлено: "2026-06-07"
 уверенность: "высокая"
 источники: ["docs/33-current-state-summary.md", "docs/62-mvp3-design-simplification-contract.md"]
-доказательства: []
+доказательства: ["Док_Cleanup_Manifest", "Док_Backend_Verification", "Док_Web_Verification", "Док_Android_Verification"]
 теги: ["mvp3", "активно", "полировка"]
 ---
 
@@ -18,14 +18,14 @@ id: "mvp3-simplification"
 
 ## Прогресс
 
-21 коммит в ветке `MVP3` (ca1055f..9825a40):
+21 коммит в ветке `MVP3` относительно `MVP2` (`git rev-list --count MVP2..MVP3` = 21), HEAD `9825a40f6d2e4b909b785ef228aacc5393acec0b`:
 - Android UX: drag-drop, иерархия папок, fullscreen alarms (TaskReminderAlarmActivity, AlarmReceiver, AlarmScheduler)
 - Sync: офлайн-планирование с синхронизацией (PlanningSyncWorker, ConflictResolver)
 - Модуль `planning`: полный цикл офлайн-планирования
 - Модуль `sharing`: модели шеринга (ShareTarget, ShareInvitation, fullAccess)
 - Последний коммит: `9825a40` — Use due date offsets for Android default reminders
 
-QA-модель приёмки создана ([[Источник_MVP3_QA_Модель|docs/63]]), BA-пути описаны ([[Источник_MVP3_BA_Пути|docs/64]]). Тесты по QA-модели не выполнены.
+QA-модель приёмки создана ([[Источник_MVP3_QA_Модель|docs/63]]), BA-пути описаны ([[Источник_MVP3_BA_Пути|docs/64]]). После cleanup/repo audit и финального verifier: backend/web/android build health зелёный. Backend `mvn --batch-mode --no-transfer-progress test`: `63/0/0/0`, `BUILD SUCCESS`, total `03:47`; web `npm run build`: 1792 modules transformed, built in `2.09s`; Android `.\gradlew.bat :app:testDebugUnitTest :app:assembleDebug :app:lintDebug --no-daemon`: exit code `0`.
 
 ## Цель
 
@@ -46,20 +46,20 @@ BA-пути: [[Источник_MVP3_BA_Пути]]
 
 ## Критерии завершения
 
-- Все CI-воркфлоу зелёные
+- Все локальные verify/build gates подтверждены на текущем HEAD, включая финальный Android gate после cleanup
 - Notification staging smoke сертифицирован
-- GHCR image published
+- Docker/GHCR решение явно закрыто: либо GHCR publish восстановлен и доказан, либо production model без GHCR зафиксирована как принятое решение
 - Дизайн соответствует контракту MVP3
 - Документация актуальна
 
 ## Активные гейты
 
-- GHCR publish
+- GHCR publish/workflow или явное решение оставить jar/systemd deploy без GHCR
 - Staging notification certification
 
 ## Блокеры
 
-- Нет известных (предположение)
+- GHCR/Docker deploy остаётся open gate
 
 ## Связанные заметки
 
@@ -67,3 +67,5 @@ BA-пути: [[Источник_MVP3_BA_Пути]]
 - [[Wave_C]] — предыдущая завершённая волна
 - [[Регламент_Нотификационного_Смока]] — smoke-процедура
 - [[Агент_QA]] — валидация
+- [[Док_Cleanup_Manifest]] — cleanup/evidence manifest
+- [[Док_Android_Verification]] — Android verifier status

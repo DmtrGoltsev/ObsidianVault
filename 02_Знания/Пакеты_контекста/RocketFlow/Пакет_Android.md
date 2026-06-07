@@ -5,10 +5,10 @@ id: "pkg-android"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-05-31"
+обновлено: "2026-06-07"
 уверенность: "средняя"
 источники: ["docs/04-architecture-blueprint.md", "docs/50-notification-runtime-clean-pass.md", "docs/47-device-registration-logical-device-upsert-repair.md"]
-доказательства: ["Док_Android_Build", "Док_Нотификации_E2E"]
+доказательства: ["Док_Android_Build", "Док_Android_Verification", "Док_Нотификации_E2E"]
 теги: ["пакет_контекста", "android"]
 ---
 
@@ -43,13 +43,16 @@ id: "pkg-android"
 
 ## Сборка и тестирование
 - Kotlin 1.9.24, minSdk 26, targetSdk 34
-- `assembleDebug` — отладочная сборка
+- Android CI lane: unit/build/lint
 - Robolectric 4.12.2 — модульные тесты
 - CI: android-verify.yml → [[Док_Android_Build]]
+- Финальный full Android result после cleanup зелёный: `.\gradlew.bat :app:testDebugUnitTest :app:assembleDebug :app:lintDebug --no-daemon`, exit code `0` → [[Док_Android_Verification]]
 
 ## Эмулятор
-- Android Emulator API 34
-- Локальная проверка smoke-процедуры
+- Android SDK: `C:\Users\style\AppData\Local\Android\Sdk`
+- `android/local.properties` ignored by git
+- emulator `emulator-5554` видим
+- См. [[Источник_Android_Local_Setup]]
 
 ## Ключевые решения
 - [[ADR_Firebase_Admin_SDK]]
@@ -61,3 +64,4 @@ id: "pkg-android"
 - [[Источник_Нотификация_Пруф]]
 - [[Источник_Архитектура]]
 - [[Источник_Текущее_Состояние]]
+- [[Источник_Android_Local_Setup]]

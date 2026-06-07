@@ -5,10 +5,10 @@ id: "moc-backend"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-06-01"
+обновлено: "2026-06-07"
 уверенность: "высокая"
 источники: ["docs/04-architecture-blueprint.md", "docs/03-domain-specification.md"]
-доказательства: []
+доказательства: ["Док_Backend_Verification", "Док_Prod_Deploy_State"]
 теги: ["moc", "backend", "rocketflow"]
 ---
 
@@ -58,14 +58,15 @@ id: "moc-backend"
 - JUnit 5 + Embedded PostgreSQL (zonky)
 - CI: `mvn test` в backend-verify.yml
 - [[Док_Backend_Тесты]]
+- [[Док_Backend_Verification]] — audit/current verifier status
 
 ## Docker
 
-[[Docker_Image]] — сборка и публикация образа. См. [[Задача_GHCR_Publish]].
+[[Docker_Image]] — Docker/GHCR open gate, не текущий production deploy fact. См. [[Задача_GHCR_Publish]], [[Док_Prod_Deploy_State]].
 
 ## CI/CD
 
-[[Регламент_CI_CD]] — backend-verify.yml, production deploy pipeline.
+[[Регламент_CI_CD]] — backend-verify.yml, production deploy pipeline `backend-hexcore-prod-deploy.yml`.
 
 ## Связанные MOC
 

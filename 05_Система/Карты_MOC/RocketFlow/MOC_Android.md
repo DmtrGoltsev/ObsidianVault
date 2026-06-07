@@ -5,10 +5,10 @@ id: "moc-android"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-06-01"
+обновлено: "2026-06-07"
 уверенность: "средняя"
 источники: ["docs/04-architecture-blueprint.md", "docs/50-notification-runtime-clean-pass.md"]
-доказательства: ["Док_Android_Build", "Док_Нотификации_E2E"]
+доказательства: ["Док_Android_Build", "Док_Android_Verification", "Док_Нотификации_E2E"]
 теги: ["moc", "android", "rocketflow"]
 ---
 
@@ -69,16 +69,17 @@ id: "moc-android"
 
 ## Сборка
 
-Gradle. `assembleDebug` — отладочная сборка. CI: android-verify.yml.
+Gradle. Android CI lane больше не build-only: unit/build/lint. Финальный post-cleanup Android full result pending.
 
-См. [[Док_Android_Build]], [[Задача_CI_Runtime_Lanes]].
+См. [[Док_Android_Build]], [[Док_Android_Verification]], [[Задача_CI_Runtime_Lanes]].
 
 ## Эмулятор
 
-Тестирование на Android Emulator (API 34).
+Тестирование на Android Emulator. Локально исправлено: SDK `C:\Users\style\AppData\Local\Android\Sdk`, `android/local.properties` ignored by git, emulator `emulator-5554` видим. См. [[Источник_Android_Local_Setup]].
 
 ## Связанные MOC
 
 - [[MOC_RocketFlow]] — главная карта
 - [[MOC_Бэкенд]] — бэкенд API
 - [[MOC_DevOps]] — CI/CD
+- [[Источник_Android_Local_Setup]]
