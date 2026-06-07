@@ -5,7 +5,7 @@ id: "project-finance"
 статус: "активно"
 владелец: "rocketflow-team"
 создано: "2026-06-01"
-обновлено: "2026-06-06"
+обновлено: "2026-06-07"
 уверенность: "средняя"
 теги: ["проект", "finance", "финансы", "учёт", "MVP"]
 источники:
@@ -100,6 +100,15 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 - **Dev seed smoke:** login 201, planning history 200, personal plan 200, без internal server error.
 - **Diff hygiene:** `git diff --check` pass, только LF/CRLF warnings.
 
+### Planning asset target sync (WIP, 2026-06-07)
+
+- **Кодовая ветка:** `codex/finance-planning-mvp-gpt5`; HEAD `0780944` (`feat(finance): add planning MVP`), поверх HEAD есть незакоммиченный WIP.
+- **Asset target gap:** закрывается явный Planning `targetType=asset` на backend/OpenAPI/Android.
+- **DB:** добавлена миграция `20260607_0011_planning_allocation_asset_target.py`.
+- **Android:** planning flow расширен выбором/созданием asset/investment целей.
+- **Repo hygiene:** `.gitignore` обновляется для raw QA artifacts.
+- **Важно:** финальные QA/deploy цифры и deploy success пока не зафиксированы; их должен добавить оркестратор/QA после завершения проверки.
+
 ### Открытые баги (P1)
 
 - BUG-006: AddAccountSheet всегда создаёт shared-счёт
@@ -110,7 +119,8 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 
 ## Ветки
 
-- `fix/aggregate-parser-multiline-labels` — текущая активная ветка (UI overhaul + bug fixes)
+- `codex/finance-planning-mvp-gpt5` — текущая кодовая ветка Planning MVP / asset-target WIP
+- `fix/aggregate-parser-multiline-labels` — базовая ветка UI overhaul + bug fixes
 - `main` — стабильная
 
 ## Правила поставки

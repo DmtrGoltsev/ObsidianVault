@@ -4,7 +4,7 @@ id: "qa-fixes-finance"
 статус: "активно"
 проект: "Finance"
 создано: "2026-06-06"
-обновлено: "2026-06-06"
+обновлено: "2026-06-07"
 ссылки:
   - "[[Finance]]"
   - "[[QA_Результаты]]"
@@ -58,9 +58,24 @@ id: "qa-fixes-finance"
 | PLANNING-REMINDERS | Локальные reminders per income через `AlarmManager`/`BroadcastReceiver`, `POST_NOTIFICATIONS`; без FCM/SMS/NotificationListener/exact alarm | Android notifications | 2026-06-06 | Да (`assembleDebug` BUILD SUCCESSFUL, Codex runtime smoke) |
 | PLANNING-DEV-SEED | Runtime fix для `dev_seed`: login 201, planning history 200, personal plan 200, без internal server error | Dev seed/runtime | 2026-06-06 | Да (`dev_seed` smoke) |
 
+## Волна 4 (2026-06-07)
+
+Текущий статус: кодовая ветка `codex/finance-planning-mvp-gpt5`, HEAD `0780944` (`feat(finance): add planning MVP`). Поверх HEAD есть незакоммиченный WIP по asset-target sync; финальный deploy success и финальные QA-цифры в KB не утверждаются до отчета оркестратора/QA.
+
+| ID | Описание | Область | Дата | Верифицирован |
+|----|----------|---------|------|---------------|
+| PLANNING-ASSET-TARGET-BACKEND | Явный Planning `targetType=asset` на backend; allocation target enum/schema/service/tests синхронизируются с asset/investment целями | Backend/API | 2026-06-07 | WIP / ожидает финальную QA-сводку |
+| PLANNING-ASSET-TARGET-OPENAPI | OpenAPI контракт обновляется под явный `targetType=asset` для planning allocation targets | API contract | 2026-06-07 | WIP / ожидает OpenAPI parse + contract evidence |
+| PLANNING-ASSET-TARGET-DB | Новая миграция `20260607_0011_planning_allocation_asset_target.py` для planning allocation asset target | DB migration | 2026-06-07 | WIP / ожидает migration/test evidence |
+| PLANNING-ASSET-TARGET-ANDROID | Android planning flow поддерживает выбор/создание asset/investment целей из planning flow | Android UI/API | 2026-06-07 | WIP / ожидает build/runtime evidence |
+| QA-ARTIFACT-HYGIENE | `.gitignore` hygiene для raw QA artifacts | Repo hygiene | 2026-06-07 | WIP / ожидает финальную проверку diff/status |
+
 ## Коммиты
 
 | Хэш | Описание |
 |------|----------|
 | `95c882c` | feat(android): UI overhaul — edit/delete icons, account creation dialog, currency picker, category management, server OCR |
 | `50a8f8c` | fix: 12 bugs fixed (P0-P2), full Russian localization, 91 QA test cases |
+| `274c88f` | fix(finance): update assets UI and account patch flow |
+| `0780944` | feat(finance): add planning MVP |
+| WIP | Незакоммиченный planning asset-target sync поверх `0780944`: backend/OpenAPI/Android, миграция `20260607_0011...`, `.gitignore` hygiene; финальный commit hash ожидается |

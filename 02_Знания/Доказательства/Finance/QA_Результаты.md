@@ -4,7 +4,7 @@ id: "qa-results-finance"
 статус: "активно"
 проект: "Finance"
 создано: "2026-06-06"
-обновлено: "2026-06-06"
+обновлено: "2026-06-07"
 ссылки:
   - "[[Finance]]"
   - "[[QA_Фиксы]]"
@@ -239,6 +239,22 @@ id: "qa-results-finance"
 | Local alarms reset if app force-stopped; boot/package replace covered | OPEN |
 | `dev_seed` planning targets need sync if demo seed expands | OPEN |
 | Past plans not strictly read-only at API level; history/copy implemented | OPEN |
+
+## Волна 4: Planning asset target sync (WIP, 2026-06-07)
+
+**Метод:** ожидается финальная QA-сводка от оркестратора/QA. Текущая KB-запись фиксирует только известный scope и branch state.
+
+**Scope:** явный Planning `targetType=asset` на backend/OpenAPI/Android; миграция `20260607_0011_planning_allocation_asset_target.py`; Android выбор/создание asset/investment из planning flow; `.gitignore` hygiene для raw QA artifacts.
+
+### Сводка
+
+| Проверка | Результат |
+|----------|-----------|
+| Code branch | `codex/finance-planning-mvp-gpt5` |
+| Code HEAD | `0780944` (`feat(finance): add planning MVP`) |
+| WIP поверх HEAD | Есть незакоммиченные изменения asset-target sync |
+| Backend/OpenAPI/Android QA | Ожидает финальные цифры |
+| Deploy status | Не утвержден / не записан как success |
 
 ## Открытые вопросы (NEEDS_CLARIFICATION)
 
