@@ -5,7 +5,7 @@ id: "moc-finance"
 статус: "активно"
 владелец: "rocketflow-team"
 создано: "2026-06-01"
-обновлено: "2026-06-07"
+обновлено: "2026-06-08"
 уверенность: "высокая"
 теги: ["MOC", "finance", "навигация"]
 источники:
@@ -64,8 +64,9 @@ _(архитектурные и проектные решения — см. `04_
 
 - [[QA_Результаты]] — результаты прогонов тестирования
 - [[QA_Фиксы]] — журнал фиксов багов
-- Planning evidence — см. [[QA_Фиксы#Волна 3 (2026-06-06)]], [[QA_Фиксы#Волна 4 (2026-06-07)]] и [[QA_Фиксы#Волна 5 (2026-06-07)]]
-- Release context — текущая поставка 2026-06-07: asset categories + Analytics/Planning polish; backend latest `238 passed, 8 warnings`, fixtures `8 passed`, Android build `BUILD SUCCESSFUL`; production deploy SUCCESS `20260607T163043Z-be9f8ab`, `/opt/finance/current` указывает на release, OpenAPI 200 с asset categories routes
+- [[Док_Release_Planning_MVP_20260607]] — concise evidence по production release `20260607T225457Z-819b5815`
+- Planning evidence — см. [[QA_Фиксы#Волна 3 (2026-06-06)]], [[QA_Фиксы#Волна 4 (2026-06-07)]], [[QA_Фиксы#Волна 5 (2026-06-07)]] и [[QA_Фиксы#Волна 6 (2026-06-07)]]
+- Release context — текущая поставка 2026-06-07: Planning iteration MVP; project commit `819b5815fed8c81bfa6a6e6131e790429454c2e8`; release `20260607T225457Z-819b5815`; backend `/opt/finance/releases/20260607T225457Z-819b5815`; web `/var/www/finance/releases/20260607T225457Z-819b5815`; Alembic `20260607_0013 (head)`; backend `243 passed, 9 warnings`; Android unit/assemble PASS; health/static checks OK
 
 ## Схемы
 

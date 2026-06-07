@@ -4,7 +4,7 @@ id: "qa-fixes-finance"
 статус: "активно"
 проект: "Finance"
 создано: "2026-06-06"
-обновлено: "2026-06-07"
+обновлено: "2026-06-08"
 ссылки:
   - "[[Finance]]"
   - "[[QA_Результаты]]"
@@ -100,3 +100,18 @@ id: "qa-fixes-finance"
 | `0780944` | feat(finance): add planning MVP |
 | `5bb7ab4` | fix(planning): support asset allocation targets |
 | `be9f8ab` | asset categories + Analytics/Planning polish production release |
+| `819b5815` | Release planning iteration MVP |
+
+## Волна 6 (2026-06-07)
+
+Финальный статус: planning iteration MVP закрыт и подтверждён в production. Project commit `819b5815fed8c81bfa6a6e6131e790429454c2e8` (`Release planning iteration MVP`); branch `codex/finance-planning-mvp-gpt5` запушен в `origin`; release `20260607T225457Z-819b5815`. Backend current `/opt/finance/releases/20260607T225457Z-819b5815`; web current `/var/www/finance/releases/20260607T225457Z-819b5815`; оба prod `COMMIT` файла указывают на `819b5815fed8c81bfa6a6e6131e790429454c2e8`.
+
+| ID | Описание | Область | Дата | Верифицирован |
+|----|----------|---------|------|---------------|
+| PLANNING-RELEASE-COMMIT | Release commit `819b5815fed8c81bfa6a6e6131e790429454c2e8` с сообщением `Release planning iteration MVP`; ветка запушена в `origin` | Git/release | 2026-06-07 | Да |
+| PLANNING-PROD-BACKEND-WEB | Backend и web current указывают на release `20260607T225457Z-819b5815`; prod `COMMIT` файлы совпадают с project commit | Production deploy | 2026-06-07 | Да |
+| PLANNING-MIGRATION-0013 | Alembic head `20260607_0013 (head)` | DB migration | 2026-06-07 | Да |
+| PLANNING-PROD-SMOKE | `finance-backend.service` active; health direct/nginx OK; `/finance/` 200; manifest scope/start_url `/finance/`; `/finance/sw.js` 200 | Production smoke | 2026-06-07 | Да |
+| PLANNING-QA-GATE | OpenAPI parse OK; operationId duplicates `0/58`; backend `243 passed, 9 warnings`; Android unit PASS; Android assembleDebug PASS | QA gate | 2026-06-07 | Да |
+| PLANNING-ACCEPTANCE-CLARIFICATION | Planning progress зафиксирован как allocation-level поля `PlanningAllocationDto.actualAmount`/`varianceAmount`/`status`/`attentionReason`; `previousMonthSurplus` в `PlanningSummaryDto` | Product/API contract | 2026-06-07 | Да |
+| ANDROID-APK-DEBUG | APK `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-0.1.0-debug.apk`, size `54,235,660`, SHA256 `E1ACA5858CDD8B31C995BB669791955C3B57079978BE794731E63B82FBB956D4`; debug-signed | Android delivery | 2026-06-07 | Да с ограничением |

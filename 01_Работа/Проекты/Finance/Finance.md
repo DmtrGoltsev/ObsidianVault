@@ -5,7 +5,7 @@ id: "project-finance"
 статус: "активно"
 владелец: "rocketflow-team"
 создано: "2026-06-01"
-обновлено: "2026-06-07"
+обновлено: "2026-06-08"
 уверенность: "средняя"
 теги: ["проект", "finance", "финансы", "учёт", "MVP"]
 источники:
@@ -129,6 +129,20 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 - **QA:** backend latest — `238 passed, 8 warnings`; fixtures — `8 passed`; Android build — `BUILD SUCCESSFUL`.
 - **Android APK final:** `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-0.1.0-debug.apk`, size `54235660`, SHA256 `C0AC9EC325482FF5ED4AE9D9B55CC35B16C4B509E66BCD99B5FCBD06156A9C26`.
 
+### Release planning iteration MVP (2026-06-07)
+
+- **Статус релиза:** MVP planning iteration закрыт и выведен в production; branch `codex/finance-planning-mvp-gpt5` запушен в `origin`.
+- **Project commit:** `819b5815fed8c81bfa6a6e6131e790429454c2e8` (`Release planning iteration MVP`).
+- **Release id:** `20260607T225457Z-819b5815`.
+- **Production current:** backend `/opt/finance/releases/20260607T225457Z-819b5815`; web `/var/www/finance/releases/20260607T225457Z-819b5815`; оба prod `COMMIT` файла указывают на `819b5815fed8c81bfa6a6e6131e790429454c2e8`.
+- **Миграции:** Alembic head `20260607_0013 (head)`.
+- **Production checks:** `finance-backend.service` active; `127.0.0.1:8081/health` OK; `/finance-api/health` OK; `/finance/` 200; manifest scope/start_url `/finance/`; `/finance/sw.js` 200.
+- **QA:** OpenAPI parse OK; operationId duplicates `0/58`; backend `243 passed, 9 warnings`; Android unit PASS; Android `assembleDebug` PASS.
+- **APK:** `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-0.1.0-debug.apk`, size `54,235,660`, SHA256 `E1ACA5858CDD8B31C995BB669791955C3B57079978BE794731E63B82FBB956D4`.
+- **Acceptance clarification:** planning progress хранится на allocation-level (`PlanningAllocationDto.actualAmount`/`varianceAmount`/`status`/`attentionReason`), не как plan-level `PlanningPlanDto.progress`; `previousMonthSurplus` находится в `PlanningSummaryDto`.
+- **Ограничения:** authenticated QA login/OCR smoke не запускался из-за отсутствия operator password/session token; выполнены только health/static deploy checks; debug APK не release-signed.
+- **Evidence:** [[Док_Release_Planning_MVP_20260607]].
+
 ### Открытые баги (P1)
 
 - BUG-006: AddAccountSheet всегда создаёт shared-счёт
@@ -139,7 +153,7 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 
 ## Ветки
 
-- `codex/finance-planning-mvp-gpt5` — кодовая ветка Planning MVP / asset categories production release `be9f8ab`
+- `codex/finance-planning-mvp-gpt5` — кодовая ветка Planning MVP / production release `819b5815`
 - `fix/aggregate-parser-multiline-labels` — базовая ветка UI overhaul + bug fixes
 - `main` — стабильная
 

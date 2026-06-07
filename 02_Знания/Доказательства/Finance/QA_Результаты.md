@@ -4,7 +4,7 @@ id: "qa-results-finance"
 статус: "активно"
 проект: "Finance"
 создано: "2026-06-06"
-обновлено: "2026-06-07"
+обновлено: "2026-06-08"
 ссылки:
   - "[[Finance]]"
   - "[[QA_Фиксы]]"
@@ -329,3 +329,46 @@ id: "qa-results-finance"
 3. Ограничение длины имени категории/счёта
 4. Restore без UI — как пользователь восстанавливает удалённое?
 5. Мультивалютная конвертация — как отображать капитал?
+
+## Волна 6: Release planning iteration MVP (2026-06-07)
+
+**Метод:** OpenAPI parse/operationId audit, backend full tests, Android unit/build gate, production backend/web release verification, health/static checks.
+
+**Scope:** финализация planning iteration MVP, production backend + web release `20260607T225457Z-819b5815`, Alembic `20260607_0013`, release evidence без лог-дампов.
+
+### Сводка
+
+| Проверка | Результат |
+|----------|-----------|
+| Project commit | `819b5815fed8c81bfa6a6e6131e790429454c2e8` (`Release planning iteration MVP`) |
+| Project branch | `codex/finance-planning-mvp-gpt5` -> `origin` |
+| Release id | `20260607T225457Z-819b5815` |
+| Backend current | `/opt/finance/releases/20260607T225457Z-819b5815` |
+| Web current | `/var/www/finance/releases/20260607T225457Z-819b5815` |
+| Prod COMMIT files | оба указывают на `819b5815fed8c81bfa6a6e6131e790429454c2e8` |
+| Alembic head | `20260607_0013 (head)` |
+| Service status | `finance-backend.service` active |
+| Health checks | `127.0.0.1:8081/health` OK; `/finance-api/health` OK |
+| Web checks | `/finance/` 200; manifest scope/start_url `/finance/`; `/finance/sw.js` 200 |
+| OpenAPI parse | OK |
+| OperationId duplicates | `0/58` |
+| Backend tests | `243 passed, 9 warnings` |
+| Android unit | PASS |
+| Android assembleDebug | PASS |
+| APK | `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-0.1.0-debug.apk`, size `54,235,660`, SHA256 `E1ACA5858CDD8B31C995BB669791955C3B57079978BE794731E63B82FBB956D4` |
+
+### Acceptance clarification
+
+| Область | Решение |
+|---------|---------|
+| Planning progress | allocation-level: `PlanningAllocationDto.actualAmount`, `varianceAmount`, `status`, `attentionReason` |
+| Plan DTO | не использовать plan-level `PlanningPlanDto.progress` |
+| Previous month surplus | `previousMonthSurplus` находится в `PlanningSummaryDto` |
+
+### Ограничения
+
+| Риск | Статус |
+|------|--------|
+| Authenticated QA login/OCR smoke | `NOT_RUN` — нет operator password/session token |
+| Production runtime checks | только health/static deploy checks |
+| APK signing | debug-signed, не release-signed |
