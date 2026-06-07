@@ -36,7 +36,8 @@ _(под-MOC проекта будут добавляться по мере ро
 - [[Transaction]] — операция (income/expense/transfer/brokerage)
 - [[Transfer]] — перевод между счетами
 - [[Capture_Draft]] — OCR черновик
-- Planning MVP — планирование доходов и распределений во вкладке Analytics; release `5bb7ab4` закрыл явный `targetType=asset` для asset/investment целей
+- Asset categories — source of truth для категорий активов: `manualAmount`, `isInvestment`, `assetType`, `account.assetCategoryId`, без stale totals от удалённых счетов
+- Planning MVP — планирование доходов и распределений во вкладке Analytics; новые allocations выбирают expense category или investment asset category, account target для новых allocations не предлагается
 
 ## Источники
 
@@ -63,8 +64,8 @@ _(архитектурные и проектные решения — см. `04_
 
 - [[QA_Результаты]] — результаты прогонов тестирования
 - [[QA_Фиксы]] — журнал фиксов багов
-- Planning evidence — см. [[QA_Фиксы#Волна 3 (2026-06-06)]] и [[QA_Фиксы#Волна 4 (2026-06-07)]]
-- Release context — кодовая ветка `codex/finance-planning-mvp-gpt5`, project commit `5bb7ab4`; backend-only production release `20260607T121851Z-5bb7ab4`, QA green, web frontend не деплоился
+- Planning evidence — см. [[QA_Фиксы#Волна 3 (2026-06-06)]], [[QA_Фиксы#Волна 4 (2026-06-07)]] и [[QA_Фиксы#Волна 5 (2026-06-07)]]
+- Release context — текущая поставка 2026-06-07: asset categories + Analytics/Planning polish; backend latest `238 passed, 8 warnings`, fixtures `8 passed`, Android build `BUILD SUCCESSFUL`; production deploy `PENDING` до release agent
 
 ## Схемы
 

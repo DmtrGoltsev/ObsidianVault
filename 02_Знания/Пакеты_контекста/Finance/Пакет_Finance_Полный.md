@@ -64,11 +64,11 @@ id: "context-package-finance-full"
 | KB branch | `codex/finance-kb-planning-mvp-gpt5` |
 | KB previous commit | `b7729f9` |
 | Code branch | `codex/finance-planning-mvp-gpt5` |
-| Project commit | `5bb7ab493d7c3faa323d711ffa1febb2d94b4f7c` — `fix(planning): support asset allocation targets` |
-| Backend release | backend-only `20260607T121851Z-5bb7ab4` в `/opt/finance/releases/20260607T121851Z-5bb7ab4`; `/opt/finance/current` указывает на новый release |
-| QA | backend full pytest `228 passed, 4 warnings`; OpenAPI `AllocationTargetType` = `expense_category`, `account`, `asset`; Android gate `BUILD SUCCESSFUL` |
-| Backup/migrations | backup SHA256 `adbed3574f02a4fad94c41ac0fa2e18b4abe3e3cd21d527c3bf08cab04c1a8ae`; migrations `20260531_0009 -> 20260606_0010 -> 20260607_0011`, after `20260607_0011 (head)` |
-| Delivery boundary | web frontend не деплоился; Android APK delivered locally |
+| Previous project commit | `5bb7ab493d7c3faa323d711ffa1febb2d94b4f7c` — `fix(planning): support asset allocation targets` |
+| Current release scope | asset categories source of truth; Analytics investments/capital structure; Categories scope/edit icon; Planning income/allocation polish; backend `reportMode=personal` |
+| Backend/API | asset-categories endpoints; migration `20260607_0012`; no stale totals from deleted accounts |
+| QA | backend latest `238 passed, 8 warnings`; fixtures `8 passed`; Android build `BUILD SUCCESSFUL`; APK SHA256 `C0AC9EC325482FF5ED4AE9D9B55CC35B16C4B509E66BCD99B5FCBD06156A9C26` |
+| Delivery boundary | current production deploy `PENDING` until release agent completes; не утверждать production deploy текущей поставки |
 
 ## Стек (кратко)
 
@@ -76,17 +76,27 @@ Python 3.12 / FastAPI / PostgreSQL 16 / React 19 + Vite 7 PWA / Kotlin Jetpack C
 
 ## Стадия
 
-Production MVP functional GO (2026-05-19). Planning MVP asset-target release `5bb7ab4` развернут backend-only в production 2026-06-07; web frontend не деплоился, Android APK доставлен локально.
+Production MVP functional GO (2026-05-19). Текущая поставка 2026-06-07 по asset categories + Analytics/Planning polish прошла QA evidence, но production deploy остаётся `PENDING` до завершения release agent.
+
+## Asset categories + Analytics/Planning polish (текущий контекст)
+
+- Asset categories — source of truth: `manualAmount` для пустых категорий, `isInvestment`, `assetType`, связь `account.assetCategoryId`; удалённые счета не дают stale totals.
+- Backend/API: `reportMode=personal`, asset-categories endpoints, миграция `20260607_0012`.
+- Analytics: investments metric; capital structure отображается только в Analytics.
+- Categories: создание учитывает scope `personal`/`household`; редактирование через edit icon.
+- Planning: income day = день месяца; income form скрыта за Add; новые allocations выбирают expense category или investment asset category, без account target; history text уточнён.
+- QA evidence: backend latest `238 passed, 8 warnings`, fixtures `8 passed`, Android build `BUILD SUCCESSFUL`, APK SHA256 `C0AC9EC325482FF5ED4AE9D9B55CC35B16C4B509E66BCD99B5FCBD06156A9C26`.
+- Release boundary: production deploy текущей поставки pending, пока release agent не завершит деплой.
 
 ## Planning MVP (текущий контекст)
 
 - Вкладка Analytics получила Planning flow: personal/shared scope, income sources, allocations, history/copy, локальные Android reminders.
 - Backend/API включает planning package, таблицы `planning_plans`, `planning_income_sources`, `planning_allocations`, OpenAPI planning endpoints и authz/validation правила.
-- Allocation targets поддерживают expense categories, accounts и явный asset target; OpenAPI `AllocationTargetType` enum = `expense_category`, `account`, `asset`.
+- Allocation targets для новых allocations поддерживают expense categories и investment asset categories; account target больше не предлагается для новых allocations.
 - Миграция release: `20260607_0011_planning_allocation_asset_target.py`.
 - Android flow расширен выбором и созданием asset/investment из planning flow.
-- QA evidence по Planning лежит в [[QA_Результаты#Волна 3 Аналитика - Планирование MVP (2026-06-06)]] и [[QA_Фиксы#Волна 4 (2026-06-07)]]. Финальные цифры по asset-target release зафиксированы: backend full pytest `228 passed, 4 warnings`, Android gate `BUILD SUCCESSFUL`, production smoke OK.
+- QA evidence по Planning лежит в [[QA_Результаты#Волна 3 Аналитика - Планирование MVP (2026-06-06)]], [[QA_Фиксы#Волна 4 (2026-06-07)]] и [[QA_Фиксы#Волна 5 (2026-06-07)]]. Актуальные цифры текущей поставки: backend latest `238 passed, 8 warnings`, fixtures `8 passed`, Android build `BUILD SUCCESSFUL`.
 
 ## Риски
 
-P1-B02, P1-B03, tag misalignment; asset-target backend release зафиксирован, web frontend не деплоился.
+P1-B02, P1-B03, tag misalignment; текущий production deploy pending до release agent.

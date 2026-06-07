@@ -73,6 +73,22 @@ id: "qa-fixes-finance"
 | PROD-BACKUP | Backup `/opt/finance/backups/20260607T122105Z-59603b0/finance_prod.dump`, SHA256 `adbed3574f02a4fad94c41ac0fa2e18b4abe3e3cd21d527c3bf08cab04c1a8ae` | Production backup | 2026-06-07 | Да |
 | ANDROID-APK-DELIVERY | APK `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-0.1.0-debug.apk`, size `54235660`, SHA256 `9E3814A5ABBBD1A9EFB8D484A94C973E4CA2598D21D921B990EE1DFCA568C6D8`, time `2026-06-07 15:00:20 +03:00` | Android delivery | 2026-06-07 | Да |
 
+## Волна 5 (2026-06-07)
+
+Текущий статус: asset categories + Analytics/Planning polish готовы по QA evidence, production deploy ещё не заявлен. Deploy status: `PENDING` до завершения release agent.
+
+| ID | Описание | Область | Дата | Верифицирован |
+|----|----------|---------|------|---------------|
+| ASSET-CATEGORIES-SOT | Asset categories стали source of truth: `manualAmount` для пустых категорий, `isInvestment`, `assetType`, связь `account.assetCategoryId`; удалённые счета не оставляют stale totals | Backend/API + data model | 2026-06-07 | Да (`238 passed, 8 warnings`) |
+| ASSET-CATEGORIES-ENDPOINTS | Добавлены asset-categories endpoints | Backend/API | 2026-06-07 | Да (`238 passed, 8 warnings`) |
+| REPORT-MODE-PERSONAL | Backend report поддерживает `reportMode=personal` | Backend/API | 2026-06-07 | Да (`238 passed, 8 warnings`) |
+| MIGRATION-20260607-0012 | Миграция `20260607_0012` для asset categories/report updates | DB migration | 2026-06-07 | Да (`238 passed, 8 warnings`, fixtures `8 passed`) |
+| ANALYTICS-INVESTMENTS | Добавлена investments metric; capital structure остаётся только в Analytics | Android UI/API | 2026-06-07 | Да (Android build `BUILD SUCCESSFUL`) |
+| CATEGORIES-SCOPE-EDIT | Создание категорий учитывает scope `personal`/`household`; UI редактирования использует edit icon | Android UI/API | 2026-06-07 | Да (Android build `BUILD SUCCESSFUL`) |
+| PLANNING-INCOME-ALLOCATIONS | Income day = день месяца; income form за Add; новые allocations выбирают expense category или investment asset category без account target; history text уточнён | Android UI/API + Planning rules | 2026-06-07 | Да (Android build `BUILD SUCCESSFUL`) |
+| ANDROID-APK-BUILD | APK SHA256 `C0AC9EC325482FF5ED4AE9D9B55CC35B16C4B509E66BCD99B5FCBD06156A9C26` | Android delivery candidate | 2026-06-07 | Да (если QA не обновит позже) |
+| RELEASE-DEPLOY-PENDING | Production deploy текущей поставки не подтверждён | Release boundary | 2026-06-07 | Pending до release agent |
+
 ## Коммиты
 
 | Хэш | Описание |

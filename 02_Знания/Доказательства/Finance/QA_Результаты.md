@@ -273,11 +273,47 @@ id: "qa-results-finance"
 | Web frontend | не деплоился |
 | Android delivery | APK delivered locally |
 
+## Волна 5: Asset categories + Analytics/Planning polish (2026-06-07)
+
+**Метод:** backend full pytest, fixtures tests, Android build gate. Production deploy не заявлен: deploy pending до завершения release agent.
+
+**Scope:** asset categories как source of truth, Analytics investments/capital structure, Categories scope/edit icon, Planning income/allocation UX, backend `reportMode=personal`, asset-categories endpoints, миграция `20260607_0012`.
+
+### Сводка
+
+| Проверка | Результат |
+|----------|-----------|
+| Backend latest | `238 passed, 8 warnings` |
+| Fixtures | `8 passed` |
+| Android build | `BUILD SUCCESSFUL` |
+| APK SHA256 | `C0AC9EC325482FF5ED4AE9D9B55CC35B16C4B509E66BCD99B5FCBD06156A9C26` |
+| Migration | `20260607_0012` |
+| Deploy | `PENDING` — release agent ещё не завершил production deploy |
+
+### Backend/API
+
+| Проверка | Результат |
+|----------|-----------|
+| Asset categories source of truth | `manualAmount` для пустых категорий; `isInvestment`; `assetType`; `account.assetCategoryId` |
+| Deleted accounts | Не оставляют stale totals в агрегатах категорий активов |
+| Asset categories endpoints | Добавлены и покрыты backend tests |
+| Reports | Поддержан `reportMode=personal` |
+| Migration | `20260607_0012` |
+
+### Android/UI
+
+| Область | Результат |
+|---------|-----------|
+| Analytics | Добавлена investments metric; структура капитала остаётся только в Analytics |
+| Categories | Создание учитывает scope `personal`/`household`; редактирование через edit icon |
+| Planning income | Income day трактуется как день месяца; форма дохода скрыта за Add |
+| Planning allocations | Новые allocations выбирают expense category или investment asset category; account target для новых allocations не предлагается |
+| Planning history | Текст истории уточнён |
+
 ## Открытые вопросы (NEEDS_CLARIFICATION)
 
 1. Фильтрация категорий — какие типы доступны в каких режимах?
 2. Transfer-фильтрация по режиму видимости
 3. Ограничение длины имени категории/счёта
 4. Restore без UI — как пользователь восстанавливает удалённое?
-5. Report только для household — нужен ли personal?
-6. Мультивалютная конвертация — как отображать капитал?
+5. Мультивалютная конвертация — как отображать капитал?

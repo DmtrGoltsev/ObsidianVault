@@ -113,6 +113,16 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 - **Android APK:** `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-0.1.0-debug.apk`, size `54235660`, SHA256 `9E3814A5ABBBD1A9EFB8D484A94C973E4CA2598D21D921B990EE1DFCA568C6D8`, time `2026-06-07 15:00:20 +03:00`.
 - **Delivery boundary:** web frontend не деплоился; Android APK delivered locally.
 
+### Поставка Asset categories + Analytics/Planning polish (2026-06-07)
+
+- **Статус релиза:** deploy pending; production-деплой не подтверждён до завершения release agent.
+- **Asset categories source of truth:** категории активов стали явной моделью данных: `manualAmount` используется для пустых категорий, `isInvestment` отделяет инвестиционные категории, `assetType` фиксирует тип актива, `account.assetCategoryId` связывает счёт с категорией; удалённые счета не оставляют stale totals.
+- **Backend/API:** добавлены asset-categories endpoints; backend report поддерживает `reportMode=personal`; миграция `20260607_0012`.
+- **Analytics:** добавлена метрика investments; структура капитала остаётся только во вкладке Analytics.
+- **Categories:** создание категорий учитывает scope `personal`/`household`; UI редактирования использует edit icon.
+- **Planning:** income day трактуется как день месяца; форма дохода скрыта за Add; новые allocations выбирают expense category или investment asset category, target account для новых allocations не предлагается; текст истории уточнён.
+- **QA:** backend latest — `238 passed, 8 warnings`; fixtures — `8 passed`; Android build — `BUILD SUCCESSFUL`; APK SHA256 `C0AC9EC325482FF5ED4AE9D9B55CC35B16C4B509E66BCD99B5FCBD06156A9C26` (если QA не обновит позже).
+
 ### Открытые баги (P1)
 
 - BUG-006: AddAccountSheet всегда создаёт shared-счёт
