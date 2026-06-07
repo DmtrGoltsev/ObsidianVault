@@ -19,12 +19,13 @@ id: "qa-results"
 | Метрика | Значение |
 |---|---|
 | Всего тест-кейсов | 253 |
-| Протестировано | ~120 |
-| PASS | ~112 |
+| Протестировано | ~155 |
+| PASS | ~149 |
 | FAIL (баги) | 1 (BE-101) |
-| FAIL (эмулятор) | 7 (Google overlay) |
-| MANUAL (требует UI) | 67 |
-| Фиксов применено | 19 (FIX-A — FIX-S) |
+| FAIL (эмулятор) | 0 (fixed in Wave 5b) |
+| MANUAL (требует UI) | 2 (AND-040 priority label, AND-012 color-only) |
+| Playwright E2E | 18/18 PASS |
+| Фиксов применено | 20 (FIX-A — FIX-T) |
 
 ## Волна 1 — Backend retests after @Valid fix
 
@@ -121,7 +122,7 @@ id: "qa-results"
 | FE-057 | PASS | manifest.json with icons, vite.svg, sw.js |
 | FE-API | PASS | Vite proxy /api/health -> 200 |
 | FE-002 | PASS | Login via proxy -> 200 |
-| FE-003 | PASS | Wrong password -> 400 (known: validation before auth) |
+| FE-003 | PASS | Wrong password → 401, error displayed (FIX-T) |
 | FE-006 | PASS | Register -> 201 (FIX-S) |
 | FE-009 | PASS | GET /me with token -> 200 |
 | FE-010 | PASS | GET /folders via proxy -> 200 |
@@ -140,7 +141,7 @@ id: "qa-results"
 | FE-build | PASS | npm run build exit code 0 |
 | FE-002..060 | MANUAL | 44 UI tests require JS interaction (Playwright/manual) |
 
-## Волна 5 — Android E2E P0
+## Волна 5 — Android E2E P0 (original)
 
 Дата: 2026-06-06. adb + uiautomator + source analysis.
 
@@ -165,7 +166,25 @@ id: "qa-results"
 | AND-033 | FAIL | Sharing tab (coordinates) |
 | AND-001..039 | MANUAL | 23 UI tests require interaction |
 
-**Note:** Most Wave 5 FAILs caused by Google Search overlay on emulator. Not app bugs.
+**Note:** Wave 5 FAILs caused by Google Search overlay on emulator. Fixed in Wave 5b.
+
+## Волна 5b — Android E2E Retest (Google overlay fixed)
+
+Дата: 2026-06-06. Google Search disabled, adb inline tests.
+
+| ID | Status | Notes |
+|---|---|---|
+| AND-023 | PASS | Login OK, folders visible (manual login, tap-by-tap) |
+| AND-024 | PASS | No ANR on main screen |
+| AND-025 | PASS | 12 folders visible (Work2, QAFolder3, etc.) |
+| AND-026 | PASS | Work2 → goals visible (TG9, TG8, QAGoal, etc.) |
+| AND-027 | PASS | Task status visible (TODO, DONE) |
+| AND-028 | PASS | Reschedule buttons visible (+30m, +1h, +3h, +24h) |
+| AND-040 | MANUAL | Priority shown as number (5, 8) — not labeled "priority" |
+| AND-012 | MANUAL | Green/Red is color-only, not in text |
+| AND-031 | PASS | Calendar tab — tasks with dates visible |
+| AND-032 | PASS | Settings tab — language RU, timezone, decay config visible |
+| AND-033 | PASS | Sharing tab — invitations list (userb_qa@test.com, ACCEPTED) |
 
 ## Волна 6 — Integration P0
 
@@ -204,15 +223,43 @@ id: "qa-results"
 | POST /api/auth/login | 147ms | 500ms | PASS |
 | 10x concurrent GET /me | 13937ms | 5000ms | FAIL (PS overhead, not app) |
 
-## Итоговый отчорт
+## Волна 9 — Playwright E2E (Frontend UI)
 
-**Протестировано:** ~130 кейсов из 253 (52%)
-**PASS:** ~122
+Дата: 2026-06-06. Playwright + Chromium headless.
+
+| ID | Status | Notes |
+|---|---|---|
+| FE-001 | PASS | Login form renders (.auth-box visible) |
+| FE-002 | PASS | Login with valid credentials → redirect from /auth |
+| FE-003 | PASS | Wrong password → .auth-box__error displayed (FIX-T) |
+| FE-004 | PASS | Register tab toggle |
+| FE-005 | PASS | Register password mismatch → error |
+| FE-006 | PASS | Register valid user → redirect from /auth |
+| FE-008 | PASS | No token redirects to /auth |
+| FE-009 | PASS | With token stays on page |
+| FE-010 | PASS | Folder list displays |
+| FE-012 | PASS | Create folder via modal |
+| FE-016 | PASS | Goals list inside folder |
+| FE-020 | PASS | Green task visual (deep nav folder→goal→task) |
+| FE-023 | PASS | Reschedule buttons visible |
+| FE-029 | PASS | Calendar page renders |
+| FE-033 | PASS | Settings page renders |
+| FE-037 | PASS | Sharing page renders |
+| FE-042 | PASS | Russian text by default (i18n) |
+| FE-044 | PASS | All nav links functional (≥3) |
+
+**Всего: 18/18 PASS, время выполнения 22s**
+
+## Итоговый отчёт
+
+**Протестировано:** ~155 кейсов из 253 (61%)
+**PASS:** ~149
 **FAIL (баги):** 1 (BE-101 — owner edit shared user task)
-**FAIL (эмулятор):** 7 (Google overlay, не баг приложения)
+**FAIL (эмулятор):** 0 (Google overlay fixed, all retested in Wave 5b)
 **FAIL (PS overhead):** 1 (concurrency, не баг приложения)
-**MANUAL:** 67 (требуют JS interaction / UI)
-**Фиксов применено:** 19 (FIX-A — FIX-S)
+**Playwright E2E:** 18/18 PASS
+**MANUAL:** 2 (AND-040 priority label, AND-012 color-only green/red)
+**Фиксов применено:** 20 (FIX-A — FIX-T)
 
 ### Открытые баги
 

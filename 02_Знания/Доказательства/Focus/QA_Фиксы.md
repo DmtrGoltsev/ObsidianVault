@@ -37,6 +37,7 @@ id: "qa-fixes"
 | FIX-Q | taskType default GREEN при null | TaskService.java:117 | 2026-06-06 | Да (BE-103) |
 | FIX-R | WEEKLY daysOfWeek validation — parseDaysOfWeek бросает BadRequestException | TaskService.java:495-507 | 2026-06-06 | Да (BE-114) |
 | FIX-S | Register endpoint возвращает 201 вместо 200 | AuthController.java | 2026-06-06 | Да (FE-006) |
+| FIX-T | Auth endpoints skip 401 refresh interceptor | api.ts:44 | 2026-06-06 | Да (FE-003) |
 
 ## Новые файлы созданные при фиксах
 
