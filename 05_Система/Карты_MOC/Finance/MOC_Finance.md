@@ -65,7 +65,7 @@ _(архитектурные и проектные решения — см. `04_
 - [[QA_Результаты]] — результаты прогонов тестирования
 - [[QA_Фиксы]] — журнал фиксов багов
 - Planning evidence — см. [[QA_Фиксы#Волна 3 (2026-06-06)]], [[QA_Фиксы#Волна 4 (2026-06-07)]] и [[QA_Фиксы#Волна 5 (2026-06-07)]]
-- Release context — текущая поставка 2026-06-07: asset categories + Analytics/Planning polish; backend latest `238 passed, 8 warnings`, fixtures `8 passed`, Android build `BUILD SUCCESSFUL`; production deploy `PENDING` до release agent
+- Release context — текущая поставка 2026-06-07: asset categories + Analytics/Planning polish; backend latest `238 passed, 8 warnings`, fixtures `8 passed`, Android build `BUILD SUCCESSFUL`; production deploy SUCCESS `20260607T163043Z-be9f8ab`, `/opt/finance/current` указывает на release, OpenAPI 200 с asset categories routes
 
 ## Схемы
 

@@ -115,13 +115,19 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 
 ### Поставка Asset categories + Analytics/Planning polish (2026-06-07)
 
-- **Статус релиза:** deploy pending; production-деплой не подтверждён до завершения release agent.
+- **Статус релиза:** production deploy success; release agent завершил деплой.
+- **Кодовый commit:** `be9f8abe1abaed530c1dd503c5e631e935d8a3d5`.
+- **Production release:** `20260607T163043Z-be9f8ab` в `/opt/finance/releases/20260607T163043Z-be9f8ab`; `/opt/finance/current` указывает на этот release.
+- **Backup:** `/opt/finance/backups/20260607T163554Z-5bb7ab4/finance_prod.dump`, SHA256 `c7e38fae515b60b5d4b7d6588bbc8d03687d1769f222493ad240510f1f54b2d5`.
+- **Миграции:** before `20260607_0011`; after `20260607_0012 (head)`.
+- **Production smoke:** service active/running; health direct/nginx 200; unauth `sessions/current` 401; OpenAPI 200 с asset categories routes.
 - **Asset categories source of truth:** категории активов стали явной моделью данных: `manualAmount` используется для пустых категорий, `isInvestment` отделяет инвестиционные категории, `assetType` фиксирует тип актива, `account.assetCategoryId` связывает счёт с категорией; удалённые счета не оставляют stale totals.
 - **Backend/API:** добавлены asset-categories endpoints; backend report поддерживает `reportMode=personal`; миграция `20260607_0012`.
 - **Analytics:** добавлена метрика investments; структура капитала остаётся только во вкладке Analytics.
 - **Categories:** создание категорий учитывает scope `personal`/`household`; UI редактирования использует edit icon.
 - **Planning:** income day трактуется как день месяца; форма дохода скрыта за Add; новые allocations выбирают expense category или investment asset category, target account для новых allocations не предлагается; текст истории уточнён.
-- **QA:** backend latest — `238 passed, 8 warnings`; fixtures — `8 passed`; Android build — `BUILD SUCCESSFUL`; APK SHA256 `C0AC9EC325482FF5ED4AE9D9B55CC35B16C4B509E66BCD99B5FCBD06156A9C26` (если QA не обновит позже).
+- **QA:** backend latest — `238 passed, 8 warnings`; fixtures — `8 passed`; Android build — `BUILD SUCCESSFUL`.
+- **Android APK final:** `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-0.1.0-debug.apk`, size `54235660`, SHA256 `C0AC9EC325482FF5ED4AE9D9B55CC35B16C4B509E66BCD99B5FCBD06156A9C26`.
 
 ### Открытые баги (P1)
 
@@ -133,7 +139,7 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 
 ## Ветки
 
-- `codex/finance-planning-mvp-gpt5` — кодовая ветка Planning MVP / asset-target production release `5bb7ab4`
+- `codex/finance-planning-mvp-gpt5` — кодовая ветка Planning MVP / asset categories production release `be9f8ab`
 - `fix/aggregate-parser-multiline-labels` — базовая ветка UI overhaul + bug fixes
 - `main` — стабильная
 

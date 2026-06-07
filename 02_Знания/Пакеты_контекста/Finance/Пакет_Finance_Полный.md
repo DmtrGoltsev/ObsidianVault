@@ -64,11 +64,13 @@ id: "context-package-finance-full"
 | KB branch | `codex/finance-kb-planning-mvp-gpt5` |
 | KB previous commit | `b7729f9` |
 | Code branch | `codex/finance-planning-mvp-gpt5` |
-| Previous project commit | `5bb7ab493d7c3faa323d711ffa1febb2d94b4f7c` — `fix(planning): support asset allocation targets` |
+| Project commit | `be9f8abe1abaed530c1dd503c5e631e935d8a3d5` |
 | Current release scope | asset categories source of truth; Analytics investments/capital structure; Categories scope/edit icon; Planning income/allocation polish; backend `reportMode=personal` |
 | Backend/API | asset-categories endpoints; migration `20260607_0012`; no stale totals from deleted accounts |
 | QA | backend latest `238 passed, 8 warnings`; fixtures `8 passed`; Android build `BUILD SUCCESSFUL`; APK SHA256 `C0AC9EC325482FF5ED4AE9D9B55CC35B16C4B509E66BCD99B5FCBD06156A9C26` |
-| Delivery boundary | current production deploy `PENDING` until release agent completes; не утверждать production deploy текущей поставки |
+| Production deploy | SUCCESS: project commit `be9f8abe1abaed530c1dd503c5e631e935d8a3d5`; release `20260607T163043Z-be9f8ab` in `/opt/finance/releases/20260607T163043Z-be9f8ab`; `/opt/finance/current` points there |
+| Production evidence | backup `/opt/finance/backups/20260607T163554Z-5bb7ab4/finance_prod.dump`, SHA256 `c7e38fae515b60b5d4b7d6588bbc8d03687d1769f222493ad240510f1f54b2d5`; migrations `20260607_0011` -> `20260607_0012 (head)`; service active/running; health direct/nginx 200; unauth `sessions/current` 401; OpenAPI 200 with asset categories routes |
+| Android APK final | `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-0.1.0-debug.apk`; size `54235660`; SHA256 `C0AC9EC325482FF5ED4AE9D9B55CC35B16C4B509E66BCD99B5FCBD06156A9C26` |
 
 ## Стек (кратко)
 
@@ -76,7 +78,7 @@ Python 3.12 / FastAPI / PostgreSQL 16 / React 19 + Vite 7 PWA / Kotlin Jetpack C
 
 ## Стадия
 
-Production MVP functional GO (2026-05-19). Текущая поставка 2026-06-07 по asset categories + Analytics/Planning polish прошла QA evidence, но production deploy остаётся `PENDING` до завершения release agent.
+Production MVP functional GO (2026-05-19). Текущая поставка 2026-06-07 по asset categories + Analytics/Planning polish прошла QA evidence и подтверждена в production release `20260607T163043Z-be9f8ab`.
 
 ## Asset categories + Analytics/Planning polish (текущий контекст)
 
@@ -86,7 +88,7 @@ Production MVP functional GO (2026-05-19). Текущая поставка 2026-
 - Categories: создание учитывает scope `personal`/`household`; редактирование через edit icon.
 - Planning: income day = день месяца; income form скрыта за Add; новые allocations выбирают expense category или investment asset category, без account target; history text уточнён.
 - QA evidence: backend latest `238 passed, 8 warnings`, fixtures `8 passed`, Android build `BUILD SUCCESSFUL`, APK SHA256 `C0AC9EC325482FF5ED4AE9D9B55CC35B16C4B509E66BCD99B5FCBD06156A9C26`.
-- Release boundary: production deploy текущей поставки pending, пока release agent не завершит деплой.
+- Release boundary: production deploy текущей поставки подтверждён; `/opt/finance/current` указывает на `/opt/finance/releases/20260607T163043Z-be9f8ab`.
 
 ## Planning MVP (текущий контекст)
 
@@ -99,4 +101,4 @@ Production MVP functional GO (2026-05-19). Текущая поставка 2026-
 
 ## Риски
 
-P1-B02, P1-B03, tag misalignment; текущий production deploy pending до release agent.
+P1-B02, P1-B03, tag misalignment; production deploy текущей поставки подтверждён release agent.

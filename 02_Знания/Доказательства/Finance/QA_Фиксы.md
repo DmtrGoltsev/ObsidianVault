@@ -75,7 +75,7 @@ id: "qa-fixes-finance"
 
 ## Волна 5 (2026-06-07)
 
-Текущий статус: asset categories + Analytics/Planning polish готовы по QA evidence, production deploy ещё не заявлен. Deploy status: `PENDING` до завершения release agent.
+Финальный статус: asset categories + Analytics/Planning polish готовы по QA evidence и подтверждены в production. Project commit `be9f8abe1abaed530c1dd503c5e631e935d8a3d5`; release `20260607T163043Z-be9f8ab` в `/opt/finance/releases/20260607T163043Z-be9f8ab`; `/opt/finance/current` указывает на этот release. Backup `/opt/finance/backups/20260607T163554Z-5bb7ab4/finance_prod.dump`, SHA256 `c7e38fae515b60b5d4b7d6588bbc8d03687d1769f222493ad240510f1f54b2d5`. Миграции: before `20260607_0011`, after `20260607_0012 (head)`. Service active/running; health direct/nginx 200; unauth `sessions/current` 401; OpenAPI 200 с asset categories routes.
 
 | ID | Описание | Область | Дата | Верифицирован |
 |----|----------|---------|------|---------------|
@@ -86,8 +86,9 @@ id: "qa-fixes-finance"
 | ANALYTICS-INVESTMENTS | Добавлена investments metric; capital structure остаётся только в Analytics | Android UI/API | 2026-06-07 | Да (Android build `BUILD SUCCESSFUL`) |
 | CATEGORIES-SCOPE-EDIT | Создание категорий учитывает scope `personal`/`household`; UI редактирования использует edit icon | Android UI/API | 2026-06-07 | Да (Android build `BUILD SUCCESSFUL`) |
 | PLANNING-INCOME-ALLOCATIONS | Income day = день месяца; income form за Add; новые allocations выбирают expense category или investment asset category без account target; history text уточнён | Android UI/API + Planning rules | 2026-06-07 | Да (Android build `BUILD SUCCESSFUL`) |
-| ANDROID-APK-BUILD | APK SHA256 `C0AC9EC325482FF5ED4AE9D9B55CC35B16C4B509E66BCD99B5FCBD06156A9C26` | Android delivery candidate | 2026-06-07 | Да (если QA не обновит позже) |
-| RELEASE-DEPLOY-PENDING | Production deploy текущей поставки не подтверждён | Release boundary | 2026-06-07 | Pending до release agent |
+| ANDROID-APK-BUILD | APK `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-0.1.0-debug.apk`, size `54235660`, SHA256 `C0AC9EC325482FF5ED4AE9D9B55CC35B16C4B509E66BCD99B5FCBD06156A9C26` | Android delivery final | 2026-06-07 | Да |
+| PROD-DEPLOY-SUCCESS | Production release `20260607T163043Z-be9f8ab`; `/opt/finance/current` points to `/opt/finance/releases/20260607T163043Z-be9f8ab`; service active/running; health direct/nginx 200; unauth `sessions/current` 401; OpenAPI 200 с asset categories routes | Production deploy | 2026-06-07 | Да |
+| PROD-BACKUP-20260607 | Backup `/opt/finance/backups/20260607T163554Z-5bb7ab4/finance_prod.dump`, SHA256 `c7e38fae515b60b5d4b7d6588bbc8d03687d1769f222493ad240510f1f54b2d5` | Production backup | 2026-06-07 | Да |
 
 ## Коммиты
 
@@ -98,3 +99,4 @@ id: "qa-fixes-finance"
 | `274c88f` | fix(finance): update assets UI and account patch flow |
 | `0780944` | feat(finance): add planning MVP |
 | `5bb7ab4` | fix(planning): support asset allocation targets |
+| `be9f8ab` | asset categories + Analytics/Planning polish production release |

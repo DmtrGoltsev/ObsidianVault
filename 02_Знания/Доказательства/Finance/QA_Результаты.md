@@ -275,7 +275,7 @@ id: "qa-results-finance"
 
 ## Волна 5: Asset categories + Analytics/Planning polish (2026-06-07)
 
-**Метод:** backend full pytest, fixtures tests, Android build gate. Production deploy не заявлен: deploy pending до завершения release agent.
+**Метод:** backend full pytest, fixtures tests, Android build gate, production deploy verification release agent.
 
 **Scope:** asset categories как source of truth, Analytics investments/capital structure, Categories scope/edit icon, Planning income/allocation UX, backend `reportMode=personal`, asset-categories endpoints, миграция `20260607_0012`.
 
@@ -288,7 +288,19 @@ id: "qa-results-finance"
 | Android build | `BUILD SUCCESSFUL` |
 | APK SHA256 | `C0AC9EC325482FF5ED4AE9D9B55CC35B16C4B509E66BCD99B5FCBD06156A9C26` |
 | Migration | `20260607_0012` |
-| Deploy | `PENDING` — release agent ещё не завершил production deploy |
+| Project commit | `be9f8abe1abaed530c1dd503c5e631e935d8a3d5` |
+| Production release | `20260607T163043Z-be9f8ab`, `/opt/finance/releases/20260607T163043Z-be9f8ab` |
+| Current symlink | `/opt/finance/current` points to `/opt/finance/releases/20260607T163043Z-be9f8ab` |
+| Backup | `/opt/finance/backups/20260607T163554Z-5bb7ab4/finance_prod.dump` |
+| Backup SHA256 | `c7e38fae515b60b5d4b7d6588bbc8d03687d1769f222493ad240510f1f54b2d5` |
+| Migration before | `20260607_0011` |
+| Migration after | `20260607_0012 (head)` |
+| Service status | active/running |
+| Health smoke | direct 200, nginx 200 |
+| Auth smoke | unauth `sessions/current` -> 401 |
+| OpenAPI smoke | 200, asset categories routes present |
+| Deploy | SUCCESS |
+| APK final | `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-0.1.0-debug.apk`, size `54235660`, SHA256 `C0AC9EC325482FF5ED4AE9D9B55CC35B16C4B509E66BCD99B5FCBD06156A9C26` |
 
 ### Backend/API
 
