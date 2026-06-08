@@ -70,10 +70,10 @@ _(архитектурные и проектные решения — см. `04_
 
 - [[QA_Результаты]] — результаты прогонов тестирования
 - [[QA_Фиксы]] — журнал фиксов багов
-- [[Док_Release_NewDis_20260608]] — sanitized closure/evidence по production frontend release `newDis`, commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b`, и Android UX addendum `16a8be832d7c7fbaacf03325325da63db357d450`
+- [[Док_Release_NewDis_20260608]] — sanitized closure/evidence по production frontend release `newDis`, commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b`, и Android final correction addendum `f5afcda40e12b881ccc31a6b32221b24327cdbd8`
 - [[Док_Release_Planning_MVP_20260607]] — concise evidence по production release `20260607T225457Z-819b5815`
 - Planning evidence — см. [[QA_Фиксы#Волна 3 (2026-06-06)]], [[QA_Фиксы#Волна 4 (2026-06-07)]], [[QA_Фиксы#Волна 5 (2026-06-07)]] и [[QA_Фиксы#Волна 6 (2026-06-07)]]
-- Release context — текущая поставка 2026-06-08: `newDis`; production frontend commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b`; latest Android UX commit `16a8be832d7c7fbaacf03325325da63db357d450`; frontend `/finance/COMMIT` 200 и byte-hash parity с local `apps/web-pwa/dist`; backend health 200 с accepted backend redeploy waiver; Android unit gate `61 tests`, 0 failures/errors/skipped; `:app:compileDebugKotlin` BUILD SUCCESSFUL; debug APK SHA256 `B0CC0C8D66196CA2503759F2CA4FC07E5700AD6E7DB4B64A229DBEC9D3F3F42A`
+- Release context — текущая поставка 2026-06-08: `newDis`; production frontend commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b`; latest Android fix commit `f5afcda40e12b881ccc31a6b32221b24327cdbd8`; frontend `/finance/COMMIT` 200 и byte-hash parity с local `apps/web-pwa/dist`; backend health 200 с accepted backend redeploy waiver; Android unit gate `61 tests`, 0 failures/errors/skipped; `:app:compileDebugKotlin` PASS; `assembleDebug` PASS; debug APK SHA256 `4A3C32727C69427A714E82C45CF77A2666D2C52A4792B909B3153F763DB34A7B`
 - Release context — текущая поставка 2026-06-07: Planning iteration MVP; project commit `819b5815fed8c81bfa6a6e6131e790429454c2e8`; release `20260607T225457Z-819b5815`; backend `/opt/finance/releases/20260607T225457Z-819b5815`; web `/var/www/finance/releases/20260607T225457Z-819b5815`; Alembic `20260607_0013 (head)`; backend `243 passed, 9 warnings`; Android unit/assemble PASS; health/static checks OK
 
 ## Схемы

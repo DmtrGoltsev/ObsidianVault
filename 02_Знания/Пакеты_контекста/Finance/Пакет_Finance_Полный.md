@@ -71,12 +71,13 @@ id: "context-package-finance-full"
 | Code branch | `newDis` |
 | Production frontend commit | `6ce31f53f6150050b4cb0dad8488254bd04ff31b` |
 | Android APK fix commit | `1581a6fc464521f7d2503ac4bbdcb6c918f8fbd3` (`fix(android): use production API base for APK`), branch `newDis`, remote parity OK |
-| Latest Android UX fix commit | `16a8be832d7c7fbaacf03325325da63db357d450` (`fix(android): refine asset category interactions`), branch `newDis`, remote parity OK |
+| Previous Android UX fix commit | `16a8be832d7c7fbaacf03325325da63db357d450` (`fix(android): refine asset category interactions`), branch `newDis`, remote parity OK |
+| Latest Android fix commit | `f5afcda40e12b881ccc31a6b32221b24327cdbd8` (`fix(android): complete legacy asset edit and IME handling`), branch `newDis`, remote parity OK |
 | Current release scope | UX simplification release; production frontend byte parity; backend redeploy waiver because final HEAD has no backend/db/api delta |
 | Backend/API | `/finance-api/health` 200 `{status:ok}`; exact commit endpoint absent; route surface matches post-808/newDis |
 | PWA/frontend | `/finance/COMMIT` 200 -> `6ce31f53f6150050b4cb0dad8488254bd04ff31b`; `/finance/`, `/finance/sw.js`, manifest, JS/CSS byte-hash equal local `apps/web-pwa/dist` |
-| QA | Android UX unit gate: 61 tests, 0 failures/errors/skipped; `:app:compileDebugKotlin` BUILD SUCCESSFUL; P0/P1 clean after P1 fix; Android lint historical: 0 errors, 6 warnings; PWA/backend/OpenAPI reports are historical unless stated otherwise |
-| Android APK final | `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-newd-0.1.0-debug.apk`; size `54,235,660`; SHA256 `B0CC0C8D66196CA2503759F2CA4FC07E5700AD6E7DB4B64A229DBEC9D3F3F42A`; debug-signed; content verification keeps `http://45.10.110.42/finance-api` and no dev URLs |
+| QA | Android final gate: 61 tests, 0 failures/errors/skipped; `:app:compileDebugKotlin` PASS; `assembleDebug` PASS; final review P0/P1 clean; Android lint historical: 0 errors, 6 warnings; PWA/backend/OpenAPI reports are historical unless stated otherwise |
+| Android APK final | `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-newd-0.1.0-debug.apk`; size `54,235,660`; SHA256 `4A3C32727C69427A714E82C45CF77A2666D2C52A4792B909B3153F763DB34A7B`; debug-signed; production API base found x2; dev URLs absent |
 | Release evidence | [[Док_Release_NewDis_20260608]] |
 
 ## Стек (кратко)
@@ -85,19 +86,22 @@ Python 3.12 / FastAPI / PostgreSQL 16 / React 19 + Vite 7 PWA / Kotlin Jetpack C
 
 ## Стадия
 
-Production MVP functional GO (2026-05-19). Текущая поставка 2026-06-08 — `newDis` UX simplification + Android asset category UX fixes — закрыта с production frontend byte parity, backend redeploy waiver и Android-only addendum `16a8be832d7c7fbaacf03325325da63db357d450`; подробности в [[Док_Release_NewDis_20260608]].
+Production MVP functional GO (2026-05-19). Текущая поставка 2026-06-08 — `newDis` UX simplification + Android final legacy asset edit/IME correction — закрыта с production frontend byte parity, backend redeploy waiver и Android-only addendum `f5afcda40e12b881ccc31a6b32221b24327cdbd8`; подробности в [[Док_Release_NewDis_20260608]].
 
 ## Release newDis (текущий контекст)
 
 - Project commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b` (`feat(finance): simplify newDis UX flows`), branch `newDis`, `HEAD = origin/newDis`.
 - Android APK prod-path fix commit `1581a6fc464521f7d2503ac4bbdcb6c918f8fbd3` (`fix(android): use production API base for APK`) pushed on branch `newDis`; `/finance/COMMIT` remains web context `6ce31f53f6150050b4cb0dad8488254bd04ff31b`.
-- Android UX fix commit `16a8be832d7c7fbaacf03325325da63db357d450` (`fix(android): refine asset category interactions`) pushed on branch `newDis`; changed only `ApiClient.kt` and `FinanceApp.kt`.
+- Android UX fix commit `16a8be832d7c7fbaacf03325325da63db357d450` (`fix(android): refine asset category interactions`) pushed on branch `newDis`; changed only `ApiClient.kt` and `FinanceApp.kt`; superseded by final correction APK.
+- Android final correction commit `f5afcda40e12b881ccc31a6b32221b24327cdbd8` (`fix(android): complete legacy asset edit and IME handling`) pushed on branch `newDis`; changed `AndroidManifest.xml`, `ApiClient.kt`, `FinanceApp.kt`.
 - Production frontend: `/finance/COMMIT` возвращает commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b`; `/finance/`, `/finance/sw.js`, manifest и JS/CSS assets byte-hash equal local `apps/web-pwa/dist`.
 - Backend health: `/finance-api/health` 200 `{status:ok}`; exact commit endpoint отсутствует, принят waiver, потому что final HEAD не содержит backend/db/api delta.
 - Android UX fixes: custom Saver for `AddAccountState?`, explicit category edit icon and investment checkbox, keyboard-safe AddAccountSheet, safe trash+confirmation archive flow, non-empty category archive block, long-press drag reorder with local `SharedPreferences` persistence.
-- Android QA: latest unit gate `61 tests`, 0 failures/errors/skipped; `:app:compileDebugKotlin` BUILD SUCCESSFUL; P0/P1 clean after P1 fix; lint historical `0 errors`, 6 warnings.
-- APK: `finance-mvp-newd-0.1.0-debug.apk`, size `54,235,660`, SHA256 `B0CC0C8D66196CA2503759F2CA4FC07E5700AD6E7DB4B64A229DBEC9D3F3F42A`, `applicationId=com.finance.mvp`, `versionName=0.1.0`, `minSdk=26`, `targetSdk=34`; content verification contains `http://45.10.110.42/finance-api` and no dev URLs.
-- Limits: full PWA install/service worker proof requires HTTPS/domain; authenticated production login/OCR smoke and retention/privacy evidence остаются отдельными gates; actual recents/keyboard/drag/confirmation dialogs need device or emulator manual QA; APK debug-signed.
+- Android final correction: legacy group like `Вклад` can show `Инвестиция` checkbox; checkbox off keeps rename-only, checkbox on converts to `isInvestment=true` real asset category and links active legacy accounts; empty/mixed-currency/overview/no writable scope blocked; rollback archives created category after link failure.
+- Android IME final correction: `adjustResize`, `skipPartiallyExpanded`, `imePadding`, `navigationBarsPadding`, repeated `BringIntoView`, larger spacer; Material3 `windowInsets` fallback.
+- Android QA: latest unit gate `61 tests`, 0 failures/errors/skipped; `:app:compileDebugKotlin` PASS; `assembleDebug` PASS; final review P0/P1 clean; lint historical `0 errors`, 6 warnings.
+- APK: `finance-mvp-newd-0.1.0-debug.apk`, size `54,235,660`, SHA256 `4A3C32727C69427A714E82C45CF77A2666D2C52A4792B909B3153F763DB34A7B`, `applicationId=com.finance.mvp`, `versionName=0.1.0`, `minSdk=26`, `targetSdk=34`; production API base found x2, dev URLs absent.
+- Limits: full PWA install/service worker proof requires HTTPS/domain; authenticated production login/OCR smoke and retention/privacy evidence остаются отдельными gates; actual recents/keyboard/drag/confirmation dialogs plus visual IME and live legacy migration need device or emulator manual QA; APK debug-signed.
 
 ## Release Planning iteration MVP (текущий контекст)
 

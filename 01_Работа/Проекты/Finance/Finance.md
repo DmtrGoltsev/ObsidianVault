@@ -170,6 +170,18 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 - **APK:** `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-newd-0.1.0-debug.apk`, size `54,235,660`, SHA256 `B0CC0C8D66196CA2503759F2CA4FC07E5700AD6E7DB4B64A229DBEC9D3F3F42A`; content verification keeps `http://45.10.110.42/finance-api` and no dev URLs.
 - **Ограничения:** actual recents/overview, keyboard, drag gestures and confirmation dialogs still need emulator/device manual QA; no visual gesture proof was available.
 
+### Android final legacy asset edit + IME correction (2026-06-08)
+
+- **Статус:** финальные два user misses закрыты Android-only commit/push; branch `newDis`, remote parity OK.
+- **Project commit:** `f5afcda40e12b881ccc31a6b32221b24327cdbd8` (`fix(android): complete legacy asset edit and IME handling`).
+- **Changed files:** `apps/android/app/src/main/AndroidManifest.xml`, `apps/android/app/src/main/java/com/finance/mvp/api/ApiClient.kt`, `apps/android/app/src/main/java/com/finance/mvp/ui/FinanceApp.kt`.
+- **Legacy old asset group edit:** старая группа вроде `Вклад` получила checkbox `Инвестиция` в legacy edit dialog. Если checkbox off — сохраняется старое rename-only поведение. Если on — legacy group конвертируется в реальную asset category с `isInvestment=true` и связывает active legacy accounts.
+- **Safety guards:** конвертация блокирует empty group, mixed-currency group, overview/no writable scope; rollback на link failure использует updated account versions и архивирует созданную категорию.
+- **Account creation IME:** `MainActivity` использует `adjustResize`; `AddAccountSheet` усилен через `skipPartiallyExpanded`, `imePadding`, `navigationBarsPadding`, repeated `BringIntoView` и larger spacer. Material3 `windowInsets` unavailable, использован совместимый fallback.
+- **QA:** final review P0/P1 clean; `:app:testDebugUnitTest` PASS, 61 tests, 0 failures/errors/skipped; `:app:compileDebugKotlin` PASS; `assembleDebug` PASS.
+- **APK:** `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-newd-0.1.0-debug.apk`, size `54,235,660`, SHA256 `4A3C32727C69427A714E82C45CF77A2666D2C52A4792B909B3153F763DB34A7B`; production API base found x2, dev URLs absent.
+- **Ограничения:** manual QA на device/emulator всё ещё нужна для visual IME и live migration legacy group.
+
 ### Открытые баги (P1)
 
 - BUG-006: AddAccountSheet всегда создаёт shared-счёт
@@ -180,7 +192,7 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 
 ## Ветки
 
-- `newDis` — текущая UX simplification release branch; production frontend commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b`; latest Android UX fix commit `16a8be832d7c7fbaacf03325325da63db357d450`
+- `newDis` — текущая UX simplification release branch; production frontend commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b`; latest Android fix commit `f5afcda40e12b881ccc31a6b32221b24327cdbd8`
 - `codex/finance-planning-mvp-gpt5` — кодовая ветка Planning MVP / production release `819b5815`
 - `fix/aggregate-parser-multiline-labels` — базовая ветка UI overhaul + bug fixes
 - `main` — стабильная

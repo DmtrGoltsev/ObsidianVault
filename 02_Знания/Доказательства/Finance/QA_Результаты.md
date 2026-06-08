@@ -475,3 +475,45 @@ id: "qa-results-finance"
 | Keyboard behavior on real device | OPEN: no visual IME proof available |
 | Long-press drag gesture | OPEN: no emulator/device gesture proof available |
 | Confirmation dialogs | OPEN: manual QA still recommended |
+
+## Волна 10: Android final legacy asset edit + IME correction (2026-06-08)
+
+**Метод:** final review, Android unit gate, Kotlin compile gate, debug APK build, APK content verification. Без raw logs, raw screenshots, secrets и raw financial payload.
+
+**Scope:** финальная коррекция двух user misses после `newDis` Android UX fixes: legacy old asset group edit/conversion и account creation IME handling. Изменены `AndroidManifest.xml`, `ApiClient.kt`, `FinanceApp.kt`.
+
+### Сводка
+
+| Проверка | Результат |
+|----------|-----------|
+| Project branch | `newDis` |
+| Project commit | `f5afcda40e12b881ccc31a6b32221b24327cdbd8` (`fix(android): complete legacy asset edit and IME handling`) |
+| Remote parity | OK |
+| Review result | P0/P1 clean |
+| Unit gate | `:app:testDebugUnitTest` PASS; 61 tests, 0 failures/errors/skipped |
+| Kotlin compile | `:app:compileDebugKotlin` PASS |
+| APK build | `assembleDebug` PASS |
+| APK | `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-newd-0.1.0-debug.apk` |
+| APK size | `54,235,660` |
+| APK SHA256 | `4A3C32727C69427A714E82C45CF77A2666D2C52A4792B909B3153F763DB34A7B` |
+| Superseded APK SHA256 | `B0CC0C8D66196CA2503759F2CA4FC07E5700AD6E7DB4B64A229DBEC9D3F3F42A` |
+| APK content verification | Production API base found x2; dev URLs absent |
+
+### UX fixes
+
+| Область | Результат |
+|---------|-----------|
+| Legacy asset edit | Legacy old asset group like `Вклад` now has `Инвестиция` checkbox in legacy edit dialog |
+| Rename-only compatibility | Checkbox off keeps old rename-only behavior |
+| Legacy investment conversion | Checkbox on converts legacy group to real asset category with `isInvestment=true` and links active legacy accounts |
+| Conversion safety | Empty group, mixed-currency group and overview/no writable scope are blocked |
+| Rollback safety | Link failure rollback uses updated account versions and archives created category |
+| Account creation IME | `adjustResize`, `skipPartiallyExpanded`, `imePadding`, `navigationBarsPadding`, repeated `BringIntoView`, larger spacer |
+| Material3 compatibility | `windowInsets` unavailable; compatible fallback used |
+
+### Остаточные риски
+
+| Риск | Статус |
+|------|--------|
+| Visual IME behavior | OPEN: device/emulator manual proof still required |
+| Live legacy migration | OPEN: device/emulator manual proof with real legacy group data still required |

@@ -105,6 +105,7 @@ id: "qa-fixes-finance"
 | `6ce31f5` | feat(finance): simplify newDis UX flows |
 | `1581a6f` | fix(android): use production API base for APK |
 | `16a8be8` | fix(android): refine asset category interactions |
+| `f5afcda` | fix(android): complete legacy asset edit and IME handling |
 
 ## Волна 6 (2026-06-07)
 
@@ -147,3 +148,18 @@ id: "qa-fixes-finance"
 | ASSET-CATEGORY-REORDER | Long-press drag reorder for asset categories with local `SharedPreferences` persistence | Android asset categories | 2026-06-08 | Да с ограничением (code/build evidence; drag gesture manual QA recommended) |
 | ANDROID-UX-QA-GATE | Review P0/P1 clean after P1 fix; unit and Kotlin gates green | Android QA | 2026-06-08 | Да |
 | ANDROID-UX-APK | APK `finance-mvp-newd-0.1.0-debug.apk`, size `54,235,660`, SHA256 `B0CC0C8D66196CA2503759F2CA4FC07E5700AD6E7DB4B64A229DBEC9D3F3F42A`; contains `http://45.10.110.42/finance-api`; no dev/local URLs found | Android delivery | 2026-06-08 | Да с ограничением (debug-signed) |
+
+## Волна 9 (2026-06-08)
+
+Финальный статус: два user misses закрыты Android-only commit `f5afcda40e12b881ccc31a6b32221b24327cdbd8` (`fix(android): complete legacy asset edit and IME handling`); branch `newDis`, remote parity OK. Изменены только `apps/android/app/src/main/AndroidManifest.xml`, `apps/android/app/src/main/java/com/finance/mvp/api/ApiClient.kt` и `apps/android/app/src/main/java/com/finance/mvp/ui/FinanceApp.kt`. Evidence: [[Док_Release_NewDis_20260608]].
+
+| ID | Описание | Область | Дата | Верифицирован |
+|----|----------|---------|------|---------------|
+| LEGACY-ASSET-INVESTMENT-CHECKBOX | Legacy old asset group like `Вклад` получил checkbox `Инвестиция` в legacy edit dialog | Android asset categories | 2026-06-08 | Да (`:app:testDebugUnitTest`, `:app:compileDebugKotlin`, final review P0/P1 clean) |
+| LEGACY-ASSET-RENAME-COMPAT | Checkbox off сохраняет old rename-only behavior | Android asset categories | 2026-06-08 | Да (`:app:testDebugUnitTest`) |
+| LEGACY-ASSET-CONVERT | Checkbox on конвертирует legacy group в real asset category с `isInvestment=true` и links active legacy accounts | Android asset categories + API client | 2026-06-08 | Да с ограничением (unit/Kotlin/build pass; live migration manual QA recommended) |
+| LEGACY-ASSET-CONVERT-GUARDS | Блокируются empty group, mixed-currency group, overview/no writable scope | Android asset categories | 2026-06-08 | Да (`:app:testDebugUnitTest`, final review P0/P1 clean) |
+| LEGACY-ASSET-ROLLBACK | Rollback на link failure использует updated account versions и archives created category | Android asset categories + API client | 2026-06-08 | Да (`:app:testDebugUnitTest`, final review P0/P1 clean) |
+| ADD-ACCOUNT-IME-FINAL | `MainActivity` `adjustResize`; `AddAccountSheet` `skipPartiallyExpanded`, `imePadding`, `navigationBarsPadding`, repeated `BringIntoView`, larger spacer; Material3 `windowInsets` fallback | Android account creation | 2026-06-08 | Да с ограничением (unit/Kotlin/build pass; visual IME manual QA recommended) |
+| ANDROID-FINAL-QA-GATE | Review P0/P1 clean; `:app:testDebugUnitTest` PASS, 61 tests, 0 failures/errors/skipped; `:app:compileDebugKotlin` PASS; `assembleDebug` PASS | Android QA | 2026-06-08 | Да |
+| ANDROID-FINAL-APK | APK `finance-mvp-newd-0.1.0-debug.apk`, size `54,235,660`, SHA256 `4A3C32727C69427A714E82C45CF77A2666D2C52A4792B909B3153F763DB34A7B`; production API base found x2; dev URLs absent | Android delivery | 2026-06-08 | Да с ограничением (debug-signed) |
