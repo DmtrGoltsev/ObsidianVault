@@ -8,6 +8,7 @@ id: "qa-fixes-finance"
 ссылки:
   - "[[Finance]]"
   - "[[QA_Результаты]]"
+  - "[[Док_Release_NewDis_20260608]]"
 ---
 
 # QA Фиксы — Finance MVP Android
@@ -101,6 +102,7 @@ id: "qa-fixes-finance"
 | `5bb7ab4` | fix(planning): support asset allocation targets |
 | `be9f8ab` | asset categories + Analytics/Planning polish production release |
 | `819b5815` | Release planning iteration MVP |
+| `6ce31f5` | feat(finance): simplify newDis UX flows |
 
 ## Волна 6 (2026-06-07)
 
@@ -115,3 +117,16 @@ id: "qa-fixes-finance"
 | PLANNING-QA-GATE | OpenAPI parse OK; operationId duplicates `0/58`; backend `243 passed, 9 warnings`; Android unit PASS; Android assembleDebug PASS | QA gate | 2026-06-07 | Да |
 | PLANNING-ACCEPTANCE-CLARIFICATION | Planning progress зафиксирован как allocation-level поля `PlanningAllocationDto.actualAmount`/`varianceAmount`/`status`/`attentionReason`; `previousMonthSurplus` в `PlanningSummaryDto` | Product/API contract | 2026-06-07 | Да |
 | ANDROID-APK-DEBUG | APK `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-0.1.0-debug.apk`, size `54,235,660`, SHA256 `E1ACA5858CDD8B31C995BB669791955C3B57079978BE794731E63B82FBB956D4`; debug-signed | Android delivery | 2026-06-07 | Да с ограничением |
+
+## Волна 7 (2026-06-08)
+
+Финальный статус: `newDis` UX simplification закрыт по sanitized release closure. Project commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b` (`feat(finance): simplify newDis UX flows`); branch `newDis`, `HEAD = origin/newDis`. Commit не меняет `apps/backend`, `db`, `api`; backend redeploy waiver принят. Evidence: [[Док_Release_NewDis_20260608]].
+
+| ID | Описание | Область | Дата | Верифицирован |
+|----|----------|---------|------|---------------|
+| NEWDIS-RELEASE-COMMIT | Release commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b`; branch `newDis`; `HEAD = origin/newDis` | Git/release | 2026-06-08 | Да |
+| NEWDIS-PWA-PARITY | `/finance/COMMIT` 200 совпадает с local `apps/web-pwa/dist/COMMIT`; `/finance/`, `/finance/sw.js`, manifest, JS/CSS byte-hash equal local dist | Production frontend | 2026-06-08 | Да |
+| NEWDIS-BACKEND-WAIVER | `/finance-api/health` 200 `{status:ok}`; exact commit endpoints return 404; waiver accepted because no backend/db/api delta | Production backend | 2026-06-08 | Да с ограничением |
+| NEWDIS-ANDROID-UNIT | Android unit XML: 9 files, 60 tests, 0 failures, 0 errors, 0 skipped | Android QA | 2026-06-08 | Да |
+| NEWDIS-ANDROID-LINT | Android lint: 0 errors, 6 warnings | Android QA | 2026-06-08 | Да с warnings |
+| NEWDIS-APK-DEBUG | APK `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-newd-0.1.0-debug.apk`, size `54,235,660`, SHA256 `D1DDE146BB0576D438B173E3910AAADDFFDA1382CDBF5C27BDD1C6E75DC0391D`; debug-signed | Android delivery | 2026-06-08 | Да с ограничением |

@@ -16,6 +16,7 @@ id: "project-finance"
 ссылки:
   - "[[MOC_Finance]]"
   - "[[MOC_Все_Проекты]]"
+  - "[[Док_Release_NewDis_20260608]]"
 ---
 
 # Finance — ручной учёт личных и семейных финансов
@@ -143,6 +144,18 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 - **Ограничения:** authenticated QA login/OCR smoke не запускался из-за отсутствия operator password/session token; выполнены только health/static deploy checks; debug APK не release-signed.
 - **Evidence:** [[Док_Release_Planning_MVP_20260607]].
 
+### Release newDis UX simplification (2026-06-08)
+
+- **Статус релиза:** `newDis` закрыт по sanitized release closure с ограничениями; project branch `newDis` синхронизирован с `origin/newDis`.
+- **Project commit:** `6ce31f53f6150050b4cb0dad8488254bd04ff31b` (`feat(finance): simplify newDis UX flows`).
+- **Scope:** UI/test changes; `apps/backend`, `db`, `api` не менялись, поэтому backend redeploy waiver принят.
+- **Production frontend:** `/finance/COMMIT` -> HTTP `200`, body `6ce31f53f6150050b4cb0dad8488254bd04ff31b`; `/finance/`, `/finance/sw.js`, manifest, JS/CSS assets byte-hash equal local `apps/web-pwa/dist`.
+- **Production backend:** `/finance-api/health` -> HTTP `200`, body `{status:ok}`; exact commit endpoints отсутствуют (`404`), route surface matches post-808/newDis.
+- **QA:** Android unit XML — 9 files, 60 tests, 0 failures, 0 errors, 0 skipped; Android lint — 0 errors, 6 warnings.
+- **APK:** `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-newd-0.1.0-debug.apk`, size `54,235,660`, SHA256 `D1DDE146BB0576D438B173E3910AAADDFFDA1382CDBF5C27BDD1C6E75DC0391D`, `applicationId=com.finance.mvp`, `versionName=0.1.0`, debug-signed.
+- **Ограничения:** full PWA install/service worker proof требует HTTPS/domain; authenticated production login/OCR smoke и retention/privacy evidence остаются отдельными gates; historical PWA/backend/OpenAPI reports не считаются direct `6ce31f5` closure.
+- **Evidence:** [[Док_Release_NewDis_20260608]].
+
 ### Открытые баги (P1)
 
 - BUG-006: AddAccountSheet всегда создаёт shared-счёт
@@ -153,6 +166,7 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 
 ## Ветки
 
+- `newDis` — текущая UX simplification release branch / production frontend commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b`
 - `codex/finance-planning-mvp-gpt5` — кодовая ветка Planning MVP / production release `819b5815`
 - `fix/aggregate-parser-multiline-labels` — базовая ветка UI overhaul + bug fixes
 - `main` — стабильная

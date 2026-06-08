@@ -27,6 +27,7 @@ id: "finance-design-synthesis-newdis-20260608"
   - "[[MOC_Finance]]"
   - "[[Пакет_Finance_Полный]]"
   - "[[Карта_Пользовательских_Путей_Finance]]"
+  - "[[Док_Release_NewDis_20260608]]"
 ---
 
 # Единый документ критики и дизайн-план NewDis
@@ -35,7 +36,13 @@ id: "finance-design-synthesis-newdis-20260608"
 
 Этот документ сводит 6 независимых дизайн-критик Finance в один исполнимый план для ветки `newDis`. Он не заменяет исходные критики: он фиксирует кворум, приоритеты, границы первой итерации и доказательства, которые должны быть принесены после реализации.
 
-Контекст релиза: актуальная поставка `20260607T225457Z-819b5815`, project commit `819b5815fed8c81bfa6a6e6131e790429454c2e8`. Planning iteration MVP подтвержден production release, но authenticated login/OCR smoke не запускался, Android APK debug-signed, public/security GO остаются отдельными gates.
+Контекст релиза: `newDis` closure закрыт по commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b` (`feat(finance): simplify newDis UX flows`); production frontend подтвержден через `/finance/COMMIT` и byte-hash parity с local `apps/web-pwa/dist`, backend redeploy waiver принят из-за отсутствия backend/db/api delta. Предыдущая поставка `20260607T225457Z-819b5815` остается базовым Planning MVP context. Authenticated login/OCR smoke не запускался, Android APK debug-signed, public/security GO остаются отдельными gates.
+
+## Post-release closure
+
+- Evidence: [[Док_Release_NewDis_20260608]].
+- `newDis` закрыт с ограничениями: full PWA install/service worker proof требует HTTPS/domain; backend exact commit endpoint отсутствует; authenticated production login/OCR smoke и retention/privacy evidence остаются отдельными gates.
+- Historical PWA/backend/OpenAPI reports и старые Android prod rerun PASS не считать прямым green evidence для `6ce31f5`.
 
 ## Правило кворума
 

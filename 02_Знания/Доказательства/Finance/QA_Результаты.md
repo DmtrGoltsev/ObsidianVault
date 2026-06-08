@@ -8,6 +8,7 @@ id: "qa-results-finance"
 ссылки:
   - "[[Finance]]"
   - "[[QA_Фиксы]]"
+  - "[[Док_Release_NewDis_20260608]]"
 ---
 
 # QA Результаты — Finance MVP Android
@@ -372,3 +373,35 @@ id: "qa-results-finance"
 | Authenticated QA login/OCR smoke | `NOT_RUN` — нет operator password/session token |
 | Production runtime checks | только health/static deploy checks |
 | APK signing | debug-signed, не release-signed |
+
+## Волна 7: newDis UX simplification release closure (2026-06-08)
+
+**Метод:** sanitized release handoff, production frontend byte parity, backend health/route-surface waiver, Android unit XML/lint evidence.
+
+**Scope:** release `newDis`, commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b` (`feat(finance): simplify newDis UX flows`). Commit меняет UI/test files; `apps/backend`, `db`, `api` не менялись.
+
+### Сводка
+
+| Проверка | Результат |
+|----------|-----------|
+| Project branch | `newDis`, `HEAD = origin/newDis` |
+| Project commit | `6ce31f53f6150050b4cb0dad8488254bd04ff31b` |
+| Production frontend commit | `/finance/COMMIT` -> HTTP `200`, body `6ce31f53f6150050b4cb0dad8488254bd04ff31b` |
+| Frontend static parity | `/finance/`, `/finance/sw.js`, manifest, JS/CSS byte-hash equal local `apps/web-pwa/dist` |
+| Backend health | `/finance-api/health` -> HTTP `200`, body `{status:ok}` |
+| Backend exact commit | Not directly proven: `/finance-api/COMMIT`, `/commit`, `/version` return `404`; waiver accepted |
+| Android unit XML | 9 files, 60 tests, 0 failures, 0 errors, 0 skipped |
+| Android lint | 0 errors, 6 warnings |
+| APK | `finance-mvp-newd-0.1.0-debug.apk`, size `54,235,660`, SHA256 `D1DDE146BB0576D438B173E3910AAADDFFDA1382CDBF5C27BDD1C6E75DC0391D` |
+| Evidence note | [[Док_Release_NewDis_20260608]] |
+
+### Ограничения
+
+| Риск | Статус |
+|------|--------|
+| Full PWA install/service worker proof | OPEN — HTTP IP limits; нужен HTTPS/domain |
+| Authenticated production login/OCR smoke | OPEN — не закрыто этой поставкой |
+| Retention/privacy evidence | OPEN — не закрыто этой поставкой |
+| APK signing | debug-signed, не release-signed |
+| Historical reports | PWA Vitest, backend pytest `152 passed, 4 warnings`, OpenAPI redocly PASS и Android prod rerun старых commits — historical context only |
+| Connected instrumentation stale failing XML | Не используется как green evidence |

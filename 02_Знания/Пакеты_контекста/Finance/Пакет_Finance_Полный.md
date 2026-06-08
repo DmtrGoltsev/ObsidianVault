@@ -19,6 +19,7 @@ id: "context-package-finance-full"
   - "[[Кворум_Finance]]"
   - "[[QA_Результаты]]"
   - "[[QA_Фиксы]]"
+  - "[[Док_Release_NewDis_20260608]]"
   - "[[Док_Release_Planning_MVP_20260607]]"
   - "[[Карта_Пользовательских_Путей_Finance]]"
   - "[[Единый_Документ_Критики_И_План_NewDis]]"
@@ -37,6 +38,7 @@ id: "context-package-finance-full"
 - [[MOC_Finance]] — MOC-карта проекта
 - [[Карта_Пользовательских_Путей_Finance]] — UX journey map для дизайнеров
 - [[Единый_Документ_Критики_И_План_NewDis]] — кворум-синтез дизайн-критики и план для `newDis`
+- [[Док_Release_NewDis_20260608]] — sanitized closure/evidence для release `newDis`
 
 ## Источники
 
@@ -62,20 +64,18 @@ id: "context-package-finance-full"
 
 - [[Кворум_Finance]] — кворум-саммари с высокой уверенностью
 
-## Release context (2026-06-07)
+## Release context (2026-06-08)
 
 | Область | Статус |
 |---------|--------|
-| KB branch | `codex/finance-kb-planning-mvp-gpt5` |
-| KB previous commit | `b7729f9` |
-| Code branch | `codex/finance-planning-mvp-gpt5` |
-| Project commit | `819b5815fed8c81bfa6a6e6131e790429454c2e8` |
-| Current release scope | Planning iteration MVP production release; allocation-level progress clarification; web + backend current release sync |
-| Backend/API | Alembic head `20260607_0013 (head)`; production backend current `/opt/finance/releases/20260607T225457Z-819b5815`; prod `COMMIT` -> `819b5815fed8c81bfa6a6e6131e790429454c2e8` |
-| QA | OpenAPI parse OK; operationId duplicates `0/58`; backend `243 passed, 9 warnings`; Android unit PASS; Android assembleDebug PASS; APK SHA256 `E1ACA5858CDD8B31C995BB669791955C3B57079978BE794731E63B82FBB956D4` |
-| Production deploy | SUCCESS: project commit `819b5815fed8c81bfa6a6e6131e790429454c2e8`; release `20260607T225457Z-819b5815`; backend `/opt/finance/releases/20260607T225457Z-819b5815`; web `/var/www/finance/releases/20260607T225457Z-819b5815` |
-| Production evidence | `finance-backend.service` active; `127.0.0.1:8081/health` OK; `/finance-api/health` OK; `/finance/` 200; manifest scope/start_url `/finance/`; `/finance/sw.js` 200; authenticated login/OCR smoke NOT_RUN |
-| Android APK final | `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-0.1.0-debug.apk`; size `54,235,660`; SHA256 `E1ACA5858CDD8B31C995BB669791955C3B57079978BE794731E63B82FBB956D4`; debug-signed |
+| Code branch | `newDis` |
+| Project commit | `6ce31f53f6150050b4cb0dad8488254bd04ff31b` |
+| Current release scope | UX simplification release; production frontend byte parity; backend redeploy waiver because final HEAD has no backend/db/api delta |
+| Backend/API | `/finance-api/health` 200 `{status:ok}`; exact commit endpoint absent; route surface matches post-808/newDis |
+| PWA/frontend | `/finance/COMMIT` 200 -> `6ce31f53f6150050b4cb0dad8488254bd04ff31b`; `/finance/`, `/finance/sw.js`, manifest, JS/CSS byte-hash equal local `apps/web-pwa/dist` |
+| QA | Android unit XML: 9 files, 60 tests, 0 failures/errors/skipped; Android lint: 0 errors, 6 warnings; PWA/backend/OpenAPI reports are historical unless stated otherwise |
+| Android APK final | `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-newd-0.1.0-debug.apk`; size `54,235,660`; SHA256 `D1DDE146BB0576D438B173E3910AAADDFFDA1382CDBF5C27BDD1C6E75DC0391D`; debug-signed |
+| Release evidence | [[Док_Release_NewDis_20260608]] |
 
 ## Стек (кратко)
 
@@ -83,7 +83,16 @@ Python 3.12 / FastAPI / PostgreSQL 16 / React 19 + Vite 7 PWA / Kotlin Jetpack C
 
 ## Стадия
 
-Production MVP functional GO (2026-05-19). Текущая поставка 2026-06-07 — Planning iteration MVP — прошла QA gate и подтверждена в production release `20260607T225457Z-819b5815`.
+Production MVP functional GO (2026-05-19). Текущая поставка 2026-06-08 — `newDis` UX simplification — закрыта по commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b` с production frontend byte parity и backend redeploy waiver; подробности в [[Док_Release_NewDis_20260608]].
+
+## Release newDis (текущий контекст)
+
+- Project commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b` (`feat(finance): simplify newDis UX flows`), branch `newDis`, `HEAD = origin/newDis`.
+- Production frontend: `/finance/COMMIT` возвращает commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b`; `/finance/`, `/finance/sw.js`, manifest и JS/CSS assets byte-hash equal local `apps/web-pwa/dist`.
+- Backend health: `/finance-api/health` 200 `{status:ok}`; exact commit endpoint отсутствует, принят waiver, потому что final HEAD не содержит backend/db/api delta.
+- Android QA: unit XML `60 tests`, 0 failures/errors/skipped; lint `0 errors`, 6 warnings.
+- APK: `finance-mvp-newd-0.1.0-debug.apk`, size `54,235,660`, SHA256 `D1DDE146BB0576D438B173E3910AAADDFFDA1382CDBF5C27BDD1C6E75DC0391D`, `applicationId=com.finance.mvp`, `versionName=0.1.0`, `minSdk=26`, `targetSdk=34`.
+- Limits: full PWA install/service worker proof requires HTTPS/domain; authenticated production login/OCR smoke and retention/privacy evidence остаются отдельными gates; APK debug-signed.
 
 ## Release Planning iteration MVP (текущий контекст)
 
