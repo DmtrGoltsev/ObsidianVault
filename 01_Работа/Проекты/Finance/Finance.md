@@ -148,11 +148,12 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 
 - **Статус релиза:** `newDis` закрыт по sanitized release closure с ограничениями; project branch `newDis` синхронизирован с `origin/newDis`.
 - **Project commit:** `6ce31f53f6150050b4cb0dad8488254bd04ff31b` (`feat(finance): simplify newDis UX flows`).
+- **Android APK fix commit:** `1581a6fc464521f7d2503ac4bbdcb6c918f8fbd3` (`fix(android): use production API base for APK`); `/finance/COMMIT` остается web context `6ce31f53f6150050b4cb0dad8488254bd04ff31b`.
 - **Scope:** UI/test changes; `apps/backend`, `db`, `api` не менялись, поэтому backend redeploy waiver принят.
 - **Production frontend:** `/finance/COMMIT` -> HTTP `200`, body `6ce31f53f6150050b4cb0dad8488254bd04ff31b`; `/finance/`, `/finance/sw.js`, manifest, JS/CSS assets byte-hash equal local `apps/web-pwa/dist`.
 - **Production backend:** `/finance-api/health` -> HTTP `200`, body `{status:ok}`; exact commit endpoints отсутствуют (`404`), route surface matches post-808/newDis.
-- **QA:** Android unit XML — 9 files, 60 tests, 0 failures, 0 errors, 0 skipped; Android lint — 0 errors, 6 warnings.
-- **APK:** `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-newd-0.1.0-debug.apk`, size `54,235,660`, SHA256 `D1DDE146BB0576D438B173E3910AAADDFFDA1382CDBF5C27BDD1C6E75DC0391D`, `applicationId=com.finance.mvp`, `versionName=0.1.0`, debug-signed.
+- **QA:** Android prod-path correction unit XML — 9 files, 61 tests, 0 failures, 0 errors, 0 skipped; Android lint historical — 0 errors, 6 warnings.
+- **APK:** `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-newd-0.1.0-debug.apk`, size `54,235,660`, SHA256 `593F88085D7EC2AE39141CA5AC3317C74A7473C94AE1F24E1CE373DCF11C3F94`, `applicationId=com.finance.mvp`, `versionName=0.1.0`, debug-signed; previous SHA `D1DDE146BB0576D438B173E3910AAADDFFDA1382CDBF5C27BDD1C6E75DC0391D` superseded due to emulator dev base URL.
 - **Ограничения:** full PWA install/service worker proof требует HTTPS/domain; authenticated production login/OCR smoke и retention/privacy evidence остаются отдельными gates; historical PWA/backend/OpenAPI reports не считаются direct `6ce31f5` closure.
 - **Evidence:** [[Док_Release_NewDis_20260608]].
 

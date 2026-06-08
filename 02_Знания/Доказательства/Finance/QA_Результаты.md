@@ -392,7 +392,7 @@ id: "qa-results-finance"
 | Backend exact commit | Not directly proven: `/finance-api/COMMIT`, `/commit`, `/version` return `404`; waiver accepted |
 | Android unit XML | 9 files, 60 tests, 0 failures, 0 errors, 0 skipped |
 | Android lint | 0 errors, 6 warnings |
-| APK | `finance-mvp-newd-0.1.0-debug.apk`, size `54,235,660`, SHA256 `D1DDE146BB0576D438B173E3910AAADDFFDA1382CDBF5C27BDD1C6E75DC0391D` |
+| APK | `finance-mvp-newd-0.1.0-debug.apk`, size `54,235,660`, SHA256 `D1DDE146BB0576D438B173E3910AAADDFFDA1382CDBF5C27BDD1C6E75DC0391D`; superseded by Wave 8 production-path APK |
 | Evidence note | [[Док_Release_NewDis_20260608]] |
 
 ### Ограничения
@@ -405,3 +405,32 @@ id: "qa-results-finance"
 | APK signing | debug-signed, не release-signed |
 | Historical reports | PWA Vitest, backend pytest `152 passed, 4 warnings`, OpenAPI redocly PASS и Android prod rerun старых commits — historical context only |
 | Connected instrumentation stale failing XML | Не используется как green evidence |
+
+## Волна 8: Android APK production API base correction (2026-06-08)
+
+**Метод:** Android rebuild after prod-path fix, unit XML summary, APK string-content verification, production smoke without auth-sensitive payloads.
+
+**Scope:** Android-only fix on branch `newDis`, project commit `1581a6fc464521f7d2503ac4bbdcb6c918f8fbd3` (`fix(android): use production API base for APK`). Project commit/push completed before this KB update; `/finance/COMMIT` remains web context `6ce31f53f6150050b4cb0dad8488254bd04ff31b` and is not a blocker for Android-only commit.
+
+### Сводка
+
+| Проверка | Результат |
+|----------|-----------|
+| Android fix commit | `1581a6fc464521f7d2503ac4bbdcb6c918f8fbd3`, branch `newDis`, remote parity OK |
+| Build/test command | `.\gradlew.bat :app:testDebugUnitTest :app:assembleDebug -PfinanceApiBaseUrl=http://45.10.110.42/finance-api` -> `BUILD SUCCESSFUL` |
+| Unit XML summary | 9 XML files, 61 tests, 0 failures, 0 errors, 0 skipped |
+| APK | `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-newd-0.1.0-debug.apk` |
+| APK size | `54,235,660` |
+| APK SHA256 | `593F88085D7EC2AE39141CA5AC3317C74A7473C94AE1F24E1CE373DCF11C3F94` |
+| Superseded APK SHA256 | `D1DDE146BB0576D438B173E3910AAADDFFDA1382CDBF5C27BDD1C6E75DC0391D` retained `http://10.0.2.2:8000` and missed `/finance-api` |
+| APK content verification | PASS: contains `http://45.10.110.42/finance-api`; does not contain dev/local bases or duplicated `/api/v1` base |
+| Production smoke | PASS: `/finance-api/health` -> HTTP `200` `{status:ok}`; protected current session and accounts endpoints -> HTTP `401` without auth |
+| Known waiver | Plain HTTP remains accepted until HTTPS/domain |
+
+### Ограничения
+
+| Риск | Статус |
+|------|--------|
+| APK signing | debug-signed, не release-signed |
+| HTTPS/domain | OPEN: plain HTTP waiver remains active |
+| Authenticated production login/OCR smoke | OPEN: not covered by this Android prod-path correction |

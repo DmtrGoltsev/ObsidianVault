@@ -70,11 +70,12 @@ id: "context-package-finance-full"
 |---------|--------|
 | Code branch | `newDis` |
 | Project commit | `6ce31f53f6150050b4cb0dad8488254bd04ff31b` |
+| Android APK fix commit | `1581a6fc464521f7d2503ac4bbdcb6c918f8fbd3` (`fix(android): use production API base for APK`), branch `newDis`, remote parity OK |
 | Current release scope | UX simplification release; production frontend byte parity; backend redeploy waiver because final HEAD has no backend/db/api delta |
 | Backend/API | `/finance-api/health` 200 `{status:ok}`; exact commit endpoint absent; route surface matches post-808/newDis |
 | PWA/frontend | `/finance/COMMIT` 200 -> `6ce31f53f6150050b4cb0dad8488254bd04ff31b`; `/finance/`, `/finance/sw.js`, manifest, JS/CSS byte-hash equal local `apps/web-pwa/dist` |
-| QA | Android unit XML: 9 files, 60 tests, 0 failures/errors/skipped; Android lint: 0 errors, 6 warnings; PWA/backend/OpenAPI reports are historical unless stated otherwise |
-| Android APK final | `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-newd-0.1.0-debug.apk`; size `54,235,660`; SHA256 `D1DDE146BB0576D438B173E3910AAADDFFDA1382CDBF5C27BDD1C6E75DC0391D`; debug-signed |
+| QA | Android unit XML after APK prod-path fix: 9 files, 61 tests, 0 failures/errors/skipped; Android lint historical: 0 errors, 6 warnings; PWA/backend/OpenAPI reports are historical unless stated otherwise |
+| Android APK final | `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-newd-0.1.0-debug.apk`; size `54,235,660`; SHA256 `593F88085D7EC2AE39141CA5AC3317C74A7473C94AE1F24E1CE373DCF11C3F94`; debug-signed; supersedes `D1DDE146BB0576D438B173E3910AAADDFFDA1382CDBF5C27BDD1C6E75DC0391D` |
 | Release evidence | [[Док_Release_NewDis_20260608]] |
 
 ## Стек (кратко)
@@ -88,10 +89,11 @@ Production MVP functional GO (2026-05-19). Текущая поставка 2026-
 ## Release newDis (текущий контекст)
 
 - Project commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b` (`feat(finance): simplify newDis UX flows`), branch `newDis`, `HEAD = origin/newDis`.
+- Android APK prod-path fix commit `1581a6fc464521f7d2503ac4bbdcb6c918f8fbd3` (`fix(android): use production API base for APK`) pushed on branch `newDis`; `/finance/COMMIT` remains web context `6ce31f53f6150050b4cb0dad8488254bd04ff31b`.
 - Production frontend: `/finance/COMMIT` возвращает commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b`; `/finance/`, `/finance/sw.js`, manifest и JS/CSS assets byte-hash equal local `apps/web-pwa/dist`.
 - Backend health: `/finance-api/health` 200 `{status:ok}`; exact commit endpoint отсутствует, принят waiver, потому что final HEAD не содержит backend/db/api delta.
-- Android QA: unit XML `60 tests`, 0 failures/errors/skipped; lint `0 errors`, 6 warnings.
-- APK: `finance-mvp-newd-0.1.0-debug.apk`, size `54,235,660`, SHA256 `D1DDE146BB0576D438B173E3910AAADDFFDA1382CDBF5C27BDD1C6E75DC0391D`, `applicationId=com.finance.mvp`, `versionName=0.1.0`, `minSdk=26`, `targetSdk=34`.
+- Android QA: prod-path correction unit XML `61 tests`, 0 failures/errors/skipped; lint historical `0 errors`, 6 warnings.
+- APK: `finance-mvp-newd-0.1.0-debug.apk`, size `54,235,660`, SHA256 `593F88085D7EC2AE39141CA5AC3317C74A7473C94AE1F24E1CE373DCF11C3F94`, `applicationId=com.finance.mvp`, `versionName=0.1.0`, `minSdk=26`, `targetSdk=34`; previous SHA `D1DDE146BB0576D438B173E3910AAADDFFDA1382CDBF5C27BDD1C6E75DC0391D` superseded due to emulator dev base URL.
 - Limits: full PWA install/service worker proof requires HTTPS/domain; authenticated production login/OCR smoke and retention/privacy evidence остаются отдельными gates; APK debug-signed.
 
 ## Release Planning iteration MVP (текущий контекст)

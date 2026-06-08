@@ -27,6 +27,8 @@ id: "finance-release-newdis-20260608"
 
 Release `newDis` закрыт по commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b` (`feat(finance): simplify newDis UX flows`). Production frontend подтвержден как байтово совпадающий с локальным `apps/web-pwa/dist`, Android debug APK собран и проверен по unit/lint evidence, backend redeploy waiver принят.
 
+Аддендум Android APK prod API base: исходный APK этой заметки с SHA256 `D1DDE146BB0576D438B173E3910AAADDFFDA1382CDBF5C27BDD1C6E75DC0391D` superseded, потому что аудит APK нашел `http://10.0.2.2:8000` и не нашел `/finance-api`. Актуальный production-path APK собран после project commit `1581a6fc464521f7d2503ac4bbdcb6c918f8fbd3` (`fix(android): use production API base for APK`) и имеет SHA256 `593F88085D7EC2AE39141CA5AC3317C74A7473C94AE1F24E1CE373DCF11C3F94`.
+
 Эта заметка содержит только sanitized closure: без секретов, сырых логов, скриншотов, session/operator данных и персональных данных.
 
 ## Метод проверки
@@ -36,6 +38,7 @@ Release `newDis` закрыт по commit `6ce31f53f6150050b4cb0dad8488254bd04ff
 - Production frontend: `/finance/COMMIT`, `/finance/`, `/finance/sw.js`, manifest и JS/CSS assets сверены с локальным `apps/web-pwa/dist`.
 - Production backend health: `/finance-api/health` проверен; exact backend commit endpoint отсутствует.
 - Android artifact: APK path, SHA256, size и application metadata сверены.
+- Android APK prod-path correction: rebuild with `-PfinanceApiBaseUrl=http://45.10.110.42/finance-api`, APK string scan and production smoke verified.
 - QA evidence: Android unit XML, Android lint, historical PWA/backend/OpenAPI evidence классифицированы по актуальности.
 
 ## Результат
@@ -49,6 +52,7 @@ Release `newDis` закрыт по commit `6ce31f53f6150050b4cb0dad8488254bd04ff
 | Remote parity | `HEAD = origin/newDis = 6ce31f53f6150050b4cb0dad8488254bd04ff31b` |
 | Backend/API/DB delta | Нет изменений в `apps/backend`, `db`, `api` |
 | Backend redeploy | Waiver принят: exact backend commit напрямую не доказан, но final HEAD не содержит backend/db/api delta |
+| Android APK correction commit | `1581a6fc464521f7d2503ac4bbdcb6c918f8fbd3` (`fix(android): use production API base for APK`), branch `newDis`, remote parity OK |
 
 ## Production frontend evidence
 
@@ -80,14 +84,32 @@ Release `newDis` закрыт по commit `6ce31f53f6150050b4cb0dad8488254bd04ff
 | Route surface | Matches post-808/newDis route surface |
 | Waiver | Backend exact commit not directly proven; runtime route surface matches post-808/newDis and final HEAD has no backend/db/api delta |
 
+## Android APK prod-path correction
+
+| Параметр | Значение |
+|----------|----------|
+| Status | PASS, supersedes previous APK hash `D1DDE146BB0576D438B173E3910AAADDFFDA1382CDBF5C27BDD1C6E75DC0391D` |
+| Project commit | `1581a6fc464521f7d2503ac4bbdcb6c918f8fbd3` |
+| Commit message | `fix(android): use production API base for APK` |
+| Build command | `.\gradlew.bat :app:testDebugUnitTest :app:assembleDebug -PfinanceApiBaseUrl=http://45.10.110.42/finance-api` -> `BUILD SUCCESSFUL` |
+| Unit XML summary | 9 XML files, 61 tests, 0 failures/errors/skipped |
+| APK | `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-newd-0.1.0-debug.apk` |
+| SHA256 | `593F88085D7EC2AE39141CA5AC3317C74A7473C94AE1F24E1CE373DCF11C3F94` |
+| Size | `54,235,660` |
+| Contains | `http://45.10.110.42/finance-api` |
+| Does not contain | `http://10.0.2.2:8000`, `localhost:8000`, `127.0.0.1`, `http://45.10.110.42/api/v1`, `http://45.10.110.42/finance-api/api/v1` as base |
+| Prod smoke | `/finance-api/health` -> HTTP `200` `{status:ok}`; protected `/finance-api/api/v1/sessions/current` and `/accounts` -> HTTP `401` without auth |
+| Web commit context | `/finance/COMMIT` remains `6ce31f53f6150050b4cb0dad8488254bd04ff31b`; not a blocker for Android-only fix |
+| Known waiver | Plain HTTP remains accepted until HTTPS/domain |
+
 ## Android artifact
 
 | Параметр | Значение |
 |----------|----------|
 | APK | `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-newd-0.1.0-debug.apk` |
-| SHA256 | `D1DDE146BB0576D438B173E3910AAADDFFDA1382CDBF5C27BDD1C6E75DC0391D` |
+| SHA256 | `593F88085D7EC2AE39141CA5AC3317C74A7473C94AE1F24E1CE373DCF11C3F94` |
 | Size | `54,235,660` |
-| Local app-debug.apk | Same size and SHA256 |
+| Supersedes | Previous APK SHA256 `D1DDE146BB0576D438B173E3910AAADDFFDA1382CDBF5C27BDD1C6E75DC0391D`, which retained emulator dev base URL |
 | applicationId | `com.finance.mvp` |
 | versionCode | `1` |
 | versionName | `0.1.0` |
@@ -99,7 +121,7 @@ Release `newDis` закрыт по commit `6ce31f53f6150050b4cb0dad8488254bd04ff
 
 | Область | Результат |
 |---------|-----------|
-| Android unit XML | 9 files, 60 tests, 0 failures, 0 errors, 0 skipped |
+| Android unit XML | 9 files, 61 tests, 0 failures, 0 errors, 0 skipped for prod-path correction |
 | Android lint | 0 errors, 6 warnings |
 | PWA Vitest | Historical only: old reports, not direct `6ce31f5` closure |
 | Backend pytest | Historical only: `152 passed, 4 warnings`, not direct `6ce31f5` closure |
