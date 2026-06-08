@@ -29,6 +29,8 @@ Release `newDis` закрыт по commit `6ce31f53f6150050b4cb0dad8488254bd04ff
 
 Аддендум Android APK prod API base: исходный APK этой заметки с SHA256 `D1DDE146BB0576D438B173E3910AAADDFFDA1382CDBF5C27BDD1C6E75DC0391D` superseded, потому что аудит APK нашел `http://10.0.2.2:8000` и не нашел `/finance-api`. Актуальный production-path APK собран после project commit `1581a6fc464521f7d2503ac4bbdcb6c918f8fbd3` (`fix(android): use production API base for APK`) и имеет SHA256 `593F88085D7EC2AE39141CA5AC3317C74A7473C94AE1F24E1CE373DCF11C3F94`.
 
+Аддендум Android UX fixes: после P0/P1-clean review применён project commit `16a8be832d7c7fbaacf03325325da63db357d450` (`fix(android): refine asset category interactions`), branch `newDis`, remote parity OK. Изменения ограничены `apps/android/app/src/main/java/com/finance/mvp/api/ApiClient.kt` и `apps/android/app/src/main/java/com/finance/mvp/ui/FinanceApp.kt`; новый APK supersedes SHA `593F88085D7EC2AE39141CA5AC3317C74A7473C94AE1F24E1CE373DCF11C3F94` и имеет SHA256 `B0CC0C8D66196CA2503759F2CA4FC07E5700AD6E7DB4B64A229DBEC9D3F3F42A`.
+
 Эта заметка содержит только sanitized closure: без секретов, сырых логов, скриншотов, session/operator данных и персональных данных.
 
 ## Метод проверки
@@ -39,6 +41,7 @@ Release `newDis` закрыт по commit `6ce31f53f6150050b4cb0dad8488254bd04ff
 - Production backend health: `/finance-api/health` проверен; exact backend commit endpoint отсутствует.
 - Android artifact: APK path, SHA256, size и application metadata сверены.
 - Android APK prod-path correction: rebuild with `-PfinanceApiBaseUrl=http://45.10.110.42/finance-api`, APK string scan and production smoke verified.
+- Android UX fixes: custom `AddAccountState?` Saver, explicit asset-category edit/delete affordances, keyboard-safe account sheet, safe category archive behavior and local drag reorder persistence verified by code review plus unit/Kotlin gates.
 - QA evidence: Android unit XML, Android lint, historical PWA/backend/OpenAPI evidence классифицированы по актуальности.
 
 ## Результат
@@ -53,6 +56,7 @@ Release `newDis` закрыт по commit `6ce31f53f6150050b4cb0dad8488254bd04ff
 | Backend/API/DB delta | Нет изменений в `apps/backend`, `db`, `api` |
 | Backend redeploy | Waiver принят: exact backend commit напрямую не доказан, но final HEAD не содержит backend/db/api delta |
 | Android APK correction commit | `1581a6fc464521f7d2503ac4bbdcb6c918f8fbd3` (`fix(android): use production API base for APK`), branch `newDis`, remote parity OK |
+| Android UX fix commit | `16a8be832d7c7fbaacf03325325da63db357d450` (`fix(android): refine asset category interactions`), branch `newDis`, remote parity OK |
 
 ## Production frontend evidence
 
@@ -102,14 +106,36 @@ Release `newDis` закрыт по commit `6ce31f53f6150050b4cb0dad8488254bd04ff
 | Web commit context | `/finance/COMMIT` remains `6ce31f53f6150050b4cb0dad8488254bd04ff31b`; not a blocker for Android-only fix |
 | Known waiver | Plain HTTP remains accepted until HTTPS/domain |
 
+## Android UX fixes addendum
+
+| Параметр | Значение |
+|----------|----------|
+| Status | PASS with manual gesture/IME caveats |
+| Project commit | `16a8be832d7c7fbaacf03325325da63db357d450` |
+| Commit message | `fix(android): refine asset category interactions` |
+| Changed files | `apps/android/app/src/main/java/com/finance/mvp/api/ApiClient.kt`; `apps/android/app/src/main/java/com/finance/mvp/ui/FinanceApp.kt` |
+| Recents/overview stability | Probable crash fixed through custom Saver for nullable `AddAccountState?` |
+| Asset category edit | Explicit edit icon; investment checkbox visible and saved through existing update flow |
+| Add account keyboard UX | Sheet uses IME padding, scroll and BringIntoView for focused fields above keyboard |
+| Destructive category action | Bulk archive gesture removed; trash action requires confirmation; non-empty category archive is blocked and asks user to move/delete accounts first; empty category archive calls backend category archive endpoint |
+| Asset category reorder | Long-press drag reorder added with local `SharedPreferences` persistence |
+| Review result | P0/P1 clean after P1 fix |
+| Unit tests | `:app:testDebugUnitTest` -> `BUILD SUCCESSFUL`; 61 tests, 0 failures/errors/skipped |
+| Kotlin compile | `:app:compileDebugKotlin` -> `BUILD SUCCESSFUL` |
+| APK | `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-newd-0.1.0-debug.apk` |
+| SHA256 | `B0CC0C8D66196CA2503759F2CA4FC07E5700AD6E7DB4B64A229DBEC9D3F3F42A` |
+| Size | `54,235,660` |
+| Content verification | Contains `http://45.10.110.42/finance-api`; no dev/local URLs found |
+| Remaining manual QA | Actual recents/overview, keyboard behavior, drag gestures and confirmation dialogs still need device/emulator visual proof |
+
 ## Android artifact
 
 | Параметр | Значение |
 |----------|----------|
 | APK | `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-newd-0.1.0-debug.apk` |
-| SHA256 | `593F88085D7EC2AE39141CA5AC3317C74A7473C94AE1F24E1CE373DCF11C3F94` |
+| SHA256 | `B0CC0C8D66196CA2503759F2CA4FC07E5700AD6E7DB4B64A229DBEC9D3F3F42A` |
 | Size | `54,235,660` |
-| Supersedes | Previous APK SHA256 `D1DDE146BB0576D438B173E3910AAADDFFDA1382CDBF5C27BDD1C6E75DC0391D`, which retained emulator dev base URL |
+| Supersedes | Previous APK SHA256 `593F88085D7EC2AE39141CA5AC3317C74A7473C94AE1F24E1CE373DCF11C3F94` from prod-path correction; that APK already superseded `D1DDE146BB0576D438B173E3910AAADDFFDA1382CDBF5C27BDD1C6E75DC0391D`, which retained emulator dev base URL |
 | applicationId | `com.finance.mvp` |
 | versionCode | `1` |
 | versionName | `0.1.0` |
@@ -122,6 +148,9 @@ Release `newDis` закрыт по commit `6ce31f53f6150050b4cb0dad8488254bd04ff
 | Область | Результат |
 |---------|-----------|
 | Android unit XML | 9 files, 61 tests, 0 failures, 0 errors, 0 skipped for prod-path correction |
+| Android UX unit gate | `:app:testDebugUnitTest` BUILD SUCCESSFUL; 61 tests, 0 failures/errors/skipped |
+| Android Kotlin compile | `:app:compileDebugKotlin` BUILD SUCCESSFUL |
+| Android UX review | P0/P1 clean after P1 fix |
 | Android lint | 0 errors, 6 warnings |
 | PWA Vitest | Historical only: old reports, not direct `6ce31f5` closure |
 | Backend pytest | Historical only: `152 passed, 4 warnings`, not direct `6ce31f5` closure |
@@ -133,6 +162,7 @@ Release `newDis` закрыт по commit `6ce31f53f6150050b4cb0dad8488254bd04ff
 
 - `newDis` closure подтверждает production PWA static deployment and byte parity for commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b`.
 - Backend redeploy не требовался по принятому waiver: final HEAD не менял backend/db/api.
+- Android UX addendum закрывает code-review/unit/Kotlin evidence для asset category interactions, AddAccountSheet keyboard handling and recents Saver; manual device proof остаётся отдельным gate.
 - Planning/OCR/product limitations из [[Карта_Пользовательских_Путей_Finance]] остаются действующими: `Overview` read-only, Planning для `newDis` трактуется Android-first без отдельного PWA Planning proof, OCR copy не должна обещать Android on-device OCR без отдельной реализации и QA evidence.
 
 ## Известные ограничения и риски
@@ -142,3 +172,4 @@ Release `newDis` закрыт по commit `6ce31f53f6150050b4cb0dad8488254bd04ff
 - Authenticated production login/OCR smoke и retention/privacy evidence не закрыты этой поставкой.
 - APK debug-signed, не release-signed.
 - Historical reports не должны подаваться как direct green evidence для commit `6ce31f5`.
+- Actual recents/overview, keyboard, long-press drag reorder and confirmation dialogs require emulator/device manual QA; no visual gesture proof was available for this addendum.

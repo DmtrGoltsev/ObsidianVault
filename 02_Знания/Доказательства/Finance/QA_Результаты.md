@@ -423,6 +423,7 @@ id: "qa-results-finance"
 | APK size | `54,235,660` |
 | APK SHA256 | `593F88085D7EC2AE39141CA5AC3317C74A7473C94AE1F24E1CE373DCF11C3F94` |
 | Superseded APK SHA256 | `D1DDE146BB0576D438B173E3910AAADDFFDA1382CDBF5C27BDD1C6E75DC0391D` retained `http://10.0.2.2:8000` and missed `/finance-api` |
+| Superseded by | Wave 9 Android UX APK SHA256 `B0CC0C8D66196CA2503759F2CA4FC07E5700AD6E7DB4B64A229DBEC9D3F3F42A` |
 | APK content verification | PASS: contains `http://45.10.110.42/finance-api`; does not contain dev/local bases or duplicated `/api/v1` base |
 | Production smoke | PASS: `/finance-api/health` -> HTTP `200` `{status:ok}`; protected current session and accounts endpoints -> HTTP `401` without auth |
 | Known waiver | Plain HTTP remains accepted until HTTPS/domain |
@@ -434,3 +435,43 @@ id: "qa-results-finance"
 | APK signing | debug-signed, не release-signed |
 | HTTPS/domain | OPEN: plain HTTP waiver remains active |
 | Authenticated production login/OCR smoke | OPEN: not covered by this Android prod-path correction |
+
+## Волна 9: Android asset category UX fixes (2026-06-08)
+
+**Метод:** post-review Android fix verification, unit gate, Kotlin compile gate, APK content verification. Без raw logs, raw screenshots, secrets и financial payload.
+
+**Scope:** Android-only fixes after `newDis` UX closure: `apps/android/app/src/main/java/com/finance/mvp/api/ApiClient.kt` и `apps/android/app/src/main/java/com/finance/mvp/ui/FinanceApp.kt`.
+
+### Сводка
+
+| Проверка | Результат |
+|----------|-----------|
+| Project branch | `newDis` |
+| Project commit | `16a8be832d7c7fbaacf03325325da63db357d450` (`fix(android): refine asset category interactions`) |
+| Remote parity | OK |
+| Review result | P0/P1 clean after P1 fix |
+| Unit gate | `:app:testDebugUnitTest` -> `BUILD SUCCESSFUL`; 61 tests, 0 failures/errors/skipped |
+| Kotlin compile | `:app:compileDebugKotlin` -> `BUILD SUCCESSFUL` |
+| APK | `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-newd-0.1.0-debug.apk` |
+| APK size | `54,235,660` |
+| APK SHA256 | `B0CC0C8D66196CA2503759F2CA4FC07E5700AD6E7DB4B64A229DBEC9D3F3F42A` |
+| APK content verification | Contains `http://45.10.110.42/finance-api`; no dev/local URLs found |
+
+### UX fixes
+
+| Область | Результат |
+|---------|-----------|
+| Recents/overview | Probable crash fixed через custom Saver для nullable `AddAccountState?` |
+| Asset category edit | Явная edit icon; investment checkbox виден и сохраняется через existing update flow |
+| AddAccountSheet keyboard | IME padding, scroll и BringIntoView держат focused fields выше клавиатуры |
+| Category archive safety | Bulk archive gesture removed; trash action has confirmation; non-empty category archive blocked with instruction to move/delete accounts first; empty category archive calls backend category archive endpoint |
+| Reorder | Long-press drag reorder for asset categories with local `SharedPreferences` persistence |
+
+### Остаточные риски
+
+| Риск | Статус |
+|------|--------|
+| Recents/overview actual runtime | OPEN: emulator/device manual proof still recommended |
+| Keyboard behavior on real device | OPEN: no visual IME proof available |
+| Long-press drag gesture | OPEN: no emulator/device gesture proof available |
+| Confirmation dialogs | OPEN: manual QA still recommended |

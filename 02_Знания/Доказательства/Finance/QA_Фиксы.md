@@ -103,6 +103,8 @@ id: "qa-fixes-finance"
 | `be9f8ab` | asset categories + Analytics/Planning polish production release |
 | `819b5815` | Release planning iteration MVP |
 | `6ce31f5` | feat(finance): simplify newDis UX flows |
+| `1581a6f` | fix(android): use production API base for APK |
+| `16a8be8` | fix(android): refine asset category interactions |
 
 ## Волна 6 (2026-06-07)
 
@@ -131,3 +133,17 @@ id: "qa-fixes-finance"
 | NEWDIS-ANDROID-LINT | Android lint: 0 errors, 6 warnings | Android QA | 2026-06-08 | Да с warnings |
 | NEWDIS-APK-DEBUG | APK `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-newd-0.1.0-debug.apk`, size `54,235,660`, SHA256 `D1DDE146BB0576D438B173E3910AAADDFFDA1382CDBF5C27BDD1C6E75DC0391D`; debug-signed; superseded by NEWDIS-APK-PROD-BASE | Android delivery | 2026-06-08 | Историческое, superseded |
 | NEWDIS-APK-PROD-BASE | Android APK rebuilt after commit `1581a6fc464521f7d2503ac4bbdcb6c918f8fbd3`; `BUILD SUCCESSFUL`; unit XML 9 files / 61 tests / 0 failures-errors-skipped; APK SHA256 `593F88085D7EC2AE39141CA5AC3317C74A7473C94AE1F24E1CE373DCF11C3F94`; contains `http://45.10.110.42/finance-api`; excludes dev/local bases and duplicated `/api/v1` base | Android delivery | 2026-06-08 | Да с ограничением |
+
+## Волна 8 (2026-06-08)
+
+Финальный статус: Android UX fixes для asset categories и AddAccountSheet закрыты по code-review/unit/Kotlin evidence. Project commit `16a8be832d7c7fbaacf03325325da63db357d450` (`fix(android): refine asset category interactions`); branch `newDis`, remote parity OK. Изменены только `apps/android/app/src/main/java/com/finance/mvp/api/ApiClient.kt` и `apps/android/app/src/main/java/com/finance/mvp/ui/FinanceApp.kt`. Evidence: [[Док_Release_NewDis_20260608]].
+
+| ID | Описание | Область | Дата | Верифицирован |
+|----|----------|---------|------|---------------|
+| ANDROID-RECENTS-SAVER | Probable recents/overview crash fixed через custom Saver для nullable `AddAccountState?` | Android state saving | 2026-06-08 | Да (`:app:testDebugUnitTest` 61 tests, 0 failures/errors/skipped; manual recents proof still recommended) |
+| ASSET-CATEGORY-EDIT-UX | Asset category edit получил явную edit icon; visible investment checkbox сохраняется через existing update flow | Android asset categories | 2026-06-08 | Да (`:app:testDebugUnitTest`, `:app:compileDebugKotlin`) |
+| ADD-ACCOUNT-IME | AddAccountSheet использует IME padding, scroll и BringIntoView для focused fields above keyboard | Android account creation | 2026-06-08 | Да с ограничением (build/unit/Kotlin pass; manual keyboard QA recommended) |
+| ASSET-CATEGORY-ARCHIVE-SAFE | Destructive bulk archive gesture removed; trash confirmation added; non-empty category archive blocked with move/delete accounts instruction; empty category archive calls backend category archive endpoint | Android asset categories + API client | 2026-06-08 | Да (`:app:testDebugUnitTest`, `:app:compileDebugKotlin`; confirmation dialog manual QA recommended) |
+| ASSET-CATEGORY-REORDER | Long-press drag reorder for asset categories with local `SharedPreferences` persistence | Android asset categories | 2026-06-08 | Да с ограничением (code/build evidence; drag gesture manual QA recommended) |
+| ANDROID-UX-QA-GATE | Review P0/P1 clean after P1 fix; unit and Kotlin gates green | Android QA | 2026-06-08 | Да |
+| ANDROID-UX-APK | APK `finance-mvp-newd-0.1.0-debug.apk`, size `54,235,660`, SHA256 `B0CC0C8D66196CA2503759F2CA4FC07E5700AD6E7DB4B64A229DBEC9D3F3F42A`; contains `http://45.10.110.42/finance-api`; no dev/local URLs found | Android delivery | 2026-06-08 | Да с ограничением (debug-signed) |

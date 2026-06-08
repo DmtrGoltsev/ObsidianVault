@@ -157,6 +157,19 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 - **Ограничения:** full PWA install/service worker proof требует HTTPS/domain; authenticated production login/OCR smoke и retention/privacy evidence остаются отдельными gates; historical PWA/backend/OpenAPI reports не считаются direct `6ce31f5` closure.
 - **Evidence:** [[Док_Release_NewDis_20260608]].
 
+### Android asset category UX fixes (2026-06-08)
+
+- **Статус:** Android-only post-release UX fixes закрыты по code-review/unit/Kotlin evidence; branch `newDis`, remote parity OK.
+- **Project commit:** `16a8be832d7c7fbaacf03325325da63db357d450` (`fix(android): refine asset category interactions`).
+- **Changed files:** `apps/android/app/src/main/java/com/finance/mvp/api/ApiClient.kt`, `apps/android/app/src/main/java/com/finance/mvp/ui/FinanceApp.kt`.
+- **Recents/overview:** probable crash fixed через custom Saver для nullable `AddAccountState?`.
+- **Asset categories:** explicit edit icon; visible investment checkbox saved via existing update; destructive bulk archive gesture removed; trash confirmation added; P1 fix blocks archiving non-empty category and asks user to move/delete accounts first; empty category archive calls backend category archive endpoint.
+- **AddAccountSheet:** IME padding, scroll и BringIntoView для focused fields above keyboard.
+- **Reorder:** long-press drag reorder for asset categories with local `SharedPreferences` persistence.
+- **QA:** P0/P1 clean after P1 fix; `:app:testDebugUnitTest` BUILD SUCCESSFUL, 61 tests, 0 failures/errors/skipped; `:app:compileDebugKotlin` BUILD SUCCESSFUL.
+- **APK:** `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-newd-0.1.0-debug.apk`, size `54,235,660`, SHA256 `B0CC0C8D66196CA2503759F2CA4FC07E5700AD6E7DB4B64A229DBEC9D3F3F42A`; content verification keeps `http://45.10.110.42/finance-api` and no dev URLs.
+- **Ограничения:** actual recents/overview, keyboard, drag gestures and confirmation dialogs still need emulator/device manual QA; no visual gesture proof was available.
+
 ### Открытые баги (P1)
 
 - BUG-006: AddAccountSheet всегда создаёт shared-счёт
@@ -167,7 +180,7 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 
 ## Ветки
 
-- `newDis` — текущая UX simplification release branch / production frontend commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b`
+- `newDis` — текущая UX simplification release branch; production frontend commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b`; latest Android UX fix commit `16a8be832d7c7fbaacf03325325da63db357d450`
 - `codex/finance-planning-mvp-gpt5` — кодовая ветка Planning MVP / production release `819b5815`
 - `fix/aggregate-parser-multiline-labels` — базовая ветка UI overhaul + bug fixes
 - `main` — стабильная
