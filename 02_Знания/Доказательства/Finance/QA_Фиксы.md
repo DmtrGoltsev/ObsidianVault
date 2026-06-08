@@ -106,6 +106,7 @@ id: "qa-fixes-finance"
 | `1581a6f` | fix(android): use production API base for APK |
 | `16a8be8` | fix(android): refine asset category interactions |
 | `f5afcda` | fix(android): complete legacy asset edit and IME handling |
+| `09ea647` | fix(finance): compact investment asset categories |
 
 ## Волна 6 (2026-06-07)
 
@@ -163,3 +164,17 @@ id: "qa-fixes-finance"
 | ADD-ACCOUNT-IME-FINAL | `MainActivity` `adjustResize`; `AddAccountSheet` `skipPartiallyExpanded`, `imePadding`, `navigationBarsPadding`, repeated `BringIntoView`, larger spacer; Material3 `windowInsets` fallback | Android account creation | 2026-06-08 | Да с ограничением (unit/Kotlin/build pass; visual IME manual QA recommended) |
 | ANDROID-FINAL-QA-GATE | Review P0/P1 clean; `:app:testDebugUnitTest` PASS, 61 tests, 0 failures/errors/skipped; `:app:compileDebugKotlin` PASS; `assembleDebug` PASS | Android QA | 2026-06-08 | Да |
 | ANDROID-FINAL-APK | APK `finance-mvp-newd-0.1.0-debug.apk`, size `54,235,660`, SHA256 `4A3C32727C69427A714E82C45CF77A2666D2C52A4792B909B3153F763DB34A7B`; production API base found x2; dev URLs absent | Android delivery | 2026-06-08 | Да с ограничением (debug-signed) |
+
+## Волна 10 (2026-06-08)
+
+Финальный статус: compact investment asset category/iconKey/analytics fix закрыт commit `09ea6479451c61b3d06a412e5aaaecec534fc96a` (`fix(finance): compact investment asset categories`); branch `newDis`, remote parity OK. Evidence: [[Док_Release_NewDis_20260608]].
+
+| ID | Описание | Область | Дата | Верифицирован |
+|----|----------|---------|------|---------------|
+| ASSET-CATEGORY-COMPACT-CARD | `AssetCategoryGroupCard` compacted; linked accounts list removed from card | Android asset categories | 2026-06-08 | Да (`:app:testDebugUnitTest`, `:app:assembleDebug`, integration review P0/P1 clean) |
+| ASSET-CATEGORY-EDIT-SIMPLIFIED | Category edit mode simplified; manual amount hidden when linked accounts exist; linked accounts list removed from edit/card | Android asset categories | 2026-06-08 | Да с ограничением (build/unit pass; visual manual QA recommended) |
+| ASSET-CATEGORY-INVESTMENT-BADGE | Investment badge uses trending-up icon | Android asset categories | 2026-06-08 | Да с ограничением (build/unit pass; visual screenshot/device check recommended) |
+| ASSET-CATEGORY-ICON-KEY | Icon picker added and `asset_categories.icon_key` persisted through backend/API/Android | Backend/API/Android | 2026-06-08 | Да (`31 passed, 2 warnings`; Android unit/build successful) |
+| ANALYTICS-INVESTMENT-TOTALS | Android forced currency filter removed; investment totals parsed from backend contract | Android analytics/API contract | 2026-06-08 | Да (`31 passed, 2 warnings`; Android unit/build successful) |
+| COMPACT-ASSET-QA-GATE | Backend targeted suite, Android unit/build and integration review all green for P0/P1 | QA | 2026-06-08 | Да (`31 passed, 2 warnings`; `:app:testDebugUnitTest` successful; `:app:assembleDebug` successful; P0/P1 clean) |
+| COMPACT-ASSET-APK | APK `finance-mvp-newd-0.1.0-debug.apk`, size `54,235,740`, SHA256 `D1734426439FF38627C230D454D04E66229655C8DF6FD651087DC065B7A30733`; prod API base present, dev URLs absent | Android delivery | 2026-06-08 | Да с ограничением (debug-signed; visual manual QA still required) |

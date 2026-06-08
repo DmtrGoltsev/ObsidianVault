@@ -37,7 +37,7 @@ _(под-MOC проекта будут добавляться по мере ро
 - [[Transaction]] — операция (income/expense/transfer/brokerage)
 - [[Transfer]] — перевод между счетами
 - [[Capture_Draft]] — OCR черновик
-- Asset categories — source of truth для категорий активов: `manualAmount`, `isInvestment`, `assetType`, `account.assetCategoryId`, без stale totals от удалённых счетов
+- Asset categories — source of truth для категорий активов: `manualAmount`, `isInvestment`, `assetType`, `icon_key`, `account.assetCategoryId`, без stale totals от удалённых счетов; compact card/edit hides manual amount when linked accounts exist and uses trending-up investment badge
 - Planning MVP — планирование доходов и распределений во вкладке Analytics; новые allocations выбирают expense category или investment asset category, account target для новых allocations не предлагается
 
 ## Источники
@@ -70,10 +70,10 @@ _(архитектурные и проектные решения — см. `04_
 
 - [[QA_Результаты]] — результаты прогонов тестирования
 - [[QA_Фиксы]] — журнал фиксов багов
-- [[Док_Release_NewDis_20260608]] — sanitized closure/evidence по production frontend release `newDis`, commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b`, и Android final correction addendum `f5afcda40e12b881ccc31a6b32221b24327cdbd8`
+- [[Док_Release_NewDis_20260608]] — sanitized closure/evidence по production frontend release `newDis`, commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b`, и latest compact asset category addendum `09ea6479451c61b3d06a412e5aaaecec534fc96a`
 - [[Док_Release_Planning_MVP_20260607]] — concise evidence по production release `20260607T225457Z-819b5815`
 - Planning evidence — см. [[QA_Фиксы#Волна 3 (2026-06-06)]], [[QA_Фиксы#Волна 4 (2026-06-07)]], [[QA_Фиксы#Волна 5 (2026-06-07)]] и [[QA_Фиксы#Волна 6 (2026-06-07)]]
-- Release context — текущая поставка 2026-06-08: `newDis`; production frontend commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b`; latest Android fix commit `f5afcda40e12b881ccc31a6b32221b24327cdbd8`; frontend `/finance/COMMIT` 200 и byte-hash parity с local `apps/web-pwa/dist`; backend health 200 с accepted backend redeploy waiver; Android unit gate `61 tests`, 0 failures/errors/skipped; `:app:compileDebugKotlin` PASS; `assembleDebug` PASS; debug APK SHA256 `4A3C32727C69427A714E82C45CF77A2666D2C52A4792B909B3153F763DB34A7B`
+- Release context — текущая поставка 2026-06-08: `newDis`; production frontend commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b`; latest finance fix commit `09ea6479451c61b3d06a412e5aaaecec534fc96a`; frontend `/finance/COMMIT` 200 и byte-hash parity с local `apps/web-pwa/dist`; backend health 200 с accepted backend redeploy waiver; backend targeted suite `31 passed, 2 warnings`; Android `:app:testDebugUnitTest` successful; `:app:assembleDebug` successful; integration review P0/P1 clean; debug APK SHA256 `D1734426439FF38627C230D454D04E66229655C8DF6FD651087DC065B7A30733`
 - Release context — текущая поставка 2026-06-07: Planning iteration MVP; project commit `819b5815fed8c81bfa6a6e6131e790429454c2e8`; release `20260607T225457Z-819b5815`; backend `/opt/finance/releases/20260607T225457Z-819b5815`; web `/var/www/finance/releases/20260607T225457Z-819b5815`; Alembic `20260607_0013 (head)`; backend `243 passed, 9 warnings`; Android unit/assemble PASS; health/static checks OK
 
 ## Схемы

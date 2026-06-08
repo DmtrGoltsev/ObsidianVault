@@ -33,6 +33,8 @@ Release `newDis` закрыт по commit `6ce31f53f6150050b4cb0dad8488254bd04ff
 
 Аддендум Android final correction: два оставшихся user misses закрыты project commit `f5afcda40e12b881ccc31a6b32221b24327cdbd8` (`fix(android): complete legacy asset edit and IME handling`), branch `newDis`, remote parity OK. Изменения ограничены `apps/android/app/src/main/AndroidManifest.xml`, `apps/android/app/src/main/java/com/finance/mvp/api/ApiClient.kt` и `apps/android/app/src/main/java/com/finance/mvp/ui/FinanceApp.kt`; новый APK supersedes SHA `B0CC0C8D66196CA2503759F2CA4FC07E5700AD6E7DB4B64A229DBEC9D3F3F42A` и имеет SHA256 `4A3C32727C69427A714E82C45CF77A2666D2C52A4792B909B3153F763DB34A7B`.
 
+Аддендум compact investment asset categories: compact card/edit/iconKey/analytics fix закрыт project commit `09ea6479451c61b3d06a412e5aaaecec534fc96a` (`fix(finance): compact investment asset categories`), branch `newDis`, remote parity OK. Изменения покрывают compact `AssetCategoryGroupCard`, упрощённый edit mode, скрытие manual amount при linked accounts, удаление linked accounts list из category edit/card, investment badge с trending-up icon, icon picker и persisted `asset_categories.icon_key` на backend/API/Android, а также analytics fix через удаление Android forced currency filter и parsing investment totals из backend contract. Новый APK supersedes SHA `4A3C32727C69427A714E82C45CF77A2666D2C52A4792B909B3153F763DB34A7B` и имеет SHA256 `D1734426439FF38627C230D454D04E66229655C8DF6FD651087DC065B7A30733`.
+
 Эта заметка содержит только sanitized closure: без секретов, сырых логов, скриншотов, session/operator данных и персональных данных.
 
 ## Метод проверки
@@ -45,6 +47,7 @@ Release `newDis` закрыт по commit `6ce31f53f6150050b4cb0dad8488254bd04ff
 - Android APK prod-path correction: rebuild with `-PfinanceApiBaseUrl=http://45.10.110.42/finance-api`, APK string scan and production smoke verified.
 - Android UX fixes: custom `AddAccountState?` Saver, explicit asset-category edit/delete affordances, keyboard-safe account sheet, safe category archive behavior and local drag reorder persistence verified by code review plus unit/Kotlin gates.
 - Android final correction: legacy old asset group conversion to real investment asset category, link rollback safety and strengthened account creation IME handling verified by final review plus unit/Kotlin/assemble gates.
+- Compact investment asset categories: backend/API/Android `icon_key`, compact card/edit UX, investment badge and backend-contract analytics parsing verified by targeted backend tests, Android unit/build gates and integration review.
 - QA evidence: Android unit XML, Android lint, historical PWA/backend/OpenAPI evidence классифицированы по актуальности.
 
 ## Результат
@@ -61,6 +64,7 @@ Release `newDis` закрыт по commit `6ce31f53f6150050b4cb0dad8488254bd04ff
 | Android APK correction commit | `1581a6fc464521f7d2503ac4bbdcb6c918f8fbd3` (`fix(android): use production API base for APK`), branch `newDis`, remote parity OK |
 | Android UX fix commit | `16a8be832d7c7fbaacf03325325da63db357d450` (`fix(android): refine asset category interactions`), branch `newDis`, remote parity OK |
 | Android final correction commit | `f5afcda40e12b881ccc31a6b32221b24327cdbd8` (`fix(android): complete legacy asset edit and IME handling`), branch `newDis`, remote parity OK |
+| Compact asset category fix commit | `09ea6479451c61b3d06a412e5aaaecec534fc96a` (`fix(finance): compact investment asset categories`), branch `newDis`, remote parity OK |
 
 ## Production frontend evidence
 
@@ -157,14 +161,37 @@ Release `newDis` закрыт по commit `6ce31f53f6150050b4cb0dad8488254bd04ff
 | Content verification | Production API base found x2; dev URLs absent |
 | Remaining manual QA | Device/emulator visual IME and live migration proof still required |
 
+## Compact investment asset categories addendum
+
+| Параметр | Значение |
+|----------|----------|
+| Status | PASS with visual manual QA caveat |
+| Project commit | `09ea6479451c61b3d06a412e5aaaecec534fc96a` |
+| Commit message | `fix(finance): compact investment asset categories` |
+| Branch/remote | `newDis`, remote parity OK |
+| Compact card | `AssetCategoryGroupCard` compacted; linked accounts list removed from card |
+| Edit mode | Simplified; manual amount hidden when linked accounts exist; linked accounts list removed from category edit |
+| Investment marker | Investment badge uses trending-up icon |
+| Icon persistence | Icon picker added; `asset_categories.icon_key` persisted through backend/API/Android |
+| Analytics fix | Android forced currency filter removed; investment totals parsed from backend contract |
+| Backend tests | `.venv` targeted pytest suite: `31 passed, 2 warnings` |
+| Android unit | `:app:testDebugUnitTest` successful |
+| Android build | `:app:assembleDebug` successful |
+| Integration review | P0/P1 clean; P2 staging risk handled by curated commit |
+| APK | `artifacts/apk/finance-mvp-newd-0.1.0-debug.apk` |
+| SHA256 | `D1734426439FF38627C230D454D04E66229655C8DF6FD651087DC065B7A30733` |
+| Size | `54,235,740` |
+| Content verification | Production API base present; dev URLs absent |
+| Remaining manual QA | Visual screenshot/device check for compact card, edit mode, icon picker and investment badge |
+
 ## Android artifact
 
 | Параметр | Значение |
 |----------|----------|
 | APK | `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-newd-0.1.0-debug.apk` |
-| SHA256 | `4A3C32727C69427A714E82C45CF77A2666D2C52A4792B909B3153F763DB34A7B` |
-| Size | `54,235,660` |
-| Supersedes | Previous APK SHA256 `B0CC0C8D66196CA2503759F2CA4FC07E5700AD6E7DB4B64A229DBEC9D3F3F42A` from Android UX fixes; older production-path APK SHA256 `593F88085D7EC2AE39141CA5AC3317C74A7473C94AE1F24E1CE373DCF11C3F94` already superseded `D1DDE146BB0576D438B173E3910AAADDFFDA1382CDBF5C27BDD1C6E75DC0391D`, which retained emulator dev base URL |
+| SHA256 | `D1734426439FF38627C230D454D04E66229655C8DF6FD651087DC065B7A30733` |
+| Size | `54,235,740` |
+| Supersedes | Previous APK SHA256 `4A3C32727C69427A714E82C45CF77A2666D2C52A4792B909B3153F763DB34A7B` from Android final correction; earlier APK SHA256 `B0CC0C8D66196CA2503759F2CA4FC07E5700AD6E7DB4B64A229DBEC9D3F3F42A` from Android UX fixes; older production-path APK SHA256 `593F88085D7EC2AE39141CA5AC3317C74A7473C94AE1F24E1CE373DCF11C3F94` already superseded `D1DDE146BB0576D438B173E3910AAADDFFDA1382CDBF5C27BDD1C6E75DC0391D`, which retained emulator dev base URL |
 | applicationId | `com.finance.mvp` |
 | versionCode | `1` |
 | versionName | `0.1.0` |
@@ -180,6 +207,9 @@ Release `newDis` закрыт по commit `6ce31f53f6150050b4cb0dad8488254bd04ff
 | Android UX unit gate | `:app:testDebugUnitTest` BUILD SUCCESSFUL; 61 tests, 0 failures/errors/skipped |
 | Android Kotlin compile | `:app:compileDebugKotlin` BUILD SUCCESSFUL |
 | Android final correction gate | `:app:testDebugUnitTest` PASS, 61 tests, 0 failures/errors/skipped; `:app:compileDebugKotlin` PASS; `assembleDebug` PASS |
+| Compact asset category backend gate | Targeted `.venv` pytest suite: `31 passed, 2 warnings` |
+| Compact asset category Android gate | `:app:testDebugUnitTest` successful; `:app:assembleDebug` successful |
+| Compact asset category review | Integration review P0/P1 clean; P2 staging risk handled by curated commit |
 | Android UX review | P0/P1 clean after P1 fix |
 | Android final review | P0/P1 clean |
 | Android lint | 0 errors, 6 warnings |
@@ -193,7 +223,7 @@ Release `newDis` закрыт по commit `6ce31f53f6150050b4cb0dad8488254bd04ff
 
 - `newDis` closure подтверждает production PWA static deployment and byte parity for commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b`.
 - Backend redeploy не требовался по принятому waiver: final HEAD не менял backend/db/api.
-- Android UX addendum закрывает code-review/unit/Kotlin evidence для asset category interactions, AddAccountSheet keyboard handling and recents Saver; финальный Android correction addendum закрывает legacy asset edit conversion и усиленный IME handling; manual device proof остаётся отдельным gate.
+- Android UX addendum закрывает code-review/unit/Kotlin evidence для asset category interactions, AddAccountSheet keyboard handling and recents Saver; финальный Android correction addendum закрывает legacy asset edit conversion и усиленный IME handling; compact investment asset category addendum закрывает compact card/edit/iconKey/analytics fix; manual device proof остаётся отдельным gate.
 - Planning/OCR/product limitations из [[Карта_Пользовательских_Путей_Finance]] остаются действующими: `Overview` read-only, Planning для `newDis` трактуется Android-first без отдельного PWA Planning proof, OCR copy не должна обещать Android on-device OCR без отдельной реализации и QA evidence.
 
 ## Известные ограничения и риски
@@ -203,4 +233,4 @@ Release `newDis` закрыт по commit `6ce31f53f6150050b4cb0dad8488254bd04ff
 - Authenticated production login/OCR smoke и retention/privacy evidence не закрыты этой поставкой.
 - APK debug-signed, не release-signed.
 - Historical reports не должны подаваться как direct green evidence для commit `6ce31f5`.
-- Actual recents/overview, keyboard, long-press drag reorder and confirmation dialogs require emulator/device manual QA; live migration of legacy old asset groups and visual IME behavior also require device/emulator proof.
+- Actual recents/overview, keyboard, long-press drag reorder and confirmation dialogs require emulator/device manual QA; live migration of legacy old asset groups and visual IME behavior also require device/emulator proof; compact card/edit mode/icon picker/investment badge require visual screenshot/device check.

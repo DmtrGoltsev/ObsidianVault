@@ -182,6 +182,16 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 - **APK:** `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-newd-0.1.0-debug.apk`, size `54,235,660`, SHA256 `4A3C32727C69427A714E82C45CF77A2666D2C52A4792B909B3153F763DB34A7B`; production API base found x2, dev URLs absent.
 - **Ограничения:** manual QA на device/emulator всё ещё нужна для visual IME и live migration legacy group.
 
+### Compact investment asset categories + analytics fix (2026-06-08)
+
+- **Статус:** compact investment asset category/iconKey/analytics fix закрыт по backend targeted tests, Android unit/build gates и integration review; branch `newDis`, remote parity OK.
+- **Project commit:** `09ea6479451c61b3d06a412e5aaaecec534fc96a` (`fix(finance): compact investment asset categories`).
+- **Scope:** compact `AssetCategoryGroupCard`; edit mode упрощён; manual amount скрыт при linked accounts; linked accounts list убран из category edit/card; investment badge использует trending-up icon; icon picker и persisted `asset_categories.icon_key` добавлены в backend/API/Android; analytics исправлена удалением Android forced currency filter и parsing investment totals из backend contract.
+- **QA:** backend targeted suite через project `.venv` — `31 passed, 2 warnings`; Android `:app:testDebugUnitTest` successful; Android `:app:assembleDebug` successful.
+- **Review:** integration review P0/P1 clean; P2 staging risk handled by curated commit.
+- **APK:** `artifacts/apk/finance-mvp-newd-0.1.0-debug.apk`, size `54,235,740`, SHA256 `D1734426439FF38627C230D454D04E66229655C8DF6FD651087DC065B7A30733`; production API base present, dev URLs absent.
+- **Ограничения:** residual manual QA остаётся для visual screenshot/device check compact card, edit mode, icon picker и investment badge.
+
 ### Открытые баги (P1)
 
 - BUG-006: AddAccountSheet всегда создаёт shared-счёт
@@ -192,7 +202,7 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 
 ## Ветки
 
-- `newDis` — текущая UX simplification release branch; production frontend commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b`; latest Android fix commit `f5afcda40e12b881ccc31a6b32221b24327cdbd8`
+- `newDis` — текущая UX simplification release branch; production frontend commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b`; latest finance fix commit `09ea6479451c61b3d06a412e5aaaecec534fc96a`
 - `codex/finance-planning-mvp-gpt5` — кодовая ветка Planning MVP / production release `819b5815`
 - `fix/aggregate-parser-multiline-labels` — базовая ветка UI overhaul + bug fixes
 - `main` — стабильная

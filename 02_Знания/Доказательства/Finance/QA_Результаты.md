@@ -517,3 +517,46 @@ id: "qa-results-finance"
 |------|--------|
 | Visual IME behavior | OPEN: device/emulator manual proof still required |
 | Live legacy migration | OPEN: device/emulator manual proof with real legacy group data still required |
+
+## Волна 11: Compact investment asset categories + analytics fix (2026-06-08)
+
+**Метод:** targeted backend pytest через project `.venv`, Android unit gate, Android debug APK build, APK content verification, integration review. Без raw logs, screenshots, secrets и raw financial payload.
+
+**Scope:** compact investment asset category/card/edit UX, persisted category icon key and analytics parsing fix.
+
+### Сводка
+
+| Проверка | Результат |
+|----------|-----------|
+| Project branch | `newDis` |
+| Project commit | `09ea6479451c61b3d06a412e5aaaecec534fc96a` (`fix(finance): compact investment asset categories`) |
+| Remote parity | OK |
+| Backend targeted tests | `31 passed, 2 warnings` via project `.venv` pytest targeted suite |
+| Android unit | `:app:testDebugUnitTest` successful |
+| Android build | `:app:assembleDebug` successful |
+| Integration review | P0/P1 clean; P2 staging risk handled by curated commit |
+| APK | `artifacts/apk/finance-mvp-newd-0.1.0-debug.apk` |
+| APK size | `54,235,740` |
+| APK SHA256 | `D1734426439FF38627C230D454D04E66229655C8DF6FD651087DC065B7A30733` |
+| APK content verification | Prod API base present; dev URLs absent |
+
+### Backend/API/Android
+
+| Область | Результат |
+|---------|-----------|
+| Asset category icon | `asset_categories.icon_key` persisted through backend/API/Android |
+| Icon picker | Android icon picker added for category edit flow |
+| Compact card | `AssetCategoryGroupCard` compacted |
+| Edit mode | Edit mode simplified; manual amount hidden when linked accounts exist |
+| Linked accounts list | Removed from category edit and card |
+| Investment badge | Investment badge uses trending-up icon |
+| Analytics | Android forced currency filter removed; investment totals parsed from backend contract |
+
+### Остаточные риски
+
+| Риск | Статус |
+|------|--------|
+| Compact card visual layout | OPEN: visual screenshot/device check still required |
+| Edit mode visual behavior | OPEN: device/emulator manual proof still required |
+| Icon picker UX | OPEN: device/emulator manual proof still required |
+| Investment badge rendering | OPEN: visual screenshot/device check still required |
