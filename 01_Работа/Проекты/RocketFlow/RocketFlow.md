@@ -5,7 +5,7 @@ id: "proj-rocketflow"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-06-07"
+обновлено: "2026-06-08"
 уверенность: "высокая"
 источники: ["docs/33-current-state-summary.md", "README.md", "docs/04-architecture-blueprint.md"]
 доказательства: ["docs/50-notification-runtime-clean-pass.md", "Док_Cleanup_Manifest", "Док_Backend_Verification", "Док_Web_Verification", "Док_Android_Verification", "Док_Prod_Deploy_State"]
@@ -40,14 +40,15 @@ id: "proj-rocketflow"
 - Три волны (A, B, C) завершены
 - Wave C.1 завершён (web scheduling authoring)
 - Текущая стадия: [[MVP3_Упрощение]]
-- Ветка: `MVP3`, tracking `origin/MVP3`, HEAD `9825a40f6d2e4b909b785ef228aacc5393acec0b`, latest short `9825a40`
+- Ветка: `MVP3`; base HEAD перед новым delivery-коммитом `5f03476d1de4e09d5da0b1bfedfaf28353173124`
 - `git rev-list --count MVP2..MVP3` = 21
-- Backend: финальный `mvn --batch-mode --no-transfer-progress test` зелёный; `63/0/0/0`, `BUILD SUCCESS`, total `03:47`
+- Backend: `mvn --batch-mode --no-transfer-progress package` зелёный на втором запуске; `63/0/0/0`, `BUILD SUCCESS`, total `02:42`; jar `rocketflow-backend-0.1.0-SNAPSHOT.jar` 115,319,880 bytes
 - Web: финальный `npm run build` зелёный; 1792 modules transformed, built in `2.09s`; test scripts отсутствуют
-- Android: финальный `.\gradlew.bat :app:testDebugUnitTest :app:assembleDebug :app:lintDebug --no-daemon` зелёный, exit code `0`
+- Android: `MainActivity.kt` исправлен для goal/task folder navigation, target dialogs scroll и newest-first sorting; `.\gradlew.bat :app:testDebugUnitTest :app:assembleDebug :app:lintDebug --no-daemon` зелёный, `BUILD SUCCESSFUL in 1m19s`
+- Android APK: `app-debug.apk` debug-signed и `apksigner` OK v2; `app-release-unsigned.apk` unsigned и `apksigner` DOES NOT VERIFY
 - Cleanup/repo audit завершён: evidence сохранены в [[Док_Cleanup_Manifest]], cleanup invariants healthy, `.gitignore` покрывает generated paths и `android/local.properties`
 - Notification E2E доказан локально
-- Production развёрнут на [[HexCore]] как jar/systemd + web static; Docker/GHCR остаётся open gate
+- Production model: [[HexCore]] `rocketflow-prod-01` / `45.10.110.42`, jar/systemd backend `rocketflow-backend` + web static via Nginx. Backend prod deploy 2026-06-08: **NOT DEPLOYED / BLOCKED** до решения по target ref/method, backup expectation и secrets/env readiness.
 
 Источник: [[Источник_Текущее_Состояние]]
 
@@ -65,12 +66,14 @@ id: "proj-rocketflow"
 
 - GHCR publish/workflow восстановление (workflow отсутствует/open gate)
 - Staging notification certification
+- Backend prod deploy approval/readiness: current branch `MVP3`, canonical workflow deploy branches `MVP2`/`release_1`; local shell lacks `HEXCORE_PROD_SSH_*` and `ROCKETFLOW_PROD_BACKUP_*`
 
 ## Известные риски
 
 - Notification smoke на staging ещё не сертифицирован
 - GHCR интеграция не закрыта: workflow отсутствует или требует восстановления, credentials не подтверждены
 - Android push-tap flow требует staging-валидации; локальный Android full gate после cleanup зелёный
+- Prod deploy preflight выявил backup user mismatch: preferred `rocketbackup`, ignored local config points to `rocketdeploy`
 
 ## Документация
 
