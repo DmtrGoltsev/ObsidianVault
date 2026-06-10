@@ -234,3 +234,26 @@ Release `newDis` закрыт по commit `6ce31f53f6150050b4cb0dad8488254bd04ff
 - APK debug-signed, не release-signed.
 - Historical reports не должны подаваться как direct green evidence для commit `6ce31f5`.
 - Actual recents/overview, keyboard, long-press drag reorder and confirmation dialogs require emulator/device manual QA; live migration of legacy old asset groups and visual IME behavior also require device/emulator proof; compact card/edit mode/icon picker/investment badge require visual screenshot/device check.
+
+## Asset/planning regression addendum
+
+| Параметр | Значение |
+|----------|----------|
+| Status | PASS with prod data-check and visual manual QA caveats |
+| Project commit | `1013e632d54c6af6ed9326d8b7f761bdd381bade` |
+| Branch/remote | `newDis`, project commit pushed before KB update |
+| Fix summary | Restored linked account rows in expanded asset category card; restored legacy `Карта`/`Банк` visibility without duplicates; fixed category-level `isInvestment` save/local state; clamped planning month selection to current-or-future; treated missing plan 404 as empty state / friendly planning message |
+| Expanded card | `Вклад` should show 4 linked accounts when expanded; edit mode remains clean without account list |
+| Investment state | Marking `Брокер` investment updates badge/state and analytics inputs |
+| Russian input diagnosis | No app-level Cyrillic filter found; AVD `Codex` had `hw.keyboard=yes`; likely emulator/IME config |
+| Kotlin compile | `.\gradlew.bat :app:compileDebugKotlin --console=plain` SUCCESS |
+| Android unit | `.\gradlew.bat :app:testDebugUnitTest --console=plain` SUCCESS |
+| Packaging unit | `.\gradlew.bat :app:testDebugUnitTest --console=plain` SUCCESS (`BUILD SUCCESSFUL in 2s`) |
+| APK build | `.\gradlew.bat :app:assembleDebug -PfinanceApiBaseUrl=http://45.10.110.42/finance-api --console=plain` SUCCESS (`BUILD SUCCESSFUL in 36s`) |
+| Review | No P0/P1; P2 missing UI/Compose coverage only |
+| APK | `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-newd-0.1.0-debug.apk` |
+| SHA256 | `FCD7EE0D870A12B3B88416DAEBCB3CF35FC513618C865B427E30E5F77F688411` |
+| Size | `54,235,740` |
+| Content verification | Prod URL `http://45.10.110.42/finance-api` found in `classes7.dex`, `classes5.dex`; dev URLs absent (`10.0.2.2`, `localhost`, `127.0.0.1`, `0.0.0.0`, `192.168.`) |
+| Install | AVD `Codex`, serial `emulator-5554`, install `Success`, package `com.finance.mvp` |
+| Remaining manual QA | Prod auth/DB read-only data-check not covered; no UI/Compose automated coverage for visual regressions; Russian input likely emulator settings and should be rechecked after keyboard/IME workaround |

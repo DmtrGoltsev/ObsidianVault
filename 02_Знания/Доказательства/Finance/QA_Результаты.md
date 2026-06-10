@@ -560,3 +560,47 @@ id: "qa-results-finance"
 | Edit mode visual behavior | OPEN: device/emulator manual proof still required |
 | Icon picker UX | OPEN: device/emulator manual proof still required |
 | Investment badge rendering | OPEN: visual screenshot/device check still required |
+
+## Волна 12: Asset/planning regression fix evidence (2026-06-10)
+
+**Метод:** post-plan KB/evidence capture from implementation, QA, packaging and review workers. Без raw logs, secrets, screenshots или financial payload.
+
+**Scope:** Android regression fixes for asset category expanded rows, legacy `Карта`/`Банк` group visibility, category-level `isInvestment`, `План месяца` past-month handling, friendly planning empty state for missing plan 404, and Russian input diagnosis.
+
+### Сводка
+
+| Проверка | Результат |
+|----------|-----------|
+| Project branch | `newDis` |
+| Project commit | `1013e632d54c6af6ed9326d8b7f761bdd381bade` |
+| Remote push | Completed before KB update |
+| Review result | No P0/P1; P2 only for missing UI/Compose coverage |
+| Kotlin compile | `.\gradlew.bat :app:compileDebugKotlin --console=plain` -> SUCCESS |
+| Android unit | `.\gradlew.bat :app:testDebugUnitTest --console=plain` -> SUCCESS |
+| Packaging unit gate | `.\gradlew.bat :app:testDebugUnitTest --console=plain` -> SUCCESS (`BUILD SUCCESSFUL in 2s`) |
+| APK build | `.\gradlew.bat :app:assembleDebug -PfinanceApiBaseUrl=http://45.10.110.42/finance-api --console=plain` -> SUCCESS (`BUILD SUCCESSFUL in 36s`) |
+| APK | `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-newd-0.1.0-debug.apk` |
+| APK size | `54,235,740` |
+| APK SHA256 | `FCD7EE0D870A12B3B88416DAEBCB3CF35FC513618C865B427E30E5F77F688411` |
+| APK content verification | Prod URL `http://45.10.110.42/finance-api` found in `classes7.dex`, `classes5.dex`; dev URLs absent (`10.0.2.2`, `localhost`, `127.0.0.1`, `0.0.0.0`, `192.168.`) |
+| Install smoke | AVD `Codex`, serial `emulator-5554`, package `com.finance.mvp`, install `Success` |
+
+### Fix evidence
+
+| Область | Результат |
+|---------|-----------|
+| Expanded asset category | Linked account rows restored; `Вклад` should show 4 linked accounts when expanded |
+| Edit mode | Remains clean; no linked account list in edit mode |
+| Legacy groups | Legacy asset group visibility for `Карта`/`Банк` restored without duplicates when real backend categories represent the type |
+| Investment flag | Category-level `isInvestment` save/local state update fixed; marking `Брокер` investment updates badge/state and analytics inputs |
+| План месяца | Months earlier than current are not selectable; persisted/selected past month clamps to current-or-future |
+| Missing plan 404 | Raw `Resource not found or not accessible.` replaced by empty state / friendly planning message |
+| Russian input | No app-level Cyrillic filter found; AVD `Codex` had `hw.keyboard=yes`, likely emulator/IME config |
+
+### Остаточные риски
+
+| Риск | Статус |
+|------|--------|
+| Prod auth/DB data check | OPEN: no prod auth/DB access during data-check; live ids/archived/isInvestment values not independently verified read-only |
+| Visual regressions | OPEN: no UI/Compose automated tests; manual visual QA recommended on installed APK |
+| Russian input | OPEN: likely emulator settings, not app bug; workaround is Russian Android keyboard or `show_ime_with_hard_keyboard` / hardware keyboard off |

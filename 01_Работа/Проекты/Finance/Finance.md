@@ -250,3 +250,14 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 
 - [[MOC_Finance]] — навигационная MOC-карта
 - [[MOC_Все_Проекты]] — все проекты vault
+
+## Обновление KB: asset/planning regression fix (2026-06-10)
+
+- **Статус:** regression fix закрыт и запушен в project repo на `newDis`; KB обновлена как evidence addendum.
+- **Project commit:** `1013e632d54c6af6ed9326d8b7f761bdd381bade`.
+- **Scope:** восстановлены linked account rows в expanded asset category card (`Вклад` ожидаемо показывает 4 linked accounts), edit mode остаётся без account list; восстановлена legacy visibility logic для `Карта`/`Банк` без дублей при real backend categories; исправлено сохранение/local state `isInvestment` на category level для `Брокер`; в `План месяца` прошедшие месяцы недоступны, persisted/selected past month clamp к current-or-future; missing planning 404 теперь friendly empty state вместо raw `Resource not found or not accessible.`.
+- **Russian input diagnosis:** app-level Cyrillic filter не найден; AVD `Codex` имел `hw.keyboard=yes`, вероятная причина в emulator/IME config. Workaround: добавить Russian Android keyboard или настроить `show_ime_with_hard_keyboard` / отключить hardware keyboard.
+- **QA:** `:app:compileDebugKotlin` SUCCESS; `:app:testDebugUnitTest` SUCCESS; packaging `:app:testDebugUnitTest` SUCCESS (`BUILD SUCCESSFUL in 2s`); packaging `:app:assembleDebug -PfinanceApiBaseUrl=http://45.10.110.42/finance-api --console=plain` SUCCESS (`BUILD SUCCESSFUL in 36s`); review без P0/P1, только P2 missing UI/Compose coverage.
+- **APK:** `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-newd-0.1.0-debug.apk`, size `54,235,740`, SHA256 `FCD7EE0D870A12B3B88416DAEBCB3CF35FC513618C865B427E30E5F77F688411`; prod URL `http://45.10.110.42/finance-api` найден в `classes7.dex` и `classes5.dex`, dev URLs absent.
+- **Install:** AVD `Codex`, serial `emulator-5554`, package `com.finance.mvp`, install `Success`.
+- **Ограничения:** prod auth/DB read-only verification не выполнялась; нет UI/Compose automated coverage для visual regressions; manual visual QA на установленном APK остаётся рекомендованной.

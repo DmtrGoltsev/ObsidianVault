@@ -91,3 +91,10 @@ _(промпты агентов — см. `05_Система/Промпты/Fina
 ## Навигация
 
 - [[MOC_Все_Проекты]] — ← все проекты
+
+## Latest evidence update (2026-06-10)
+
+- Latest `newDis` project commit: `1013e632d54c6af6ed9326d8b7f761bdd381bade`.
+- Evidence recorded in [[QA_Результаты]], [[QA_Фиксы]], [[Док_Release_NewDis_20260608]] and [[Пакет_Finance_Полный]].
+- Summary: asset category expanded linked rows restored, legacy `Карта`/`Банк` visibility restored without duplicates, category-level `isInvestment` save/local state fixed, planning past-month clamp and missing-plan friendly empty state fixed, Russian input diagnosed as likely emulator/IME configuration.
+- APK evidence: `finance-mvp-newd-0.1.0-debug.apk`, SHA256 `FCD7EE0D870A12B3B88416DAEBCB3CF35FC513618C865B427E30E5F77F688411`, production API base present, dev URLs absent, installed on AVD `Codex`.

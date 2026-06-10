@@ -140,3 +140,12 @@ Production MVP functional GO (2026-05-19). Текущая поставка 2026-
 ## Риски
 
 P1-B02, P1-B03, tag misalignment; production deploy текущей поставки подтверждён release agent.
+
+## Release context update (2026-06-10)
+
+- Latest project commit on `newDis`: `1013e632d54c6af6ed9326d8b7f761bdd381bade`.
+- Regression fix scope: expanded asset category card restores linked account rows (`Вклад` should show 4 linked accounts), edit mode keeps no account list, legacy `Карта`/`Банк` visibility avoids duplicates with real backend categories, category-level `isInvestment` save/local state updates `Брокер` badge/state and analytics inputs, `План месяца` blocks past months and clamps persisted/selected past month to current-or-future, missing plan 404 becomes friendly empty state.
+- Russian input: no app-level Cyrillic filter found; AVD `Codex` had `hw.keyboard=yes`; likely emulator/IME configuration. Suggested workaround is Russian Android keyboard or `show_ime_with_hard_keyboard` / disabling hardware keyboard.
+- QA evidence: `:app:compileDebugKotlin` SUCCESS; `:app:testDebugUnitTest` SUCCESS; packaging unit SUCCESS (`BUILD SUCCESSFUL in 2s`); packaging assembleDebug with `-PfinanceApiBaseUrl=http://45.10.110.42/finance-api` SUCCESS (`BUILD SUCCESSFUL in 36s`); review no P0/P1, P2 only missing UI/Compose coverage.
+- APK: `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-newd-0.1.0-debug.apk`, size `54,235,740`, SHA256 `FCD7EE0D870A12B3B88416DAEBCB3CF35FC513618C865B427E30E5F77F688411`; prod URL found in `classes7.dex` and `classes5.dex`; dev URLs absent; installed on AVD `Codex` (`emulator-5554`) as `com.finance.mvp`.
+- Residual risks: no prod auth/DB access during data-check, no UI/Compose automated visual regression coverage, Russian input likely emulator settings rather than app bug.

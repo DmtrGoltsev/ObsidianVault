@@ -178,3 +178,19 @@ id: "qa-fixes-finance"
 | ANALYTICS-INVESTMENT-TOTALS | Android forced currency filter removed; investment totals parsed from backend contract | Android analytics/API contract | 2026-06-08 | Да (`31 passed, 2 warnings`; Android unit/build successful) |
 | COMPACT-ASSET-QA-GATE | Backend targeted suite, Android unit/build and integration review all green for P0/P1 | QA | 2026-06-08 | Да (`31 passed, 2 warnings`; `:app:testDebugUnitTest` successful; `:app:assembleDebug` successful; P0/P1 clean) |
 | COMPACT-ASSET-APK | APK `finance-mvp-newd-0.1.0-debug.apk`, size `54,235,740`, SHA256 `D1734426439FF38627C230D454D04E66229655C8DF6FD651087DC065B7A30733`; prod API base present, dev URLs absent | Android delivery | 2026-06-08 | Да с ограничением (debug-signed; visual manual QA still required) |
+
+## Волна 11 (2026-06-10)
+
+Финальный статус: asset/planning regression fix закрыт project commit `1013e632d54c6af6ed9326d8b7f761bdd381bade`; branch `newDis`, push completed. Evidence: [[Док_Release_NewDis_20260608]].
+
+| ID | Описание | Область | Дата | Верифицирован |
+|----|----------|---------|------|---------------|
+| ASSET-LINKED-ROWS-EXPANDED | Expanded asset category card снова показывает linked account rows; `Вклад` ожидаемо показывает 4 linked accounts | Android asset categories | 2026-06-10 | Да (`:app:compileDebugKotlin`, `:app:testDebugUnitTest`, review P0/P1 clean) |
+| ASSET-EDIT-MODE-CLEAN | Category edit mode остаётся без linked account list | Android asset categories | 2026-06-10 | Да с ограничением (manual visual QA recommended) |
+| LEGACY-ASSET-VISIBILITY | Legacy visibility logic для `Карта`/`Банк` восстановлена без дублей, когда real backend categories представляют тип | Android asset categories | 2026-06-10 | Да (`:app:testDebugUnitTest`, review P0/P1 clean) |
+| CATEGORY-INVESTMENT-SAVE | Category-level `isInvestment` save/local state update fixed; `Брокер` investment updates badge/state and analytics inputs | Android asset categories + analytics inputs | 2026-06-10 | Да (`:app:testDebugUnitTest`, packaging gates) |
+| PLANNING-MONTH-CLAMP | `План месяца`: months earlier than current are disabled; persisted/selected past month clamps to current-or-future | Android planning | 2026-06-10 | Да (`:app:testDebugUnitTest`, review P0/P1 clean) |
+| PLANNING-404-FRIENDLY | Missing plan 404 treated as empty state / friendly planning message instead of raw `Resource not found or not accessible.` | Android planning/API handling | 2026-06-10 | Да (`:app:testDebugUnitTest`) |
+| RUSSIAN-INPUT-DIAGNOSIS | App-level Cyrillic filter not found; AVD `Codex` had `hw.keyboard=yes`, likely emulator/IME config | Android input diagnosis | 2026-06-10 | Диагностировано; workaround: Russian Android keyboard or `show_ime_with_hard_keyboard` / hardware keyboard off |
+| ASSET-PLANNING-QA-GATE | Kotlin compile, Android unit, packaging unit and assemble gates all green; review has no P0/P1 | QA | 2026-06-10 | Да |
+| ASSET-PLANNING-APK | APK `finance-mvp-newd-0.1.0-debug.apk`, size `54,235,740`, SHA256 `FCD7EE0D870A12B3B88416DAEBCB3CF35FC513618C865B427E30E5F77F688411`; prod URL found in `classes7.dex`/`classes5.dex`, dev URLs absent; installed on AVD `Codex` | Android delivery | 2026-06-10 | Да с ограничением (debug-signed; visual manual QA still required) |
