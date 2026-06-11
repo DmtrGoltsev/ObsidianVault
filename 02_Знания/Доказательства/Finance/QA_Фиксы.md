@@ -4,7 +4,7 @@ id: "qa-fixes-finance"
 статус: "активно"
 проект: "Finance"
 создано: "2026-06-06"
-обновлено: "2026-06-08"
+обновлено: "2026-06-12"
 ссылки:
   - "[[Finance]]"
   - "[[QA_Результаты]]"
@@ -194,3 +194,15 @@ id: "qa-fixes-finance"
 | RUSSIAN-INPUT-DIAGNOSIS | App-level Cyrillic filter not found; AVD `Codex` had `hw.keyboard=yes`, likely emulator/IME config | Android input diagnosis | 2026-06-10 | Диагностировано; workaround: Russian Android keyboard or `show_ime_with_hard_keyboard` / hardware keyboard off |
 | ASSET-PLANNING-QA-GATE | Kotlin compile, Android unit, packaging unit and assemble gates all green; review has no P0/P1 | QA | 2026-06-10 | Да |
 | ASSET-PLANNING-APK | APK `finance-mvp-newd-0.1.0-debug.apk`, size `54,235,740`, SHA256 `FCD7EE0D870A12B3B88416DAEBCB3CF35FC513618C865B427E30E5F77F688411`; prod URL found in `classes7.dex`/`classes5.dex`, dev URLs absent; installed on AVD `Codex` | Android delivery | 2026-06-10 | Да с ограничением (debug-signed; visual manual QA still required) |
+
+## Волна 12 (2026-06-12)
+
+Финальный статус: critical Android regression `Брокер -> Инвестиция -> Сохранить` закрыт по build/unit gates, final APK checksum, quick critical-path QA PASS and fail-fast harness PASS. Project commit `d8175116f5123b6a304d4bd22dc083f2725505a0` (`fix(finance): migrate legacy brokerage assets`) pushed to `origin/newDis`. Evidence: [[QA_Результаты]], [[Док_Release_NewDis_20260608]], `MVP_EVIDENCE/critical-investment-fix-20260612/SUMMARY_SANITIZED.md`.
+
+| ID | Описание | Область | Дата | Верифицирован |
+|----|----------|---------|------|---------------|
+| CRITICAL-INVESTMENT-CREATE-PAYLOAD | Android больше не отправляет `iconKey` в `POST /api/v1/asset-categories`; deployed strict OpenAPI `AssetCategoryCreateRequest` не получает extra field и не возвращает validation failure до create/link | Android API payload / asset categories | 2026-06-12 | Да (`compileDebugKotlin`, `testDebugUnitTest` 71 tests, `assembleDebug`; quick QA PASS) |
+| CRITICAL-INVESTMENT-LINK | `Брокер -> Инвестиция -> Сохранить` создаёт/линкует asset category; after save/restart есть linked asset category id, `isInvestment=True`, `investmentCategories.count=1` | Android asset categories + analytics | 2026-06-12 | Да (quick critical-path QA PASS on `emulator-5556`) |
+| CRITICAL-INVESTMENT-TOTALS | Investment totals after save and after restart remain `150000.0000 RUB` | Android analytics/API verification | 2026-06-12 | Да (quick QA PASS; no `Validation failed`) |
+| CRITICAL-INVESTMENT-HARNESS | Fail-fast harness verifies selected serial, APK hash, install, launch and bounded UI probe to avoid stale-serial hang mode | QA harness | 2026-06-12 | Да (harness PASS on `emulator-5556`) |
+| CRITICAL-INVESTMENT-APK | APK `artifacts/apk/finance-mvp-newd-0.1.0-debug.apk`, size `54235740`, SHA256 `B6960DB5D13198405984C027746343432CB95B0C08BB24F54D6A7FCD5061DCC7` | Android delivery | 2026-06-12 | Да с ограничением (debug-signed) |

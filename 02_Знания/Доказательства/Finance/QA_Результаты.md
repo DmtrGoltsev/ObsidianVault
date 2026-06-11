@@ -4,7 +4,7 @@ id: "qa-results-finance"
 статус: "активно"
 проект: "Finance"
 создано: "2026-06-06"
-обновлено: "2026-06-08"
+обновлено: "2026-06-12"
 ссылки:
   - "[[Finance]]"
   - "[[QA_Фиксы]]"
@@ -604,3 +604,49 @@ id: "qa-results-finance"
 | Prod auth/DB data check | OPEN: no prod auth/DB access during data-check; live ids/archived/isInvestment values not independently verified read-only |
 | Visual regressions | OPEN: no UI/Compose automated tests; manual visual QA recommended on installed APK |
 | Russian input | OPEN: likely emulator settings, not app bug; workaround is Russian Android keyboard or `show_ime_with_hard_keyboard` / hardware keyboard off |
+
+## Волна 13: Critical Android investment save regression closure (2026-06-12)
+
+**Метод:** sanitized closure по build/unit evidence, final APK checksum, quick critical-path QA and fail-fast harness. Без raw auth, Bearer tokens, сырых payloads или секретов.
+
+**Scope:** critical Android regression `Брокер -> Инвестиция -> Сохранить`. Root cause: Android отправлял `iconKey` в `POST /api/v1/asset-categories`, а deployed OpenAPI для `AssetCategoryCreateRequest` strict `additionalProperties=false`; backend возвращал validation failure до create/link. Fix: create payload больше не содержит `iconKey`.
+
+### Сводка
+
+| Проверка | Результат |
+|----------|-----------|
+| Project branch | `newDis` |
+| Project commit | `d8175116f5123b6a304d4bd22dc083f2725505a0` (`fix(finance): migrate legacy brokerage assets`), pushed to `origin/newDis` |
+| Modified project files | `FinanceApp.kt`; `AppSectionTest.kt`; `ApiClient.kt`; `ApiClientPlanningAllocationTest.kt` |
+| Kotlin compile | `compileDebugKotlin` PASS, exit 0 |
+| Android unit | `testDebugUnitTest` PASS, 71 tests, exit 0 |
+| APK build | `assembleDebug` PASS, exit 0 |
+| APK | `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-newd-0.1.0-debug.apk` |
+| APK size | `54235740` bytes |
+| APK SHA256 | `B6960DB5D13198405984C027746343432CB95B0C08BB24F54D6A7FCD5061DCC7` |
+| Project summary | `MVP_EVIDENCE/critical-investment-fix-20260612/SUMMARY_SANITIZED.md` |
+| Quick QA evidence | `MVP_EVIDENCE/critical-investment-qa-quick-20260612-013822/QA_REPORT_SANITIZED.md` |
+| Harness evidence | `MVP_EVIDENCE/critical-investment-qa-harness-20260612-015225/HARNESS_REPORT_SANITIZED.md` |
+| Live serial | `emulator-5556` |
+| Secret scan | PASS; no raw auth/token evidence stored |
+
+### Critical-path evidence
+
+| Область | Результат |
+|---------|-----------|
+| Save flow | Assets -> Broker -> checked `Инвестиция` -> Save completed |
+| Linked category | After save/restart, `assetCategoryId` and `linkedAssetCategory.id` present |
+| Investment flag | `linkedAssetCategory.isInvestment=True` |
+| Investment categories | `investmentCategories.count=1` |
+| Totals | `150000.0000 RUB` after save and after restart |
+| Regression signal | No `Validation failed` in final PASS evidence |
+| Harness | Device selection, APK hash verification, install, launch and bounded UI probe PASS on `emulator-5556` |
+
+### Остаточные риски
+
+| Риск | Статус |
+|------|--------|
+| Commit hash | RECORDED: `d8175116f5123b6a304d4bd22dc083f2725505a0` |
+| APK signing | Debug-signed, not release-signed |
+| Backend deploy | Not claimed; Android payload now matches deployed strict OpenAPI contract |
+| Historical evidence | `critical-investment-qa-20260612-003254` FAIL and `critical-investment-qa-20260612-010747` stale/incomplete remain historical context only, not final PASS evidence |

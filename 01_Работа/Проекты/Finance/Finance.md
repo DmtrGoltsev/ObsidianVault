@@ -5,7 +5,7 @@ id: "project-finance"
 статус: "активно"
 владелец: "rocketflow-team"
 создано: "2026-06-01"
-обновлено: "2026-06-08"
+обновлено: "2026-06-12"
 уверенность: "средняя"
 теги: ["проект", "finance", "финансы", "учёт", "MVP"]
 источники:
@@ -192,6 +192,17 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 - **APK:** `artifacts/apk/finance-mvp-newd-0.1.0-debug.apk`, size `54,235,740`, SHA256 `D1734426439FF38627C230D454D04E66229655C8DF6FD651087DC065B7A30733`; production API base present, dev URLs absent.
 - **Ограничения:** residual manual QA остаётся для visual screenshot/device check compact card, edit mode, icon picker и investment badge.
 
+### Critical investment save regression closure (2026-06-12)
+
+- **Статус:** critical Android regression `Брокер -> Инвестиция -> Сохранить` закрыт по build/unit evidence, quick critical-path QA PASS and fail-fast harness PASS.
+- **Project commit:** `d8175116f5123b6a304d4bd22dc083f2725505a0` (`fix(finance): migrate legacy brokerage assets`), pushed to `origin/newDis`.
+- **Root cause:** Android отправлял `iconKey` в `POST /api/v1/asset-categories`, а deployed OpenAPI для `AssetCategoryCreateRequest` strict `additionalProperties=false`; backend возвращал validation failure до create/link.
+- **Fix:** create payload больше не содержит `iconKey`; изменённые project files: `FinanceApp.kt`, `AppSectionTest.kt`, `ApiClient.kt`, `ApiClientPlanningAllocationTest.kt`.
+- **QA:** `compileDebugKotlin` PASS; `testDebugUnitTest` PASS, 71 tests; `assembleDebug` PASS. Quick QA PASS: after save/restart linked asset category id present, `isInvestment=True`, `investmentCategories.count=1`, totals `150000.0000 RUB`, no `Validation failed`; secret scan PASS. Harness PASS on `emulator-5556`.
+- **APK:** `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-newd-0.1.0-debug.apk`, size `54,235,740`, SHA256 `B6960DB5D13198405984C027746343432CB95B0C08BB24F54D6A7FCD5061DCC7`.
+- **Evidence:** `MVP_EVIDENCE/critical-investment-fix-20260612/SUMMARY_SANITIZED.md`, `MVP_EVIDENCE/critical-investment-qa-quick-20260612-013822/QA_REPORT_SANITIZED.md`, `MVP_EVIDENCE/critical-investment-qa-harness-20260612-015225/HARNESS_REPORT_SANITIZED.md`.
+- **Ограничения:** APK debug-signed; backend deploy не заявляется; failed/incomplete evidence folders остаются historical context only.
+
 ### Открытые баги (P1)
 
 - BUG-006: AddAccountSheet всегда создаёт shared-счёт
@@ -202,7 +213,7 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 
 ## Ветки
 
-- `newDis` — текущая UX simplification release branch; production frontend commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b`; latest finance fix commit `09ea6479451c61b3d06a412e5aaaecec534fc96a`
+- `newDis` — текущая UX simplification release branch; production frontend commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b`; latest committed finance fix `09ea6479451c61b3d06a412e5aaaecec534fc96a`; critical investment fix commit `d8175116f5123b6a304d4bd22dc083f2725505a0`
 - `codex/finance-planning-mvp-gpt5` — кодовая ветка Planning MVP / production release `819b5815`
 - `fix/aggregate-parser-multiline-labels` — базовая ветка UI overhaul + bug fixes
 - `main` — стабильная
@@ -261,3 +272,12 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 - **APK:** `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-newd-0.1.0-debug.apk`, size `54,235,740`, SHA256 `FCD7EE0D870A12B3B88416DAEBCB3CF35FC513618C865B427E30E5F77F688411`; prod URL `http://45.10.110.42/finance-api` найден в `classes7.dex` и `classes5.dex`, dev URLs absent.
 - **Install:** AVD `Codex`, serial `emulator-5554`, package `com.finance.mvp`, install `Success`.
 - **Ограничения:** prod auth/DB read-only verification не выполнялась; нет UI/Compose automated coverage для visual regressions; manual visual QA на установленном APK остаётся рекомендованной.
+
+## Обновление KB: critical investment save regression (2026-06-12)
+
+- **Статус:** closure PASS; project commit `d8175116f5123b6a304d4bd22dc083f2725505a0` (`fix(finance): migrate legacy brokerage assets`) recorded.
+- **Root cause:** Android create payload для asset category содержал `iconKey`, несовместимый с deployed strict OpenAPI `AssetCategoryCreateRequest`.
+- **QA:** build/unit PASS (`compileDebugKotlin`, `testDebugUnitTest` 71 tests, `assembleDebug`), quick QA PASS and harness PASS on `emulator-5556`.
+- **Runtime proof:** after save/restart linked category id present, `isInvestment=True`, investment categories count `1`, totals `150000.0000 RUB`, no `Validation failed`.
+- **APK:** `artifacts/apk/finance-mvp-newd-0.1.0-debug.apk`, size `54,235,740`, SHA256 `B6960DB5D13198405984C027746343432CB95B0C08BB24F54D6A7FCD5061DCC7`.
+- **Evidence:** `MVP_EVIDENCE/critical-investment-fix-20260612/SUMMARY_SANITIZED.md`; final PASS reports are quick QA and harness only.
