@@ -71,15 +71,17 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 
 ### Date-only capture / Analysis QA status (2026-06-12)
 
-- **Статус:** release closure PASS по backend/PWA/Android date-only analysis and asset-edit stabilization; capture confirmation live Android flow remains **BLOCKED** and is not claimed as PASS.
+- **Статус:** release closure PASS по backend/PWA/Android date-only analysis, asset-edit stabilization и capture confirmation live Android flow.
 - **Project release integration commit:** `5a59f29335d307931f94e561b5120750bbfd260b` (`fix(finance): stabilize android asset editing`), pushed to `origin/newDis`.
+- **Project capture closure docs commit:** `a9f143e37515b53cc617165621ebf1708e0b0ee4` (`docs(finance): record capture confirmation pass`), pushed to `origin/newDis`.
 - **Backend production:** deployed commit `26b487d61b7d2d6de704f0a632bcb08ff7f240f7`, release `/opt/finance/releases/20260612T045020Z-26b487d6`, Alembic `20260607_0013 -> 20260612_0015`, backup SHA256 `6b48a4e8f73cbabeb40553eb052869c861bb2954edad0d960d3bbc7a34316ef8`, health/OpenAPI/auth smoke PASS.
 - **PWA production:** `http://45.10.110.42/finance/`, release `20260612T091555Z-26b487d61b7d`, JS asset `/finance/assets/index-BxFzW0Su.js`, npm test/build/nginx/public smoke PASS; evidence `MVP_EVIDENCE/reports/2026-06-12_pwa_prod_deploy_SANITIZED.md`.
 - **Android final APK:** `artifacts/apk/finance-mvp-newd-0.1.0-debug.apk`, size `54235740`, SHA256 `6AEE934A8817055B1738B32E1468D2A4C5415502C224115F9C7953F63EC3D893`; local-only artifact because `*.apk` is intentionally ignored.
 - **Android QA:** payment account filter/date-only/analysis PASS; asset edit regression fixed. Latest final evidence `MVP_EVIDENCE/date-only-capture-analysis-qa-metal-fix-20260612-133358/QA_REPORT_SANITIZED.md`: legacy `Металл` manual amount PASS; Broker/Card no icon picker/no manual amount PASS; secret scan PASS. D401 FAIL report remains historical pre-fix evidence only.
-- **Capture confirmation:** BLOCKED by `MVP_EVIDENCE/date-only-capture-confirmation-qa-20260612-100149/QA_REPORT_SANITIZED.md`; no newer escalation report found during integration. Exact unblock: parseable OCR fixture, approved test-only pending-draft seed/helper, or restored `/etc/finance/qa-owner.env` locator with rate-limit reset.
+- **Capture confirmation:** PASS by later escalation report `MVP_EVIDENCE/date-only-capture-confirmation-escalation-20260612-141033/QA_REPORT_SANITIZED.md`; secret scan `MVP_EVIDENCE/date-only-capture-confirmation-escalation-20260612-141033/secret_scan_summary.json` PASS/finding_count `0`. Live proof: emulator `emulator-5554`, APK SHA256 `6AEE934A8817055B1738B32E1468D2A4C5415502C224115F9C7953F63EC3D893`, pending capture draft edited to amount `45.67` and date `2026-06-11`, then `Подтвердить` removed the draft row and Operations showed the edited backend-backed amount/date. Previous `MVP_EVIDENCE/date-only-capture-confirmation-qa-20260612-100149/QA_REPORT_SANITIZED.md` remains historical pre-escalation BLOCKED fixture evidence only.
 - **Curated release report:** `MVP_EVIDENCE/reports/2026-06-12_date-only_capture_analysis_release_SANITIZED.md`.
 - **Sanitization:** no raw OCR payloads, screenshots, UI XML, production financial data, UUIDs, tokens, cookies, passwords, or secret values are stored in KB.
+- **Residual risk:** capture confirmation PASS is scoped to the escalation run with an existing authenticated Android app session; fresh login from credentials and deterministic seed/deep-link fixture remain future hardening, not current release blockers.
 
 ### Safe QA account metadata (2026-06-12)
 

@@ -717,7 +717,7 @@ id: "qa-results-finance"
 | Curated release report | `MVP_EVIDENCE/reports/2026-06-12_date-only_capture_analysis_release_SANITIZED.md` |
 | Final Android evidence | `MVP_EVIDENCE/date-only-capture-analysis-qa-metal-fix-20260612-133358/QA_REPORT_SANITIZED.md` |
 | PWA deploy evidence | `MVP_EVIDENCE/reports/2026-06-12_pwa_prod_deploy_SANITIZED.md` |
-| Capture confirmation evidence | `MVP_EVIDENCE/date-only-capture-confirmation-qa-20260612-100149/QA_REPORT_SANITIZED.md` |
+| Capture confirmation evidence | `MVP_EVIDENCE/date-only-capture-confirmation-escalation-20260612-141033/QA_REPORT_SANITIZED.md`; previous blocker report retained as historical only |
 | Secret scan | PASS for curated project/KB touched files; no real secrets found |
 
 ### PASS evidence
@@ -744,17 +744,13 @@ id: "qa-results-finance"
 
 | Область | Статус |
 |---------|--------|
-| Live Android confirmation edit amount/date and confirm | BLOCKED |
-| Newer escalation report | Not found during integration; no false PASS recorded |
-| Current blocker report | `MVP_EVIDENCE/date-only-capture-confirmation-qa-20260612-100149/QA_REPORT_SANITIZED.md` |
-| Backend/Android unit contract coverage | Reported PASS in blocker report |
-| Live UI proof | Not completed |
-
-Exact unblock options:
-
-- Parseable synthetic image fixture known to produce at least one candidate through the live backend OCR engine.
-- Approved test-only seed endpoint/helper that creates a pending screenshot capture draft for the logged-in Android QA account without raw OCR/image input.
-- Restored access to `/etc/finance/qa-owner.env` key `FINANCE_QA_PASSWORD`, or temporary reset of the remote registration rate limit for one safe synthetic account run.
+| Live Android confirmation edit amount/date and confirm | PASS by Wave 16 escalation |
+| Escalation report | `MVP_EVIDENCE/date-only-capture-confirmation-escalation-20260612-141033/QA_REPORT_SANITIZED.md` |
+| Escalation secret scan | PASS/finding_count `0` |
+| Previous blocker report | `MVP_EVIDENCE/date-only-capture-confirmation-qa-20260612-100149/QA_REPORT_SANITIZED.md`, historical only |
+| Backend focused coverage | `26 passed, 1 warning` |
+| Android focused JVM coverage | `BUILD SUCCESSFUL` |
+| Live UI proof | Pending row shown, amount/date edited, `Подтвердить` removed draft row, Operations showed edited backend-backed amount/date |
 
 ### Safe QA account metadata
 
@@ -767,6 +763,51 @@ Exact unblock options:
 
 | Риск | Статус |
 |------|--------|
-| Capture confirmation live Android proof | BLOCKED until one unblock path above is available |
+| Capture confirmation live Android proof | CLOSED by Wave 16 escalation PASS |
 | APK signing | Debug-signed, not release-signed |
 | Raw evidence | Intentionally local/ignored; only curated sanitized Markdown/JSON should be committed |
+
+## Волна 16: Capture confirmation escalation closure (2026-06-12)
+
+**Метод:** sanitized escalation closure после release integration commit. Без raw screenshots, UI XML, raw OCR payloads, auth payloads, Bearer tokens, cookies, passwords или secret values.
+
+**Scope:** live Android capture confirmation UI: edit amount/date before confirming a screenshot-derived pending draft.
+
+### Сводка
+
+| Проверка | Результат |
+|----------|-----------|
+| Project branch | `newDis` |
+| Project release integration commit before escalation | `5a59f29335d307931f94e561b5120750bbfd260b` (`fix(finance): stabilize android asset editing`), pushed to `origin/newDis` |
+| Project capture closure docs commit | `a9f143e37515b53cc617165621ebf1708e0b0ee4` (`docs(finance): record capture confirmation pass`), pushed to `origin/newDis` |
+| Escalation evidence | `MVP_EVIDENCE/date-only-capture-confirmation-escalation-20260612-141033/QA_REPORT_SANITIZED.md` |
+| Escalation secret scan | `MVP_EVIDENCE/date-only-capture-confirmation-escalation-20260612-141033/secret_scan_summary.json`, PASS/finding_count `0` |
+| Live serial | `emulator-5554` |
+| APK SHA256 | `6AEE934A8817055B1738B32E1468D2A4C5415502C224115F9C7953F63EC3D893` |
+| Backend focused tests | `26 passed, 1 warning` |
+| Android focused JVM tests | `BUILD SUCCESSFUL` |
+| Final capture confirmation status | PASS |
+
+### Live proof
+
+| Область | Результат |
+|---------|-----------|
+| Pending draft | Live Android UI showed a pending capture confirmation row |
+| Amount edit | Amount changed to `45.67` before confirmation |
+| Date edit | Operation date changed to `2026-06-11` before confirmation |
+| Confirm | After `Подтвердить`, the pending row disappeared |
+| Operations refresh | Operations showed the edited amount/date from the refreshed backend-backed dashboard |
+
+### Historical evidence
+
+| Evidence | Статус |
+|----------|--------|
+| `MVP_EVIDENCE/date-only-capture-confirmation-qa-20260612-100149/QA_REPORT_SANITIZED.md` | Historical pre-escalation `BLOCKED_CAPTURE_FIXTURE`; no longer final release status |
+
+### Остаточные риски
+
+| Риск | Статус |
+|------|--------|
+| Fresh login from credentials | NOT_CLAIMED: escalation used an existing authenticated Android app session |
+| Deterministic repeatability | FUTURE_HARDENING: test-only seed/deep link or documented parseable OCR fixture remains useful |
+| APK signing | Debug-signed, not release-signed |
