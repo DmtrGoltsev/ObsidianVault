@@ -71,10 +71,15 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 
 ### Date-only capture / Analysis QA status (2026-06-12)
 
-- **Статус:** implementation in progress; pending final QA and commit. Финальное закрытие и release PASS пока не заявляются; commit hash не зафиксирован.
-- **Scope pending QA:** manual date picker Android/PWA, capture confirmation edit amount/date, payment account flag/filter for expense, Analysis month switcher/category aggregation/investment history, backend migration/API, prod deploy gate, emulator QA, broker investment regression.
-- **QA plan:** `MVP_EVIDENCE/reports/2026-06-12_date-only-capture-analysis-qa-plan.md`; KB evidence addendum: [[QA_Результаты]].
-- **Sanitization:** evidence must not include raw OCR payloads, screenshots, UI XML, production financial data, UUIDs, tokens, cookies, passwords, or secret values.
+- **Статус:** release closure PASS по backend/PWA/Android date-only analysis and asset-edit stabilization; capture confirmation live Android flow remains **BLOCKED** and is not claimed as PASS.
+- **Project release integration commit:** `5a59f29335d307931f94e561b5120750bbfd260b` (`fix(finance): stabilize android asset editing`), pushed to `origin/newDis`.
+- **Backend production:** deployed commit `26b487d61b7d2d6de704f0a632bcb08ff7f240f7`, release `/opt/finance/releases/20260612T045020Z-26b487d6`, Alembic `20260607_0013 -> 20260612_0015`, backup SHA256 `6b48a4e8f73cbabeb40553eb052869c861bb2954edad0d960d3bbc7a34316ef8`, health/OpenAPI/auth smoke PASS.
+- **PWA production:** `http://45.10.110.42/finance/`, release `20260612T091555Z-26b487d61b7d`, JS asset `/finance/assets/index-BxFzW0Su.js`, npm test/build/nginx/public smoke PASS; evidence `MVP_EVIDENCE/reports/2026-06-12_pwa_prod_deploy_SANITIZED.md`.
+- **Android final APK:** `artifacts/apk/finance-mvp-newd-0.1.0-debug.apk`, size `54235740`, SHA256 `6AEE934A8817055B1738B32E1468D2A4C5415502C224115F9C7953F63EC3D893`; local-only artifact because `*.apk` is intentionally ignored.
+- **Android QA:** payment account filter/date-only/analysis PASS; asset edit regression fixed. Latest final evidence `MVP_EVIDENCE/date-only-capture-analysis-qa-metal-fix-20260612-133358/QA_REPORT_SANITIZED.md`: legacy `Металл` manual amount PASS; Broker/Card no icon picker/no manual amount PASS; secret scan PASS. D401 FAIL report remains historical pre-fix evidence only.
+- **Capture confirmation:** BLOCKED by `MVP_EVIDENCE/date-only-capture-confirmation-qa-20260612-100149/QA_REPORT_SANITIZED.md`; no newer escalation report found during integration. Exact unblock: parseable OCR fixture, approved test-only pending-draft seed/helper, or restored `/etc/finance/qa-owner.env` locator with rate-limit reset.
+- **Curated release report:** `MVP_EVIDENCE/reports/2026-06-12_date-only_capture_analysis_release_SANITIZED.md`.
+- **Sanitization:** no raw OCR payloads, screenshots, UI XML, production financial data, UUIDs, tokens, cookies, passwords, or secret values are stored in KB.
 
 ### Safe QA account metadata (2026-06-12)
 
@@ -227,7 +232,7 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 
 ## Ветки
 
-- `newDis` — текущая UX simplification release branch; production frontend commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b`; latest committed finance fix `09ea6479451c61b3d06a412e5aaaecec534fc96a`; critical investment fix commit `d8175116f5123b6a304d4bd22dc083f2725505a0`
+- `newDis` — текущая UX simplification/release branch; production frontend historical commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b`; backend/PWA date-only deploy commit `26b487d61b7d2d6de704f0a632bcb08ff7f240f7`; latest Android release integration commit `5a59f29335d307931f94e561b5120750bbfd260b`
 - `codex/finance-planning-mvp-gpt5` — кодовая ветка Planning MVP / production release `819b5815`
 - `fix/aggregate-parser-multiline-labels` — базовая ветка UI overhaul + bug fixes
 - `main` — стабильная

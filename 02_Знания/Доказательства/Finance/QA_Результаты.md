@@ -688,3 +688,85 @@ id: "qa-results-finance"
 ### Sanitization constraints
 
 Не хранить raw OCR payloads, screenshots, UI XML, production financial data, UUIDs, Bearer/session tokens, cookies, passwords или secret values. Для QA account допускаются только safe aliases and out-of-band secret locator.
+
+## Волна 15: Date-only capture / Analysis release closure (2026-06-12)
+
+**Метод:** release/KB integration по sanitized backend/PWA/Android evidence, APK checksum, git status hygiene and secret scan. Raw screenshots, UI XML, raw OCR payloads, auth payloads, Bearer tokens, cookies, passwords and production financial payloads are excluded.
+
+**Scope:** final status for date-only capture/analysis release after Android Metal manual amount fix; backend/PWA production deploys; safe QA account metadata; capture confirmation blocker routing.
+
+### Сводка
+
+| Проверка | Результат |
+|----------|-----------|
+| Project branch | `newDis` |
+| Project release integration commit | `5a59f29335d307931f94e561b5120750bbfd260b` (`fix(finance): stabilize android asset editing`), pushed to `origin/newDis` |
+| Backend deployed commit | `26b487d61b7d2d6de704f0a632bcb08ff7f240f7` |
+| Backend release | `/opt/finance/releases/20260612T045020Z-26b487d6` |
+| Alembic | `20260607_0013 -> 20260612_0015` |
+| Backend backup SHA256 | `6b48a4e8f73cbabeb40553eb052869c861bb2954edad0d960d3bbc7a34316ef8` |
+| Backend smoke | health/OpenAPI/auth smoke PASS |
+| PWA target | `http://45.10.110.42/finance/` |
+| PWA release | `20260612T091555Z-26b487d61b7d` |
+| PWA JS asset | `/finance/assets/index-BxFzW0Su.js` |
+| PWA gates | npm test/build/nginx/public smoke PASS |
+| Android final APK | `artifacts/apk/finance-mvp-newd-0.1.0-debug.apk` |
+| APK size | `54235740` bytes |
+| APK SHA256 | `6AEE934A8817055B1738B32E1468D2A4C5415502C224115F9C7953F63EC3D893` |
+| APK Git status | Local artifact only; `*.apk` intentionally ignored |
+| Curated release report | `MVP_EVIDENCE/reports/2026-06-12_date-only_capture_analysis_release_SANITIZED.md` |
+| Final Android evidence | `MVP_EVIDENCE/date-only-capture-analysis-qa-metal-fix-20260612-133358/QA_REPORT_SANITIZED.md` |
+| PWA deploy evidence | `MVP_EVIDENCE/reports/2026-06-12_pwa_prod_deploy_SANITIZED.md` |
+| Capture confirmation evidence | `MVP_EVIDENCE/date-only-capture-confirmation-qa-20260612-100149/QA_REPORT_SANITIZED.md` |
+| Secret scan | PASS for curated project/KB touched files; no real secrets found |
+
+### PASS evidence
+
+| Область | Результат |
+|---------|-----------|
+| Payment account filter | Expense account selection excludes non-payment asset/investment accounts; income remains broader |
+| Date-only / Analysis | Date-only analysis/report release evidence accepted as PASS after final Android regression closure |
+| Asset edit dialogs | Broker/Card edit dialogs have no icon picker and no manual amount field for account-backed groups |
+| Legacy `Металл` | Manual-only legacy Metal now exposes `Ручная сумма`, saves manual amount, reopens with saved value, and has no icon picker |
+| Broker/Card negative checks | Account-backed Card and Broker remain without manual amount and without icon picker |
+| Android build/tests | Focused JVM, full Android JVM, and debug APK build PASS in final Metal fix report |
+| PWA deploy | Production PWA release switched and public smoke PASS |
+| Backend deploy | Production backend release/migration/smoke PASS |
+
+### Historical evidence
+
+| Evidence | Статус |
+|----------|--------|
+| `MVP_EVIDENCE/date-only-capture-analysis-qa-final-D401-20260612-130029/QA_REPORT_SANITIZED.md` | Historical FAIL for Metal before fix; retained for regression history only |
+| `MVP_EVIDENCE/date-only-capture-analysis-qa-metal-fix-20260612-133358/QA_REPORT_SANITIZED.md` | Final PASS source for Metal/manual amount/no icon picker closure |
+
+### Capture confirmation
+
+| Область | Статус |
+|---------|--------|
+| Live Android confirmation edit amount/date and confirm | BLOCKED |
+| Newer escalation report | Not found during integration; no false PASS recorded |
+| Current blocker report | `MVP_EVIDENCE/date-only-capture-confirmation-qa-20260612-100149/QA_REPORT_SANITIZED.md` |
+| Backend/Android unit contract coverage | Reported PASS in blocker report |
+| Live UI proof | Not completed |
+
+Exact unblock options:
+
+- Parseable synthetic image fixture known to produce at least one candidate through the live backend OCR engine.
+- Approved test-only seed endpoint/helper that creates a pending screenshot capture draft for the logged-in Android QA account without raw OCR/image input.
+- Restored access to `/etc/finance/qa-owner.env` key `FINANCE_QA_PASSWORD`, or temporary reset of the remote registration rate limit for one safe synthetic account run.
+
+### Safe QA account metadata
+
+| Environment | Safe alias / identifier | Purpose | Secret handling |
+|-------------|-------------------------|---------|-----------------|
+| Production QA | `finance.qa@local.test` | Owner-operated production smoke and authenticated QA flows | Password value is never stored. Locator only: `/etc/finance/qa-owner.env`, key `FINANCE_QA_PASSWORD`. |
+| Development | `demo.owner@example.test` | Local/dev seeded flows and emulator/PWA development checks | No passwords, tokens, cookies, or sessions are stored. |
+
+### Остаточные риски
+
+| Риск | Статус |
+|------|--------|
+| Capture confirmation live Android proof | BLOCKED until one unblock path above is available |
+| APK signing | Debug-signed, not release-signed |
+| Raw evidence | Intentionally local/ignored; only curated sanitized Markdown/JSON should be committed |
