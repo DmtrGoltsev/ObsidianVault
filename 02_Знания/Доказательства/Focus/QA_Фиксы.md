@@ -3,44 +3,48 @@ id: "qa-fixes"
 тип: "доказательство"
 статус: "активно"
 проект: "Focus"
-владелец: "QA_Lead"
-создано: "2026-06-05"
-обновлено: "2026-06-06"
-уверенность: "высокая"
-источники:
-  - "[[QA_ТестКейсы_v2]]"
-теги: ["QA", "фиксы", "bugfix"]
+создано: "2026-06-12"
+обновлено: "2026-06-12"
+теги:
+  - "qa"
+  - "focus"
+  - "фиксы"
 ---
 
-# QA Журнал фиксов
+# QA Фиксы — Focus
 
-## Применённые фиксы
+## Фиксы 2026-06-12 (продолжение работы прошлого агента)
 
-| FIX | Что исправлено | Файл | Дата | Верифицирован |
+| FIX | Описание | Файл | Дата | Верифицирован |
 |---|---|---|---|---|
-| FIX-A | @Valid на TaskRequest | TaskController.java | 2026-06-05 | Да |
-| FIX-B | Status transitions validation (TODO→IN_PROGRESS→DONE/CANCELLED) | TaskService.java | 2026-06-05 | Да |
-| FIX-C | Self-sharing prevention | ShareService.java | 2026-06-05 | Да |
-| FIX-D | Goal-ownership fallback for shared tasks | TaskService.java | 2026-06-05 | Частично (BE-101 FAIL) |
-| FIX-E | TokenManager lazy init (ANR fix) | TokenManager.kt | 2026-06-05 | Да |
-| FIX-F | TaskRequest: убраны @NotBlank/@NotNull для PATCH | TaskRequest.java | 2026-06-05 | Да |
-| FIX-G | Title validation перенесена в service | TaskService.java:107-109 | 2026-06-05 | Да |
-| FIX-H | Reschedule presets (+30m/+1h/+3h/+24h) | TaskService.java | 2026-06-05 | Да |
-| FIX-I | TaskResponse nested RecurrenceInfo | TaskResponse.java | 2026-06-05 | Да |
-| FIX-J | ReminderRule @JsonProperty("isActive") | ReminderRule.java | 2026-06-05 | Да |
-| FIX-K | CalendarService @Transactional | CalendarService.java | 2026-06-05 | Да |
-| FIX-L | Generic error messages (no stack trace) | GlobalExceptionHandler.java | 2026-06-05 | Да |
-| FIX-M | UserResponse greenDecay/redDecay | UserResponse.java | 2026-06-05 | Да |
-| FIX-N | Task links CRUD | TaskService.java | 2026-06-05 | Да |
-| FIX-O | ForbiddenException — 403 вместо 400 | ForbiddenException.java (новый), TaskService.java, GlobalExceptionHandler.java | 2026-06-05 | Да (BE-070) |
-| FIX-P | Optimistic lock — version check в update() | TaskRequest.java (+version), TaskService.java | 2026-06-06 | Да (BE-084) |
-| FIX-Q | taskType default GREEN при null | TaskService.java:117 | 2026-06-06 | Да (BE-103) |
-| FIX-R | WEEKLY daysOfWeek validation — parseDaysOfWeek бросает BadRequestException | TaskService.java:495-507 | 2026-06-06 | Да (BE-114) |
-| FIX-S | Register endpoint возвращает 201 вместо 200 | AuthController.java | 2026-06-06 | Да (FE-006) |
-| FIX-T | Auth endpoints skip 401 refresh interceptor | api.ts:44 | 2026-06-06 | Да (FE-003) |
+| FIX-U | getById() использует resolveTaskWithEditAccess вместо read-access → Forbidden для shared readonly-пользователей. Добавлен resolveTaskWithReadAccess() | `TaskService.java:153-155,324-348` | 2026-06-12 | Да (mvn test 21/21) |
 
-## Новые файлы созданные при фиксах
+## Предыдущие фиксы (FIX-A — FIX-T)
 
-| Файл | FIX | Описание |
+| FIX | Описание | Файл |
 |---|---|---|
-| ForbiddenException.java | FIX-O | @ResponseStatus(FORBIDDEN) |
+| FIX-A | Calendar controller NPE при null plannedTime | `CalendarController.java` |
+| FIX-B | FolderController.update() не возвращал userId | `FolderController.java` |
+| FIX-C | Goal sharing: findByGoalIdAndTargetUserEmail → findByGoalIdAndSharedWith | `ShareService.java` |
+| FIX-D | TaskResponse.from() LazyInitializationException на goal.user | `TaskResponse.java` |
+| FIX-E | Auth refresh: rotation refreshToken при каждом refresh | `AuthService.java` |
+| FIX-F | Folder soft delete: cascade на goals/tasks | `FolderService.java` |
+| FIX-G | Goal soft delete: cascade на tasks | `GoalService.java` |
+| FIX-H | TaskTag deleteByTaskId без @Modifying | `TaskTagRepository.java` |
+| FIX-I | TaskLink deleteByTaskId без @Modifying | `TaskLinkRepository.java` |
+| FIX-J | RecurrenceRule: next occurrence использует plannedTime а не now | `TaskService.java` |
+| FIX-K | ReminderRule deleteByTaskId без @Modifying | `ReminderRuleRepository.java` |
+| FIX-L | Calendar: timezone-agnostic сравнение Instant | `CalendarService.java` |
+| FIX-M | Settings: PATCH /me/settings не сохранял decay конфиг | `AccountService.java` |
+| FIX-N | Sharing: goal owner видит shared tasks | `TaskService.java` |
+| FIX-O | Sharing: shared user получает доступ к goal/task | `ShareService.java` |
+| FIX-P | Auth: logout инвалидировал все refresh tokens пользователя | `AuthService.java` |
+| FIX-Q | Task: priority validation 1-10 | `TaskService.java` |
+| FIX-R | Task: status transition validation | `TaskService.java` |
+| FIX-S | Folder: displayOrder сохраняется при создании | `FolderService.java` |
+| FIX-T | Auth endpoints skip 401 refresh interceptor | `api.ts` |
+
+## Навигация
+
+- [[QA_Результаты]] — результаты прогонов
+- [[Focus]] — статус проекта

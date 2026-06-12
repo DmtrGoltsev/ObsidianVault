@@ -650,3 +650,41 @@ id: "qa-results-finance"
 | APK signing | Debug-signed, not release-signed |
 | Backend deploy | Not claimed; Android payload now matches deployed strict OpenAPI contract |
 | Historical evidence | `critical-investment-qa-20260612-003254` FAIL and `critical-investment-qa-20260612-010747` stale/incomplete remain historical context only, not final PASS evidence |
+
+## Волна 14: Date-only capture / Analysis QA plan (2026-06-12)
+
+**Статус:** implementation in progress; pending final QA and commit. Это план покрытия, не final PASS report. Commit hash не заявляется.
+
+**Project QA plan:** `MVP_EVIDENCE/reports/2026-06-12_date-only-capture-analysis-qa-plan.md`.
+
+### P0 coverage
+
+| ID | Область | Проверка | Статус |
+|----|---------|----------|--------|
+| P0-DATE-ANDROID-01 | Android manual date picker | Ручной выбор даты при create/edit операции, включая границы месяца; reports используют date-only без timezone drift | PLANNED |
+| P0-DATE-PWA-01 | PWA manual date picker | Ручной date input в PWA сохраняет `transactionDate`, legacy timestamp нормализуется совместимо | PLANNED |
+| P0-CAPTURE-01 | Capture confirmation | Перед confirm можно изменить amount/date; transaction получает отредактированные значения | PLANNED |
+| P0-PAYMENT-01 | Payment account flag/filter | Expense/capture account selection исключает non-payment asset/investment accounts | PLANNED |
+| P0-ANALYSIS-01 | Analysis month/category | Month switcher не смешивает месяцы; category aggregation корректна на date-only границах | PLANNED |
+| P0-ANALYSIS-02 | Analysis investment history | Investment history не содержит stale/duplicate totals после broker/investment изменений | PLANNED |
+| P0-MIGRATION-01 | Backend migration/API | Alembic migration/API/OpenAPI контракт проверены до release gate | PLANNED |
+| P0-PROD-GATE-01 | Prod deploy gate | Миграция, health, PWA/static, Android prod base и authenticated QA smoke имеют явный PASS/waiver | PLANNED |
+| P0-EMULATOR-01 | Emulator QA | Fresh install, selected serial, data clear, login and critical flows без stale-run confusion | PLANNED |
+| P0-BROKER-01 | Broker investment regression | `Брокер -> Инвестиция -> Сохранить` повторно проходит после date/payment/report changes | PLANNED |
+
+### P1 coverage
+
+| ID | Область | Проверка | Статус |
+|----|---------|----------|--------|
+| P1-DATE-ANDROID-02 | Android date picker | Reopen/restart показывает persisted date-only value | PLANNED |
+| P1-DATE-PWA-02 | PWA date picker | Refresh PWA не ломает locale/date display | PLANNED |
+| P1-CAPTURE-02 | Capture confirmation | Частичные edits: только amount, только date, без edits | PLANNED |
+| P1-PAYMENT-02 | Payment flag history | Toggle payment flag не ломает historical transactions, но исключает account из новых expenses | PLANNED |
+| P1-ANALYSIS-03 | Analysis month switcher | Повторные переключения месяцев сохраняют totals/category rows/investment history consistent | PLANNED |
+| P1-ANALYSIS-04 | Category aggregation scope | Одинаковые labels в разных scopes не смешивают недоступные данные | PLANNED |
+| P1-MIGRATION-02 | Migration readiness | Backup/rollback gate зафиксирован до prod migration | PLANNED |
+| P1-EMULATOR-02 | Emulator locale | Date input проверен с non-English locale settings where practical | PLANNED |
+
+### Sanitization constraints
+
+Не хранить raw OCR payloads, screenshots, UI XML, production financial data, UUIDs, Bearer/session tokens, cookies, passwords или secret values. Для QA account допускаются только safe aliases and out-of-band secret locator.

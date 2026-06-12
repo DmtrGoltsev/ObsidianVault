@@ -69,6 +69,20 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 
 **Production MVP functional GO (2026-05-19)** — закрытый MVP в production.
 
+### Date-only capture / Analysis QA status (2026-06-12)
+
+- **Статус:** implementation in progress; pending final QA and commit. Финальное закрытие и release PASS пока не заявляются; commit hash не зафиксирован.
+- **Scope pending QA:** manual date picker Android/PWA, capture confirmation edit amount/date, payment account flag/filter for expense, Analysis month switcher/category aggregation/investment history, backend migration/API, prod deploy gate, emulator QA, broker investment regression.
+- **QA plan:** `MVP_EVIDENCE/reports/2026-06-12_date-only-capture-analysis-qa-plan.md`; KB evidence addendum: [[QA_Результаты]].
+- **Sanitization:** evidence must not include raw OCR payloads, screenshots, UI XML, production financial data, UUIDs, tokens, cookies, passwords, or secret values.
+
+### Safe QA account metadata (2026-06-12)
+
+| Environment | Safe alias / identifier | Purpose | Secret handling |
+|-------------|-------------------------|---------|-----------------|
+| Production QA | `finance.qa@local.test` | Owner-operated production smoke and authenticated QA flows | Password value is never stored in KB. Out-of-band locator only: `/etc/finance/qa-owner.env`, key `FINANCE_QA_PASSWORD`. |
+| Development | `demo.owner@example.test` | Local/dev seeded flows, emulator/PWA development checks | No passwords, tokens, cookies, or sessions are stored in KB. |
+
 ### Обновление 2026-06-06
 
 - **Русификация:** 44 строки UI переведены на русский
