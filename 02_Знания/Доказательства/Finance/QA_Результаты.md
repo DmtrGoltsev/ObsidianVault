@@ -707,6 +707,7 @@ id: "qa-results-finance"
 | Backend backup SHA256 | `6b48a4e8f73cbabeb40553eb052869c861bb2954edad0d960d3bbc7a34316ef8` |
 | Backend smoke | health/OpenAPI/auth smoke PASS |
 | PWA target | `http://45.10.110.42/finance/` |
+| iPhone/browser PWA access | Open `http://45.10.110.42/finance/` in Safari/browser; optional Share -> Add to Home Screen. User term `PWE` interpreted as `PWA`; HTTPS/domain not claimed. |
 | PWA release | `20260612T091555Z-26b487d61b7d` |
 | PWA JS asset | `/finance/assets/index-BxFzW0Su.js` |
 | PWA gates | npm test/build/nginx/public smoke PASS |

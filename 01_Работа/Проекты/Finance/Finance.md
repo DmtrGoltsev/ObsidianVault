@@ -69,6 +69,14 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 
 **Production MVP functional GO (2026-05-19)** — закрытый MVP в production.
 
+### PWA URL для iPhone / браузера (2026-06-12)
+
+- **URL:** `http://45.10.110.42/finance/`.
+- **Назначение:** это production PWA URL для открытия Finance на iPhone или в обычном браузере.
+- **Терминология:** `PWE` из пользовательского запроса трактуется как `PWA`.
+- **Как открыть на iPhone:** открыть Safari или другой браузер, перейти по `http://45.10.110.42/finance/`; при желании добавить на экран «Домой» через Share -> Add to Home Screen.
+- **Ограничение:** HTTPS или домен не заявляются, потому что в evidence подтверждён только HTTP IP URL.
+
 ### Date-only capture / Analysis QA status (2026-06-12)
 
 - **Статус:** release closure PASS по backend/PWA/Android date-only analysis, asset-edit stabilization и capture confirmation live Android flow.
@@ -302,3 +310,9 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 - **Runtime proof:** after save/restart linked category id present, `isInvestment=True`, investment categories count `1`, totals `150000.0000 RUB`, no `Validation failed`.
 - **APK:** `artifacts/apk/finance-mvp-newd-0.1.0-debug.apk`, size `54,235,740`, SHA256 `B6960DB5D13198405984C027746343432CB95B0C08BB24F54D6A7FCD5061DCC7`.
 - **Evidence:** `MVP_EVIDENCE/critical-investment-fix-20260612/SUMMARY_SANITIZED.md`; final PASS reports are quick QA and harness only.
+
+## Обновление KB: PWA URL для iPhone (2026-06-12)
+
+- **Добавлено:** краткая инструкция подключения с iPhone/браузера к Finance PWA по `http://45.10.110.42/finance/`.
+- **Уточнение:** пользовательский термин `PWE` зафиксирован как `PWA`.
+- **Связанный релизный контекст:** последний release closure уже задокументирован выше: date-only операции, payment account flag/filter, capture confirmation edit amount/date PASS, analysis month switching, Android asset edit fix, backend/PWA deploy и APK SHA256 `6AEE934A8817055B1738B32E1468D2A4C5415502C224115F9C7953F63EC3D893`.
