@@ -730,7 +730,7 @@ id: "qa-results-finance"
 | Asset edit dialogs | Broker/Card edit dialogs have no icon picker and no manual amount field for account-backed groups |
 | Legacy `Металл` | Manual-only legacy Metal now exposes `Ручная сумма`, saves manual amount, reopens with saved value, and has no icon picker |
 | Broker/Card negative checks | Account-backed Card and Broker remain without manual amount and without icon picker |
-| Android build/tests | Focused JVM, full Android JVM, and debug APK build PASS in final Metal fix report |
+| Android build/tests | внешний проектed JVM, full Android JVM, and debug APK build PASS in final Metal fix report |
 | PWA deploy | Production PWA release switched and public smoke PASS |
 | Backend deploy | Production backend release/migration/smoke PASS |
 
