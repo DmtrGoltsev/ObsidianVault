@@ -24,11 +24,11 @@ CI: backend-verify.yml
 
 ## Когда проверено
 
-Автоматически при каждом push/pull_request в backend/.
+Автоматически при каждом push/pull_request в backend/; эта запись является historical/last recorded evidence, а не fresh verification для текущего HEAD `21f95c1`.
 
 ## Результат
 
-- Все тесты проходят (зелёный билд)
+- Last recorded backend tests проходят (зелёный билд); это historical evidence, а не fresh verification для текущего HEAD `21f95c1`.
 - Local package 2026-06-08: `mvn --batch-mode --no-transfer-progress package` прошёл на втором запуске; `Tests run: 63, Failures: 0, Errors: 0, Skipped: 0`, `BUILD SUCCESS`, total `02:42`, finished `2026-06-08T11:50:48+03`
 - Используется Embedded PostgreSQL (zonky) для изоляции от внешней БД
 - Покрытие: модули auth, accounts, folders, goals, tasks, sharing, calendar, recurrence, reminders, prioritypolicy, notifications

@@ -5,7 +5,7 @@ id: "proj-rocketflow"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-06-08"
+обновлено: "2026-06-13"
 уверенность: "высокая"
 источники: ["docs/33-current-state-summary.md", "README.md", "docs/04-architecture-blueprint.md"]
 доказательства: ["docs/50-notification-runtime-clean-pass.md", "Док_Cleanup_Manifest", "Док_Backend_Verification", "Док_Web_Verification", "Док_Android_Verification", "Док_Prod_Deploy_State"]
@@ -40,11 +40,12 @@ id: "proj-rocketflow"
 - Три волны (A, B, C) завершены
 - Wave C.1 завершён (web scheduling authoring)
 - Текущая стадия: [[MVP3_Упрощение]]
-- Ветка: `MVP3`; base HEAD перед новым delivery-коммитом `5f03476d1de4e09d5da0b1bfedfaf28353173124`
-- `git rev-list --count MVP2..MVP3` = 21
-- Backend: `mvn --batch-mode --no-transfer-progress package` зелёный на втором запуске; `63/0/0/0`, `BUILD SUCCESS`, total `02:42`; jar `rocketflow-backend-0.1.0-SNAPSHOT.jar` 115,319,880 bytes
-- Web: финальный `npm run build` зелёный; 1792 modules transformed, built in `2.09s`; test scripts отсутствуют
-- Android: `MainActivity.kt` исправлен для goal/task folder navigation, target dialogs scroll и newest-first sorting; `.\gradlew.bat :app:testDebugUnitTest :app:assembleDebug :app:lintDebug --no-daemon` зелёный, `BUILD SUCCESSFUL in 1m19s`
+- Текущая точка 2026-06-13: ветка `MVP3`, `origin/MVP3` synced, HEAD `21f95c15166b9c41de4279c4209d00da429688f3` (`Fix Android goal and task creation flow`)
+- `git rev-list --count MVP2..MVP3` = 23
+- DB: в этой документационной задаче не перепроверялась; пользователь подтвердил, что DB работает
+- Backend: последний зафиксированный evidence 2026-06-08 — `mvn --batch-mode --no-transfer-progress package` зелёный на втором запуске; `63/0/0/0`, `BUILD SUCCESS`, total `02:42`; jar `rocketflow-backend-0.1.0-SNAPSHOT.jar` 115,319,880 bytes. Для HEAD `21f95c1` нужен fresh evidence, если требуется актуальный gate.
+- Web: последний зафиксированный evidence 2026-06-07 — `npm run build` зелёный; 1792 modules transformed, built in `2.09s`; test scripts отсутствуют. Для HEAD `21f95c1` нужен fresh evidence, если требуется актуальный gate.
+- Android: последний зафиксированный evidence 2026-06-08 — `.\gradlew.bat :app:testDebugUnitTest :app:assembleDebug :app:lintDebug --no-daemon` зелёный, `BUILD SUCCESSFUL in 1m19s`. Для HEAD `21f95c1` нужен fresh evidence, если требуется актуальный gate.
 - Android APK: `app-debug.apk` debug-signed и `apksigner` OK v2; `app-release-unsigned.apk` unsigned и `apksigner` DOES NOT VERIFY
 - Cleanup/repo audit завершён: evidence сохранены в [[Док_Cleanup_Manifest]], cleanup invariants healthy, `.gitignore` покрывает generated paths и `android/local.properties`
 - Notification E2E доказан локально

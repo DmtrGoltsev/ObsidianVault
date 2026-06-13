@@ -69,7 +69,7 @@ id: "moc-android"
 
 ## Сборка
 
-Gradle. Android CI lane больше не build-only: unit/build/lint. Финальный post-cleanup Android full result pending.
+Gradle. Android CI lane больше не build-only: unit/build/lint. Historical Android gate после delivery-fix 2026-06-08 зелёный; для текущего HEAD `21f95c1` требуется fresh evidence.
 
 См. [[Док_Android_Build]], [[Док_Android_Verification]], [[Задача_CI_Runtime_Lanes]].
 

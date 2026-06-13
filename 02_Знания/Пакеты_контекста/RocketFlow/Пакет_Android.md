@@ -46,7 +46,7 @@ id: "pkg-android"
 - Android CI lane: unit/build/lint
 - Robolectric 4.12.2 — модульные тесты
 - CI: android-verify.yml → [[Док_Android_Build]]
-- Финальный full Android result после cleanup зелёный: `.\gradlew.bat :app:testDebugUnitTest :app:assembleDebug :app:lintDebug --no-daemon`, exit code `0` → [[Док_Android_Verification]]
+- Финальный full Android result после cleanup зелёный как historical evidence: `.\gradlew.bat :app:testDebugUnitTest :app:assembleDebug :app:lintDebug --no-daemon`, exit code `0` → [[Док_Android_Verification]]. Это не fresh gate для текущего HEAD `21f95c1`.
 
 ## Эмулятор
 - Android SDK: `C:\Users\style\AppData\Local\Android\Sdk`
