@@ -5,7 +5,7 @@ id: "reg-deploy-focus"
 проект: "Focus"
 владелец: "DmtrGoltsev"
 создано: "2026-06-07"
-обновлено: "2026-06-07"
+обновлено: "2026-06-13"
 уверенность: "высокая"
 источники: ["[[Focus]]"]
 доказательства: ["[[QA_Результаты]]"]
@@ -21,6 +21,36 @@ id: "reg-deploy-focus"
 ## Целевой сервер
 
 HexCore (`45.10.110.42`) — Ubuntu, 1.6 GB RAM, 20 GB disk.
+
+## Основной production deploy
+
+Основной путь production deploy для Focus — GitHub Actions workflow `.github/workflows/backend-prod-deploy.yml`.
+
+- Автоматический production deploy запускается только при push в ветки, имя которых содержит `release`.
+- Workflow имеет дополнительный guard `contains(github.ref_name, 'release')`.
+- GitHub environment: `production`.
+- Concurrency включен, чтобы не накладывать production deploy одного проекта друг на друга.
+- `master`/`main` не являются auto-deploy ветками.
+- Production artifact очищает `frontend/dist/auto-login*.html` и проверяет, что такие файлы не попали в deploy artifact.
+- Требуемые GitHub Actions secrets: `SSH_HOST`, `SSH_USERNAME`, `SSH_KEY`.
+
+Примечание: наличие workflow и правил запуска не означает, что production deploy уже выполнен.
+
+## Fallback / alternative deploy
+
+Direct SSH/SCP upload to HexCore остается fallback/alternative способом для аварийного или ручного восстановления. Использовать только после явного решения владельца/оркестратора и без публикации значений секретов.
+
+Fallback сохраняет текущую модель:
+- backend JAR загружается на HexCore через SCP;
+- systemd service управляет backend;
+- frontend static build загружается в nginx docroot;
+- проверка выполняется через service status, logs и HTTP smoke.
+
+## Известные риски
+
+- В исходниках сохраняется concern по hardcoded token / auto-login артефактам: production artifact mitigates risk by removing `frontend/dist/auto-login*.html`, но source still needs rotation/review.
+- Любые secret values не документируются в базе знаний; фиксируются только имена required secrets.
+- Перед fallback SSH/SCP требуется отдельное подтверждение, backup expectation и smoke plan.
 
 ## Компоненты
 
@@ -62,7 +92,7 @@ systemctl status focus
 journalctl -u focus -f  # логи
 curl -X POST http://localhost:8082/api/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"email":"deploy_test@focus.local","password":"Test1234!"}'
+  -d '{"email":"deploy_test@focus.local","password":"<operator-supplied password>"}'
 ```
 
 ## Процедура деплоя frontend

@@ -4,7 +4,7 @@ id: "qa-fixes"
 статус: "активно"
 проект: "Focus"
 создано: "2026-06-12"
-обновлено: "2026-06-12"
+обновлено: "2026-06-14"
 теги:
   - "qa"
   - "focus"
@@ -12,6 +12,12 @@ id: "qa-fixes"
 ---
 
 # QA Фиксы — Focus
+
+## Фиксы 2026-06-14 (завершение recurring reminders)
+
+| FIX | Описание | Файл | Дата | Верифицирован |
+|---|---|---|---|---|
+| FIX-V | Recurring reminders: добавлены типы HOURLY/DAILY/WEEKLY в RemindAtType enum, поля startAt/lastFiredAt в ReminderRule, логика calculateRecurringTrigger() в ReminderScheduler, V5 Flyway миграция. Frontend: условный UI (datetime-local для recurring, minutesBefore для стандартных). Android: обновлены DTO. | `RemindAtType.java`, `ReminderRule.java`, `ReminderRuleRequest.java`, `ReminderScheduler.java`, `TaskService.java`, `TaskResponse.java`, `ReminderRuleRepository.java`, `V5__reminder_recurring.sql`, `TasksPage.tsx`, `types/index.ts`, `ru.json`, `en.json`, `retro.css`, `TaskDtos.kt`, `backend-prod-deploy.yml` | 2026-06-14 | Да (mvn test 21/21, npm build PASS, gradlew assembleDebug PASS) |
 
 ## Фиксы 2026-06-12 (продолжение работы прошлого агента)
 

@@ -5,7 +5,7 @@ id: "proj-focus-001"
 проект: "Focus"
 владелец: "DmtrGoltsev"
 создано: "2026-06-01"
-обновлено: "2026-06-12"
+обновлено: "2026-06-14"
 уверенность: "высокая"
 источники:
   - "[[Источник_Промпт]]"
@@ -65,6 +65,15 @@ Focus — планировщик задач, который помогает п�
 
 **Production GO (2026-06-07)** — развёрнут на [[HexCore]] (`45.10.110.42`)
 
+### Production deploy policy (2026-06-13)
+
+- Основной путь production deploy: GitHub Actions workflow `.github/workflows/backend-prod-deploy.yml`.
+- Auto deploy разрешен только для push в ветки, имя которых содержит `release`; `master`/`main` больше не auto-deploy ветки.
+- GitHub environment: `production`; required secrets by name: `SSH_HOST`, `SSH_USERNAME`, `SSH_KEY`.
+- Direct SSH/SCP upload to HexCore остается fallback/alternative, не основной путь.
+- Production artifact удаляет `frontend/dist/auto-login*.html`; source still needs hardcoded token rotation/review.
+- Эта запись описывает policy/update, а не подтверждает новый реальный deploy.
+
 - Backend: systemd `focus.service`, порт 8082, JVM 256 MB
 - Frontend: `/var/www/focus/`, nginx location `/focus/`
 - API: nginx location `/focus-api/` → proxy на 8082
@@ -73,10 +82,11 @@ Focus — планировщик задач, который помогает п�
 
 ### Статус кода
 
-- Backend: 21 фикс применён (FIX-A — FIX-U), BE-101 исправлен
-- Frontend: ретро-стиль UI, 18/18 Playwright E2E PASS
-- Android: офлайн-first компаньон, Room + WorkManager
+- Backend: 22 фикса применён (FIX-A — FIX-V), BE-101 исправлен
+- Frontend: ретро-стиль UI, 18/18 Playwright E2E PASS, recurring reminders UI
+- Android: офлайн-first компаньон, Room + WorkManager, recurring reminders DTO
 - Все сборки: mvn test 21/21 PASS, npm run build OK, assembleDebug OK
+- **Новое:** Повторяющиеся напоминания (HOURLY/DAILY/WEEKLY) — backend логика `calculateRecurringTrigger()` с период-выравниванием, фронтенд условный UI, V5 Flyway миграция. Коммит `50a5a0f`.
 
 ### QA прогресс (2026-06-12)
 
@@ -93,7 +103,7 @@ Focus — планировщик задач, который помогает п�
 | Playwright E2E | 18/18 PASS |
 | Android E2E | 9 PASS, 2 MANUAL (color-only) |
 | MANUAL | 2 (AND-040, AND-012) |
-| Фиксов применено | 21 (FIX-A — FIX-U) |
+| Фиксов применено | 22 (FIX-A — FIX-V) |
 | FCM интеграция | Реализована (backend+android), верифицирована сборка, ожидает тестирования (disabled по умолчанию) |
 
 См. подробности: [[QA_Результаты]], [[QA_Фиксы]], [[QA_ТестКейсы_v2]]

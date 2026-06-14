@@ -4,7 +4,7 @@ id: "qa-results"
 статус: "активно"
 проект: "Focus"
 создано: "2026-06-12"
-обновлено: "2026-06-12"
+обновлено: "2026-06-14"
 теги:
   - "qa"
   - "focus"
@@ -22,28 +22,28 @@ id: "qa-results"
 | Android assembleDebug | `gradlew assembleDebug` | PASS | BUILD SUCCESSFUL |
 | AdvisoryLock H2 | `ReminderScheduler` | NOISE | PG_TRY_ADVISORY_LOCK не поддерживается H2 — известный noise, не блокер |
 
-## Баг найденный и исправленный
+## Баги найденные и исправленные
 
 | ID | Описание | Статус | Дата |
 |---|---|---|---|
 | BUG-001 | `TaskService.getById()` вызывает `resolveTaskWithEditAccess` — shared-пользователь с `canEdit=false` получает Forbidden вместо чтения задачи | FIXED | 2026-06-12 |
 
-## Незакоммиченные изменения прошлого агента
+## Верификация 2026-06-14 (завершение recurring reminders)
 
-| Область | Файлы | Описание |
-|---|---|---|
-| Backend FCM | `notification/` (6 файлов) | Полная реализация FCM push: FcmSender, FirebaseAdminFcmSender, LoggingFcmSender, конфигурация |
-| Backend FCM | `pom.xml` | firebase-admin:9.4.2 + google-auth:1.29.0 |
-| Backend FCM | `application.yml` | `app.notifications.fcm` секция (enabled: false) |
-| Backend FCM | `NotificationService.java` | Stub заменён на FcmSender injection |
-| Backend refactor | `TaskService.java` | DRY рефакторинг + баг-фикс getById |
-| Android FCM | `FocusApplication.kt` | initFirebase() из BuildConfig |
-| Android FCM | `build.gradle.kts` | BuildConfig поля для Firebase кредов |
-| Android auth | `AuthInterceptor.kt` | Исправлен порядок response.close() |
-| Android auth | `AuthRepository.kt` | extractErrorMessage(), CancellationException |
-| Android auth | `AuthDtos.kt` | ErrorResponse DTO |
-| Android net | `network_security_config.xml` | Добавлен 45.10.110.42 |
-| E2E | `E2E_TEST_CASES.json` | 35 тест-кейсов (QA3-001 — QA3-035) |
+| Компонент | Команда | Результат | Примечание |
+|---|---|---|---|
+| Backend compile | `mvn compile -q` | PASS | 0 ошибок после изменений RemindAtType/ReminderRule/ReminderScheduler/TaskService |
+| Backend tests | `mvn test` | PASS | 21/21 (0 failures, 0 errors) |
+| Frontend build | `npm run build` | PASS | 0 ошибок после изменений TasksPage/types/i18n |
+| Android assembleDebug | `gradlew assembleDebug` | PASS | 0 ошибок после обновления TaskDtos.kt |
+
+### Коммит: повторяющиеся напоминания
+
+- **SHA:** `50a5a0f` (branch `feature/softer-green-and-reminders`)
+- **Backend (8 файлов):** RemindAtType +HOURLY/DAILY/WEEKLY, ReminderRule +startAt/lastFiredAt, ReminderRuleRequest +startAt, ReminderScheduler calculateRecurringTrigger() с период-выравниванием, TaskService setStartAt/setLastFiredAt при копировании, TaskResponse поля, V5 Flyway миграция
+- **Frontend (5 файлов):** TasksPage условный UI (datetime-local для recurring типов, minutesBefore для стандартных), ReminderRuleDto обновлён, i18n строки (hourly/daily/weekly/reminderStartAt)
+- **Android (1 файл):** TaskDtos.kt — ReminderRuleDto/ReminderSummaryDto +startAt/lastFiredAt, VALID_REMIND_TYPES обновлён
+- **CI (1 файл):** backend-prod-deploy.yml правка
 
 ## Навигация
 

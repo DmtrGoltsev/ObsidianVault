@@ -5,7 +5,7 @@ id: "project-finance"
 статус: "активно"
 владелец: "rocketflow-team"
 создано: "2026-06-01"
-обновлено: "2026-06-12"
+обновлено: "2026-06-13"
 уверенность: "средняя"
 теги: ["проект", "finance", "финансы", "учёт", "MVP"]
 источники:
@@ -68,6 +68,16 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 ## Текущая стадия
 
 **Production MVP functional GO (2026-05-19)** — закрытый MVP в production.
+
+### Production deploy policy (2026-06-13)
+
+- Основной путь production deploy для PWA: GitHub Actions workflow `.github/workflows/finance-hexcore-prod-deploy.yml`.
+- Auto deploy разрешен только для push в ветки, имя которых содержит `release`.
+- GitHub environment: `production`; required secrets by name: `HEXCORE_PROD_SSH_HOST`, `HEXCORE_PROD_SSH_USER`, `HEXCORE_PROD_SSH_PRIVATE_KEY`, optional `HEXCORE_PROD_SSH_PORT`.
+- Direct SSH/SCP upload to HexCore остается fallback/alternative.
+- Backend deploy automation не входит в новый workflow и остается manual/future; rollback partial между PWA и backend.
+- Эта запись описывает policy/update, а не подтверждает новый реальный deploy.
+- Подробно: [[Регламент_Деплоя_Finance]].
 
 ### PWA URL для iPhone / браузера (2026-06-12)
 
