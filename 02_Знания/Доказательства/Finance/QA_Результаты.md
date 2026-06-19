@@ -851,3 +851,21 @@ id: "qa-results-finance"
 | Public health | PASS: backend health PASS, frontend PASS |
 | `workflow_dispatch` readiness | BLOCKED: GitHub `production` environment absent (`total_count=0`, direct endpoint 404), environment secrets absent, repo secrets `total_count=0`; also pending backup proof, prod `alembic current`, service/symlink proof |
 | Raw evidence handling | Raw logs/OCR/screenshots/APK/build artifacts intentionally not copied into KB |
+
+## Волна 18: Native iOS parity static QA closure (2026-06-19)
+
+**Метод:** sanitized docs/source inventory по текущей native iOS ветке. Raw logs, raw screenshots, APK/build artifacts, `.xcresult`, OCR payloads, cookies, CSRF, passwords, tokens and secret values are excluded.
+
+**Scope:** native-only iOS parity branch `codex/IOS` в `C:\Users\style\Documents\Codex\Финансы-ios`; base `origin/main` commit `66feadd94dbf936faec500f565638973ca270f64`. PWA/Capacitor wrapper under `apps/web-pwa` не является parity target.
+
+### Сводка
+
+| Проверка | Результат |
+|----------|-----------|
+| Native-only target | PASS: целевой клиент `apps/ios` SwiftUI/UIKit; PWA/WebView wrapper не заявлен как parity |
+| Implemented scope | API config hardening/Release guard; auth/register/session/logout wipe; manual date-only/payment filter fallback; capture editable amount/date online-only; assets/investment/icon preservation; analytics month/category/investments; planning fallback; icon-only tabs; local JSON store/sync queue/manual sync/issues/Russian sync UI |
+| Windows static QA | PASS |
+| FAIL | None recorded |
+| BLOCKED | Mac/Xcode gates only: `swift`, `xcodebuild`, `xcodegen` unavailable |
+| Future gates | XcodeGen, Debug/Release build, simulator/device flows, Keychain/cookie wipe, offline queue backend push/pull, OCR/copy online-only UX |
+| Evidence handling | Sanitized summary only; no secrets/raw logs/screenshots/APK/evidence binaries copied |

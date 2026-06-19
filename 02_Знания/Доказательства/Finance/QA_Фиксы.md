@@ -220,4 +220,16 @@ id: "qa-fixes-finance"
 | OFFLINE-FIRST-LOCAL-E2E | Local Android emulator E2E PASS по sanitized report | Android/local QA | 2026-06-18 | Да (`MVP_EVIDENCE/offline-first-release-qa-20260618-234050/QA_REPORT_SANITIZED.md`) |
 | OFFLINE-FIRST-PROD-DEPLOY-GATE | Production deploy оставлен закрытым: GitHub `production` environment absent (`total_count=0`, direct endpoint 404), environment secrets absent, repo secrets `total_count=0`; также нужны backup proof, prod `alembic current`, service/symlink proof | Release/production readiness | 2026-06-19 | Не выполнено; `workflow_dispatch` BLOCKED |
 
+## Волна 14 (2026-06-19)
+
+Финальный статус: native iOS parity branch `codex/IOS` в `C:\Users\style\Documents\Codex\Финансы-ios` обновлен до статуса Windows static QA PASS без FAIL; base `origin/main` commit `66feadd94dbf936faec500f565638973ca270f64`. Native-only target остается `apps/ios`; PWA/Capacitor wrapper under `apps/web-pwa` не является parity target. Release sign-off заблокирован только Mac/Xcode gates: `swift`, `xcodebuild`, `xcodegen` unavailable.
+
+| ID | Описание | Область | Дата | Верифицирован |
+|----|----------|---------|------|---------------|
+| IOS-NATIVE-CONFIG-AUTH | API config hardening/Release guard, auth/register/session/logout wipe surfaces documented as implemented for native iOS branch | iOS config/auth | 2026-06-19 | Да по Windows static QA; Mac/Xcode runtime proof pending |
+| IOS-NATIVE-TRANSACTIONS-CAPTURE | Manual date-only/payment filter fallback and capture editable amount/date with online-only OCR/copy boundary documented | iOS transactions/capture | 2026-06-19 | Да по Windows static QA; simulator/device UX proof pending |
+| IOS-NATIVE-ASSETS-ANALYTICS-PLANNING | Payment account/assets/investment/icon preservation, analytics month/category/investments, planning fallback for exposed mutations documented | iOS assets/analytics/planning | 2026-06-19 | Да по Windows static QA; Xcode tests pending |
+| IOS-NATIVE-OFFLINE-SYNC | Local JSON store, sync queue, manual sync, sync issues and Russian sync UI documented | iOS offline/sync | 2026-06-19 | Да по Windows static QA; backend push/pull convergence proof pending |
+| IOS-NATIVE-MAC-XCODE-GATE | Native iOS release remains blocked until XcodeGen, Debug/Release build, simulator/device, Keychain/cookie wipe, offline queue and OCR/copy online-only UX gates pass | iOS release gate | 2026-06-19 | BLOCKED by missing Mac/Xcode tools |
+
 ## Коммиты

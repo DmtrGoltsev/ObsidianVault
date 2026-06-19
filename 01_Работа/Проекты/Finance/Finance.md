@@ -71,12 +71,12 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 
 ### Production deploy policy (2026-06-13)
 
-- Основной путь production deploy для PWA: GitHub Actions workflow `.github/workflows/finance-hexcore-prod-deploy.yml`.
+- Основной путь production deploy для frontend/backend: GitHub Actions workflow `.github/workflows/finance-hexcore-prod-deploy.yml`.
 - Auto deploy разрешен только для push в ветки, имя которых содержит `release`.
 - GitHub environment: `production`; required secrets by name: `HEXCORE_PROD_SSH_HOST`, `HEXCORE_PROD_SSH_USER`, `HEXCORE_PROD_SSH_PRIVATE_KEY`, optional `HEXCORE_PROD_SSH_PORT`.
 - Direct SSH/SCP upload to HexCore остается fallback/alternative.
-- Backend deploy automation не входит в новый workflow и остается manual/future; rollback partial между PWA и backend.
-- Эта запись описывает policy/update, а не подтверждает новый реальный deploy.
+- Backend deploy automation включен в актуальный production workflow; direct SSH/SCP остается fallback, не primary.
+- Финальный реальный deploy подтвержден 2026-06-19; см. [[CI_CD_Production_Status_20260619]].
 - Подробно: [[Регламент_Деплоя_Finance]].
 
 ### PWA URL для iPhone / браузера (2026-06-12)
@@ -334,7 +334,7 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 - Local CI/CD preparation PASS: full `.github/workflows/finance-hexcore-prod-deploy.yml`, `.github/workflows/finance-prod-rollback.yml`, `docs/production/finance-*`, install doc updated.
 - Frontend/backend package/deploy design prepared; Alembic gated; restart gated; pinned `known_hosts`; no DB rollback.
 - Final review: workflow YAML parses, no raw `${{ inputs.* }}` in `run` or `script`, release push no prod mutation, dispatch gates present, no hardcoded secret values.
-- No production deploy or other prod action was executed during this preparation/status update.
+- Historical note: no production deploy was executed during the 2026-06-14 preparation update; superseded by final deploy evidence on 2026-06-19.
 - Residual approvals: GitHub production environment/secrets/required reviewers, first production run, deploy/restart/migration/rollback approvals, DB backup proof; DB rollback out of scope.
 - Evidence: [[CI_CD_Production_Status_20260614]].
 
@@ -349,3 +349,26 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 - **Workflows on main:** workflow files present; active workflows confirmed: `Finance HexCore Production CI/CD` id `298526666`, `Finance Production Manual Rollback` id `298581092`.
 - **Production deploy:** не считать выполненным. Public backend health PASS и frontend PASS, но `workflow_dispatch` остается BLOCKED: GitHub `production` environment absent (`total_count=0`, direct endpoint 404), environment secrets absent, repo secrets `total_count=0`; также нужны backup proof, prod `alembic current`, service/symlink proof.
 - **Sanitization:** KB фиксирует только sanitized summary/IDs/counts; raw logs, raw OCR, screenshots, APK/build artifacts, passwords, tokens and secret values не переносились.
+
+### Final production CI/CD state (2026-06-19)
+
+- **Статус:** production deploy через GitHub Actions выполнен и зеленый.
+- **Repo:** `C:\Users\style\Documents\Codex\Финансы`, remote `DmtrGoltsev/finance`.
+- **Branches:** implementation `codex/finance-cicd-prod-deploy-update`; release `release/finance-prod-ci-cd-27730f5`.
+- **Release commit:** `d10ac448a12c6681577d13433ef6225a094afbc2`.
+- **GitHub Actions:** `https://github.com/DmtrGoltsev/finance/actions/runs/27802865321`, success; все jobs succeeded.
+- **Production release:** frontend/backend `20260619T030640Z-d10ac448`.
+- **Production smoke:** `http://45.10.110.42/finance/` -> 200; `http://45.10.110.42/finance-api/health` -> 200, `{"status":"ok"}`.
+- **Alembic:** current `20260618_0017`; migration from `20260612_0015` happened in earlier retry; final run had current/target `20260618_0017`.
+- **Backup evidence:** `/opt/finance/backups/postgres/finance_prod-20260619T030824Z-20260619T030640Z-d10ac448-20260618_0017-to-20260618_0017.dump`, sha256 `72cf70b10d927cb5be7291148bd83fbcfb7a6342ff9d669634a0e152efa57104`.
+- **Residual risk:** production uses `python3 3.14.4`, because `python3.12`/`python3.11` отсутствуют; условие `>=3.12` выполнено, но runtime новее CI 3.12.
+- **Evidence:** [[CI_CD_Production_Status_20260619]].
+
+### Native iOS parity branch status (2026-06-19)
+
+- **Статус:** Windows static QA PASS для native iOS parity branch `codex/IOS`; FAIL не зафиксированы.
+- **Worktree/base:** `C:\Users\style\Documents\Codex\Финансы-ios`; base `origin/main` commit `66feadd94dbf936faec500f565638973ca270f64`.
+- **Native-only boundary:** parity target только `apps/ios` SwiftUI/UIKit; PWA/Capacitor under `apps/web-pwa` остается отдельным и не является iOS parity target.
+- **Реализовано:** API config hardening/Release guard; auth/register/session/logout wipe improvements; manual transactions date-only/payment filter fallback; capture editable amount/date online-only; payment account/assets/investment/icon preservation; analytics month/category/investments; planning fallback for exposed mutations; icon-only tabs; offline-first local JSON store, sync queue, manual sync, issues and Russian sync UI.
+- **Ограничение релиза:** native iOS release sign-off остается BLOCKED только Mac/Xcode gates: `swift`, `xcodebuild`, `xcodegen` unavailable. Future gates: XcodeGen, Debug/Release build, simulator/device flows, Keychain/cookie wipe, offline queue backend push/pull, OCR/copy online-only UX.
+- **Sanitization:** KB фиксирует только concise sanitized summary; secrets, raw logs, screenshots, APK/evidence binaries and raw OCR payloads не переносились.
