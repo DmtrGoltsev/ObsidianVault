@@ -4,7 +4,7 @@ id: "qa-fixes-finance"
 статус: "активно"
 проект: "Finance"
 создано: "2026-06-06"
-обновлено: "2026-06-12"
+обновлено: "2026-06-19"
 ссылки:
   - "[[Finance]]"
   - "[[QA_Результаты]]"
@@ -206,3 +206,18 @@ id: "qa-fixes-finance"
 | CRITICAL-INVESTMENT-TOTALS | Investment totals after save and after restart remain `150000.0000 RUB` | Android analytics/API verification | 2026-06-12 | Да (quick QA PASS; no `Validation failed`) |
 | CRITICAL-INVESTMENT-HARNESS | Fail-fast harness verifies selected serial, APK hash, install, launch and bounded UI probe to avoid stale-serial hang mode | QA harness | 2026-06-12 | Да (harness PASS on `emulator-5556`) |
 | CRITICAL-INVESTMENT-APK | APK `artifacts/apk/finance-mvp-newd-0.1.0-debug.apk`, size `54235740`, SHA256 `B6960DB5D13198405984C027746343432CB95B0C08BB24F54D6A7FCD5061DCC7` | Android delivery | 2026-06-12 | Да с ограничением (debug-signed) |
+
+## Волна 13 (2026-06-18/2026-06-19)
+
+Финальный статус: offline-first release QA branch `codex/offline-first-release-qa` зеленый на GitHub Actions run `27796358035`, head `b09043e531152bb5f9b2fdb6ef18b21d786bbebf`, release id `20260618T234841Z-b09043e5`. PR `https://github.com/DmtrGoltsev/finance/pull/1` merged at `2026-06-18T23:53:47Z`; remote `main` HEAD и merge commit подтверждены как `cff578df0be001c0af187c5a90d9917fc0b2c1e9` с parents `3f70a3bf...` + release head `b09043e5...`. Workflow files present on `main`; active workflows: `Finance HexCore Production CI/CD` id `298526666`, `Finance Production Manual Rollback` id `298581092`. Production deploy не заявляется; public backend health PASS и frontend PASS, но `workflow_dispatch` BLOCKED до GitHub `production` environment/secrets, backup proof, prod `alembic current` и service/symlink proof.
+
+| ID | Описание | Область | Дата | Верифицирован |
+|----|----------|---------|------|---------------|
+| OFFLINE-FIRST-RUFF-GATE | Backend ruff gate закрыт до green CI | Backend QA gate | 2026-06-18 | Да (GitHub Actions green run `27796358035`) |
+| OFFLINE-FIRST-ROUTE-INTROSPECTION | FastAPI `0.137.2` route introspection переведена на `iter_route_contexts` | Backend API/test infrastructure | 2026-06-18 | Да (backend package `285 passed, 6 skipped`) |
+| OFFLINE-FIRST-BACKEND-DEPS-PIN | Backend deps pinned: `fastapi==0.137.2`, `starlette==1.3.1` | Backend dependencies | 2026-06-18 | Да (green CI head `b09043e531152bb5f9b2fdb6ef18b21d786bbebf`) |
+| OFFLINE-FIRST-FRONTEND-GATE | Frontend package gate зеленый | Frontend QA | 2026-06-18 | Да (`56 passed`) |
+| OFFLINE-FIRST-LOCAL-E2E | Local Android emulator E2E PASS по sanitized report | Android/local QA | 2026-06-18 | Да (`MVP_EVIDENCE/offline-first-release-qa-20260618-234050/QA_REPORT_SANITIZED.md`) |
+| OFFLINE-FIRST-PROD-DEPLOY-GATE | Production deploy оставлен закрытым: GitHub `production` environment absent (`total_count=0`, direct endpoint 404), environment secrets absent, repo secrets `total_count=0`; также нужны backup proof, prod `alembic current`, service/symlink proof | Release/production readiness | 2026-06-19 | Не выполнено; `workflow_dispatch` BLOCKED |
+
+## Коммиты

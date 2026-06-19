@@ -4,7 +4,7 @@ id: "qa-results-finance"
 статус: "активно"
 проект: "Finance"
 создано: "2026-06-06"
-обновлено: "2026-06-12"
+обновлено: "2026-06-19"
 ссылки:
   - "[[Finance]]"
   - "[[QA_Фиксы]]"
@@ -812,3 +812,42 @@ id: "qa-results-finance"
 | Fresh login from credentials | NOT_CLAIMED: escalation used an existing authenticated Android app session |
 | Deterministic repeatability | FUTURE_HARDENING: test-only seed/deep link or documented parseable OCR fixture remains useful |
 | APK signing | Debug-signed, not release-signed |
+
+## Волна 17: Offline-first release QA closure (2026-06-18/2026-06-19)
+
+**Метод:** sanitized closure по GitHub Actions green run, package test counts, локальному Android emulator E2E PASS и release-blocker remediation summary. Raw logs, raw OCR payloads, screenshots, APK/build artifacts, auth payloads, Bearer tokens, cookies, passwords and secret values are excluded.
+
+**Scope:** offline-first release QA для branch `codex/offline-first-release-qa`; backend/frontend package gates; FastAPI route introspection compatibility; deploy readiness boundary.
+
+### Сводка
+
+| Проверка | Результат |
+|----------|-----------|
+| Branch | `codex/offline-first-release-qa` |
+| GitHub Actions run | `27796358035` |
+| Head | `b09043e531152bb5f9b2fdb6ef18b21d786bbebf` |
+| Release id | `20260618T234841Z-b09043e5` |
+| Frontend package | `56 passed` |
+| Backend package | `285 passed, 6 skipped` |
+| Local emulator E2E | PASS |
+| Local E2E evidence | `MVP_EVIDENCE/offline-first-release-qa-20260618-234050/QA_REPORT_SANITIZED.md` |
+| PR | `https://github.com/DmtrGoltsev/finance/pull/1` |
+| Merge status | VERIFIED: PR #1 merged at `2026-06-18T23:53:47Z`; remote `main` HEAD = merge commit `cff578df0be001c0af187c5a90d9917fc0b2c1e9`; parents `3f70a3bf...` + release head `b09043e5...` |
+| Workflows on `main` | VERIFIED: workflow files present; active `Finance HexCore Production CI/CD` id `298526666`, `Finance Production Manual Rollback` id `298581092` |
+
+### Release blockers fixed
+
+| Blocker | Closure |
+|---------|---------|
+| Backend ruff gate | Fixed before green CI |
+| FastAPI route introspection | Updated for FastAPI `0.137.2` via `iter_route_contexts` |
+| Backend dependency drift | Pinned `fastapi==0.137.2`, `starlette==1.3.1` |
+
+### Production deploy boundary
+
+| Gate | Статус |
+|------|--------|
+| Production deploy | NOT_CLAIMED |
+| Public health | PASS: backend health PASS, frontend PASS |
+| `workflow_dispatch` readiness | BLOCKED: GitHub `production` environment absent (`total_count=0`, direct endpoint 404), environment secrets absent, repo secrets `total_count=0`; also pending backup proof, prod `alembic current`, service/symlink proof |
+| Raw evidence handling | Raw logs/OCR/screenshots/APK/build artifacts intentionally not copied into KB |

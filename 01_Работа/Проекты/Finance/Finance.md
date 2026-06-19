@@ -5,7 +5,7 @@ id: "project-finance"
 статус: "активно"
 владелец: "rocketflow-team"
 создано: "2026-06-01"
-обновлено: "2026-06-13"
+обновлено: "2026-06-19"
 уверенность: "средняя"
 теги: ["проект", "finance", "финансы", "учёт", "MVP"]
 источники:
@@ -326,3 +326,26 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 - **Добавлено:** краткая инструкция подключения с iPhone/браузера к Finance PWA по `http://45.10.110.42/finance/`.
 - **Уточнение:** пользовательский термин `PWE` зафиксирован как `PWA`.
 - **Связанный релизный контекст:** последний release closure уже задокументирован выше: date-only операции, payment account flag/filter, capture confirmation edit amount/date PASS, analysis month switching, Android asset edit fix, backend/PWA deploy и APK SHA256 `6AEE934A8817055B1738B32E1468D2A4C5415502C224115F9C7953F63EC3D893`.
+
+### Final CI/CD local preparation status (2026-06-14)
+
+- User confirmed Finance is prod.
+- Read-only HexCore inventory: `finance-backend.service`, `/finance/ -> /var/www/finance/current/`, `/finance-api/ -> 127.0.0.1:8081/`, backend current `/opt/finance/releases/20260612T045020Z-26b487d6`, DB `finance_prod`, env `/etc/finance/backend.env`, health OK.
+- Local CI/CD preparation PASS: full `.github/workflows/finance-hexcore-prod-deploy.yml`, `.github/workflows/finance-prod-rollback.yml`, `docs/production/finance-*`, install doc updated.
+- Frontend/backend package/deploy design prepared; Alembic gated; restart gated; pinned `known_hosts`; no DB rollback.
+- Final review: workflow YAML parses, no raw `${{ inputs.* }}` in `run` or `script`, release push no prod mutation, dispatch gates present, no hardcoded secret values.
+- No production deploy or other prod action was executed during this preparation/status update.
+- Residual approvals: GitHub production environment/secrets/required reviewers, first production run, deploy/restart/migration/rollback approvals, DB backup proof; DB rollback out of scope.
+- Evidence: [[CI_CD_Production_Status_20260614]].
+
+### Offline-first release QA closure (2026-06-18/2026-06-19)
+
+- **Статус:** branch `codex/offline-first-release-qa` зеленый на GitHub Actions run `27796358035`, head `b09043e531152bb5f9b2fdb6ef18b21d786bbebf`.
+- **Release id:** `20260618T234841Z-b09043e5`.
+- **Package gates:** frontend package `56 passed`; backend package `285 passed, 6 skipped`.
+- **Local Android E2E:** PASS зафиксирован в `MVP_EVIDENCE/offline-first-release-qa-20260618-234050/QA_REPORT_SANITIZED.md`.
+- **Исправленные release blockers:** backend ruff gate; FastAPI `0.137.2` route introspection через `iter_route_contexts`; backend deps pinned to `fastapi==0.137.2`, `starlette==1.3.1`.
+- **PR/main:** `https://github.com/DmtrGoltsev/finance/pull/1` merged at `2026-06-18T23:53:47Z`; remote `main` HEAD и merge commit подтверждены как `cff578df0be001c0af187c5a90d9917fc0b2c1e9` с parents `3f70a3bf...` + release head `b09043e5...`.
+- **Workflows on main:** workflow files present; active workflows confirmed: `Finance HexCore Production CI/CD` id `298526666`, `Finance Production Manual Rollback` id `298581092`.
+- **Production deploy:** не считать выполненным. Public backend health PASS и frontend PASS, но `workflow_dispatch` остается BLOCKED: GitHub `production` environment absent (`total_count=0`, direct endpoint 404), environment secrets absent, repo secrets `total_count=0`; также нужны backup proof, prod `alembic current`, service/symlink proof.
+- **Sanitization:** KB фиксирует только sanitized summary/IDs/counts; raw logs, raw OCR, screenshots, APK/build artifacts, passwords, tokens and secret values не переносились.
