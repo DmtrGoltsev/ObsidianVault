@@ -38,7 +38,7 @@ Production сейчас описывается как jar/systemd/web static dep
 - GHCR publish workflow отсутствует или требует восстановления; не считать resolved без отдельного evidence.
 - Feature rollout backup и rollback readiness доказаны в [[Док_Production_Rollout_20260810]]; rollback не использовался.
 - Focus cadence и Web Push остаются disabled; provider delivery smoke не заявляется.
-- Android release keystore и Firebase client config отсутствуют. Production-configured APK собран unsigned и не является installable/publishable production release.
+- Android direct-sideload APK для exact source SHA `910c061de4af9395d9bb682624bd966b2977a738` устанавливается и прошёл runtime/build checks; canonical evidence: [[Док_Android_Verification]]. Он подписан существующим debug certificate и не является Play Store production release; future sideload updates требуют тот же certificate. Firebase client config отсутствует. Прежний unsigned APK сохранён только как superseded damaged/non-installable evidence.
 - Authenticated read smoke остаётся evidence gap; unauthenticated protection checks прошли.
 
 ## Связанные заметки
@@ -52,7 +52,7 @@ Production сейчас описывается как jar/systemd/web static dep
 
 ## Production rollout state (2026-08-10)
 
-Status: PASS for backend/web rollout; Android signing/provider delivery остаются отдельными gates.
+Status: PASS for backend/web rollout и Android direct sideload; Play Store production signing/provider delivery остаются отдельными gates.
 
 - Source/deployed SHA: `910c061de4af9395d9bb682624bd966b2977a738`; release ID `sha-910c061de4af`.
 - Backend/web symlinks указывают на `sha-910c061de4af` artifacts.

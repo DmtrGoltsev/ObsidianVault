@@ -7,7 +7,7 @@ id: "proof-rocketflow-production-rollout-2026-08-10"
 создано: "2026-08-10"
 обновлено: "2026-08-10"
 уверенность: "высокая"
-источники: ["https://github.com/DmtrGoltsev/RocketFlow/actions/runs/31357406631", "https://github.com/DmtrGoltsev/RocketFlow/pull/1", ".github/workflows/backend-hexcore-prod-deploy.yml", ".github/workflows/rocketflow-prod-rollback.yml", "production post-deploy inspection 2026-08-10", "production PostgreSQL server_version inspection 2026-08-10", "fresh backup catalog inspection 2026-08-10", "Android release artifact inspection 2026-08-10"]
+источники: ["https://github.com/DmtrGoltsev/RocketFlow/actions/runs/31357406631", "https://github.com/DmtrGoltsev/RocketFlow/pull/1", ".github/workflows/backend-hexcore-prod-deploy.yml", ".github/workflows/rocketflow-prod-rollback.yml", "docs/67-weekly-focus-production-rollout-evidence.md", "production post-deploy inspection 2026-08-10", "production PostgreSQL server_version inspection 2026-08-10", "fresh backup catalog inspection 2026-08-10", "Android release artifact inspection 2026-08-10"]
 доказательства: ["Док_Calendar_Weekly_Focus_WebPush_20260810", "Док_Prod_Deploy_State", "Док_Backend_Verification", "Док_Web_Verification", "Док_Android_Verification"]
 теги: ["доказательство", "production", "deploy", "calendar", "weekly-focus", "web-push", "rollback", "backup"]
 ---
@@ -57,13 +57,16 @@ Restore не выполнялся; backup payload и catalog listing в vault н
 
 ## Android boundary
 
-Production-configured release artifact собран локально как `app-release-unsigned.apk`:
+Для exact source SHA `910c061de4af9395d9bb682624bd966b2977a738` подготовлен installable direct-sideload artifact:
 
-- Size: `3261969` bytes; timestamp `2026-08-10T07:28:52.8668174+03:00`.
-- SHA-256: `1763de390dd587c686fe84152c521a2d92e65b747fb2689ec2076c0560c576d7`.
-- Artifact unsigned; `apksigner verify` завершился `DOES NOT VERIFY`.
-- APK не устанавливался, не передавался и не публиковался; он не является installable/publishable production release.
-- `android/app/google-services.json` и подтверждённая Firebase Android production configuration отсутствуют; Android FCM production delivery не заявляется.
+- APK: `android/app/build/outputs/apk/release/RocketFlow-0.1.0-prod-debugcert.apk`; size `3287664` bytes; SHA-256 `2209f2b5e8ee8f01fa486d997f898d9fc08db98cf02e0b22d3182fa1026cc4d1`.
+- Existing debug certificate SHA-256: `b5675864b9cb8a046d889f54e58f5b0256d6937ecd448e69d7faa955e587aca0`; APK Signature Scheme v2/v3 PASS; `zipalign` valid; новый ключ не создавался.
+- Release manifest `debuggable=false`; production API configuration embedded.
+- `adb install -r` PASS; installed APK hash matched; app UID, first-install timestamp и app data preserved.
+- Cold launch, logcat review и backend health PASS; `77` Android tests PASS; lint `0` errors.
+- Artifact предназначен для direct sideload и не является Play Store production release: debug certificate не является production signing identity, а будущие sideload updates должны использовать тот же certificate.
+- Firebase Android configuration отсутствует; Android FCM production delivery не заявляется.
+- Предыдущий unsigned APK SHA-256 `1763de390dd587c686fe84152c521a2d92e65b747fb2689ec2076c0560c576d7`, `3261969` bytes, сохранён как superseded historical evidence: Android сообщил о damaged package, artifact не устанавливался, `apksigner verify` завершался `DOES NOT VERIFY`.
 
 ## Smoke boundary
 

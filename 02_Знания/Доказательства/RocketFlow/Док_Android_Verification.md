@@ -7,7 +7,7 @@ id: "proof-android-verification-2026-06-07"
 создано: "2026-06-07"
 обновлено: "2026-08-10"
 уверенность: "высокая"
-источники: ["android/app/build/test-results/testDebugUnitTest", "android/README.md", "docs/66-weekly-focus-calendar-delivery.md", "android local setup", "repo audit 2026-06-07", "final verifier 2026-06-07", "delivery verifier 2026-06-08"]
+источники: ["android/app/build/test-results/testDebugUnitTest", "android/README.md", "docs/66-weekly-focus-calendar-delivery.md", "docs/67-weekly-focus-production-rollout-evidence.md", "android local setup", "repo audit 2026-06-07", "final verifier 2026-06-07", "delivery verifier 2026-06-08"]
 доказательства: ["Док_Production_Rollout_20260810", "Док_Calendar_Weekly_Focus_WebPush_20260810", "Источник_Android_Local_Setup", "Док_Cleanup_Manifest", "Док_Android_Build"]
 теги: ["доказательство", "android", "verification", "tests", "build", "lint"]
 ---
@@ -20,8 +20,12 @@ id: "proof-android-verification-2026-06-07"
 - Unit reports: 77 tests, 0 failures, 0 errors, 0 skipped, 15 suites.
 - Feature evidence фиксирует `assembleDebug`, `lintDebug` и debug Android-test APK assembly PASS; Calendar, Weekly Focus и data-only Focus FCM handling реализованы.
 - Final implementation review: PASS.
-- Production-configured `app-release-unsigned.apk` собран 2026-08-10: SHA-256 `1763de390dd587c686fe84152c521a2d92e65b747fb2689ec2076c0560c576d7`, `3261969` bytes; `apksigner` возвращает `DOES NOT VERIFY`.
-- Signing/publishing gate остаётся open: release keystore, `android/app/google-services.json` и явная Firebase production configuration отсутствуют. APK не устанавливался и не публиковался; signed production APK и real production FCM smoke не заявляются.
+- Актуальный installable direct-sideload APK: `RocketFlow-0.1.0-prod-debugcert.apk`, exact source SHA `910c061de4af9395d9bb682624bd966b2977a738`, SHA-256 `2209f2b5e8ee8f01fa486d997f898d9fc08db98cf02e0b22d3182fa1026cc4d1`, `3287664` bytes.
+- Signing/package checks PASS: existing debug certificate SHA-256 `b5675864b9cb8a046d889f54e58f5b0256d6937ecd448e69d7faa955e587aca0`, APK Signature Scheme v2/v3, `zipalign` valid, `debuggable=false`, production API configuration embedded.
+- Device/runtime checks PASS: `adb install -r`; installed artifact hash parity; UID, first-install timestamp и app data preserved; cold launch, logcat review и backend health PASS.
+- Verification: `77` Android tests PASS; lint `0` errors.
+- Distribution boundary: debug certificate не является Play Store production signing identity; будущие sideload updates должны использовать тот же certificate. Firebase Android config отсутствует, поэтому FCM delivery не заявляется.
+- Исторический unsigned APK SHA-256 `1763de390dd587c686fe84152c521a2d92e65b747fb2689ec2076c0560c576d7`, `3261969` bytes, сохранён как superseded evidence: Android сообщил о damaged package, APK не устанавливался, `apksigner` возвращал `DOES NOT VERIFY`.
 - Сводное evidence: [[Док_Calendar_Weekly_Focus_WebPush_20260810]].
 - Rollout boundary: [[Док_Production_Rollout_20260810]].
 

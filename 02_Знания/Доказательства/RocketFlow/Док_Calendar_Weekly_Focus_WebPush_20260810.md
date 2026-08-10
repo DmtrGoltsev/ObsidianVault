@@ -38,7 +38,7 @@ id: "proof-rocketflow-calendar-weekly-focus-webpush-2026-08-10"
 - Историческая запись checkpoint о состоянии **не задеплоено** была верна до rollout и заменена 2026-08-10: GitHub Actions run `31357406631` успешно promoted backend/web, а Flyway завершён на `V20` (`20/20`, `0` failed).
 - Backend/web health и unauthenticated protection smoke прошли; rollback не использовался. Focus cadence и Web Push намеренно остаются disabled.
 - Исторический deploy baseline от 2026-06-19 остаётся отдельным evidence в [[CI_CD_Production_Status_20260619]]; текущий rollout доказан отдельно в [[Док_Production_Rollout_20260810]].
-- Android boundary остаётся открытым: production-configured `app-release-unsigned.apk` имеет SHA-256 `1763de390dd587c686fe84152c521a2d92e65b747fb2689ec2076c0560c576d7`, но не подписан, не устанавливался и не пригоден для публикации. Firebase Android production config отсутствует.
+- Android direct-sideload boundary закрыт installable `RocketFlow-0.1.0-prod-debugcert.apk` для exact source SHA `910c061de4af9395d9bb682624bd966b2977a738`; SHA-256 `2209f2b5e8ee8f01fa486d997f898d9fc08db98cf02e0b22d3182fa1026cc4d1`. Install/runtime/build checks PASS; подробности в [[Док_Android_Verification]]. Прежний unsigned SHA-256 `1763de390dd587c686fe84152c521a2d92e65b747fb2689ec2076c0560c576d7` сохранён как superseded damaged/non-installable evidence. Play Store production signing и Firebase/FCM остаются открытыми boundaries.
 - Authenticated read smoke остаётся evidence gap; provider delivery smoke не выполнялся при disabled Focus cadence/Web Push.
 
 ## Связанные заметки

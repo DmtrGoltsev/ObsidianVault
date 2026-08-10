@@ -7,7 +7,7 @@ id: "proof-android-build"
 создано: "2026-05-31"
 обновлено: "2026-08-10"
 уверенность: "высокая"
-источники: [".github/workflows/android-verify.yml", "android/local.properties", "delivery APK build 2026-06-08", "production-configured APK inspection 2026-08-10"]
+источники: [".github/workflows/android-verify.yml", "android/local.properties", "delivery APK build 2026-06-08", "docs/67-weekly-focus-production-rollout-evidence.md", "production-configured APK inspection 2026-08-10"]
 доказательства: ["Док_Production_Rollout_20260810", "Док_Android_Verification", "Источник_Android_Local_Setup"]
 теги: ["доказательство", "сборка", "android", "ci"]
 ---
@@ -42,10 +42,13 @@ CI: android-verify.yml; локальный setup см. [[Источник_Androi
 
 Post-rollout build evidence 2026-08-10:
 
-- Production-configured release APK: `android/app/build/outputs/apk/release/app-release-unsigned.apk`, `3261969` bytes, timestamp `2026-08-10T07:28:52.8668174+03:00`.
-- SHA-256: `1763de390dd587c686fe84152c521a2d92e65b747fb2689ec2076c0560c576d7`.
-- Artifact unsigned; `apksigner verify` -> `DOES NOT VERIFY`.
-- APK не устанавливался, не передавался и не публиковался. Без release keystore и Firebase Android production config он не является installable/publishable production release.
+- Актуальный installable sideload APK: `android/app/build/outputs/apk/release/RocketFlow-0.1.0-prod-debugcert.apk`; exact source SHA `910c061de4af9395d9bb682624bd966b2977a738`; size `3287664` bytes; SHA-256 `2209f2b5e8ee8f01fa486d997f898d9fc08db98cf02e0b22d3182fa1026cc4d1`.
+- Подпись: APK Signature Scheme v2/v3, существующий debug certificate SHA-256 `b5675864b9cb8a046d889f54e58f5b0256d6937ecd448e69d7faa955e587aca0`; новый ключ не создавался. `zipalign` valid.
+- Release manifest: `debuggable=false`; production API configuration embedded.
+- Device/runtime: `adb install -r` PASS; hash установленного APK совпал с build artifact; UID, first-install timestamp и app data сохранены; cold launch, logcat review и backend health PASS.
+- Verification: Android `77` tests PASS; lint `0` errors.
+- Ограничения: это direct-sideload build с debug certificate, а не Play Store production signing identity. Будущие sideload updates требуют тот же certificate. Firebase Android config отсутствует, поэтому FCM delivery не заявляется.
+- Исторический `app-release-unsigned.apk`, `3261969` bytes, SHA-256 `1763de390dd587c686fe84152c521a2d92e65b747fb2689ec2076c0560c576d7`, сохранился как superseded evidence: Android сообщил о damaged package, APK не устанавливался, а `apksigner verify` возвращал `DOES NOT VERIFY`.
 
 ## Ограничение
 
