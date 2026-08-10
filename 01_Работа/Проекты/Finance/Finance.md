@@ -5,7 +5,7 @@ id: "project-finance"
 статус: "активно"
 владелец: "rocketflow-team"
 создано: "2026-06-01"
-обновлено: "2026-06-19"
+обновлено: "2026-07-27"
 уверенность: "средняя"
 теги: ["проект", "finance", "финансы", "учёт", "MVP"]
 источники:
@@ -107,6 +107,54 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 |-------------|-------------------------|---------|-----------------|
 | Production QA | `finance.qa@local.test` | Owner-operated production smoke and authenticated QA flows | Password value is never stored in KB. Out-of-band locator only: `/etc/finance/qa-owner.env`, key `FINANCE_QA_PASSWORD`. |
 | Development | `demo.owner@example.test` | Local/dev seeded flows, emulator/PWA development checks | No passwords, tokens, cookies, or sessions are stored in KB. |
+
+### Production QA persistent account (2026-07-11)
+
+**Status:** ACTIVE / PERSISTENT / NEVER DELETE.
+
+Security boundary: the persistent QA account is documented for continuity, but its password remains in an owner-managed secret store and is not copied into the vault.
+
+| Field | Value |
+|-------|-------|
+| Environment | production |
+| Production API base | `http://45.10.110.42/finance-api` |
+| Purpose | Android/PWA/API QA; Android prod E2E; PWA prod smoke; authenticated production smoke |
+| Retention | NEVER DELETE / persistent test account |
+| Cleanup | Do not delete unless owner explicitly requests |
+| Display name | `Finance Production QA Persistent Test Account - NEVER DELETE` |
+| Email / login | `finance.qa.prod.20260711.6cb15851@local.test` |
+| Password | Not stored in KB; use the owner-managed production QA credential store |
+| Transport | `android_bearer` |
+| Registration result | `POST /api/v1/users` -> HTTP `201` on 2026-07-11 |
+| Login result | `POST /api/v1/sessions` -> HTTP `201` on 2026-07-11; access token present and deliberately not stored |
+| Full QA locator | [[QA_Результаты#Production QA persistent account (2026-07-11)]] |
+
+Search tags / keywords: Finance Production QA account; persistent production test account; NEVER DELETE; qa login; Android prod E2E; PWA prod smoke; Finance Production QA Persistent Test Account - NEVER DELETE; finance.qa.prod.20260711.6cb15851@local.test.
+
+### Android Assets / Investment quick add closure (2026-07-12)
+
+- **Статус:** Android-поставка закрыта для ручной установки; backend production deploy не выполнялся.
+- **Android Assets UI:** во вкладке `Активы` карточки категорий больше не сжимают названия до `Б...`/`Вк...`; счетчик не переносится по буквам; сумма и `Править` вынесены так, чтобы не ломать title.
+- **Quick add:** добавлен тип `Инвестиция`; это не обычный `Расход`. Сохранение создает `transactionType=asset_buy`, `categoryId=null`, требует дату/сумму и выбирает только счета, привязанные к investment asset category.
+- **Analytics / Planning semantics:** `Факт` у `Вклад`/`Брокер` в `Аналитика -> План месяца` должен считаться по categoryless investment transactions на linked investment accounts. Investment allocation actual включает `brokerage`, `asset_buy`, `interest`, `dividend`, `adjustment`; `expense`/`transfer` не считаются investment fact.
+- **Sync boundary:** local sync поддерживает explicit `categoryId:null`; backend sync allowlist локально расширен для investment types. Online direct `asset_buy` должен идти через существующий transactions API, но offline sync investment operation требует production backend deploy через GitHub Actions release branch.
+- **Deploy blocker:** backend deploy заблокирован release scope/protection checklist; SSH/SCP не использовались и не заявляются.
+- **APK:** `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-android-prod-20260712-112532-POSTP2-manual-install.apk`, SHA256 `cace0eb69e589f8eb0be579a0a4bc83039013d35a29d74e32547367449ee4d79`.
+- **Evidence:** `C:\Users\style\Documents\Codex\Финансы\MVP_EVIDENCE\android-assets-investment-postp2-qa-20260712-112610`.
+- **QA:** Android targeted `SyncManagerTest`, `ApiClientCaptureDraftTest`, `AppSectionTest`, `PlanningUiStatusTest`; Android full `:app:testDebugUnitTest`; backend sync pytest `21 passed`; backend targeted planning/transactions/reports `30 passed`; ruff sync files; `assembleRelease` с prod URL; `apksigner`; `emulator-5554` install/smoke `Assets`/`Analytics`.
+
+### Android transfer assets / ordering closure (2026-07-12)
+
+- **Статус:** POSTP1 transfer/assets/order wave закрыта для ручной установки Android APK; backend production deploy ещё требуется для prod sync behavior.
+- **Исправлено:** перевод через `Операции` / quick add на инвестиционный счёт теперь должен отражаться в `Активы`: Android категории активов считают total из свежих `dashboard.accounts.currentBalance` по `assetCategoryId`, а backend sync публикует `accounts/update` для source/destination после `transfer`.
+- **Семантика плана:** `transfer` меняет balances/assets, но НЕ является investment actual для плана; investment actual остаётся за `asset_buy` и другими investment fact типами. `transfer` исключён из факта `Вклад`/`Брокер`.
+- **Android:** transfer quick add показывает выбор даты и отправляет `transactionDate`; вкладка `Операции` сортирует newest-first.
+- **PWA:** `recentTimeline` newest-first; Overview/Operations показывают новые операции выше старых.
+- **Backend:** transfer REST/sync push emits account sync changes; reports/planning regression tests обновлены и пройдены. Sync pull order by `seq` не меняли: это cursor protocol.
+- **Deploy:** DB migration не требуется. Android APK указывает на prod URL, но prod backend должен быть развёрнут через GitHub Actions release branch, чтобы account sync changes заработали в production.
+- **APK:** `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-android-prod-20260712-220221-POSTP1-TRANSFER-manual-install.apk`, SHA256 `B4AF3B3CF30E77F5C22075B9EFC47D82CBBF5FBCDDF5356D286F37DDEB3209C6`.
+- **Evidence:** `C:\Users\style\Documents\Codex\Финансы\MVP_EVIDENCE\android-transfer-assets-ordering-postp1-qa-20260712-215452`.
+- **QA:** Android targeted/full PASS; backend targeted `49 passed`; `ruff` PASS; PWA targeted ordering/build PASS; PWA broader `App.test` имеет 2 known date-sensitive failures around June 2026; `emulator-5554` install/smoke PASS без изменения данных.
 
 ### Обновление 2026-06-06
 
@@ -347,7 +395,7 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 - **Исправленные release blockers:** backend ruff gate; FastAPI `0.137.2` route introspection через `iter_route_contexts`; backend deps pinned to `fastapi==0.137.2`, `starlette==1.3.1`.
 - **PR/main:** `https://github.com/DmtrGoltsev/finance/pull/1` merged at `2026-06-18T23:53:47Z`; remote `main` HEAD и merge commit подтверждены как `cff578df0be001c0af187c5a90d9917fc0b2c1e9` с parents `3f70a3bf...` + release head `b09043e5...`.
 - **Workflows on main:** workflow files present; active workflows confirmed: `Finance HexCore Production CI/CD` id `298526666`, `Finance Production Manual Rollback` id `298581092`.
-- **Production deploy:** не считать выполненным. Public backend health PASS и frontend PASS, но `workflow_dispatch` остается BLOCKED: GitHub `production` environment absent (`total_count=0`, direct endpoint 404), environment secrets absent, repo secrets `total_count=0`; также нужны backup proof, prod `alembic current`, service/symlink proof.
+- **Historical deploy boundary:** на момент offline-first QA production deploy не заявлялся; этот блок superseded by final production CI/CD state ниже. Текущий production deploy status: PASS.
 - **Sanitization:** KB фиксирует только sanitized summary/IDs/counts; raw logs, raw OCR, screenshots, APK/build artifacts, passwords, tokens and secret values не переносились.
 
 ### Final production CI/CD state (2026-06-19)
@@ -372,3 +420,73 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 - **Реализовано:** API config hardening/Release guard; auth/register/session/logout wipe improvements; manual transactions date-only/payment filter fallback; capture editable amount/date online-only; payment account/assets/investment/icon preservation; analytics month/category/investments; planning fallback for exposed mutations; icon-only tabs; offline-first local JSON store, sync queue, manual sync, issues and Russian sync UI.
 - **Ограничение релиза:** native iOS release sign-off остается BLOCKED только Mac/Xcode gates: `swift`, `xcodebuild`, `xcodegen` unavailable. Future gates: XcodeGen, Debug/Release build, simulator/device flows, Keychain/cookie wipe, offline queue backend push/pull, OCR/copy online-only UX.
 - **Sanitization:** KB фиксирует только concise sanitized summary; secrets, raw logs, screenshots, APK/evidence binaries and raw OCR payloads не переносились.
+
+## Auth/session wave (2026-07-25)
+
+- **Status:** Android auth/session wave documented as sanitized KB update; no secrets, passwords, tokens, cookies, session IDs, raw OCR payloads or screenshots copied into Obsidian.
+- **Android AuthGate:** signed-out and restoring states no longer render as a protected tab. They show a separate AuthGate without TopAppBar, NavigationBar, FAB or protected tabs; main tabs are available only after signed-in state.
+- **Local session storage:** Android stores `SessionTokenBundle` in `EncryptedSharedPreferences`: `accessToken`, `refreshToken`, `expiresAt`, `userId`. User password is not stored.
+- **API client session behavior:** login/register persist the token bundle. On `401`/`403`, protected calls refresh once through `POST /api/v1/sessions/refresh`, retry once, and clear local token store plus protected UI on logout or refresh/auth failure. Screenshot OCR uses the same refresh/retry-once path.
+- **Backend session behavior:** `/api/v1/sessions/refresh` added; login/register with `android_bearer` return `refreshToken`; refresh tokens rotate with hash-only storage, old refresh invalidation, logout invalidation and CAS atomic rotation. No DB migration required.
+- **Security review:** P0/P1/P2 none after fixes.
+- **QA:** backend auth `71 passed`, `ruff` passed, Android full unit passed, APK built/signed/verified. Emulator unavailable, so manual install/smoke was skipped.
+- **APK:** `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-android-prod-20260725-231110-AUTH-SESSION-manual-install.apk`; SHA256 `F9ABD3D02D64A06FCB5E78731AC313FD8230165CF9BC8D427E2FED92466BB8A0`.
+- **Evidence:** `C:\Users\style\Documents\Codex\Финансы\MVP_EVIDENCE\android-auth-session-qa-20260725-231110`.
+- **Deploy caveat:** superseded by the 2026-07-25 backend production deploy record below; backend refresh is now deployed.
+
+### Auth/session backend production deploy (2026-07-25)
+
+- **Status:** backend production deploy successful for auth refresh; GitHub Actions run status is `completed/failure` only because unrelated `frontend-ci-package`/PWA tests failed.
+- **Branch:** `prod/finance-auth-refresh-20260725`.
+- **Commit:** `9e1ed7903798ed4f1edbcfeb3d98b23ec9ae0763`.
+- **Release ID:** `finance-backend-auth-refresh-20260725-9e1ed79`.
+- **Actions run:** `https://github.com/DmtrGoltsev/finance/actions/runs/30174265210`; backend-only dispatch, `deploy-frontend` skipped, `deploy-backend` success.
+- **Health:** `http://45.10.110.42/finance-api/health` -> 200 `{"status":"ok"}`.
+- **Route smoke:** `/finance-api/api/v1/sessions/refresh` returns 422 on empty payload, route mounted.
+- **Refresh smoke:** registration 201, refresh 200, token fields present, refresh rotated, old refresh rejected 401; no tokens/passwords in evidence.
+- **Backend artifact checksum:** `da77996a82489e1732a77686eda2965b6f51113d8528828151927ca42b384491`.
+- **Migrations/backup:** `run_migrations=false`; DB migrations not run; workflow backup not created; DB migration not required.
+- **Deploy boundary:** direct local SSH/SCP not used; staged files exactly allowed auth/OpenAPI backend list.
+- **Caveat:** workflow emails may say failed due frontend job; backend deploy is successful.
+
+### Android category search / analytics POSTP2 closure (2026-07-26)
+
+- **Статус:** Android-only поставка закрыта для ручной установки APK; backend deploy не требовался.
+- **Исправлено:** в добавлении/подтверждении расхода выбор категории получил быстрый поиск по части слова; горизонтальные списки заменены на кнопку `Категория`, которая открывает overlay/dialog с вертикальной прокруткой и поиском.
+- **Аналитика:** `Анализ -> Сводка -> Инвестиции` на Android заполняет total из `investmentsByCurrency`/summary fallback; `Главная -> Топ категории` получила кнопку `Все` для полного списка категорий трат по убыванию суммы.
+- **P2:** top categories учитывают только expense-категории и исключают expense-транзакции с income/asset `categoryId`; search state category dialog стабилен key-based и не протекает между строками/режимами.
+- **QA:** targeted `AppSectionTest`/`ApiClientDashboardTest`, expanded targeted auth/session tests, full `:app:testDebugUnitTest`, `:app:compileDebugKotlin`, release assemble, `zipalign`, `apksigner verify`, final `zipalign -c` PASS; prod URL markers present, local markers absent.
+- **APK:** `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-android-prod-20260726-160500-CATEGORY-ANALYTICS-POSTP2-manual-install.apk`; SHA256 `188eae471e36f1cdfe2e4f92ce1f7da7e5fa1d1febb9c80ab5a96c494503d0b1`.
+- **Evidence:** `C:\Users\style\Documents\Codex\Финансы\MVP_EVIDENCE\android-category-analytics-postp2-qa-20260726-160224\SUMMARY.md`.
+- **Ограничение:** эмулятор/устройство недоступны (`adb devices` пустой), поэтому install/launch/manual e2e не выполнялись; реальные production данные не менялись.
+
+### Monthly investment transfers summary QA closure (2026-07-26)
+
+- **Бизнес-правило:** `/reports/summary.investmentsTotal` теперь означает monthly investment transfers за выбранный период/month: только видимые incoming `transfer` в investment asset account/category. Это не общий баланс активов.
+- **API boundary:** `/reports/account-balances` остаётся endpoint'ом балансов активов/счетов; Android Analytics summary investments берёт только summary data и не fallback-ит из account-balances.
+- **Backend REQUIRED:** production backend deploy требуется, чтобы новая семантика `/reports/summary.investmentsTotal` стала active в production. Этот worker production deploy не выполнял.
+- **QA:** backend targeted reports/assets `25 passed, 8 warnings`; backend full `302 passed, 16 warnings`; Android targeted `ApiClientDashboardTest`/`AppSectionTest` PASS; Android full unit `174 tests, 0 failures/errors/skipped`; `:app:compileDebugKotlin` PASS; release assemble/sign/align/URL scan PASS.
+- **APK:** `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-android-prod-20260726-221828-MONTHLY-INVESTMENT-TRANSFERS-manual-install.apk`; SHA256 `46e85ee4e5c6b4b13cf84abd4da22dcffc2642d0e9afd7d6be16f5c40783a9ca`.
+- **Evidence:** `C:\Users\style\Documents\Codex\Финансы\MVP_EVIDENCE\monthly-investment-transfers-qa-20260726-221828\SUMMARY.md`.
+- **Ограничение:** `adb` не был доступен в PATH; SDK adb доступен, но attached devices/emulator отсутствуют, поэтому install/launch smoke не выполнялся; реальные production данные не менялись.
+
+### Monthly investment transfers backend production deploy (2026-07-26)
+
+- **Статус:** backend production deploy successful through GitHub Actions; direct local SSH/SCP не использовался.
+- **Branch:** `prod/finance-monthly-investment-transfers-release-20260726`.
+- **Commit:** `6a8d2656a4423d80363fb5230f2bb5ddcc8bd937`.
+- **Release ID:** `20260726T194858Z-6a8d2656`.
+- **Actions run:** `https://github.com/DmtrGoltsev/finance/actions/runs/30217638420`; run status `completed/failure` только из-за unrelated `frontend-ci-package`/PWA tests; `backend-ci-package` success и `deploy-backend` success.
+- **Health/API:** `http://45.10.110.42/finance-api/health` -> 200 `{"status":"ok"}`; `http://45.10.110.42/finance-api/openapi.json` -> 200; unauth `/finance-api/api/v1/reports/summary` -> 401, route mounted/authenticated.
+- **Migrations/backup:** Alembic before `20260618_0017`, target `20260618_0017`; workflow ran no-op upgrade validation and created backup `/opt/finance/backups/postgres/finance_prod-20260726T195057Z-20260726T194858Z-6a8d2656-20260618_0017-to-20260618_0017.dump`, SHA256 `209f7587277bec2b0e81e464e0da6f81d49ce1cafebede0648f0dab133111553`; evidence file `/opt/finance/backups/postgres/finance_prod-20260726T195057Z-20260726T194858Z-6a8d2656-20260618_0017-to-20260618_0017.dump.evidence.txt`.
+- **Frontend caveat:** PWA job failed on existing date-sensitive tests in `apps/web-pwa/src/App.test.tsx:709` and `:799`; frontend deploy skipped. Backend deploy is successful.
+
+### PWA server-first iPhone browser parity closure (2026-07-27)
+
+- **Статус:** PASS после post-fix проверки `TopCategoriesDialog` portal/layer; деплой, commit и push не выполнялись.
+- **Scope:** PWA iPhone browser parity для server-first сценариев login/home/quick add/category overlay/analytics/top categories all. Backend code в этой PWA parity задаче не менялся.
+- **Android features covered in PWA parity:** быстрый выбор категории через `Категория` searchable overlay, mobile quick add sheet, analytics summary cards, `Главная -> Топ категории -> Все` со server category breakdown.
+- **QA:** `npm.cmd test` в `apps/web-pwa` PASS: 4 files, 65 tests; `npm.cmd run build` PASS: `tsc -b && vite build`, 1704 modules; local Vite `http://127.0.0.1:5173/`; Playwright Chromium iPhone 14 smoke PASS.
+- **TopCategoriesDialog proof:** dialog overlays FAB and bottom nav by hit-test; inner `.listStack` scrolls inside dialog (`clientHeight=570`, `scrollHeight=2594`, `after=2024`); screenshots include initial and scrolled states.
+- **Evidence:** `C:\Users\style\Documents\Codex\Финансы\MVP_EVIDENCE\pwa-iphone-parity-postfix-qa-20260727-005600\SUMMARY.md`.
+- **Residual risks:** реальный iPhone/Safari руками не прогнан; production HTTPS/secure-cookie/service-worker/installability остаются риском, если prod доступен только по plain HTTP IP; PWA/iOS OCR остается online-only и не был перепроверен этим smoke.
