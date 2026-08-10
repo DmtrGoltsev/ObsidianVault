@@ -8,7 +8,7 @@ id: "proj-rocketflow"
 обновлено: "2026-08-10"
 уверенность: "высокая"
 источники: ["docs/33-current-state-summary.md", "docs/66-weekly-focus-calendar-delivery.md", "README.md", "docs/04-architecture-blueprint.md"]
-доказательства: ["docs/50-notification-runtime-clean-pass.md", "Док_Calendar_Weekly_Focus_WebPush_20260810", "Док_Cleanup_Manifest", "Док_Backend_Verification", "Док_Web_Verification", "Док_Android_Verification", "Док_Prod_Deploy_State"]
+доказательства: ["Док_Production_Rollout_20260810", "docs/50-notification-runtime-clean-pass.md", "Док_Calendar_Weekly_Focus_WebPush_20260810", "Док_Cleanup_Manifest", "Док_Backend_Verification", "Док_Web_Verification", "Док_Android_Verification", "Док_Prod_Deploy_State"]
 теги: ["проект", "rocketflow", "mvp"]
 ---
 
@@ -37,12 +37,14 @@ id: "proj-rocketflow"
 
 ## Текущий статус
 
-- Feature checkpoint 2026-08-10: ветка `codex/weekly-focus-calendar-web-push` готовится к commit/push; Calendar и Weekly Focus реализованы для backend, web и Android, server-owned Focus cadence поддерживает FCM и Web Push.
+- Production rollout 2026-08-10: exact SHA `910c061de4af9395d9bb682624bd966b2977a738` развёрнут как release `sha-910c061de4af`; backend/web promotion и Flyway `V19`/`V20` завершены успешно.
+- Исторический feature checkpoint ранее в тот же день фиксировал branch `codex/weekly-focus-calendar-web-push` до commit/push и rollout; этот контекст сохранён в evidence.
 - Flyway additions: `V19__weekly_focus.sql` и `V20__focus_notifications.sql`.
 - Verification: backend `135/0/0/0`, web `54 passed`, Android unit `77/0/0/0`; final implementation review **PASS**. Счётчики относятся к этому checkpoint.
-- Production: feature-ветка **НЕ ЗАДЕПЛОЕНА**; migrations, backend/web promotion, APK rollout, notification enablement и production smoke не выполнялись.
-- Android production signing **BLOCKED**: отсутствуют release keystore и Firebase production config. Debug/unit evidence не является production APK evidence.
-- Canonical evidence: [[Док_Calendar_Weekly_Focus_WebPush_20260810]].
+- Production: [GitHub Actions run 31357406631](https://github.com/DmtrGoltsev/RocketFlow/actions/runs/31357406631) `success`; backend/web health `UP/200`, Flyway `20/20`, errors/5xx/restarts `0`.
+- Focus cadence и Web Push остаются disabled. Authenticated read smoke не выполнен; unauthenticated protections прошли.
+- Android production signing остаётся открытым gate: unsigned production-configured APK SHA-256 `1763de390dd587c686fe84152c521a2d92e65b747fb2689ec2076c0560c576d7` не устанавливался и не пригоден для публикации; Firebase config отсутствует.
+- Canonical evidence: [[Док_Production_Rollout_20260810]] и [[Док_Calendar_Weekly_Focus_WebPush_20260810]].
 
 ### Исторический MVP3 baseline
 
@@ -58,7 +60,7 @@ id: "proj-rocketflow"
 - Android APK: `app-debug.apk` debug-signed и `apksigner` OK v2; `app-release-unsigned.apk` unsigned и `apksigner` DOES NOT VERIFY
 - Cleanup/repo audit завершён: evidence сохранены в [[Док_Cleanup_Manifest]], cleanup invariants healthy, `.gitignore` покрывает generated paths и `android/local.properties`
 - Notification E2E доказан локально
-- Production model: [[HexCore]] `rocketflow-prod-01` / `45.10.110.42`, jar/systemd backend `rocketflow-backend` + web static via Nginx. Исторический baseline deploy 2026-06-19 выполнен через GitHub Actions release branch; он не включает текущую feature-ветку. См. [[CI_CD_Production_Status_20260619]].
+- Production model: [[HexCore]] `rocketflow-prod-01` / `45.10.110.42`, jar/systemd backend `rocketflow-backend` + web static via Nginx. Исторический baseline deploy 2026-06-19 см. в [[CI_CD_Production_Status_20260619]]; feature rollout 2026-08-10 см. в [[Док_Production_Rollout_20260810]].
 
 Источник: [[Источник_Текущее_Состояние]]
 
@@ -74,15 +76,14 @@ id: "proj-rocketflow"
 
 ## Активные гейты
 
-- Commit/push reviewed feature delta и подготовка release ref.
-- Production rollout `V19`/`V20` с backup/rollback decision и post-migration verification.
 - Production-equivalent FCM/Web Push configuration и provider smoke.
-- Android signed production artifact: release keystore и Firebase config пока отсутствуют.
+- Android signed production artifact: release keystore и Firebase config отсутствуют; текущий unsigned APK не устанавливать и не публиковать.
+- Authenticated production read smoke с санкционированными QA credentials.
 
 ## Известные риски
 
-- Automated tests не заменяют production migration/deploy/smoke evidence.
-- Web Push и Focus cadence нельзя включать до production-equivalent credentials/configuration и контролируемого smoke.
+- Backend/web rollout завершён, но authenticated smoke gap не закрыт.
+- Web Push и Focus cadence нельзя включать до production-equivalent credentials/configuration и контролируемого provider smoke.
 - Android debug/unit evidence не закрывает signing, Play-services device и production FCM delivery.
 - Historical baseline и current feature checkpoint должны оставаться явно разделены.
 
@@ -104,6 +105,7 @@ id: "proj-rocketflow"
 - [[Док_Backend_Verification]], [[Док_Web_Verification]], [[Док_Android_Verification]] — статус verification после audit
 - [[Док_Prod_Deploy_State]] — фактическая production deploy model
 - [[Док_Calendar_Weekly_Focus_WebPush_20260810]] — текущий feature checkpoint и release boundary
+- [[Док_Production_Rollout_20260810]] — production rollout, backup, rollback readiness и smoke boundary
 
 ## Скрипты
 
@@ -113,7 +115,7 @@ id: "proj-rocketflow"
 
 ## Ветки
 
-- `codex/weekly-focus-calendar-web-push` (текущая feature-ветка), `MVP3`, `MVP2`, historical release refs, `master`
+- `codex/weekly-focus-calendar-web-push`, `release-weekly-focus-calendar-910c061de4af`, `MVP3`, `MVP2`, historical release refs, `master`
 
 ## Final production CI/CD state (2026-06-19)
 
@@ -129,10 +131,22 @@ id: "proj-rocketflow"
 - **Residual risk:** independent DB read via local SSH principal unavailable; DB evidence comes from deploy logs.
 - **Evidence:** [[CI_CD_Production_Status_20260619]].
 
+## Production rollout state (2026-08-10)
+
+- **Статус:** backend/web rollout PASS; rollback не использован.
+- **Source/deployed SHA:** `910c061de4af9395d9bb682624bd966b2977a738`; release `sha-910c061de4af`.
+- **GitHub Actions:** `https://github.com/DmtrGoltsev/RocketFlow/actions/runs/31357406631`, success.
+- **Flyway:** current `V20`, `20/20` successful, `0` failed.
+- **Runtime:** health `UP/200`; errors/5xx/restarts `0`.
+- **Flags:** Focus cadence и Web Push disabled.
+- **Residuals:** authenticated read smoke gap; unsigned/non-publishable Android artifact; Firebase Android config absent.
+- **Evidence:** [[Док_Production_Rollout_20260810]].
+
 ## Связанные заметки
 
 - [[Wave_A]], [[Wave_B]], [[Wave_C]] — завершённые волны
 - [[MVP3_Упрощение]] — текущая стадия
 - [[Док_Calendar_Weekly_Focus_WebPush_20260810]] — Calendar/Weekly Focus/Web Push checkpoint
+- [[Док_Production_Rollout_20260810]] — production rollout 2026-08-10
 - [[Схема_Развертывания]] — схема деплоймента
 - [[Схема_Базы_Данных]] — схема БД

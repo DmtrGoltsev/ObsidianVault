@@ -8,7 +8,7 @@ id: "proof-backend-verification-2026-06-07"
 обновлено: "2026-08-10"
 уверенность: "высокая"
 источники: ["backend/mvn test", "backend/target/surefire-reports", "docs/66-weekly-focus-calendar-delivery.md", "repo audit 2026-06-07", "final verifier 2026-06-07", "backend package 2026-06-08"]
-доказательства: ["Док_Calendar_Weekly_Focus_WebPush_20260810", "Док_Cleanup_Manifest", "Док_Backend_Тесты"]
+доказательства: ["Док_Production_Rollout_20260810", "Док_Calendar_Weekly_Focus_WebPush_20260810", "Док_Cleanup_Manifest", "Док_Backend_Тесты"]
 теги: ["доказательство", "backend", "verification", "tests", "package"]
 ---
 
@@ -19,8 +19,10 @@ id: "proof-backend-verification-2026-06-07"
 - Branch: `codex/weekly-focus-calendar-web-push`.
 - Surefire reports: 135 tests, 0 failures, 0 errors, 0 skipped, 29 suites.
 - Calendar, Weekly Focus, Focus cadence, FCM/Web Push routing and Flyway `V19`/`V20` входят в current working-tree scope.
-- Final implementation review: PASS. Production migration/deploy/provider smoke не выполнялись.
+- Final implementation review: PASS.
+- Последующий production rollout 2026-08-10: backend `sha-910c061de4af` promoted, Flyway current `V20` (`20/20`, `0` failed), local/public health `UP/200`; errors/restarts `0`. Provider delivery smoke не выполнялся при disabled Focus cadence/Web Push.
 - Сводное evidence: [[Док_Calendar_Weekly_Focus_WebPush_20260810]].
+- Rollout evidence: [[Док_Production_Rollout_20260810]].
 
 ## Исторический факт 2026-06
 
@@ -49,3 +51,4 @@ Jar: `C:\Users\style\Documents\Codex\RocketFlow\backend\target\rocketflow-backen
 - [[Док_Backend_Тесты]]
 - [[Регламент_CI_CD]]
 - [[MOC_Бэкенд]]
+- [[Док_Production_Rollout_20260810]]

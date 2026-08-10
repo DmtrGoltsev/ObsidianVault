@@ -8,7 +8,7 @@ id: "proof-android-verification-2026-06-07"
 обновлено: "2026-08-10"
 уверенность: "высокая"
 источники: ["android/app/build/test-results/testDebugUnitTest", "android/README.md", "docs/66-weekly-focus-calendar-delivery.md", "android local setup", "repo audit 2026-06-07", "final verifier 2026-06-07", "delivery verifier 2026-06-08"]
-доказательства: ["Док_Calendar_Weekly_Focus_WebPush_20260810", "Источник_Android_Local_Setup", "Док_Cleanup_Manifest", "Док_Android_Build"]
+доказательства: ["Док_Production_Rollout_20260810", "Док_Calendar_Weekly_Focus_WebPush_20260810", "Источник_Android_Local_Setup", "Док_Cleanup_Manifest", "Док_Android_Build"]
 теги: ["доказательство", "android", "verification", "tests", "build", "lint"]
 ---
 
@@ -20,8 +20,10 @@ id: "proof-android-verification-2026-06-07"
 - Unit reports: 77 tests, 0 failures, 0 errors, 0 skipped, 15 suites.
 - Feature evidence фиксирует `assembleDebug`, `lintDebug` и debug Android-test APK assembly PASS; Calendar, Weekly Focus и data-only Focus FCM handling реализованы.
 - Final implementation review: PASS.
-- Production Android release **BLOCKED**: release keystore отсутствует, `android/app/google-services.json` и явная Firebase build-time configuration отсутствуют. Signed production APK и real production FCM smoke не заявляются.
+- Production-configured `app-release-unsigned.apk` собран 2026-08-10: SHA-256 `1763de390dd587c686fe84152c521a2d92e65b747fb2689ec2076c0560c576d7`, `3261969` bytes; `apksigner` возвращает `DOES NOT VERIFY`.
+- Signing/publishing gate остаётся open: release keystore, `android/app/google-services.json` и явная Firebase production configuration отсутствуют. APK не устанавливался и не публиковался; signed production APK и real production FCM smoke не заявляются.
 - Сводное evidence: [[Док_Calendar_Weekly_Focus_WebPush_20260810]].
+- Rollout boundary: [[Док_Production_Rollout_20260810]].
 
 ## Исторический факт 2026-06
 
@@ -65,3 +67,4 @@ Android local full gate после delivery-fix зелёный как historical
 - [[Док_Android_Build]]
 - [[Задача_CI_Runtime_Lanes]]
 - [[MOC_Android]]
+- [[Док_Production_Rollout_20260810]]

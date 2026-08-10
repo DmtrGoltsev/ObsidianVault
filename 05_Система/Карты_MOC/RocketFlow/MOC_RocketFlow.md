@@ -8,7 +8,7 @@ id: "moc-rocketflow-main"
 обновлено: "2026-08-10"
 уверенность: "высокая"
 источники: ["docs/33-current-state-summary.md", "docs/66-weekly-focus-calendar-delivery.md", "README.md"]
-доказательства: ["Док_Calendar_Weekly_Focus_WebPush_20260810", "Док_Cleanup_Manifest", "Док_Backend_Verification", "Док_Web_Verification", "Док_Android_Verification", "Док_Artifacts_Retention_Policy", "Док_Prod_Deploy_State"]
+доказательства: ["Док_Production_Rollout_20260810", "Док_Calendar_Weekly_Focus_WebPush_20260810", "Док_Cleanup_Manifest", "Док_Backend_Verification", "Док_Web_Verification", "Док_Android_Verification", "Док_Artifacts_Retention_Policy", "Док_Prod_Deploy_State"]
 теги: ["moc", "навигация", "rocketflow"]
 ---
 
@@ -155,6 +155,7 @@ id: "moc-rocketflow-main"
 - [[Док_Android_Verification]]
 - [[Док_Artifacts_Retention_Policy]]
 - [[Док_Prod_Deploy_State]]
+- [[Док_Production_Rollout_20260810]]
 
 ## Пакеты контекста
 

@@ -5,10 +5,10 @@ id: "moc-devops"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-06-07"
+обновлено: "2026-08-10"
 уверенность: "высокая"
 источники: ["docs/33-current-state-summary.md", "docs/04-architecture-blueprint.md"]
-доказательства: ["Док_Cleanup_Manifest", "Док_Prod_Deploy_State"]
+доказательства: ["Док_Production_Rollout_20260810", "Док_Cleanup_Manifest", "Док_Prod_Deploy_State"]
 теги: ["moc", "devops", "rocketflow"]
 ---
 
@@ -41,6 +41,7 @@ id: "moc-devops"
 - Деплой web static через Nginx
 - [[Flyway]] миграции при старте
 - См. [[Регламент_Деплоя]], [[Док_Prod_Deploy_State]]
+- Rollout 2026-08-10: SHA `910c061de4af9395d9bb682624bd966b2977a738`, run `31357406631` success, Flyway `20/20`, health `UP/200`; см. [[Док_Production_Rollout_20260810]]
 
 ### GHCR publish
 - Актуальный GHCR workflow отсутствует или требует восстановления
@@ -70,6 +71,7 @@ id: "moc-devops"
 ## Бэкапы
 
 - PostgreSQL — pg_dump по расписанию (определяется runbook)
+- Fresh verified backup перед rollout 2026-08-10: metadata и `pg_restore -l` PASS зафиксированы в [[Док_Production_Rollout_20260810]]; payload в vault не хранится
 - Релизные tar.gz архивы вынесены в `C:\Users\style\Documents\RocketFlow_Archive\release-packages\`
 - Docker-образы/GHCR — open gate
 
@@ -91,3 +93,4 @@ id: "moc-devops"
 - [[Ограничения_и_Риски]]
 - [[Док_Cleanup_Manifest]]
 - [[Док_Prod_Deploy_State]]
+- [[Док_Production_Rollout_20260810]]

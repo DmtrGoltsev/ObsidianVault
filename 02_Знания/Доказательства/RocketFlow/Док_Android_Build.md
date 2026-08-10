@@ -5,10 +5,10 @@ id: "proof-android-build"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-06-08"
+обновлено: "2026-08-10"
 уверенность: "высокая"
-источники: [".github/workflows/android-verify.yml", "android/local.properties", "delivery APK build 2026-06-08"]
-доказательства: ["Док_Android_Verification", "Источник_Android_Local_Setup"]
+источники: [".github/workflows/android-verify.yml", "android/local.properties", "delivery APK build 2026-06-08", "production-configured APK inspection 2026-08-10"]
+доказательства: ["Док_Production_Rollout_20260810", "Док_Android_Verification", "Источник_Android_Local_Setup"]
 теги: ["доказательство", "сборка", "android", "ci"]
 ---
 
@@ -40,6 +40,13 @@ CI: android-verify.yml; локальный setup см. [[Источник_Androi
 - Debug APK: `C:\Users\style\Documents\Codex\RocketFlow\android\app\build\outputs\apk\debug\app-debug.apk`, 4,443,235 bytes, timestamp 2026-06-08 11:14:37 +03, debug-signed, `apksigner` OK v2 signature
 - Release APK: `C:\Users\style\Documents\Codex\RocketFlow\android\app\build\outputs\apk\release\app-release-unsigned.apk`, 3,196,165 bytes, timestamp 2026-06-08 11:40:06 +03, unsigned, `apksigner` DOES NOT VERIFY
 
+Post-rollout build evidence 2026-08-10:
+
+- Production-configured release APK: `android/app/build/outputs/apk/release/app-release-unsigned.apk`, `3261969` bytes, timestamp `2026-08-10T07:28:52.8668174+03:00`.
+- SHA-256: `1763de390dd587c686fe84152c521a2d92e65b747fb2689ec2076c0560c576d7`.
+- Artifact unsigned; `apksigner verify` -> `DOES NOT VERIFY`.
+- APK не устанавливался, не передавался и не публиковался. Без release keystore и Firebase Android production config он не является installable/publishable production release.
+
 ## Ограничение
 
 Staging notification/security/prod gates остаются отдельными проверками; локальный unit/build/lint gate зелёный.
@@ -53,3 +60,4 @@ GitHub Actions → android-verify.yml
 - [[MOC_Android]]
 - [[Регламент_CI_CD]]
 - [[Док_Android_Verification]]
+- [[Док_Production_Rollout_20260810]]

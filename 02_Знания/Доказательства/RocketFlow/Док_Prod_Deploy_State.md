@@ -8,17 +8,17 @@ id: "proof-prod-deploy-state-2026-06-07"
 обновлено: "2026-08-10"
 уверенность: "высокая"
 источники: ["docs/60-hexcore-prod-runbook.md", "docs/66-weekly-focus-calendar-delivery.md", ".github/workflows/backend-hexcore-prod-deploy.yml", "docs/58-github-cicd-policy.md", "prod deploy preflight 2026-06-08"]
-доказательства: ["Док_Calendar_Weekly_Focus_WebPush_20260810", "Док_Cleanup_Manifest", "Док_Backend_Verification"]
-теги: ["доказательство", "production", "deploy", "hexcore", "blocked"]
+доказательства: ["Док_Production_Rollout_20260810", "Док_Calendar_Weekly_Focus_WebPush_20260810", "Док_Cleanup_Manifest", "Док_Backend_Verification"]
+теги: ["доказательство", "production", "deploy", "hexcore", "rollout"]
 ---
 
 # Док: Prod Deploy State
 
 ## Текущий статус
 
-Feature checkpoint 2026-08-10: Calendar/Weekly Focus/Web Push **NOT DEPLOYED**. Нет evidence применения `V19`/`V20`, promotion текущего backend/web, signed Android production APK, notification enablement или production provider smoke.
+Current production PASS 2026-08-10: Calendar/Weekly Focus backend и web развёрнуты из exact source SHA `910c061de4af9395d9bb682624bd966b2977a738` как release `sha-910c061de4af`. [Deploy run 31357406631](https://github.com/DmtrGoltsev/RocketFlow/actions/runs/31357406631) завершился `success`; Flyway current `V20`, `20/20` successful, `0` failed; local/public health `UP/200`.
 
-Последний документированный production baseline был успешно развёрнут 2026-06-19 из commit `4dbf10b0d693ea9f160993fe15199bc0047bb2ea`. Этот historical PASS не распространяется на текущую feature-ветку.
+Формулировка feature checkpoint 2026-08-10 **NOT DEPLOYED** была верна до release branch rollout и сохранена как история в [[Док_Calendar_Weekly_Focus_WebPush_20260810]]. Baseline 2026-06-19 из commit `4dbf10b0d693ea9f160993fe15199bc0047bb2ea` также остаётся historical evidence.
 
 ## Фактическая production model
 
@@ -28,7 +28,7 @@ Production сейчас описывается как jar/systemd/web static dep
 - Web: static React build через Nginx
 - DB: PostgreSQL 16
 - Deploy workflow: `.github/workflows/backend-hexcore-prod-deploy.yml`
-- Canonical deploy trigger: ветка с `release` в имени; текущая feature-ветка delivery — `codex/weekly-focus-calendar-web-push` и сама по себе не является deploy evidence.
+- Canonical deploy trigger: ветка с `release` в имени; rollout выполнен из `release-weekly-focus-calendar-910c061de4af`.
 - Production deploy path: GitHub Actions release-branch deploy is the primary production deploy path; direct SSH/SCP upload to HexCore is retained only as a manual/emergency fallback.
 
 ## Что не является подтверждённым фактом
@@ -36,8 +36,10 @@ Production сейчас описывается как jar/systemd/web static dep
 - `production-deploy.yml` не является актуальным workflow.
 - Docker/GHCR deploy не закрыт и остаётся open gate.
 - GHCR publish workflow отсутствует или требует восстановления; не считать resolved без отдельного evidence.
-- Для feature rollout не доказаны production backup/rollback decision, VAPID/FCM configuration, signed Android artifact и provider/runtime smoke.
-- На checkpoint отсутствуют Android release keystore и Firebase client config; production Android signing остаётся blocked.
+- Feature rollout backup и rollback readiness доказаны в [[Док_Production_Rollout_20260810]]; rollback не использовался.
+- Focus cadence и Web Push остаются disabled; provider delivery smoke не заявляется.
+- Android release keystore и Firebase client config отсутствуют. Production-configured APK собран unsigned и не является installable/publishable production release.
+- Authenticated read smoke остаётся evidence gap; unauthenticated protection checks прошли.
 
 ## Связанные заметки
 
@@ -46,6 +48,20 @@ Production сейчас описывается как jar/systemd/web static dep
 - [[Задача_GHCR_Publish]]
 - [[HexCore]]
 - [[Док_Calendar_Weekly_Focus_WebPush_20260810]]
+- [[Док_Production_Rollout_20260810]]
+
+## Production rollout state (2026-08-10)
+
+Status: PASS for backend/web rollout; Android signing/provider delivery остаются отдельными gates.
+
+- Source/deployed SHA: `910c061de4af9395d9bb682624bd966b2977a738`; release ID `sha-910c061de4af`.
+- Backend/web symlinks указывают на `sha-910c061de4af` artifacts.
+- Flyway: `V18 -> V20`; `20` total, `20` successful, `0` failed.
+- Service active/running, `NRestarts=0`; journal errors/exceptions `0`; Nginx `5xx` `0`.
+- Backup metadata: `rocketflow_prod_20260810T045958Z.dump`, `2026-08-10T04:59:58Z`, `223191` bytes, SHA-256 `783590b8fa26f6d2882aab0a5cf670b483be5895fd80b6a915cd4c9946841b39`, `pg_restore -l` PASS with `238` catalog entries.
+- Rollback readiness: PR `#1` merged в `master` commit `7d1ac74cf8f2bf7935c2578f3675db4ca54764bb`; workflow ID `330828165` active; rollback не запускался.
+- Focus cadence/Web Push disabled. Authenticated smoke gap остаётся; unauthenticated protections вернули ожидаемые `400/401`.
+- Full evidence: [[Док_Production_Rollout_20260810]].
 
 ## Final CI/CD local preparation and inventory status (2026-06-14)
 

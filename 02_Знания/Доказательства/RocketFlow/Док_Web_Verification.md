@@ -8,7 +8,7 @@ id: "proof-web-verification-2026-06-07"
 обновлено: "2026-08-10"
 уверенность: "высокая"
 источники: ["web/npm test", "web/npm run build", "docs/66-weekly-focus-calendar-delivery.md", "repo audit 2026-06-07", "final verifier 2026-06-07"]
-доказательства: ["Док_Calendar_Weekly_Focus_WebPush_20260810", "Док_Cleanup_Manifest"]
+доказательства: ["Док_Production_Rollout_20260810", "Док_Calendar_Weekly_Focus_WebPush_20260810", "Док_Cleanup_Manifest"]
 теги: ["доказательство", "web", "verification", "build"]
 ---
 
@@ -20,8 +20,10 @@ id: "proof-web-verification-2026-06-07"
 - `npm test -- --run --reporter=dot`: 9 test files, 54 tests passed; повторно подтверждено 2026-08-10.
 - Feature evidence также фиксирует production build и low-threshold dependency audit PASS на checkpoint.
 - Calendar, Weekly Focus и full browser Web Push lifecycle реализованы; final implementation review PASS.
-- Production web deploy и provider smoke не выполнялись.
+- Последующий production web deploy 2026-08-10 выполнен: `rocketflow-web-sha-910c061de4af` promoted, local/public web HTTP `200` с root marker, Nginx `5xx` после promotion `0`.
+- Web Push остаётся disabled; provider smoke не выполнялся.
 - Сводное evidence: [[Док_Calendar_Weekly_Focus_WebPush_20260810]].
+- Rollout evidence: [[Док_Production_Rollout_20260810]].
 
 ## Исторический факт 2026-06
 
@@ -45,3 +47,4 @@ id: "proof-web-verification-2026-06-07"
 - [[Док_Web_Build]]
 - [[Задача_CI_Runtime_Lanes]]
 - [[MOC_Веб]]
+- [[Док_Production_Rollout_20260810]]
