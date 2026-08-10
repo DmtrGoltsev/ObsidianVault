@@ -5,7 +5,7 @@ id: "proj-focus-001"
 проект: "Focus"
 владелец: "DmtrGoltsev"
 создано: "2026-06-01"
-обновлено: "2026-06-14"
+обновлено: "2026-06-19"
 уверенность: "высокая"
 источники:
   - "[[Источник_Промпт]]"
@@ -134,3 +134,29 @@ Recurrence/Reminders/Links нет в UI, Offline sync только CREATE.
 - [[Источник_Архитектура]] — архитектурные решения
 - [[Источник_API]] — API-контракты
 - [[Пакет_Focus_Полный]] — пакет контекста (агрегат)
+
+### Final CI/CD local preparation status (2026-06-14)
+
+- User confirmed Focus is prod.
+- Read-only HexCore inventory: `focus.service`, `/focus/ -> /var/www/focus/`, `/focus-api/ -> 127.0.0.1:8082/api/`, DB `focus_db`, env `/opt/focus/.env`, health OK.
+- Local CI/CD preparation PASS: strengthened `.github/workflows/backend-prod-deploy.yml`, added `.github/workflows/focus-prod-rollback.yml`, prepared `docs/production/focus-*`, aligned nginx example.
+- Release push build/package only; prod mutation dispatch-gated; Flyway guarded; rollback requires current-release confirmation.
+- No raw input interpolation and no hardcoded secret values in reviewed workflow scope.
+- Historical note: no production deploy was executed during the 2026-06-14 preparation update; superseded by final deploy evidence on 2026-06-19.
+- Residual approvals: GitHub production environment/secrets/required reviewers, first production run, deploy/restart/migration/rollback approvals, DB backup proof.
+- Evidence: [[CI_CD_Production_Status_20260614]].
+
+### Final production CI/CD state (2026-06-19)
+
+- **Статус:** production deploy через GitHub Actions выполнен и зеленый.
+- **Repo:** `C:\Users\style\Documents\VS_Agents\Focus`, remote `DmtrGoltsev/Focus`.
+- **Branches:** implementation `feature/softer-green-and-reminders`; release `release/focus-prod-ci-cd-fe6f5af`.
+- **Release-green commit:** `ddb4262`.
+- **Production Deploy:** `https://github.com/DmtrGoltsev/Focus/actions/runs/27804739744`, success; все production jobs success. Более ранний production success `https://github.com/DmtrGoltsev/Focus/actions/runs/27804213793` остается валидным historical evidence.
+- **Android Verify:** release branch `https://github.com/DmtrGoltsev/Focus/actions/runs/27804739739`, success; feature proof `https://github.com/DmtrGoltsev/Focus/actions/runs/27804587155`, success.
+- **Android rerun fix:** `android/gradlew` executable mode восстановлен в git (`100644 -> 100755`); Gradle wrapper должен оставаться executable.
+- **Production smoke:** `http://45.10.110.42/focus/` -> 200; `http://45.10.110.42/focus-api/health` -> 200.
+- **Flyway:** V5/V6 применены во время retry; текущая версия `6`; финальный run подтвердил `6 -> 6`.
+- **Backup evidence:** `/opt/focus/backups/github-actions/release-focus-prod-ci-cd-fe6f5af-7/focus_db-release-focus-prod-ci-cd-fe6f5af-7-pre-flyway.evidence.txt`, sha256 `c8d60f1b54b2b0f1dc64d8141fa19920c59d276be5e18220abf9dcf48a0e7936`, bytes `93618`.
+- **Earlier backup before V4 -> V6:** `/opt/focus/backups/github-actions/release-focus-prod-ci-cd-fe6f5af-6/...`, sha256 `786bf0bd2d938ee569f2b64449956cc8289e386a5c956de818b16c10889466e4`.
+- **Evidence:** [[CI_CD_Production_Status_20260619]].

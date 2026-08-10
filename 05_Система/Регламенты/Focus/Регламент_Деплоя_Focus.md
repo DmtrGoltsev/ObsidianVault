@@ -5,7 +5,7 @@ id: "reg-deploy-focus"
 проект: "Focus"
 владелец: "DmtrGoltsev"
 создано: "2026-06-07"
-обновлено: "2026-06-13"
+обновлено: "2026-06-19"
 уверенность: "высокая"
 источники: ["[[Focus]]"]
 доказательства: ["[[QA_Результаты]]"]
@@ -34,7 +34,7 @@ HexCore (`45.10.110.42`) — Ubuntu, 1.6 GB RAM, 20 GB disk.
 - Production artifact очищает `frontend/dist/auto-login*.html` и проверяет, что такие файлы не попали в deploy artifact.
 - Требуемые GitHub Actions secrets: `SSH_HOST`, `SSH_USERNAME`, `SSH_KEY`.
 
-Примечание: наличие workflow и правил запуска не означает, что production deploy уже выполнен.
+Примечание: финальный production deploy через этот путь подтвержден 2026-06-19; см. [[CI_CD_Production_Status_20260619]].
 
 ## Fallback / alternative deploy
 
@@ -161,3 +161,36 @@ gunzip -c backup.sql.gz | sudo -u postgres psql focus_db
 - [[Focus]] — карточка проекта
 - [[HexCore]] — production-сервер
 - [[MOC_Focus]] — навигация по проекту
+
+## Final CI/CD local preparation status (2026-06-14)
+
+Status: PASS for local CI/CD preparation. This does not claim that a new production deploy was executed.
+
+- User confirmed Focus is production.
+- Read-only HexCore inventory confirmed live service `focus.service`.
+- Live routes: `/focus/ -> /var/www/focus/`; `/focus-api/ -> 127.0.0.1:8082/api/`.
+- Database: `focus_db`.
+- Environment file: `/opt/focus/.env`.
+- Health: OK.
+- Workflow state: `.github/workflows/backend-prod-deploy.yml` strengthened; `.github/workflows/focus-prod-rollback.yml` added.
+- Repo docs: `docs/production/focus-*` prepared; nginx example aligned.
+- Release push behavior: build/package only; production mutation is dispatch-gated.
+- Safety: Flyway guarded; rollback requires current-release confirmation; no raw input interpolation.
+- Auto-login boundary: source auto-login deletion was not performed, but production artifact excludes auto-login files.
+- Final review: workflow YAML parses, no hardcoded secret values in reviewed workflow scope, no production actions executed.
+- Residual approvals: GitHub production environment/secrets/required reviewers, first production workflow run, deploy/restart/migration/rollback approvals, DB backup proof.
+- Evidence: [[CI_CD_Production_Status_20260614]].
+
+## Final production CI/CD state (2026-06-19)
+
+Status: PASS. GitHub Actions release-branch production deploy is now the primary path.
+
+- Release branch: `release/focus-prod-ci-cd-fe6f5af`; release commit `48b0e070e25fd468e43820a8dc7e3719cc066cfa`.
+- Final green run: `https://github.com/DmtrGoltsev/Focus/actions/runs/27804213793`.
+- Trigger rule: branch name must contain `release`; push/cherry-pick/merge desired commit into `release/<project>-prod-...`, then watch GitHub Actions.
+- Manual `workflow_dispatch` remains available.
+- Direct SSH/SCP remains documented fallback, not primary.
+- GitHub `production` environment and environment secrets are configured; secret values must never be stored in docs.
+- Verify after deploy: `http://45.10.110.42/focus/` and `http://45.10.110.42/focus-api/health`.
+- Rollback: use project rollback workflow where available; DB rollback is not automated and requires manual restore from backups after approval.
+- Evidence: [[CI_CD_Production_Status_20260619]].

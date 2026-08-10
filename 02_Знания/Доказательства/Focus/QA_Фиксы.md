@@ -4,7 +4,7 @@ id: "qa-fixes"
 статус: "активно"
 проект: "Focus"
 создано: "2026-06-12"
-обновлено: "2026-06-14"
+обновлено: "2026-06-19"
 теги:
   - "qa"
   - "focus"
@@ -12,6 +12,12 @@ id: "qa-fixes"
 ---
 
 # QA Фиксы — Focus
+
+## Фиксы 2026-06-19 (Android Verify rerun)
+
+| FIX | Описание | Файл | Дата | Верифицирован |
+|---|---|---|---|---|
+| FIX-W | Android Verify на release branch падал из-за неисполняемого Gradle wrapper; `android/gradlew` восстановлен как executable в git (`100644 -> 100755`). Wrapper должен оставаться executable. | `android/gradlew` | 2026-06-19 | Да: release Android Verify `27804739739`, feature proof Android Verify `27804587155` |
 
 ## Фиксы 2026-06-14 (завершение recurring reminders)
 
