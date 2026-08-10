@@ -5,10 +5,10 @@ id: "src-prod-runbook"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-06-07"
+обновлено: "2026-08-10"
 уверенность: "высокая"
 источники: ["docs/60-hexcore-prod-runbook.md"]
-доказательства: ["Док_Prod_Deploy_State"]
+доказательства: ["Док_Prod_Deploy_State", "Док_Production_Rollout_20260810"]
 теги: ["документация", "production", "runbook"]
 ---
 
@@ -24,11 +24,11 @@ id: "src-prod-runbook"
 
 ## Краткое содержание
 
-Процедуры деплоя бэкенда на HexCore (Java jar под systemd), обновления web-статики (Nginx), проверки состояния БД (PostgreSQL 16). Команды для перезапуска, просмотра логов, отката. Фактический workflow: `backend-hexcore-prod-deploy.yml`. Docker/GHCR deploy не закрыт и остаётся open gate. Добавлена ссылка на [[Источник_Бэкап_Runbook|backup runbook]] для процедур резервного копирования.
+Процедуры деплоя бэкенда на HexCore (Java jar под systemd), обновления web-статики (Nginx), проверки состояния БД (текущий production: PostgreSQL 18.4 по [[Док_Production_Rollout_20260810]]). Команды для перезапуска, просмотра логов, отката. Фактический workflow: `backend-hexcore-prod-deploy.yml`. Docker/GHCR deploy не закрыт и остаётся open gate. Добавлена ссылка на [[Источник_Бэкап_Runbook|backup runbook]] для процедур резервного копирования.
 
 ## Статус актуальности
 
-Актуален на 2026-06-07 после cleanup/repo audit.
+Актуализирован на 2026-08-10 после production rollout и проверки версии БД.
 
 ## Связанные заметки
 

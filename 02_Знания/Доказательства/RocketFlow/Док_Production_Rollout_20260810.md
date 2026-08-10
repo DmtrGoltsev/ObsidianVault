@@ -7,7 +7,7 @@ id: "proof-rocketflow-production-rollout-2026-08-10"
 создано: "2026-08-10"
 обновлено: "2026-08-10"
 уверенность: "высокая"
-источники: ["https://github.com/DmtrGoltsev/RocketFlow/actions/runs/31357406631", "https://github.com/DmtrGoltsev/RocketFlow/pull/1", ".github/workflows/backend-hexcore-prod-deploy.yml", ".github/workflows/rocketflow-prod-rollback.yml", "production post-deploy inspection 2026-08-10", "Android release artifact inspection 2026-08-10"]
+источники: ["https://github.com/DmtrGoltsev/RocketFlow/actions/runs/31357406631", "https://github.com/DmtrGoltsev/RocketFlow/pull/1", ".github/workflows/backend-hexcore-prod-deploy.yml", ".github/workflows/rocketflow-prod-rollback.yml", "production post-deploy inspection 2026-08-10", "production PostgreSQL server_version inspection 2026-08-10", "fresh backup catalog inspection 2026-08-10", "Android release artifact inspection 2026-08-10"]
 доказательства: ["Док_Calendar_Weekly_Focus_WebPush_20260810", "Док_Prod_Deploy_State", "Док_Backend_Verification", "Док_Web_Verification", "Док_Android_Verification"]
 теги: ["доказательство", "production", "deploy", "calendar", "weekly-focus", "web-push", "rollback", "backup"]
 ---
@@ -22,6 +22,7 @@ Production rollout Calendar/Weekly Focus выполнен успешно 2026-08
 - [GitHub Actions run 31357406631](https://github.com/DmtrGoltsev/RocketFlow/actions/runs/31357406631): `completed/success`; jobs `package` и `deploy` завершились успешно.
 - Backend promoted: `rocketflow-backend-sha-910c061de4af.jar`.
 - Web promoted: `rocketflow-web-sha-910c061de4af`.
+- Production DB: PostgreSQL `18.4`; версия подтверждена на production-сервере и независимо заголовком каталога свежего pre-rollout backup.
 - Flyway: `20/20` successful, `0` failed, current `V20`; `V19` и `V20` применены по одному разу успешно.
 - Local/public API health: HTTP `200`, status `UP`; local/public web: HTTP `200` с ожидаемым root marker.
 - Post-deploy runtime: service `active/running`, `NRestarts=0`; backend journal errors/exceptions после promotion: `0`; Nginx `5xx`: `0`.
@@ -38,6 +39,7 @@ Fresh pre-rollout backup создан и проверен без сохране�
 | Size | `223191` bytes |
 | SHA-256 | `783590b8fa26f6d2882aab0a5cf670b483be5895fd80b6a915cd4c9946841b39` |
 | `pg_restore -l` | PASS, `238` catalog entries |
+| PostgreSQL version | `18.4`, совпадает с production server inspection и backup catalog header |
 
 Restore не выполнялся; backup payload и catalog listing в vault не копировались.
 

@@ -5,10 +5,10 @@ id: "agent-devops"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-05-31"
+обновлено: "2026-08-10"
 уверенность: "высокая"
 источники: ["docs/58-github-cicd-policy.md", "docs/60-hexcore-prod-runbook.md", "docs/33-current-state-summary.md"]
-доказательства: []
+доказательства: ["Док_Production_Rollout_20260810"]
 теги: ["агент", "devops", "ci-cd", "деплой"]
 ---
 
@@ -19,7 +19,7 @@ id: "agent-devops"
 - GitHub Actions CI/CD (ubuntu-24.04)
 - [[Docker_Image]] сборка и публикация в GHCR
 - Деплой на [[HexCore]] (systemd + Nginx)
-- PostgreSQL 16 эксплуатация
+- PostgreSQL 18.4 эксплуатация в production — [[Док_Production_Rollout_20260810]]
 - Secrets management (без хранения секретов в коде)
 - Мониторинг production
 

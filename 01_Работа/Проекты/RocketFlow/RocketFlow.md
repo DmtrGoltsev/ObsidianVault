@@ -22,7 +22,7 @@ id: "proj-rocketflow"
 
 | Слой | Технологии |
 |------|-----------|
-| Backend | Java 21, Spring Boot 3.4.5, Spring Security, Spring Data JPA, Flyway, PostgreSQL 16 |
+| Backend | Java 21, Spring Boot 3.4.5, Spring Security, Spring Data JPA, Flyway, PostgreSQL 18.4 ([[Док_Production_Rollout_20260810|production evidence]]) |
 | Web | React 18, TypeScript 5, Vite 5, react-router-dom 6, lucide-react |
 | Android | Kotlin 1.9.24, minSdk 26, targetSdk 34, WorkManager 2.9.1, FCM 24.1.0 |
 | CI/CD | GitHub Actions (ubuntu-24.04) |

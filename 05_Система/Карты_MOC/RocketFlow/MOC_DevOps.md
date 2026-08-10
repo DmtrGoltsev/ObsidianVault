@@ -52,7 +52,7 @@ id: "moc-devops"
 [[HexCore]] — production-сервер (45.10.110.42):
 - systemd — управление сервисами
 - Nginx — reverse proxy + статика веб-клиента
-- PostgreSQL 16 — база данных
+- PostgreSQL 18.4 — база данных; version evidence: [[Док_Production_Rollout_20260810]]
 - Production model — Java jar под systemd + web static через Nginx
 
 ## Окружения

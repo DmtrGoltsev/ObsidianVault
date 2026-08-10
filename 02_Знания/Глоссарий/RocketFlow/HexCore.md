@@ -5,10 +5,10 @@ id: "term-hexcore"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-06-07"
+обновлено: "2026-08-10"
 уверенность: "средняя"
 источники: ["docs/60-hexcore-prod-runbook.md", "docs/33-current-state-summary.md"]
-доказательства: ["Док_Prod_Deploy_State"]
+доказательства: ["Док_Prod_Deploy_State", "Док_Production_Rollout_20260810"]
 теги: ["devops", "развертывание", "production"]
 ---
 
@@ -16,13 +16,13 @@ id: "term-hexcore"
 
 ## Определение
 
-Production-сервер RocketFlow. IP: 45.10.110.42. Фактическая модель: backend Java jar под systemd, web static через Nginx, PostgreSQL 16.
+Production-сервер RocketFlow. IP: 45.10.110.42. Фактическая модель: backend Java jar под systemd, web static через Nginx, PostgreSQL 18.4 ([[Док_Production_Rollout_20260810|evidence]]).
 
 ## Контекст в проекте
 
 - Развёрнут бэкенд RocketFlow (Java jar через systemd)
 - Статика web (React build) отдаётся через Nginx
-- База данных: PostgreSQL 16
+- База данных: PostgreSQL 18.4
 - Деплой автоматизирован через GitHub Actions workflow: `backend-hexcore-prod-deploy.yml`
 - Docker/GHCR deploy не закрыт; это open gate, а не текущий production path
 - Runbook: `docs/60-hexcore-prod-runbook.md`
@@ -32,7 +32,7 @@ Production-сервер RocketFlow. IP: 45.10.110.42. Фактическая м�
 - OS: Linux (systemd)
 - Веб-сервер: Nginx
 - Java-рантайм: systemd service unit
-- БД: PostgreSQL 16 (локально на сервере или отдельно — предположение)
+- БД: PostgreSQL 18.4; версия подтверждена, размещение локально на сервере или отдельно остаётся предположением
 
 ## Связанные термины
 
@@ -40,3 +40,4 @@ Production-сервер RocketFlow. IP: 45.10.110.42. Фактическая м�
 - [[REST_API]] — API, работающее на HexCore
 - [[PostgreSQL_Advisory_Lock]] — механизм БД на HexCore
 - [[Док_Prod_Deploy_State]] — factual deploy state
+- [[Док_Production_Rollout_20260810]] — production version и backup evidence

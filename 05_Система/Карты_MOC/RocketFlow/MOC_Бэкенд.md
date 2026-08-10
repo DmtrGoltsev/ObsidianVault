@@ -5,16 +5,16 @@ id: "moc-backend"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-06-07"
+обновлено: "2026-08-10"
 уверенность: "высокая"
 источники: ["docs/04-architecture-blueprint.md", "docs/03-domain-specification.md"]
-доказательства: ["Док_Backend_Verification", "Док_Prod_Deploy_State"]
+доказательства: ["Док_Backend_Verification", "Док_Prod_Deploy_State", "Док_Production_Rollout_20260810"]
 теги: ["moc", "backend", "rocketflow"]
 ---
 
 # MOC Бэкенд
 
-Карта бэкенд-компонентов RocketFlow. Java 21, Spring Boot 3.4.5, Spring Security, Spring Data JPA, PostgreSQL 16, Flyway, Docker.
+Карта бэкенд-компонентов RocketFlow. Java 21, Spring Boot 3.4.5, Spring Security, Spring Data JPA, PostgreSQL 18.4 в production, Flyway, Docker. Version evidence: [[Док_Production_Rollout_20260810]].
 
 ## Модули
 

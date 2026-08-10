@@ -26,7 +26,7 @@ Production сейчас описывается как jar/systemd/web static dep
 
 - Backend: Java jar под systemd на [[HexCore]] `rocketflow-prod-01` / `45.10.110.42`, service `rocketflow-backend`
 - Web: static React build через Nginx
-- DB: PostgreSQL 16
+- DB: PostgreSQL 18.4; evidence: [[Док_Production_Rollout_20260810]]
 - Deploy workflow: `.github/workflows/backend-hexcore-prod-deploy.yml`
 - Canonical deploy trigger: ветка с `release` в имени; rollout выполнен из `release-weekly-focus-calendar-910c061de4af`.
 - Production deploy path: GitHub Actions release-branch deploy is the primary production deploy path; direct SSH/SCP upload to HexCore is retained only as a manual/emergency fallback.

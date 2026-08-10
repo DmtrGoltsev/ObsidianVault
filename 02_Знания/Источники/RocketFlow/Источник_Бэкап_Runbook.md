@@ -5,10 +5,10 @@ id: "src-backup-runbook"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-06-01"
-обновлено: "2026-06-01"
+обновлено: "2026-08-10"
 уверенность: "высокая"
 источники: ["docs/65-prod-db-backup-local-runbook.md"]
-доказательства: []
+доказательства: ["Док_Production_Rollout_20260810"]
 теги: ["документация", "production", "backup", "runbook"]
 ---
 
@@ -24,7 +24,7 @@ Runbook скачивания production backup базы данных через 
 
 ## Краткое содержание
 
-Пошаговая инструкция по созданию и скачиванию дампа production БД PostgreSQL 16 с [[HexCore]] через SSH/SCP. Включает команды для дампа, сжатия, передачи и восстановления локально. Связанный скрипт: `Invoke-ProdPostgresBackupDownload.ps1`.
+Пошаговая инструкция по созданию и скачиванию дампа production БД PostgreSQL 18.4 с [[HexCore]] через SSH/SCP. Включает команды для дампа, сжатия, передачи и восстановления локально. Связанный скрипт: `Invoke-ProdPostgresBackupDownload.ps1`. Версия production и fresh backup catalog подтверждены в [[Док_Production_Rollout_20260810]].
 
 ## Статус актуальности
 
@@ -35,3 +35,4 @@ Runbook скачивания production backup базы данных через 
 - [[Источник_Продакшен_Runbook]] — основной production runbook
 - [[HexCore]] — production-сервер
 - [[Агент_DevOps]] — ответственный
+- [[Док_Production_Rollout_20260810]] — fresh backup и evidence версии
