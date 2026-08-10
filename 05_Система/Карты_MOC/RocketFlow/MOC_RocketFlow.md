@@ -5,10 +5,10 @@ id: "moc-rocketflow-main"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-06-07"
+обновлено: "2026-08-10"
 уверенность: "высокая"
-источники: ["docs/33-current-state-summary.md", "README.md"]
-доказательства: ["Док_Cleanup_Manifest", "Док_Backend_Verification", "Док_Web_Verification", "Док_Android_Verification", "Док_Artifacts_Retention_Policy", "Док_Prod_Deploy_State"]
+источники: ["docs/33-current-state-summary.md", "docs/66-weekly-focus-calendar-delivery.md", "README.md"]
+доказательства: ["Док_Calendar_Weekly_Focus_WebPush_20260810", "Док_Cleanup_Manifest", "Док_Backend_Verification", "Док_Web_Verification", "Док_Android_Verification", "Док_Artifacts_Retention_Policy", "Док_Prod_Deploy_State"]
 теги: ["moc", "навигация", "rocketflow"]
 ---
 
@@ -148,6 +148,7 @@ id: "moc-rocketflow-main"
 - [[Док_Web_Build]]
 - [[Док_Android_Build]]
 - [[Док_Нотификации_E2E]]
+- [[Док_Calendar_Weekly_Focus_WebPush_20260810]]
 - [[Док_Cleanup_Manifest]]
 - [[Док_Backend_Verification]]
 - [[Док_Web_Verification]]

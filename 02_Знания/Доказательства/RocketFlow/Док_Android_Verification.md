@@ -5,16 +5,25 @@ id: "proof-android-verification-2026-06-07"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-06-07"
-обновлено: "2026-06-13"
+обновлено: "2026-08-10"
 уверенность: "высокая"
-источники: ["android local setup", "repo audit 2026-06-07", "final verifier 2026-06-07", "delivery verifier 2026-06-08"]
-доказательства: ["Источник_Android_Local_Setup", "Док_Cleanup_Manifest", "Док_Android_Build"]
+источники: ["android/app/build/test-results/testDebugUnitTest", "android/README.md", "docs/66-weekly-focus-calendar-delivery.md", "android local setup", "repo audit 2026-06-07", "final verifier 2026-06-07", "delivery verifier 2026-06-08"]
+доказательства: ["Док_Calendar_Weekly_Focus_WebPush_20260810", "Источник_Android_Local_Setup", "Док_Cleanup_Manifest", "Док_Android_Build"]
 теги: ["доказательство", "android", "verification", "tests", "build", "lint"]
 ---
 
 # Док: Android Verification
 
-## Текущий факт
+## Текущий feature checkpoint 2026-08-10
+
+- Branch: `codex/weekly-focus-calendar-web-push`.
+- Unit reports: 77 tests, 0 failures, 0 errors, 0 skipped, 15 suites.
+- Feature evidence фиксирует `assembleDebug`, `lintDebug` и debug Android-test APK assembly PASS; Calendar, Weekly Focus и data-only Focus FCM handling реализованы.
+- Final implementation review: PASS.
+- Production Android release **BLOCKED**: release keystore отсутствует, `android/app/google-services.json` и явная Firebase build-time configuration отсутствуют. Signed production APK и real production FCM smoke не заявляются.
+- Сводное evidence: [[Док_Calendar_Weekly_Focus_WebPush_20260810]].
+
+## Исторический факт 2026-06
 
 Последний зафиксированный Android gate evidence: delivery verifier 2026-06-08 подтвердил gate после правки `android/app/src/main/java/com/rocketflow/companion/MainActivity.kt`: `.\gradlew.bat :app:testDebugUnitTest :app:assembleDebug :app:lintDebug --no-daemon` прошёл, `BUILD SUCCESSFUL in 1m19s`, `53 actionable tasks`. На текущем HEAD `21f95c1` fresh Android gate в этой документационной задаче не прогонялся и требуется перед утверждением актуального gate.
 

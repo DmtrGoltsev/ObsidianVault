@@ -25,7 +25,7 @@ Historical delivery 2026-06-08 in branch `MVP3`, base HEAD before delivery commi
 - Android verification: `.\gradlew.bat :app:testDebugUnitTest :app:assembleDebug :app:lintDebug --no-daemon` — PASS, `BUILD SUCCESSFUL in 1m19s`.
 - Android APK build: `.\gradlew.bat app:assembleDebug app:assembleRelease` — PASS, `BUILD SUCCESSFUL in 2m08s`; debug APK signed/verified, release APK unsigned/not verified.
 - Backend package: `mvn --batch-mode --no-transfer-progress package` — PASS on second run; 63 tests, 0 failures/errors/skipped, `BUILD SUCCESS`, total `02:42`; jar built.
-- Prod deploy preflight: **NOT DEPLOYED / BLOCKED** pending target ref/method, backup expectation, secrets/env readiness.
+- Historical prod deploy preflight at 2026-06-08: deploy was not executed pending target ref/method, backup expectation, secrets/env readiness; superseded by 2026-06-19 production deploy PASS.
 
 Ранее / historical: 21 коммит в ветке `MVP3` относительно `MVP2` (`git rev-list --count MVP2..MVP3` = 21), HEAD `9825a40f6d2e4b909b785ef228aacc5393acec0b`:
 - Android UX: drag-drop, иерархия папок, fullscreen alarms (TaskReminderAlarmActivity, AlarmReceiver, AlarmScheduler)

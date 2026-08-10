@@ -5,10 +5,10 @@ id: "proj-rocketflow"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-06-13"
+обновлено: "2026-08-10"
 уверенность: "высокая"
-источники: ["docs/33-current-state-summary.md", "README.md", "docs/04-architecture-blueprint.md"]
-доказательства: ["docs/50-notification-runtime-clean-pass.md", "Док_Cleanup_Manifest", "Док_Backend_Verification", "Док_Web_Verification", "Док_Android_Verification", "Док_Prod_Deploy_State"]
+источники: ["docs/33-current-state-summary.md", "docs/66-weekly-focus-calendar-delivery.md", "README.md", "docs/04-architecture-blueprint.md"]
+доказательства: ["docs/50-notification-runtime-clean-pass.md", "Док_Calendar_Weekly_Focus_WebPush_20260810", "Док_Cleanup_Manifest", "Док_Backend_Verification", "Док_Web_Verification", "Док_Android_Verification", "Док_Prod_Deploy_State"]
 теги: ["проект", "rocketflow", "mvp"]
 ---
 
@@ -37,6 +37,15 @@ id: "proj-rocketflow"
 
 ## Текущий статус
 
+- Feature checkpoint 2026-08-10: ветка `codex/weekly-focus-calendar-web-push` готовится к commit/push; Calendar и Weekly Focus реализованы для backend, web и Android, server-owned Focus cadence поддерживает FCM и Web Push.
+- Flyway additions: `V19__weekly_focus.sql` и `V20__focus_notifications.sql`.
+- Verification: backend `135/0/0/0`, web `54 passed`, Android unit `77/0/0/0`; final implementation review **PASS**. Счётчики относятся к этому checkpoint.
+- Production: feature-ветка **НЕ ЗАДЕПЛОЕНА**; migrations, backend/web promotion, APK rollout, notification enablement и production smoke не выполнялись.
+- Android production signing **BLOCKED**: отсутствуют release keystore и Firebase production config. Debug/unit evidence не является production APK evidence.
+- Canonical evidence: [[Док_Calendar_Weekly_Focus_WebPush_20260810]].
+
+### Исторический MVP3 baseline
+
 - Три волны (A, B, C) завершены
 - Wave C.1 завершён (web scheduling authoring)
 - Текущая стадия: [[MVP3_Упрощение]]
@@ -49,7 +58,7 @@ id: "proj-rocketflow"
 - Android APK: `app-debug.apk` debug-signed и `apksigner` OK v2; `app-release-unsigned.apk` unsigned и `apksigner` DOES NOT VERIFY
 - Cleanup/repo audit завершён: evidence сохранены в [[Док_Cleanup_Manifest]], cleanup invariants healthy, `.gitignore` покрывает generated paths и `android/local.properties`
 - Notification E2E доказан локально
-- Production model: [[HexCore]] `rocketflow-prod-01` / `45.10.110.42`, jar/systemd backend `rocketflow-backend` + web static via Nginx. Backend prod deploy 2026-06-08: **NOT DEPLOYED / BLOCKED** до решения по target ref/method, backup expectation и secrets/env readiness.
+- Production model: [[HexCore]] `rocketflow-prod-01` / `45.10.110.42`, jar/systemd backend `rocketflow-backend` + web static via Nginx. Исторический baseline deploy 2026-06-19 выполнен через GitHub Actions release branch; он не включает текущую feature-ветку. См. [[CI_CD_Production_Status_20260619]].
 
 Источник: [[Источник_Текущее_Состояние]]
 
@@ -65,16 +74,17 @@ id: "proj-rocketflow"
 
 ## Активные гейты
 
-- GHCR publish/workflow восстановление (workflow отсутствует/open gate)
-- Staging notification certification
-- Backend prod deploy approval/readiness: current branch `MVP3`, canonical workflow deploy branches `MVP2`/`release_1`; local shell lacks `HEXCORE_PROD_SSH_*` and `ROCKETFLOW_PROD_BACKUP_*`
+- Commit/push reviewed feature delta и подготовка release ref.
+- Production rollout `V19`/`V20` с backup/rollback decision и post-migration verification.
+- Production-equivalent FCM/Web Push configuration и provider smoke.
+- Android signed production artifact: release keystore и Firebase config пока отсутствуют.
 
 ## Известные риски
 
-- Notification smoke на staging ещё не сертифицирован
-- GHCR интеграция не закрыта: workflow отсутствует или требует восстановления, credentials не подтверждены
-- Android push-tap flow требует staging-валидации; локальный Android full gate после cleanup зелёный
-- Prod deploy preflight выявил backup user mismatch: preferred `rocketbackup`, ignored local config points to `rocketdeploy`
+- Automated tests не заменяют production migration/deploy/smoke evidence.
+- Web Push и Focus cadence нельзя включать до production-equivalent credentials/configuration и контролируемого smoke.
+- Android debug/unit evidence не закрывает signing, Play-services device и production FCM delivery.
+- Historical baseline и current feature checkpoint должны оставаться явно разделены.
 
 ## Документация
 
@@ -93,6 +103,7 @@ id: "proj-rocketflow"
 - [[Док_Cleanup_Manifest]] — cleanup/evidence manifest
 - [[Док_Backend_Verification]], [[Док_Web_Verification]], [[Док_Android_Verification]] — статус verification после audit
 - [[Док_Prod_Deploy_State]] — фактическая production deploy model
+- [[Док_Calendar_Weekly_Focus_WebPush_20260810]] — текущий feature checkpoint и release boundary
 
 ## Скрипты
 
@@ -102,11 +113,26 @@ id: "proj-rocketflow"
 
 ## Ветки
 
-- `MVP3` (активная), `MVP2`, `release_1`, `backup/release_1-before-rollback-20260518`, `master`
+- `codex/weekly-focus-calendar-web-push` (текущая feature-ветка), `MVP3`, `MVP2`, historical release refs, `master`
+
+## Final production CI/CD state (2026-06-19)
+
+- **Статус:** production deploy через GitHub Actions выполнен и зеленый.
+- **Repo:** `C:\Users\style\Documents\Codex\RocketFlow`, remote `DmtrGoltsev/RocketFlow`.
+- **Branches:** implementation `codex/rocketflow-cicd-prod-deploy-update`; release `release/rocketflow-prod-ci-cd-ec377a7`.
+- **Release commit:** `4dbf10b0d693ea9f160993fe15199bc0047bb2ea`.
+- **GitHub Actions:** `https://github.com/DmtrGoltsev/RocketFlow/actions/runs/27803394498`, success; package/deploy success.
+- **Companion workflows:** verify runs on previous release commit succeeded; final release-branch companion workflows also completed successfully per worker.
+- **Production symlinks:** backend `rocketflow-backend-sha-4dbf10b0d693.jar`; web `rocketflow-web-sha-4dbf10b0d693`.
+- **Production smoke:** public/local health `UP`; `http://45.10.110.42/rocket/` -> 200; `http://45.10.110.42/rocket-api/health` -> 200, `{"status":"UP"}`.
+- **Flyway:** rows `18 -> 18`; app Flyway lifecycle reported no migration necessary.
+- **Residual risk:** independent DB read via local SSH principal unavailable; DB evidence comes from deploy logs.
+- **Evidence:** [[CI_CD_Production_Status_20260619]].
 
 ## Связанные заметки
 
 - [[Wave_A]], [[Wave_B]], [[Wave_C]] — завершённые волны
 - [[MVP3_Упрощение]] — текущая стадия
+- [[Док_Calendar_Weekly_Focus_WebPush_20260810]] — Calendar/Weekly Focus/Web Push checkpoint
 - [[Схема_Развертывания]] — схема деплоймента
 - [[Схема_Базы_Данных]] — схема БД

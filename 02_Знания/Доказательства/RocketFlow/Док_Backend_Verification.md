@@ -5,16 +5,24 @@ id: "proof-backend-verification-2026-06-07"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-06-07"
-обновлено: "2026-06-13"
+обновлено: "2026-08-10"
 уверенность: "высокая"
-источники: ["backend/mvn test", "repo audit 2026-06-07", "final verifier 2026-06-07", "backend package 2026-06-08"]
-доказательства: ["Док_Cleanup_Manifest", "Док_Backend_Тесты"]
+источники: ["backend/mvn test", "backend/target/surefire-reports", "docs/66-weekly-focus-calendar-delivery.md", "repo audit 2026-06-07", "final verifier 2026-06-07", "backend package 2026-06-08"]
+доказательства: ["Док_Calendar_Weekly_Focus_WebPush_20260810", "Док_Cleanup_Manifest", "Док_Backend_Тесты"]
 теги: ["доказательство", "backend", "verification", "tests", "package"]
 ---
 
 # Док: Backend Verification
 
-## Текущий факт
+## Текущий feature checkpoint 2026-08-10
+
+- Branch: `codex/weekly-focus-calendar-web-push`.
+- Surefire reports: 135 tests, 0 failures, 0 errors, 0 skipped, 29 suites.
+- Calendar, Weekly Focus, Focus cadence, FCM/Web Push routing and Flyway `V19`/`V20` входят в current working-tree scope.
+- Final implementation review: PASS. Production migration/deploy/provider smoke не выполнялись.
+- Сводное evidence: [[Док_Calendar_Weekly_Focus_WebPush_20260810]].
+
+## Исторический факт 2026-06
 
 Последний зафиксированный backend package evidence 2026-06-08: `mvn --batch-mode --no-transfer-progress package` прошёл на втором запуске. Итог: `Tests run: 63, Failures: 0, Errors: 0, Skipped: 0`, `BUILD SUCCESS`, total `02:42`, finished `2026-06-08T11:50:48+03`. На текущем HEAD `21f95c1` fresh backend verification в этой документационной задаче не прогонялся и требуется перед утверждением актуального gate.
 

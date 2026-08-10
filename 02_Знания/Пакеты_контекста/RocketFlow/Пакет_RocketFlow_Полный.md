@@ -5,10 +5,10 @@ id: "pkg-rocketflow-full"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-06-07"
+обновлено: "2026-08-10"
 уверенность: "высокая"
-источники: ["docs/33-current-state-summary.md", "README.md", "docs/04-architecture-blueprint.md"]
-доказательства: ["Док_Cleanup_Manifest", "Док_Backend_Verification", "Док_Web_Verification", "Док_Android_Verification", "Док_Prod_Deploy_State"]
+источники: ["docs/33-current-state-summary.md", "docs/66-weekly-focus-calendar-delivery.md", "README.md", "docs/04-architecture-blueprint.md"]
+доказательства: ["Док_Calendar_Weekly_Focus_WebPush_20260810", "Док_Cleanup_Manifest", "Док_Backend_Verification", "Док_Web_Verification", "Док_Android_Verification", "Док_Prod_Deploy_State"]
 теги: ["пакет_контекста", "rocketflow", "агрегат"]
 ---
 
@@ -21,6 +21,14 @@ id: "pkg-rocketflow-full"
 1. Прочитать [[RocketFlow]] — цель и стек проекта
 2. Изучить [[MOC_RocketFlow]] — навигационная карта vault
 3. Выбрать пакет для своей роли: [[Пакет_Бэкенд]] или [[Пакет_Android]]
+
+## Current checkpoint 2026-08-10
+
+- Branch `codex/weekly-focus-calendar-web-push`: Calendar/Weekly Focus/Web Push реализованы; backend 135, web 54, Android 77 tests; final implementation review PASS.
+- Feature changes готовятся к commit/push и не имеют зафиксированного remote feature SHA в этом checkpoint.
+- Production feature deploy не выполнялся. `V19`/`V20`, backend/web promotion, signed APK, notification enablement и production smoke остаются release gates.
+- Android production signing blocked: release keystore и Firebase config отсутствуют.
+- Evidence и rollout boundary: [[Док_Calendar_Weekly_Focus_WebPush_20260810]], [[Док_Prod_Deploy_State]].
 
 ## Структура знаний
 
@@ -45,7 +53,7 @@ id: "pkg-rocketflow-full"
 [[ADR_Модульный_Монолит]], [[ADR_PostgreSQL]], [[ADR_JWT_Токены]], [[ADR_Flyway_Миграции]], [[ADR_Мягкое_Удаление]], [[ADR_Оптимистичная_Блокировка]], [[ADR_Firebase_Admin_SDK]], [[ADR_Scheduler_Advisory_Lock]], [[ADR_Logical_Device_Upsert]]
 
 ### Доказательства
-[[Док_Backend_Тесты]], [[Док_Web_Build]], [[Док_Android_Build]], [[Док_Нотификации_E2E]], [[Док_Cleanup_Manifest]], [[Док_Backend_Verification]], [[Док_Web_Verification]], [[Док_Android_Verification]], [[Док_Artifacts_Retention_Policy]], [[Док_Prod_Deploy_State]]
+[[Док_Backend_Тесты]], [[Док_Web_Build]], [[Док_Android_Build]], [[Док_Нотификации_E2E]], [[Док_Calendar_Weekly_Focus_WebPush_20260810]], [[Док_Cleanup_Manifest]], [[Док_Backend_Verification]], [[Док_Web_Verification]], [[Док_Android_Verification]], [[Док_Artifacts_Retention_Policy]], [[Док_Prod_Deploy_State]]
 
 ### Агенты (6)
 [[Оркестратор]], [[Агент_Бэкенд]], [[Агент_Веб]], [[Агент_Android]], [[Агент_QA]], [[Агент_DevOps]]
