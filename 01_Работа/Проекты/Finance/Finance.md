@@ -5,7 +5,7 @@ id: "project-finance"
 статус: "активно"
 владелец: "rocketflow-team"
 создано: "2026-06-01"
-обновлено: "2026-07-27"
+обновлено: "2026-08-21"
 уверенность: "средняя"
 теги: ["проект", "finance", "финансы", "учёт", "MVP"]
 источники:
@@ -19,13 +19,16 @@ id: "project-finance"
   - "[[Док_Release_NewDis_20260608]]"
 ---
 
-# Finance — ручной учёт личных и семейных финансов
+# Finance — ручной учёт личных финансов
 
 > ⚠️ **СКЕЛЕТ.** Эта заметка — каркас проекта на основе кворум-исследования (3 агента). Слой знаний (глоссарий, источники) заполнен. Delivery-слои (задачи, агенты, ADR, доказательства, пакеты контекста бэкенда/Android/PWA) отсутствуют. Не полный source of truth. Требуется достройка.
 
 ## Цель
 
-Ручной учёт личных и семейных финансов. Personal/shared разделение, user-initiated OCR черновики. Закрытый MVP.
+Ручной учёт личных финансов. Пользовательский UI и reachable client API работают
+в personal-only режиме; legacy household/shared vocabulary допустима только как
+внутренняя backend/wire compatibility. User-initiated OCR черновики остаются
+online-only. Закрытый MVP.
 
 **Production GO:** 2026-05-19
 
@@ -490,3 +493,14 @@ Search tags / keywords: Finance Production QA account; persistent production tes
 - **TopCategoriesDialog proof:** dialog overlays FAB and bottom nav by hit-test; inner `.listStack` scrolls inside dialog (`clientHeight=570`, `scrollHeight=2594`, `after=2024`); screenshots include initial and scrolled states.
 - **Evidence:** `C:\Users\style\Documents\Codex\Финансы\MVP_EVIDENCE\pwa-iphone-parity-postfix-qa-20260727-005600\SUMMARY.md`.
 - **Residual risks:** реальный iPhone/Safari руками не прогнан; production HTTPS/secure-cookie/service-worker/installability остаются риском, если prod доступен только по plain HTTP IP; PWA/iOS OCR остается online-only и не был перепроверен этим smoke.
+
+### Personal-only/native iOS final regression (2026-08-21)
+
+- **Branch/commit:** `codex/ios-native-personal-parity-20260820` at `96aa58226ad8f80834ea333192ebace7885d69c2`.
+- **Target:** native `apps/ios`; legacy Capacitor не является target app.
+- **CI:** GitHub run `32523201106` PASS; Debug/Release, XCTest 47/47, UI 1/1.
+- **Regression:** backend 296 passed/6 skipped + Ruff; Android 143/143 + debug/unsigned release; PWA 69/69 + build + runtime audit + HTTP/service-worker guards.
+- **Personal-only:** mode selectors absent; API report/account/category/asset scopes personal; `Категории расходов` expense-only.
+- **Blocker:** native iOS code/CI ready, actual prod login BLOCKED до trusted HTTPS endpoint. Arbitrary ATS exception запрещён; варианты — собственный TLS domain или trusted short-lived Let's Encrypt IP certificate.
+- **QA:** [[QA_ТестКейсы_Native_iOS_Personal_20260821]], [[QA_Результаты#Wave 26 Personal-only/native iOS final regression (2026-08-21)]].
+- **Account:** использовать существующий persistent production QA locator, `NEVER DELETE`; пароль не хранить в KB/git/evidence.

@@ -4,14 +4,14 @@ id: "qa-results-finance"
 статус: "активно"
 проект: "Finance"
 создано: "2026-06-06"
-обновлено: "2026-07-27"
+обновлено: "2026-08-21"
 ссылки:
   - "[[Finance]]"
   - "[[QA_Фиксы]]"
   - "[[Док_Release_NewDis_20260608]]"
 ---
 
-# QA Результаты — Finance MVP Android
+# QA Результаты — Finance MVP
 
 ## Волна 1: Статический аудит кода (2026-06-06)
 
@@ -1167,3 +1167,46 @@ Workflow emails may say failed due to the unrelated frontend job. The backend de
 ### Residual risks
 
 Real iPhone/Safari manual run was not performed. Production HTTPS/secure-cookie behavior remains a risk if production is served only as plain HTTP IP. PWA/iOS OCR remains online-only and was not re-tested in this parity smoke.
+
+## Wave 26: Personal-only/native iOS final regression (2026-08-21)
+
+**Scope:** финальная доступная регрессия branch
+`codex/ios-native-personal-parity-20260820`, commit
+`96aa58226ad8f80834ea333192ebace7885d69c2`. Commit/push/deploy этим QA/docs
+worker не выполнялись.
+
+| Gate | Result |
+| --- | --- |
+| Backend full pytest | PASS: 296 passed, 6 skipped, 13 deprecation warnings |
+| Backend Ruff | PASS: all checks passed |
+| Android full unit | PASS: 143 tests, 0 failures/errors/skipped |
+| Android assembleDebug | PASS; debug V2-signed APK generated |
+| Android assembleRelease | PASS; unsigned release APK generated and verified unsigned |
+| PWA `npm ci` | PASS |
+| PWA tests | PASS: 4 files, 69 tests |
+| PWA production build | PASS |
+| PWA `npm audit --omit=dev` | PASS: 0 runtime vulnerabilities |
+| Service worker/HTTP guards | PASS: 5/5; plain HTTP IP registration skipped; API/OCR not cached |
+| GitHub iOS run | PASS: `32523201106`, exact branch/commit |
+| Native iOS Debug/Release | PASS: both `BUILD SUCCEEDED` |
+| Native iOS XCTest/UI | PASS: 47/47 + 1/1 |
+| Personal-only runtime/API scan | PASS for reachable behavior |
+| Categories | PASS: `Категории расходов`, expense-only list/create, no mode selectors |
+
+GitHub evidence artifact: `ios-build-test-evidence-32523201106`, id
+`9461389241`, digest
+`sha256:df99fa5b33d6292f84adf010f5e6ad5fa170cca5d4431100a80734cb129fff6b`.
+Bulky `.xcresult` не копировался в Vault/repo evidence.
+
+Sanitized evidence:
+`MVP_EVIDENCE/personal-native-ios-final-regression-20260821-234120/SUMMARY_SANITIZED.md`.
+Test cases: [[QA_ТестКейсы_Native_iOS_Personal_20260821]].
+
+**Статус:** native iOS code/CI ready. Actual prod login на физическом iPhone
+BLOCKED до выбора trusted HTTPS API endpoint; arbitrary ATS exception запрещён.
+Допустимы собственный домен с trusted TLS либо trusted short-lived Let's Encrypt
+IP certificate. Legacy Capacitor не является target native app.
+
+Persistent production QA account: использовать locator из
+[[QA_Результаты#Production QA persistent account (2026-07-11)]], `NEVER DELETE`;
+password остаётся только в owner-managed secret store.

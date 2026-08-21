@@ -4,7 +4,7 @@ id: "context-package-finance-full"
 проект: "Finance"
 название: "Пакет Finance — Полный контекст"
 создано: "2026-06-01"
-обновлено: "2026-07-26"
+обновлено: "2026-08-21"
 уверенность: "высокая"
 теги: ["пакет_контекста", "finance", "агрегация"]
 источники:
@@ -19,6 +19,7 @@ id: "context-package-finance-full"
   - "[[Кворум_Finance]]"
   - "[[QA_Результаты]]"
   - "[[QA_Фиксы]]"
+  - "[[QA_ТестКейсы_Native_iOS_Personal_20260821]]"
   - "[[Док_Release_NewDis_20260608]]"
   - "[[Док_Release_Planning_MVP_20260607]]"
   - "[[Карта_Пользовательских_Путей_Finance]]"
@@ -200,3 +201,25 @@ P1-B02, P1-B03, tag misalignment; production deploy текущей постав�
 - Environment: production; API base `http://45.10.110.42/finance-api`; purpose Android/PWA/API QA.
 - Retention: NEVER DELETE / persistent test account; cleanup only if owner explicitly requests.
 - Search keywords: Finance Production QA account; persistent production test account; NEVER DELETE; qa login; Android prod E2E; PWA prod smoke; finance.qa.prod.20260711.6cb15851@local.test.
+
+## Personal-only/native iOS handoff (2026-08-21)
+
+- Active handoff branch: `codex/ios-native-personal-parity-20260820`; verified
+  commit `96aa58226ad8f80834ea333192ebace7885d69c2`.
+- Target is fully native `apps/ios`; `apps/web-pwa/ios` legacy Capacitor is not
+  the target application.
+- GitHub Actions run `32523201106` PASS: XcodeGen, Debug, Release, XCTest 47/47,
+  launch UI 1/1; evidence artifact inspected.
+- Cross-platform final regression PASS: backend 296 passed/6 skipped + Ruff;
+  Android 143/143 + debug/unsigned release; PWA 69/69 + build + runtime audit +
+  service-worker/HTTP guard.
+- Reachable clients are personal-only; no mode selectors; categories are
+  `Категории расходов` and expense-only. Internal legacy wire types are not UI.
+- Release blocker: actual native iOS production login requires a trusted HTTPS
+  endpoint. Do not add arbitrary ATS exception. Use an owned TLS domain or a
+  trusted short-lived Let's Encrypt IP certificate with renewal monitoring.
+- Mac/install handoff is in repo `docs/ios-native-mac-handoff.md`.
+- Test matrix: [[QA_ТестКейсы_Native_iOS_Personal_20260821]].
+- Results: [[QA_Результаты#Wave 26 Personal-only/native iOS final regression (2026-08-21)]].
+- Persistent QA account remains `NEVER DELETE`; retrieve its password only from
+  the owner-managed secret store via the existing QA locator.
