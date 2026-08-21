@@ -5,10 +5,10 @@ id: "pkg-rocketflow-full"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-08-10"
+обновлено: "2026-08-22"
 уверенность: "высокая"
-источники: ["docs/33-current-state-summary.md", "docs/66-weekly-focus-calendar-delivery.md", "README.md", "docs/04-architecture-blueprint.md"]
-доказательства: ["Док_Calendar_Weekly_Focus_WebPush_20260810", "Док_Cleanup_Manifest", "Док_Backend_Verification", "Док_Web_Verification", "Док_Android_Verification", "Док_Prod_Deploy_State"]
+источники: ["docs/33-current-state-summary.md", "docs/68-scroll-and-priority-retirement-delivery.md", "docs/66-weekly-focus-calendar-delivery.md", "README.md", "docs/04-architecture-blueprint.md"]
+доказательства: ["Док_V21_Scroll_Priority_20260822", "Док_Calendar_Weekly_Focus_WebPush_20260810", "Док_Cleanup_Manifest", "Док_Backend_Verification", "Док_Web_Verification", "Док_Android_Verification", "Док_Prod_Deploy_State"]
 теги: ["пакет_контекста", "rocketflow", "агрегат"]
 ---
 
@@ -44,7 +44,7 @@ id: "pkg-rocketflow-full"
 - [[MOC_DevOps]] — CI/CD, HexCore, деплой, бэкапы
 
 ### Глоссарий (27 терминов)
-[[Folder]], [[Goal]], [[Task]], [[Green_Task]], [[Red_Task]], [[Tag]], [[Task_Link]], [[Planned_Time]], [[Due_Time]], [[Reminder_Rule]], [[Recurrence_Rule]], [[Reschedule_Event]], [[Priority_Decay]], [[Share_Invitation]], [[Collaborator]], [[Device_Registration]], [[Notification_Delivery]], [[Modular_Monolith]], [[REST_API]], [[JWT]], [[FCM]], [[Flyway]], [[Docker_Image]], [[HexCore]], [[PostgreSQL_Advisory_Lock]], [[Optimistic_Locking]], [[Soft_Delete]]
+[[Folder]], [[Goal]], [[Task]], [[Green_Task]], [[Red_Task]], [[Tag]], [[Task_Link]], [[Planned_Time]], [[Due_Time]], [[Reminder_Rule]], [[Recurrence_Rule]], [[Reschedule_Event]], [[Priority_Decay|legacy Priority Decay]], [[ADR_Отказ_От_Приоритета_Задач]], [[Share_Invitation]], [[Collaborator]], [[Device_Registration]], [[Notification_Delivery]], [[Modular_Monolith]], [[REST_API]], [[JWT]], [[FCM]], [[Flyway]], [[Docker_Image]], [[HexCore]], [[PostgreSQL_Advisory_Lock]], [[Optimistic_Locking]], [[Soft_Delete]]
 
 ### Источники
 [[Источник_README]], [[Источник_MVP_План]], [[Источник_Спецификация_Домена]], [[Источник_Архитектура]], [[Источник_API_Контракты]], [[Источник_QA_Стратегия]], [[Источник_План_Оркестрации]], [[Источник_Текущее_Состояние]], [[Источник_CI_CD_Политика]], [[Источник_Продакшен_Runbook]], [[Источник_Нотификация_Смок]], [[Источник_Нотификация_Пруф]], [[Источник_Агент_Плейбук]], [[Источник_MVP3_Контракт]], [[Источник_AGENTS]], [[Источник_Android_Local_Setup]]

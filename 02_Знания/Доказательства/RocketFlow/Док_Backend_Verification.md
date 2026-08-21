@@ -5,14 +5,21 @@ id: "proof-backend-verification-2026-06-07"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-06-07"
-обновлено: "2026-08-10"
+обновлено: "2026-08-22"
 уверенность: "высокая"
-источники: ["backend/mvn test", "backend/target/surefire-reports", "docs/66-weekly-focus-calendar-delivery.md", "repo audit 2026-06-07", "final verifier 2026-06-07", "backend package 2026-06-08"]
-доказательства: ["Док_Production_Rollout_20260810", "Док_Calendar_Weekly_Focus_WebPush_20260810", "Док_Cleanup_Manifest", "Док_Backend_Тесты"]
+источники: ["backend/mvn test", "backend/target/surefire-reports", "docs/68-scroll-and-priority-retirement-delivery.md", "docs/66-weekly-focus-calendar-delivery.md", "repo audit 2026-06-07", "final verifier 2026-06-07", "backend package 2026-06-08"]
+доказательства: ["Док_V21_Scroll_Priority_20260822", "Док_Production_Rollout_20260810", "Док_Calendar_Weekly_Focus_WebPush_20260810", "Док_Cleanup_Manifest", "Док_Backend_Тесты"]
 теги: ["доказательство", "backend", "verification", "tests", "package"]
 ---
 
 # Док: Backend Verification
+
+## Текущий V21 candidate 2026-08-22
+
+- Backend suite: `142/142` PASS.
+- Покрыты V20 -> V21 metadata-only migration без rewrite, legacy/new wire shapes, historical priority-shadow preservation, отключённый decay, compatibility settings и deterministic ordering.
+- UUID tie-break использует unsigned ordering с parity к PostgreSQL `uuid ASC`.
+- V21 не развёрнут: production остаётся Flyway V20 (`20/20`). См. [[Док_V21_Scroll_Priority_20260822]] и [[Док_Prod_Deploy_State]].
 
 ## Текущий feature checkpoint 2026-08-10
 

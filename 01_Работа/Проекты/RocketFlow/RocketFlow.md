@@ -5,10 +5,10 @@ id: "proj-rocketflow"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-08-10"
+обновлено: "2026-08-22"
 уверенность: "высокая"
-источники: ["docs/33-current-state-summary.md", "docs/66-weekly-focus-calendar-delivery.md", "README.md", "docs/04-architecture-blueprint.md"]
-доказательства: ["Док_Production_Rollout_20260810", "docs/50-notification-runtime-clean-pass.md", "Док_Calendar_Weekly_Focus_WebPush_20260810", "Док_Cleanup_Manifest", "Док_Backend_Verification", "Док_Web_Verification", "Док_Android_Verification", "Док_Prod_Deploy_State"]
+источники: ["docs/33-current-state-summary.md", "docs/68-scroll-and-priority-retirement-delivery.md", "docs/66-weekly-focus-calendar-delivery.md", "README.md", "docs/04-architecture-blueprint.md"]
+доказательства: ["Док_V21_Scroll_Priority_20260822", "Док_Production_Rollout_20260810", "docs/50-notification-runtime-clean-pass.md", "Док_Calendar_Weekly_Focus_WebPush_20260810", "Док_Cleanup_Manifest", "Док_Backend_Verification", "Док_Web_Verification", "Док_Android_Verification", "Док_Prod_Deploy_State"]
 теги: ["проект", "rocketflow", "mvp"]
 ---
 
@@ -16,7 +16,7 @@ id: "proj-rocketflow"
 
 ## Цель
 
-Приложение для планирования задач с приоритетами, напоминаниями и совместным доступом. Помогает пользователю фокусироваться на важном через систему зелёных/красных задач, автоснижения приоритета при прокрастинации и повторяющихся задач.
+Приложение для планирования папок, целей и задач с календарём, недельным фокусом, напоминаниями и совместным доступом. Фокус формируется явным списком задач и учитывает их трудоёмкость; числовой приоритет задач больше не является пользовательским или бизнес-понятием.
 
 ## Стек
 
@@ -33,9 +33,13 @@ id: "proj-rocketflow"
 
 [[Modular_Monolith]] — один бэкенд, одна БД, один фоновый планировщик, web SPA, Android клиент.
 
-Модули бэкенда: `auth`, `accounts`, `settings`, `folders`, `goals`, `tasks`, `sharing`, `calendar`, `recurrence`, `reminders`, `prioritypolicy`, `notifications`, `ideas`, `links`, `notes`, `health`, `common`, `config`.
+Модули бэкенда: `auth`, `accounts`, `settings`, `folders`, `goals`, `tasks`, `sharing`, `calendar`, `recurrence`, `reminders`, `notifications`, `ideas`, `links`, `notes`, `health`, `common`, `config`. Legacy priority-policy wire/storage остаётся только как временный слой совместимости кандидата V21 с production V20 и старыми APK.
 
 ## Текущий статус
+
+- Current worktree — кандидат V21, не production rollout. Реализованы stable-anchor восстановление Android Planner, отказ от task priority в UI/бизнес-логике, compatibility shadow для V20/old APK, SQLite lifecycle fixes и compact landscape editor с IME insets.
+- Candidate verification 2026-08-22: backend `142/142`; web `61/61`, build/audit PASS; Android `90/90`, assemble/lint/debug Android-test APK PASS; visual scroll и portrait/landscape IME evidence PASS. См. [[Док_V21_Scroll_Priority_20260822]].
+- Commit, push и deploy в рамках этой задачи не выполнялись. Production факты ниже остаются без изменений: source `910c061de4af9395d9bb682624bd966b2977a738`, release `sha-910c061de4af`, Flyway V20 (`20/20`).
 
 - Production rollout 2026-08-10: exact SHA `910c061de4af9395d9bb682624bd966b2977a738` развёрнут как release `sha-910c061de4af`; backend/web promotion и Flyway `V19`/`V20` завершены успешно.
 - Исторический feature checkpoint ранее в тот же день фиксировал branch `codex/weekly-focus-calendar-web-push` до commit/push и rollout; этот контекст сохранён в evidence.
@@ -43,7 +47,7 @@ id: "proj-rocketflow"
 - Verification: backend `135/0/0/0`, web `54 passed`, Android unit `77/0/0/0`; final implementation review **PASS**. Счётчики относятся к этому checkpoint.
 - Production: [GitHub Actions run 31357406631](https://github.com/DmtrGoltsev/RocketFlow/actions/runs/31357406631) `success`; backend/web health `UP/200`, Flyway `20/20`, errors/5xx/restarts `0`.
 - Focus cadence и Web Push остаются disabled. Authenticated read smoke не выполнен; unauthenticated protections прошли.
-- Android production signing остаётся открытым gate: unsigned production-configured APK SHA-256 `1763de390dd587c686fe84152c521a2d92e65b747fb2689ec2076c0560c576d7` не устанавливался и не пригоден для публикации; Firebase config отсутствует.
+- Android Play Store production signing остаётся открытым gate. Текущий production-source sideload APK устанавливается и подписан существующим debug certificate, но не является Play Store release; Firebase config отсутствует. Старый unsigned artifact сохранён только как superseded damaged/non-installable evidence.
 - Canonical evidence: [[Док_Production_Rollout_20260810]] и [[Док_Calendar_Weekly_Focus_WebPush_20260810]].
 
 ### Исторический MVP3 baseline

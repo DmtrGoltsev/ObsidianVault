@@ -5,7 +5,7 @@ id: "proof-prod-deploy-state-2026-06-07"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-06-07"
-обновлено: "2026-08-10"
+обновлено: "2026-08-22"
 уверенность: "высокая"
 источники: ["docs/60-hexcore-prod-runbook.md", "docs/66-weekly-focus-calendar-delivery.md", ".github/workflows/backend-hexcore-prod-deploy.yml", "docs/58-github-cicd-policy.md", "prod deploy preflight 2026-06-08"]
 доказательства: ["Док_Production_Rollout_20260810", "Док_Calendar_Weekly_Focus_WebPush_20260810", "Док_Cleanup_Manifest", "Док_Backend_Verification"]
@@ -17,6 +17,10 @@ id: "proof-prod-deploy-state-2026-06-07"
 ## Текущий статус
 
 Current production PASS 2026-08-10: Calendar/Weekly Focus backend и web развёрнуты из exact source SHA `910c061de4af9395d9bb682624bd966b2977a738` как release `sha-910c061de4af`. [Deploy run 31357406631](https://github.com/DmtrGoltsev/RocketFlow/actions/runs/31357406631) завершился `success`; Flyway current `V20`, `20/20` successful, `0` failed; local/public health `UP/200`.
+
+Worktree candidate 2026-08-22 с V21 priority retirement, Android scroll/lifecycle/IME changes проверен локально, но не commit/push/deploy в рамках текущей задачи. Он не меняет production-факты этого документа. См. [[Док_V21_Scroll_Priority_20260822]].
+
+Rollback workflow candidate дополнительно hardened fail-closed: target manifest обязателен и читаем, `flyway_history_min_rows` принимается только как integer `20..PRE_FLYWAY_COUNT`; post остаётся `>=20` и `>=pre`. V20 binary minimum 20 разрешён на сохранённой V21 schema без DB downgrade/repair/restore. Contract `7/7`, invalid `4/4`, YAML/Bash PASS; `actionlint`/`shellcheck` недоступны. Production остаётся V20; deploy/push не выполнялись.
 
 Формулировка feature checkpoint 2026-08-10 **NOT DEPLOYED** была верна до release branch rollout и сохранена как история в [[Док_Calendar_Weekly_Focus_WebPush_20260810]]. Baseline 2026-06-19 из commit `4dbf10b0d693ea9f160993fe15199bc0047bb2ea` также остаётся historical evidence.
 
@@ -49,6 +53,7 @@ Production сейчас описывается как jar/systemd/web static dep
 - [[HexCore]]
 - [[Док_Calendar_Weekly_Focus_WebPush_20260810]]
 - [[Док_Production_Rollout_20260810]]
+- [[Док_V21_Scroll_Priority_20260822]]
 
 ## Production rollout state (2026-08-10)
 

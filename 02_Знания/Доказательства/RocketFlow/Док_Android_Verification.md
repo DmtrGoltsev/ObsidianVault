@@ -5,14 +5,27 @@ id: "proof-android-verification-2026-06-07"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-06-07"
-обновлено: "2026-08-10"
+обновлено: "2026-08-22"
 уверенность: "высокая"
-источники: ["android/app/build/test-results/testDebugUnitTest", "android/README.md", "docs/66-weekly-focus-calendar-delivery.md", "docs/67-weekly-focus-production-rollout-evidence.md", "android local setup", "repo audit 2026-06-07", "final verifier 2026-06-07", "delivery verifier 2026-06-08"]
-доказательства: ["Док_Production_Rollout_20260810", "Док_Calendar_Weekly_Focus_WebPush_20260810", "Источник_Android_Local_Setup", "Док_Cleanup_Manifest", "Док_Android_Build"]
+источники: ["android/app/build/test-results/testDebugUnitTest", "android/README.md", "docs/68-scroll-and-priority-retirement-delivery.md", "docs/66-weekly-focus-calendar-delivery.md", "docs/67-weekly-focus-production-rollout-evidence.md", "android local setup", "repo audit 2026-06-07", "final verifier 2026-06-07", "delivery verifier 2026-06-08"]
+доказательства: ["Док_V21_Scroll_Priority_20260822", "Док_Production_Rollout_20260810", "Док_Calendar_Weekly_Focus_WebPush_20260810", "Источник_Android_Local_Setup", "Док_Cleanup_Manifest", "Док_Android_Build"]
 теги: ["доказательство", "android", "verification", "tests", "build", "lint"]
 ---
 
 # Док: Android Verification
+
+## Текущий V21 candidate 2026-08-22
+
+- `testDebugUnitTest`: `90/90` PASS.
+- `assembleDebug`: PASS.
+- `lintDebug`: PASS, `0` errors, `34` existing warnings.
+- `assembleDebugAndroidTest`: PASS.
+- Planner visual QA PASS: stable anchor + pixel offset при expand/collapse, details + Back, refresh, insert above и rotation; parent fallback при удалении; intentional top-tab reset.
+- Task priority отсутствует в UI/логике; create сохраняет compatibility `5`, а edit исторической задачи сохраняет её shadow-значение.
+- SQLite lifecycle ownership исправлен для planning sync, Focus sync, reminder receiver и acceptance seed; lifecycle покрыт тестами.
+- Compact landscape editor visual QA PASS для Title и Details с IME; portrait editor PASS и сохраняет прежний `AlertDialog`.
+- Evidence: [[Док_V21_Scroll_Priority_20260822]]. Последний IME rerun не повторял anchor/logcat; отдельный более ранний anchor QA остаётся PASS, а compact-form change не затрагивал anchor code.
+- Boundary: это worktree evidence, не APK/release/deploy. Production Android artifact ниже не содержит V21 candidate changes.
 
 ## Текущий feature checkpoint 2026-08-10
 

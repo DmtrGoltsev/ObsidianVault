@@ -5,10 +5,10 @@ id: "reg-cicd"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-08-10"
+обновлено: "2026-08-22"
 уверенность: "высокая"
-источники: ["docs/58-github-cicd-policy.md"]
-доказательства: ["Док_Backend_Verification", "Док_Web_Verification", "Док_Android_Verification", "Док_Prod_Deploy_State"]
+источники: ["docs/58-github-cicd-policy.md", "docs/68-scroll-and-priority-retirement-delivery.md"]
+доказательства: ["Док_V21_Scroll_Priority_20260822", "Док_Backend_Verification", "Док_Web_Verification", "Док_Android_Verification", "Док_Prod_Deploy_State"]
 теги: ["регламент", "ci-cd", "процесс"]
 ---
 
@@ -104,9 +104,17 @@ Status: PASS. GitHub Actions release-branch production deploy is now green.
 
 ## Calendar/Weekly Focus/Web Push release boundary (2026-08-10)
 
-- Historical production PASS 2026-06-19 не является deploy evidence для `codex/weekly-focus-calendar-web-push`.
-- Current implementation gates PASS: backend 135 tests, web 54 tests, Android 77 unit tests; final implementation review PASS.
-- Release sequence обязателен: reviewed commit/push -> release ref -> backup/rollback decision -> `V19`/`V20` rollout -> backend/web verification -> signed Android artifact -> controlled FCM/Web Push smoke.
+- Production rollout завершён: source `910c061de4af9395d9bb682624bd966b2977a738`, release `sha-910c061de4af`, Flyway V20 (`20/20`).
+- Historical implementation gates: backend 135 tests, web 54 tests, Android 77 unit tests; final implementation review PASS.
 - Focus cadence и Web Push должны оставаться disabled до production-equivalent configuration и provider smoke.
 - Android production lane blocked без release keystore и Firebase config.
-- Evidence: [[Док_Calendar_Weekly_Focus_WebPush_20260810]], [[Док_Prod_Deploy_State]].
+- Evidence: [[Док_Calendar_Weekly_Focus_WebPush_20260810]], [[Док_Production_Rollout_20260810]], [[Док_Prod_Deploy_State]].
+
+## V21 candidate boundary (2026-08-22)
+
+- Local candidate gates: backend `142/142`; web `61/61`, build/audit PASS; Android `90/90`, assemble/lint/debug Android-test APK PASS.
+- Commit, push и deploy в этой задаче не выполнялись; не читать candidate evidence как production state.
+- Release sequence: reviewed commit/push -> release ref -> backup/rollback decision -> preflight Flyway `>=20` -> manifest target `21` -> совместный backend/web promotion -> post Flyway `>=21` и authenticated smoke -> отдельный Android rollout.
+- Application rollback fail-closed требует readable target manifest и JSON integer `flyway_history_min_rows` в диапазоне `20..PRE_FLYWAY_COUNT`. Равное pre-count и меньшее совместимое значение принимаются; missing/unreadable manifest, missing field, string/boolean, `<20` и `>pre` отклоняются. Post Flyway остаётся `>=20` и `>=pre`; V20 binary с minimum 20 разрешён на сохранённой V21 schema без DB downgrade/repair/restore.
+- Проверка rollback contract: accepted `7/7`, invalid `4/4`, YAML/Bash PASS; `actionlint` и `shellcheck` недоступны.
+- Evidence: [[Док_V21_Scroll_Priority_20260822]], [[Док_Prod_Deploy_State]].

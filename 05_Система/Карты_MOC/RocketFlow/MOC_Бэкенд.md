@@ -5,7 +5,7 @@ id: "moc-backend"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-08-10"
+обновлено: "2026-08-22"
 уверенность: "высокая"
 источники: ["docs/04-architecture-blueprint.md", "docs/03-domain-specification.md"]
 доказательства: ["Док_Backend_Verification", "Док_Prod_Deploy_State", "Док_Production_Rollout_20260810"]
@@ -30,7 +30,7 @@ id: "moc-backend"
 - **calendar** — календарное планирование, [[Planned_Time]], [[Due_Time]]
 - **recurrence** — [[Recurrence_Rule|повторяющиеся задачи]]
 - **reminders** — [[Reminder_Rule|напоминания]], интеграция с [[FCM]]
-- **prioritypolicy** — политика [[Priority_Decay|снижения приоритета]]
+- legacy priority-policy compatibility — старые wire/storage поля сохраняются без бизнес-эффекта до завершения V20 rollback и поддержки старых APK; см. [[ADR_Отказ_От_Приоритета_Задач]]
 - **notifications** — [[Notification_Delivery|доставка уведомлений]], [[Device_Registration|регистрация устройств]]
 - **ideas** — [[Idea|идеи]] внутри папки с историей правок
 - **links** — обобщённые [[EntityLink|связи]] между сущностями (goal/task/idea/note)
@@ -51,7 +51,7 @@ id: "moc-backend"
 
 ## Миграции
 
-[[Flyway]] — 18 миграций (V1–V18). См. [[ADR_Flyway_Миграции]].
+Production: [[Flyway]] V20 (`20/20`). Current worktree target: metadata-only V21, не deployed. См. [[ADR_Flyway_Миграции]], [[Док_V21_Scroll_Priority_20260822]].
 
 ## Тестирование
 
@@ -84,3 +84,4 @@ id: "moc-backend"
 - [[ADR_Firebase_Admin_SDK]]
 - [[ADR_Scheduler_Advisory_Lock]]
 - [[ADR_Logical_Device_Upsert]]
+- [[ADR_Отказ_От_Приоритета_Задач]]

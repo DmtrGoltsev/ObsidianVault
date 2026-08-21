@@ -5,10 +5,10 @@ id: "moc-android"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-08-10"
+обновлено: "2026-08-22"
 уверенность: "высокая"
-источники: ["docs/04-architecture-blueprint.md", "docs/50-notification-runtime-clean-pass.md", "docs/67-weekly-focus-production-rollout-evidence.md"]
-доказательства: ["Док_Android_Build", "Док_Android_Verification", "Док_Production_Rollout_20260810", "Док_Нотификации_E2E"]
+источники: ["docs/04-architecture-blueprint.md", "docs/68-scroll-and-priority-retirement-delivery.md", "docs/50-notification-runtime-clean-pass.md", "docs/67-weekly-focus-production-rollout-evidence.md"]
+доказательства: ["Док_V21_Scroll_Priority_20260822", "Док_Android_Build", "Док_Android_Verification", "Док_Production_Rollout_20260810", "Док_Нотификации_E2E"]
 теги: ["moc", "android", "rocketflow"]
 ---
 
@@ -40,7 +40,7 @@ id: "moc-android"
 Аутентификация, хранение токенов, автообновление сессии.
 
 ### planning
-Полный цикл офлайн-планирования с синхронизацией. [[TaskPlan|План задач]] с приоритетной сортировкой, drag-drop. [[PlanningSync|Офлайн-синхронизация]] через PlanningSyncWorker, ConflictResolver.
+Полный цикл офлайн-планирования с синхронизацией. [[TaskPlan|План задач]] сортируется детерминированно без task priority. Home/Planner восстанавливает stable visible anchor и pixel offset при перестроении списка и возврате из деталей. [[PlanningSync|Офлайн-синхронизация]] выполняется через `PlanningSyncWorker`.
 
 ### browse
 Навигация по дереву: папки → цели → задачи.
@@ -68,6 +68,8 @@ id: "moc-android"
 См. [[Док_Нотификации_E2E]], [[Источник_Нотификация_Смок]], [[Источник_Нотификация_Пруф]].
 
 ## Сборка
+
+Candidate V21 2026-08-22: `90/90` unit PASS, `assembleDebug` PASS, lint `0` errors / `34` existing warnings, debug Android-test APK PASS. Visual scroll и portrait/landscape IME checks PASS; SQLite short-lived store lifecycle исправлен. Это worktree evidence, не новый production APK и не deploy. См. [[Док_V21_Scroll_Priority_20260822]].
 
 Gradle. Android CI lane больше не build-only: unit/build/lint. Для source SHA `910c061de4af9395d9bb682624bd966b2977a738` актуальный `RocketFlow-0.1.0-prod-debugcert.apk` является installable direct-sideload build: v2/v3/zipalign valid, `debuggable=false`, production API, install/runtime checks PASS, `77` tests и lint `0` errors. Это не Play Store production identity; updates требуют тот же debug certificate, Firebase/FCM config отсутствует. Прежний unsigned SHA-256 `1763de390dd587c686fe84152c521a2d92e65b747fb2689ec2076c0560c576d7` сохранён как superseded damaged/non-installable evidence.
 

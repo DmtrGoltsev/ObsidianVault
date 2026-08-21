@@ -5,10 +5,10 @@ id: "moc-rocketflow-main"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-08-10"
+обновлено: "2026-08-22"
 уверенность: "высокая"
-источники: ["docs/33-current-state-summary.md", "docs/66-weekly-focus-calendar-delivery.md", "README.md"]
-доказательства: ["Док_Production_Rollout_20260810", "Док_Calendar_Weekly_Focus_WebPush_20260810", "Док_Cleanup_Manifest", "Док_Backend_Verification", "Док_Web_Verification", "Док_Android_Verification", "Док_Artifacts_Retention_Policy", "Док_Prod_Deploy_State"]
+источники: ["docs/33-current-state-summary.md", "docs/68-scroll-and-priority-retirement-delivery.md", "docs/66-weekly-focus-calendar-delivery.md", "README.md"]
+доказательства: ["Док_V21_Scroll_Priority_20260822", "Док_Production_Rollout_20260810", "Док_Calendar_Weekly_Focus_WebPush_20260810", "Док_Cleanup_Manifest", "Док_Backend_Verification", "Док_Web_Verification", "Док_Android_Verification", "Док_Artifacts_Retention_Policy", "Док_Prod_Deploy_State"]
 теги: ["moc", "навигация", "rocketflow"]
 ---
 
@@ -45,7 +45,7 @@ id: "moc-rocketflow-main"
 - [[Reminder_Rule]] — правило напоминания
 - [[Recurrence_Rule]] — правило повторения
 - [[Reschedule_Event]] — событие переноса
-- [[Priority_Decay]] — снижение приоритета
+- [[Priority_Decay]] — выведенный из продукта legacy-механизм; compatibility shadow до завершения V20/old APK support
 - [[Share_Invitation]] — приглашение к совместному доступу
 - [[Collaborator]] — соавтор
 - [[Device_Registration]] — регистрация устройства
@@ -62,7 +62,7 @@ id: "moc-rocketflow-main"
 - [[Soft_Delete]] — мягкое удаление
 - [[Idea]] — идея внутри папки
 - [[EntityLink]] — обобщённая связь между сущностями
-- [[TaskPlan]] — план задач с приоритетной сортировкой
+- [[TaskPlan]] — Android-план с детерминированной сортировкой без task priority
 - [[PlanningSync]] — офлайн-синхронизация планирования
 - [[FolderNote]] — заметка в папке
 
@@ -141,6 +141,7 @@ id: "moc-rocketflow-main"
 - [[ADR_Firebase_Admin_SDK]]
 - [[ADR_Scheduler_Advisory_Lock]]
 - [[ADR_Logical_Device_Upsert]]
+- [[ADR_Отказ_От_Приоритета_Задач]]
 
 ## Доказательства
 
@@ -156,6 +157,7 @@ id: "moc-rocketflow-main"
 - [[Док_Artifacts_Retention_Policy]]
 - [[Док_Prod_Deploy_State]]
 - [[Док_Production_Rollout_20260810]]
+- [[Док_V21_Scroll_Priority_20260822]]
 
 ## Пакеты контекста
 

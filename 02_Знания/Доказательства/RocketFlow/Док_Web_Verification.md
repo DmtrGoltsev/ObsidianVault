@@ -5,14 +5,22 @@ id: "proof-web-verification-2026-06-07"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-06-07"
-обновлено: "2026-08-10"
+обновлено: "2026-08-22"
 уверенность: "высокая"
-источники: ["web/npm test", "web/npm run build", "docs/66-weekly-focus-calendar-delivery.md", "repo audit 2026-06-07", "final verifier 2026-06-07"]
-доказательства: ["Док_Production_Rollout_20260810", "Док_Calendar_Weekly_Focus_WebPush_20260810", "Док_Cleanup_Manifest"]
+источники: ["web/npm test", "web/npm run build", "docs/68-scroll-and-priority-retirement-delivery.md", "docs/66-weekly-focus-calendar-delivery.md", "repo audit 2026-06-07", "final verifier 2026-06-07"]
+доказательства: ["Док_V21_Scroll_Priority_20260822", "Док_Production_Rollout_20260810", "Док_Calendar_Weekly_Focus_WebPush_20260810", "Док_Cleanup_Manifest"]
 теги: ["доказательство", "web", "verification", "build"]
 ---
 
 # Док: Web Verification
+
+## Текущий V21 candidate 2026-08-22
+
+- Web suite: `61/61` PASS.
+- Production build: PASS.
+- Dependency audit: PASS.
+- Task priority/decay controls and business ordering are absent; V20 request shadows, V21 missing-field fallback and hidden settings preservation are covered.
+- V21 candidate web не развёрнут; production web остаётся release `sha-910c061de4af`. См. [[Док_V21_Scroll_Priority_20260822]].
 
 ## Текущий feature checkpoint 2026-08-10
 
