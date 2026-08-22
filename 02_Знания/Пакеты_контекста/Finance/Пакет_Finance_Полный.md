@@ -4,7 +4,7 @@ id: "context-package-finance-full"
 проект: "Finance"
 название: "Пакет Finance — Полный контекст"
 создано: "2026-06-01"
-обновлено: "2026-08-21"
+обновлено: "2026-08-22"
 уверенность: "высокая"
 теги: ["пакет_контекста", "finance", "агрегация"]
 источники:
@@ -20,6 +20,9 @@ id: "context-package-finance-full"
   - "[[QA_Результаты]]"
   - "[[QA_Фиксы]]"
   - "[[QA_ТестКейсы_Native_iOS_Personal_20260821]]"
+  - "[[QA_ТестКейсы_Android_Production_20260822]]"
+  - "[[Док_Release_Android_Production_20260822]]"
+  - "[[QA_Учетная_Запись_Production_20260822]]"
   - "[[Док_Release_NewDis_20260608]]"
   - "[[Док_Release_Planning_MVP_20260607]]"
   - "[[Карта_Пользовательских_Путей_Finance]]"
@@ -94,7 +97,10 @@ Production MVP functional GO (2026-05-19). Текущая поставка 2026-
 
 - Android signed-out/restoring states show a separate AuthGate without TopAppBar, NavigationBar, FAB or protected tabs; main tabs render only after signed-in state.
 - Android stores `SessionTokenBundle` in `EncryptedSharedPreferences`: `accessToken`, `refreshToken`, `expiresAt`, `userId`; password is not stored.
-- API client login/register persist the bundle; protected calls on `401`/`403` refresh once through `POST /api/v1/sessions/refresh` and retry once; logout or auth/refresh failure clears local token store and protected UI. Screenshot OCR follows the same refresh/retry-once path.
+- API client login/register persist the bundle. Current 2026-08-22 behavior
+  refreshes once only on `401`; `403` preserves the session. Logout or invalid
+  refresh clears local token store and protected UI. Screenshot OCR follows the
+  same single-refresh/single-retry boundary.
 - Backend adds `/api/v1/sessions/refresh`; `android_bearer` login/register return `refreshToken`; rotation is hash-only, invalidates old refresh token, invalidates on logout and uses CAS atomic rotation. No DB migration.
 - Security review after fixes: no P0/P1/P2.
 - QA: backend auth `71 passed`, `ruff` PASS, Android full unit PASS, APK built/signed/verified; emulator unavailable, so manual install/smoke skipped.
@@ -197,7 +203,7 @@ P1-B02, P1-B03, tag misalignment; production deploy текущей постав�
 
 ## Production QA persistent account locator (2026-07-11)
 
-- Persistent account metadata is recorded in [[QA_Результаты#Production QA persistent account (2026-07-11)]] and duplicated in [[Finance#Production QA persistent account (2026-07-11)]]; the password is kept only in the owner-managed secret store.
+- Historical account metadata remains in [[QA_Результаты#Production QA persistent account (2026-07-11)]]. Current reusable production credentials are in [[QA_Учетная_Запись_Production_20260822]] by explicit vault-owner instruction.
 - Environment: production; API base `http://45.10.110.42/finance-api`; purpose Android/PWA/API QA.
 - Retention: NEVER DELETE / persistent test account; cleanup only if owner explicitly requests.
 - Search keywords: Finance Production QA account; persistent production test account; NEVER DELETE; qa login; Android prod E2E; PWA prod smoke; finance.qa.prod.20260711.6cb15851@local.test.
@@ -221,5 +227,27 @@ P1-B02, P1-B03, tag misalignment; production deploy текущей постав�
 - Mac/install handoff is in repo `docs/ios-native-mac-handoff.md`.
 - Test matrix: [[QA_ТестКейсы_Native_iOS_Personal_20260821]].
 - Results: [[QA_Результаты#Wave 26 Personal-only/native iOS final regression (2026-08-21)]].
-- Persistent QA account remains `NEVER DELETE`; retrieve its password only from
-  the owner-managed secret store via the existing QA locator.
+- Persistent QA account remains `NEVER DELETE`; use
+  [[QA_Учетная_Запись_Production_20260822]]. Never copy credentials to project
+  repo/evidence/logs/chat.
+
+## Android production release handoff (2026-08-22)
+
+- Branch `prod/finance-personal-android-backend-20260822`; final source
+  `43f4b1780e3bdcf6891b877fe03ee53971f74500`.
+- Commits: secure session/sync `af22cce6`, functional Android fixes `12a1b91f`,
+  compact analytics month selector `43f4b178`.
+- Final APK: `finance-android-prod-20260822-035412-personal-FINAL-manual-install.apk`,
+  SHA-256 `b7244a339eb71bcb91dc8a02066e93bc219707691a350488315255a57f5cb1c4`,
+  size `8119142`; source/certificate/integrity/production URL gates PASS.
+- QA: Android unit `167/167`, lint 0; emulator install/login/session and targeted
+  investment/operations/category/payment-account flows PASS.
+- Backend Actions run `32540824773` PASS, release
+  `/opt/finance/releases/finance-personal-backend-20260822-12a1b91f`;
+  frontend skipped, migrations/backup skipped, DB unchanged, revision
+  `20260618_0017`.
+- Residual: final full UI offline convergence and real-image OCR were not rerun;
+  Android 17 Espresso framework incompatibility; production plain HTTP/TLS risk.
+- Source of truth: [[Док_Release_Android_Production_20260822]],
+  [[QA_ТестКейсы_Android_Production_20260822]],
+  [[QA_Результаты#Wave 27 Android production release (2026-08-22)]].

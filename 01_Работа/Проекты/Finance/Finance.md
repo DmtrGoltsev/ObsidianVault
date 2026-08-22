@@ -5,7 +5,7 @@ id: "project-finance"
 статус: "активно"
 владелец: "rocketflow-team"
 создано: "2026-06-01"
-обновлено: "2026-08-21"
+обновлено: "2026-08-22"
 уверенность: "средняя"
 теги: ["проект", "finance", "финансы", "учёт", "MVP"]
 источники:
@@ -115,7 +115,10 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 
 **Status:** ACTIVE / PERSISTENT / NEVER DELETE.
 
-Security boundary: the persistent QA account is documented for continuity, but its password remains in an owner-managed secret store and is not copied into the vault.
+Credential boundary updated on 2026-08-22 by explicit vault-owner instruction:
+the reusable production test account is stored in
+[[QA_Учетная_Запись_Production_20260822]]. Credentials remain prohibited in the
+project repository, release evidence, logs and chat output.
 
 | Field | Value |
 |-------|-------|
@@ -429,7 +432,10 @@ Search tags / keywords: Finance Production QA account; persistent production tes
 - **Status:** Android auth/session wave documented as sanitized KB update; no secrets, passwords, tokens, cookies, session IDs, raw OCR payloads or screenshots copied into Obsidian.
 - **Android AuthGate:** signed-out and restoring states no longer render as a protected tab. They show a separate AuthGate without TopAppBar, NavigationBar, FAB or protected tabs; main tabs are available only after signed-in state.
 - **Local session storage:** Android stores `SessionTokenBundle` in `EncryptedSharedPreferences`: `accessToken`, `refreshToken`, `expiresAt`, `userId`. User password is not stored.
-- **API client session behavior:** login/register persist the token bundle. On `401`/`403`, protected calls refresh once through `POST /api/v1/sessions/refresh`, retry once, and clear local token store plus protected UI on logout or refresh/auth failure. Screenshot OCR uses the same refresh/retry-once path.
+- **API client session behavior (superseded 2026-08-22):** login/register persist
+  the token bundle. Current behavior refreshes once only on `401`; `403` preserves
+  the session. Logout or invalid refresh clears local session/UI. Screenshot OCR
+  uses the same single-refresh/single-retry boundary.
 - **Backend session behavior:** `/api/v1/sessions/refresh` added; login/register with `android_bearer` return `refreshToken`; refresh tokens rotate with hash-only storage, old refresh invalidation, logout invalidation and CAS atomic rotation. No DB migration required.
 - **Security review:** P0/P1/P2 none after fixes.
 - **QA:** backend auth `71 passed`, `ruff` passed, Android full unit passed, APK built/signed/verified. Emulator unavailable, so manual install/smoke was skipped.
@@ -503,4 +509,42 @@ Search tags / keywords: Finance Production QA account; persistent production tes
 - **Personal-only:** mode selectors absent; API report/account/category/asset scopes personal; `Категории расходов` expense-only.
 - **Blocker:** native iOS code/CI ready, actual prod login BLOCKED до trusted HTTPS endpoint. Arbitrary ATS exception запрещён; варианты — собственный TLS domain или trusted short-lived Let's Encrypt IP certificate.
 - **QA:** [[QA_ТестКейсы_Native_iOS_Personal_20260821]], [[QA_Результаты#Wave 26 Personal-only/native iOS final regression (2026-08-21)]].
-- **Account:** использовать существующий persistent production QA locator, `NEVER DELETE`; пароль не хранить в KB/git/evidence.
+- **Account:** использовать [[QA_Учетная_Запись_Production_20260822]], `NEVER DELETE`;
+  credentials допустимы только в этом выделенном vault-документе и запрещены в
+  project repo/evidence/logs.
+
+### Android production release (2026-08-22)
+
+- **Статус:** production APK и backend-only redeploy завершены; финальный source
+  commit `43f4b1780e3bdcf6891b877fe03ee53971f74500` в ветке
+  `prod/finance-personal-android-backend-20260822`.
+- **Auth/sync:** access+refresh сохраняются зашифрованно без password;
+  process-wide refresh, identity/generation/user binding и sync lease исключают
+  смешение данных между аккаунтами; offline logout очищает локальные данные;
+  OCR делает максимум один refresh/retry и остаётся online-only.
+- **Функциональность:** инвестиционные переводы считаются только за выбранный
+  месяц; операции и переводы newest-first; категории выбираются в вертикальном
+  searchable dialog; платёжный счёт обновляется сразу; дата перевода сохраняется;
+  selector месяца в аналитике компактный.
+- **Commits:** `af22cce6417012e2adedb2fe0689c0670e322cf1`,
+  `12a1b91f20c2ce3f48bcae6919b76eb976b12c3f`,
+  `43f4b1780e3bdcf6891b877fe03ee53971f74500`.
+- **APK:** `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-android-prod-20260822-035412-personal-FINAL-manual-install.apk`;
+  SHA-256 `b7244a339eb71bcb91dc8a02066e93bc219707691a350488315255a57f5cb1c4`;
+  size `8119142`; certificate SHA-256
+  `b5675864b9cb8a046d889f54e58f5b0256d6937ecd448e69d7faa955e587aca0`.
+- **QA:** unit `167/167`, lint `0` errors, binary/signature/URL/ZIP gates PASS,
+  emulator production login/install and targeted E2E PASS.
+- **Backend:** GitHub Actions run
+  `https://github.com/DmtrGoltsev/finance/actions/runs/32540824773`, source
+  `12a1b91f20c2ce3f48bcae6919b76eb976b12c3f`, release
+  `/opt/finance/releases/finance-personal-backend-20260822-12a1b91f`;
+  frontend skipped; health/OpenAPI/login/refresh PASS.
+- **DB:** migrations/backup skipped, DB unchanged, revision `20260618_0017`;
+  rollback `/opt/finance/releases/20260726T220603Z-55f4ac53`.
+- **Docs:** [[Док_Release_Android_Production_20260822]],
+  [[QA_ТестКейсы_Android_Production_20260822]],
+  [[QA_Результаты#Wave 27 Android production release (2026-08-22)]].
+- **Остаточные риски:** full UI offline create/reconnect/sync не перезапущен на
+  финальном APK; OCR real-image не выполнялся; Android 17 Espresso несовместим с
+  framework image до assertions; production HTTP/TLS риск открыт.

@@ -5,7 +5,7 @@ id: "moc-finance"
 статус: "активно"
 владелец: "rocketflow-team"
 создано: "2026-06-01"
-обновлено: "2026-08-21"
+обновлено: "2026-08-22"
 уверенность: "высокая"
 теги: ["MOC", "finance", "навигация"]
 источники:
@@ -71,6 +71,9 @@ _(архитектурные и проектные решения — см. `04_
 - [[QA_Результаты]] — результаты прогонов тестирования
 - [[QA_Фиксы]] — журнал фиксов багов
 - [[QA_ТестКейсы_Native_iOS_Personal_20260821]] — native iOS personal-only test model, Mac/device gates и HTTPS blocker
+- [[QA_ТестКейсы_Android_Production_20260822]] — Android secure session, account-isolated sync и production release regression model
+- [[Док_Release_Android_Production_20260822]] — sanitized Android APK/backend deploy evidence 2026-08-22
+- [[QA_Учетная_Запись_Production_20260822]] — PRODUCTION TEST ACCOUNT, `NEVER DELETE`; restricted QA credential locator
 - Production QA persistent account (2026-07-11): account metadata and the owner-managed credential boundary are in [[QA_Результаты#Production QA persistent account (2026-07-11)]]. Keywords: Finance Production QA account; persistent production test account; NEVER DELETE; qa login; Android prod E2E; PWA prod smoke; finance.qa.prod.20260711.6cb15851@local.test.
 - [[Док_Release_NewDis_20260608]] — sanitized closure/evidence по production frontend release `newDis`, commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b`; latest Android critical investment fix addendum 2026-06-12 records project commit `d8175116f5123b6a304d4bd22dc083f2725505a0`
 - [[Док_Release_Planning_MVP_20260607]] — concise evidence по production release `20260607T225457Z-819b5815`
@@ -81,6 +84,7 @@ _(архитектурные и проектные решения — см. `04_
 - Latest reports/Android evidence — 2026-07-26 monthly investment transfers summary: [[QA_Результаты#Wave 24 Monthly investment transfers reports/Android QA closure (2026-07-26)]], [[QA_Фиксы#Wave 20 (2026-07-26)]]. Business rule: `/reports/summary.investmentsTotal` is selected-period visible incoming `transfer` into investment asset account/category, not asset balance; Android uses summary only. APK `finance-android-prod-20260726-221828-MONTHLY-INVESTMENT-TRANSFERS-manual-install.apk`, SHA256 `46e85ee4e5c6b4b13cf84abd4da22dcffc2642d0e9afd7d6be16f5c40783a9ca`; backend production deploy REQUIRED and not done by this worker; emulator unavailable, manual launch skipped.
 - Latest PWA evidence — 2026-07-27 iPhone browser parity post-fix: [[QA_Результаты#Wave 25 PWA iPhone browser parity post-fix QA closure (2026-07-27)]], [[QA_Фиксы#Wave 21 (2026-07-27)]]. PWA unit/build PASS, local Playwright Chromium iPhone 14 smoke PASS for login/home/quick add/category overlay/analytics/top categories all; `TopCategoriesDialog` overlays FAB/bottom nav and inner list scrolls. Evidence `C:\Users\style\Documents\Codex\Финансы\MVP_EVIDENCE\pwa-iphone-parity-postfix-qa-20260727-005600\SUMMARY.md`; backend code unchanged; real iPhone/Safari, HTTPS secure-cookie and PWA/iOS OCR online-only risks remain.
 - Latest personal/native iOS evidence — 2026-08-21: [[QA_Результаты#Wave 26 Personal-only/native iOS final regression (2026-08-21)]]. Branch `codex/ios-native-personal-parity-20260820`, commit `96aa5822`; backend/Android/PWA full gates PASS; GitHub iOS run `32523201106` PASS, Debug/Release + XCTest 47/47 + UI 1/1. Native code/CI ready; physical prod login BLOCKED pending trusted HTTPS. `apps/ios` is target; legacy Capacitor is not.
+- Latest Android production evidence — 2026-08-22: [[QA_Результаты#Wave 27 Android production release (2026-08-22)]], [[Док_Release_Android_Production_20260822]]. Final source `43f4b178`, APK SHA-256 `b7244a339eb71bcb91dc8a02066e93bc219707691a350488315255a57f5cb1c4`, unit `167/167`, emulator targeted E2E PASS; backend Actions run `32540824773` PASS, frontend skipped, DB unchanged.
 
 
 ## Схемы

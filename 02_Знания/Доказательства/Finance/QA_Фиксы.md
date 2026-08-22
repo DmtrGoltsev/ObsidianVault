@@ -4,7 +4,7 @@ id: "qa-fixes-finance"
 статус: "активно"
 проект: "Finance"
 создано: "2026-06-06"
-обновлено: "2026-07-27"
+обновлено: "2026-08-22"
 ссылки:
   - "[[Finance]]"
   - "[[QA_Результаты]]"
@@ -91,7 +91,30 @@ id: "qa-fixes-finance"
 | PROD-DEPLOY-SUCCESS | Production release `20260607T163043Z-be9f8ab`; `/opt/finance/current` points to `/opt/finance/releases/20260607T163043Z-be9f8ab`; service active/running; health direct/nginx 200; unauth `sessions/current` 401; OpenAPI 200 с asset categories routes | Production deploy | 2026-06-07 | Да |
 | PROD-BACKUP-20260607 | Backup `/opt/finance/backups/20260607T163554Z-5bb7ab4/finance_prod.dump`, SHA256 `c7e38fae515b60b5d4b7d6588bbc8d03687d1769f222493ad240510f1f54b2d5` | Production backup | 2026-06-07 | Да |
 
-## Коммиты
+## Wave 22 (2026-08-22)
+
+Final status: Android production release PASS after iterative security/data
+isolation review and rebuild. Backend-only deploy PASS through GitHub Actions.
+
+| ID | Description | Verified |
+| --- | --- | --- |
+| AUTH-SECURE-SESSION | Persist encrypted access+refresh tokens; never store password | Unit/relaunch PASS |
+| AUTH-REFRESH-SINGLEFLIGHT | Process-wide refresh with one retry and compare-before-clear | Concurrent-client tests PASS |
+| SYNC-ACCOUNT-LEASE | Bind session identity/generation/user and lease every sync request/write | Cross-user race tests and review PASS |
+| LOGOUT-OFFLINE-SAFE | Offline/late logout clears old user state without deleting a newer session | Unit tests PASS |
+| OCR-REFRESH-ONCE | OCR upload performs one refresh and at most one retry; remains online-only | Unit tests PASS |
+| INVESTMENT-SELECTED-MONTH | Count incoming transfers to investment account/category for selected month | Unit + production E2E PASS |
+| OPERATIONS-NEWEST-FIRST | Sort operations/transfers descending by date/time/createdAt/ID | Unit + emulator PASS |
+| CATEGORY-SEARCH-DIALOG | Replace horizontal list with vertical searchable category dialog | Unit + emulator PASS |
+| PAYMENT-ACCOUNT-REFRESH | Revalidate/select payment account immediately after refresh | Unit + emulator PASS |
+| TRANSFER-DATE | Preserve selected date in online and offline transfer mutation | Unit PASS |
+| ANALYTICS-MONTH-COMPACT | One-line month with previous/current/next icon controls | Unit/lint/review PASS |
+
+Commits: `af22cce6417012e2adedb2fe0689c0670e322cf1`,
+`12a1b91f20c2ce3f48bcae6919b76eb976b12c3f`,
+`43f4b1780e3bdcf6891b877fe03ee53971f74500`.
+
+Release evidence: [[Док_Release_Android_Production_20260822]].
 
 | Хэш | Описание |
 |------|----------|
@@ -270,7 +293,7 @@ id: "qa-fixes-finance"
 |----|----------|---------|------|---------------|
 | AUTHGATE-PROTECTED-TABS-SEPARATION | Android signed-out/restoring state renders a separate AuthGate without protected app chrome; protected tabs are reachable only after signed-in state | Android auth UI | 2026-07-25 | Да (Android full unit PASS; emulator manual smoke skipped because emulator unavailable) |
 | SESSIONTOKENBUNDLE-ENCRYPTED-STORE | Android persists `SessionTokenBundle` in `EncryptedSharedPreferences`: `accessToken`, `refreshToken`, `expiresAt`, `userId`; password is not stored | Android local session storage | 2026-07-25 | Да (unit/build evidence; no secrets copied to KB) |
-| API-CLIENT-REFRESH-RETRY-ONCE | Login/register save token bundle; protected calls on `401`/`403` call `POST /api/v1/sessions/refresh` once and retry once | Android API client | 2026-07-25 | Да (Android full unit PASS; backend auth `71 passed`) |
+| API-CLIENT-REFRESH-RETRY-ONCE | Historical 2026-07-25 behavior refreshed on `401`/`403`; superseded on 2026-08-22: refresh only on `401`, while `403` preserves the session | Android API client | 2026-07-25 | SUPERSEDED by Wave 22; current tests PASS |
 | API-CLIENT-AUTH-FAILURE-WIPE | Logout or refresh/auth failure clears local token store and protected UI | Android API client/session UX | 2026-07-25 | Да (Android full unit PASS) |
 | OCR-REFRESH-RETRY-ONCE | Screenshot OCR follows the same auth refresh/retry-once behavior | Android OCR/API client | 2026-07-25 | Да (Android full unit PASS) |
 | BACKEND-SESSION-REFRESH-ENDPOINT | Backend adds `/api/v1/sessions/refresh`; `android_bearer` login/register return `refreshToken`; refresh token rotation is hash-only and invalidates the old refresh token; logout invalidates session; CAS atomic rotation covered | Backend auth/session | 2026-07-25 | Да locally (`71 passed`, `ruff` PASS); production requires deploy |

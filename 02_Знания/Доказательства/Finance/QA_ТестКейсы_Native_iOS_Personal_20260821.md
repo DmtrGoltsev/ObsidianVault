@@ -69,8 +69,9 @@ id: "finance-qa-native-ios-personal-20260821"
 
 Для production smoke использовать только существующий persistent QA account из
 [[QA_Результаты#Production QA persistent account (2026-07-11)]]. Учетную запись
-помечать `NEVER DELETE`. Пароль брать только из owner-managed secret store; не
-копировать его в Vault, git, evidence, логи или screenshots.
+помечать `NEVER DELETE`. Для текущей reusable production учётки использовать
+[[QA_Учетная_Запись_Production_20260822]]; не копировать credentials в project
+repo, release evidence, логи, screenshots или чат.
 
 ## Release blocker
 
@@ -82,4 +83,3 @@ trusted HTTPS endpoint. Запрещён произвольный ATS exception.
    контролем продления и мониторингом срока.
 
 Plain HTTP production IP не является допустимым Release endpoint.
-

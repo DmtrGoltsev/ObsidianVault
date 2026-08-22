@@ -4,7 +4,7 @@ id: "qa-results-finance"
 статус: "активно"
 проект: "Finance"
 создано: "2026-06-06"
-обновлено: "2026-08-21"
+обновлено: "2026-08-22"
 ссылки:
   - "[[Finance]]"
   - "[[QA_Фиксы]]"
@@ -874,7 +874,11 @@ id: "qa-results-finance"
 
 **Status:** ACTIVE / PERSISTENT / NEVER DELETE.
 
-Security boundary: the persistent QA account is documented for continuity, but its password remains in an owner-managed secret store and is not copied into the vault. Do not store tokens, cookies, session IDs, Bearer values, OCR raw payloads, screenshots, or production financial data here.
+Credential boundary superseded on 2026-08-22 by explicit vault-owner instruction:
+use [[QA_Учетная_Запись_Production_20260822]]. Do not copy credentials into the
+project repository, release evidence, logs or chat output. Tokens, cookies,
+session IDs, Bearer values, OCR raw payloads, screenshots and production
+financial data remain prohibited here.
 
 | Field | Value |
 |-------|-------|
@@ -993,7 +997,7 @@ Search tags / keywords: Finance Production QA account; persistent production tes
 | Android signed-in UI | PASS: main tabs render only in signed-in state |
 | Android session storage | PASS: `SessionTokenBundle` stored in `EncryptedSharedPreferences` with `accessToken`, `refreshToken`, `expiresAt`, `userId`; password not stored |
 | API client login/register | PASS: token bundle persisted after login/register |
-| API client refresh/retry | PASS: on `401`/`403`, refresh once through `POST /api/v1/sessions/refresh`, then retry once |
+| API client refresh/retry | Historical wave result superseded on 2026-08-22: current Android refreshes once on `401`; `403` preserves session |
 | Logout/auth failure handling | PASS: logout or refresh/auth failure clears local token store and protected UI |
 | Screenshot OCR auth handling | PASS: OCR path refreshes/retries once on auth failure |
 | Backend refresh endpoint | PASS in local/backend QA: `/api/v1/sessions/refresh` added |
@@ -1209,4 +1213,44 @@ IP certificate. Legacy Capacitor не является target native app.
 
 Persistent production QA account: использовать locator из
 [[QA_Результаты#Production QA persistent account (2026-07-11)]], `NEVER DELETE`;
-password остаётся только в owner-managed secret store.
+credentials for the current reusable account are stored only in
+[[QA_Учетная_Запись_Production_20260822]].
+
+## Wave 27: Android production release (2026-08-22)
+
+**Scope:** secure persistent Android session, account-isolated offline sync,
+selected-month investment transfers, newest-first operations, searchable category
+dialog, payment-account refresh, transfer date and compact analytics month switcher.
+
+| Gate | Result |
+| --- | --- |
+| Final source | PASS: `43f4b1780e3bdcf6891b877fe03ee53971f74500` |
+| Android unit | PASS: `167/167`, no failures/errors/skips |
+| Android lint | PASS: `0` errors |
+| APK install | PASS on `emulator-5554` |
+| Session persistence | PASS after production login and force-stop/relaunch |
+| Investment transfer | PASS for selected-month incoming transfer |
+| Operations ordering | PASS: transfers included, newest-first |
+| Category picker | PASS: vertical dialog, partial-text search and selection |
+| Payment account | PASS after refresh without activity recreation |
+| APK integrity | PASS: URL, non-debuggable, ZIP, alignment, v2/v3 signature, certificate continuity |
+| Backend Actions | PASS: run `32540824773`, backend deployed, frontend skipped |
+| Production API | PASS: health/OpenAPI/login/refresh |
+| DB | Unchanged: migrations and backup skipped; revision `20260618_0017` |
+
+Final APK:
+`C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-android-prod-20260822-035412-personal-FINAL-manual-install.apk`,
+SHA-256 `b7244a339eb71bcb91dc8a02066e93bc219707691a350488315255a57f5cb1c4`,
+size `8119142` bytes.
+
+Backend release:
+`/opt/finance/releases/finance-personal-backend-20260822-12a1b91f`; rollback
+candidate `/opt/finance/releases/20260726T220603Z-55f4ac53`.
+
+Residual coverage: full UI offline create/reconnect/sync was not rerun on the
+final APK; OCR real-image upload was not run; Android 17 Espresso fails in
+framework setup before assertions; production HTTP remains a TLS risk.
+
+Evidence: [[Док_Release_Android_Production_20260822]]. Test model:
+[[QA_ТестКейсы_Android_Production_20260822]]. Reusable production account:
+[[QA_Учетная_Запись_Production_20260822]].
