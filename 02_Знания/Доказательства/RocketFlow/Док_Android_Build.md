@@ -5,10 +5,10 @@ id: "proof-android-build"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-08-10"
+обновлено: "2026-08-22"
 уверенность: "высокая"
-источники: [".github/workflows/android-verify.yml", "android/local.properties", "delivery APK build 2026-06-08", "docs/67-weekly-focus-production-rollout-evidence.md", "production-configured APK inspection 2026-08-10"]
-доказательства: ["Док_Production_Rollout_20260810", "Док_Android_Verification", "Источник_Android_Local_Setup"]
+источники: ["personal APK verification 2026-08-22", ".github/workflows/android-verify.yml", "android/local.properties", "delivery APK build 2026-06-08", "docs/67-weekly-focus-production-rollout-evidence.md", "production-configured APK inspection 2026-08-10"]
+доказательства: ["Док_Prod_Deploy_State", "Док_V21_Scroll_Priority_20260822", "Док_Production_Rollout_20260810", "Док_Android_Verification", "Источник_Android_Local_Setup"]
 теги: ["доказательство", "сборка", "android", "ci"]
 ---
 
@@ -29,6 +29,16 @@ CI: android-verify.yml; локальный setup см. [[Источник_Androi
 Автоматически по правилам `android-verify.yml`; финальный post-cleanup result дописан в [[Док_Android_Verification]] 2026-06-07. Новый локальный APK build зафиксирован 2026-06-08.
 
 ## Результат
+
+Current personal delivery 2026-08-22:
+
+- APK `0.1.1`, `versionCode 2`, signed for personal direct sideload.
+- SHA-256: `3DF9EB210D801D932A4C736A0EF682C8C0AADCB36536B81CA19267F326C52AF7`.
+- `adb install -r` PASS with UID and `firstInstallTime` preserved.
+- Cold launch PASS; crash/ANR `0/0`; current screen Login.
+- This is not a Play Store production signing identity.
+
+Historical build evidence follows:
 
 - Локальная Android SDK конфигурация исправлена
 - emulator `emulator-5554` видим
@@ -64,3 +74,5 @@ GitHub Actions → android-verify.yml
 - [[Регламент_CI_CD]]
 - [[Док_Android_Verification]]
 - [[Док_Production_Rollout_20260810]]
+- [[Док_V21_Scroll_Priority_20260822]]
+- [[Док_Prod_Deploy_State]]

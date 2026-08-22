@@ -1,14 +1,14 @@
 ---
 id: "proof-v21-scroll-priority-2026-08-22"
 тип: "доказательство"
-статус: "кандидат"
+статус: "развёрнуто"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-08-22"
 обновлено: "2026-08-22"
 уверенность: "высокая"
-источники: ["docs/68-scroll-and-priority-retirement-delivery.md", "docs/33-current-state-summary.md", "android/README.md"]
-доказательства: ["Док_Backend_Verification", "Док_Web_Verification", "Док_Android_Verification"]
+источники: ["GitHub Actions run 32551808905", "docs/68-scroll-and-priority-retirement-delivery.md", "docs/33-current-state-summary.md", "android/README.md"]
+доказательства: ["Док_Prod_Deploy_State", "Док_Backend_Verification", "Док_Web_Verification", "Док_Android_Verification", "ADR_V21_Release_Backup_Waiver"]
 теги: ["доказательство", "v21", "android", "scroll", "compatibility"]
 ---
 
@@ -16,7 +16,7 @@ id: "proof-v21-scroll-priority-2026-08-22"
 
 ## Граница статуса
 
-Это evidence текущего worktree/кандидата V21. Commit, push и deploy в рамках этой задачи не выполнялись. Production остаётся на source `910c061de4af9395d9bb682624bd966b2977a738`, release `sha-910c061de4af`, Flyway V20 (`20/20`).
+V21 развёрнут в production 2026-08-22 из exact source SHA `50a63270ae094fe08ee57b945be0930cb1115dfe` как release `sha-50a63270ae09`. [GitHub Actions run 32551808905](https://github.com/DmtrGoltsev/RocketFlow/actions/runs/32551808905) завершился `success`.
 
 ## Реализованный контракт
 
@@ -42,6 +42,17 @@ id: "proof-v21-scroll-priority-2026-08-22"
 
 Последний IME rerun не повторял anchor/logcat. Предыдущий отдельный anchor QA остаётся PASS; IME diff не менял anchor-код. Эти два набора evidence дополняют друг друга и не считаются одним полным rerun.
 
+## Production rollout evidence
+
+- Backend и web promoted совместно один раз; duplicate promotion отсутствует.
+- Flyway перешёл `20 -> 21`.
+- Backend health и web вернули HTTP `200`.
+- Authenticated disposable API smoke PASS; cleanup PASS, HTTP `5xx` — `0`.
+- Rollback не выполнялся.
+- Fresh DB recovery point отсутствует: одноразовый exact-SHA waiver [[ADR_V21_Release_Backup_Waiver]] consumed при этом rollout и не является precedent.
+- V20 application rollback artifact существовал, но не использовался; будущий permanent gate [[Задача_Production_Deploy_Backup_Rollback]] остаётся открытым.
+- Personal Android delivery зафиксирована отдельно в [[Док_Android_Verification]].
+
 ## Связанные заметки
 
 - [[ADR_Отказ_От_Приоритета_Задач]]
@@ -49,3 +60,5 @@ id: "proof-v21-scroll-priority-2026-08-22"
 - [[Док_Backend_Verification]]
 - [[Док_Web_Verification]]
 - [[Док_Prod_Deploy_State]]
+- [[ADR_V21_Release_Backup_Waiver]]
+- [[Задача_Production_Deploy_Backup_Rollback]]

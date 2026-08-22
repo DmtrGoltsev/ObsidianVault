@@ -22,13 +22,14 @@ id: "pkg-rocketflow-full"
 2. Изучить [[MOC_RocketFlow]] — навигационная карта vault
 3. Выбрать пакет для своей роли: [[Пакет_Бэкенд]] или [[Пакет_Android]]
 
-## Current checkpoint 2026-08-10
+## Current checkpoint 2026-08-22
 
-- Branch `codex/weekly-focus-calendar-web-push`: Calendar/Weekly Focus/Web Push реализованы; backend 135, web 54, Android 77 tests; final implementation review PASS.
-- Feature changes готовятся к commit/push и не имеют зафиксированного remote feature SHA в этом checkpoint.
-- Production feature deploy не выполнялся. `V19`/`V20`, backend/web promotion, signed APK, notification enablement и production smoke остаются release gates.
-- Android production signing blocked: release keystore и Firebase config отсутствуют.
-- Evidence и rollout boundary: [[Док_Calendar_Weekly_Focus_WebPush_20260810]], [[Док_Prod_Deploy_State]].
+- Production release `sha-50a63270ae09` from exact SHA `50a63270ae094fe08ee57b945be0930cb1115dfe`; run `32551808905` success.
+- Backend/web joint promotion PASS, Flyway `20 -> 21`, health/web HTTP `200`, no duplicate promotion or rollback.
+- Authenticated disposable API smoke and cleanup PASS; HTTP `5xx` — `0`.
+- Personal APK `0.1.1` (`versionCode 2`) signed and direct-sideload verified; [[Док_Android_Verification]].
+- Exact-SHA backup waiver consumed without fresh recovery point and is not precedent; permanent task [[Задача_Production_Deploy_Backup_Rollback]] remains open.
+- Canonical evidence: [[Док_Prod_Deploy_State]], [[Док_V21_Scroll_Priority_20260822]], [[ADR_V21_Release_Backup_Waiver]].
 
 ## Структура знаний
 
@@ -49,11 +50,11 @@ id: "pkg-rocketflow-full"
 ### Источники
 [[Источник_README]], [[Источник_MVP_План]], [[Источник_Спецификация_Домена]], [[Источник_Архитектура]], [[Источник_API_Контракты]], [[Источник_QA_Стратегия]], [[Источник_План_Оркестрации]], [[Источник_Текущее_Состояние]], [[Источник_CI_CD_Политика]], [[Источник_Продакшен_Runbook]], [[Источник_Нотификация_Смок]], [[Источник_Нотификация_Пруф]], [[Источник_Агент_Плейбук]], [[Источник_MVP3_Контракт]], [[Источник_AGENTS]], [[Источник_Android_Local_Setup]]
 
-### Решения (9 ADR)
-[[ADR_Модульный_Монолит]], [[ADR_PostgreSQL]], [[ADR_JWT_Токены]], [[ADR_Flyway_Миграции]], [[ADR_Мягкое_Удаление]], [[ADR_Оптимистичная_Блокировка]], [[ADR_Firebase_Admin_SDK]], [[ADR_Scheduler_Advisory_Lock]], [[ADR_Logical_Device_Upsert]]
+### Решения
+[[ADR_Модульный_Монолит]], [[ADR_PostgreSQL]], [[ADR_JWT_Токены]], [[ADR_Flyway_Миграции]], [[ADR_Мягкое_Удаление]], [[ADR_Оптимистичная_Блокировка]], [[ADR_Firebase_Admin_SDK]], [[ADR_Scheduler_Advisory_Lock]], [[ADR_Logical_Device_Upsert]], [[ADR_Отказ_От_Приоритета_Задач]], [[ADR_V21_Release_Backup_Waiver]]
 
 ### Доказательства
-[[Док_Backend_Тесты]], [[Док_Web_Build]], [[Док_Android_Build]], [[Док_Нотификации_E2E]], [[Док_Calendar_Weekly_Focus_WebPush_20260810]], [[Док_Cleanup_Manifest]], [[Док_Backend_Verification]], [[Док_Web_Verification]], [[Док_Android_Verification]], [[Док_Artifacts_Retention_Policy]], [[Док_Prod_Deploy_State]]
+[[Док_Backend_Тесты]], [[Док_Web_Build]], [[Док_Android_Build]], [[Док_Нотификации_E2E]], [[Док_Calendar_Weekly_Focus_WebPush_20260810]], [[Док_Cleanup_Manifest]], [[Док_Backend_Verification]], [[Док_Web_Verification]], [[Док_Android_Verification]], [[Док_Artifacts_Retention_Policy]], [[Док_Prod_Deploy_State]], [[Док_V21_Scroll_Priority_20260822]]
 
 ### Агенты (6)
 [[Оркестратор]], [[Агент_Бэкенд]], [[Агент_Веб]], [[Агент_Android]], [[Агент_QA]], [[Агент_DevOps]]
@@ -62,7 +63,7 @@ id: "pkg-rocketflow-full"
 [[Регламент_CI_CD]], [[Регламент_Деплоя]], [[Регламент_Нотификационного_Смока]], [[Схема_Базы_Данных]], [[Схема_Развертывания]], [[Схема_Ветвления]], [[Промпт_Оркестратора]]
 
 ### Задачи
-[[Задача_GHCR_Publish]], [[Задача_Staging_Notification_Cert]], [[Задача_CI_Runtime_Lanes]], [[Ограничения_и_Риски]]
+[[Задача_Production_Deploy_Backup_Rollback]], [[Задача_GHCR_Publish]], [[Задача_Staging_Notification_Cert]], [[Задача_CI_Runtime_Lanes]], [[Ограничения_и_Риски]]
 
 ## Ролевые пакеты
 - [[Пакет_Бэкенд]] — выжимка для бэкенд-агента

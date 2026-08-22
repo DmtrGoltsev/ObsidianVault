@@ -7,14 +7,22 @@ id: "proof-android-verification-2026-06-07"
 создано: "2026-06-07"
 обновлено: "2026-08-22"
 уверенность: "высокая"
-источники: ["android/app/build/test-results/testDebugUnitTest", "android/README.md", "docs/68-scroll-and-priority-retirement-delivery.md", "docs/66-weekly-focus-calendar-delivery.md", "docs/67-weekly-focus-production-rollout-evidence.md", "android local setup", "repo audit 2026-06-07", "final verifier 2026-06-07", "delivery verifier 2026-06-08"]
-доказательства: ["Док_V21_Scroll_Priority_20260822", "Док_Production_Rollout_20260810", "Док_Calendar_Weekly_Focus_WebPush_20260810", "Источник_Android_Local_Setup", "Док_Cleanup_Manifest", "Док_Android_Build"]
+источники: ["personal APK verification 2026-08-22", "android/app/build/test-results/testDebugUnitTest", "android/README.md", "docs/68-scroll-and-priority-retirement-delivery.md", "docs/66-weekly-focus-calendar-delivery.md", "docs/67-weekly-focus-production-rollout-evidence.md", "android local setup", "repo audit 2026-06-07", "final verifier 2026-06-07", "delivery verifier 2026-06-08"]
+доказательства: ["Док_Prod_Deploy_State", "Док_V21_Scroll_Priority_20260822", "Док_Production_Rollout_20260810", "Док_Calendar_Weekly_Focus_WebPush_20260810", "Источник_Android_Local_Setup", "Док_Cleanup_Manifest", "Док_Android_Build"]
 теги: ["доказательство", "android", "verification", "tests", "build", "lint"]
 ---
 
 # Док: Android Verification
 
-## Текущий V21 candidate 2026-08-22
+## Текущий V21 personal APK 2026-08-22
+
+- Version: `0.1.1`; `versionCode 2`.
+- Signed personal direct-sideload artifact SHA-256: `3DF9EB210D801D932A4C736A0EF682C8C0AADCB36536B81CA19267F326C52AF7`.
+- `adb install -r`: PASS; UID и `firstInstallTime` сохранены.
+- Cold launch: PASS; crash/ANR `0/0`; текущий экран — Login.
+- Distribution boundary: personal direct sideload, не Play Store production release identity.
+
+Implementation verification для этого production source:
 
 - `testDebugUnitTest`: `90/90` PASS.
 - `assembleDebug`: PASS.
@@ -25,7 +33,7 @@ id: "proof-android-verification-2026-06-07"
 - SQLite lifecycle ownership исправлен для planning sync, Focus sync, reminder receiver и acceptance seed; lifecycle покрыт тестами.
 - Compact landscape editor visual QA PASS для Title и Details с IME; portrait editor PASS и сохраняет прежний `AlertDialog`.
 - Evidence: [[Док_V21_Scroll_Priority_20260822]]. Последний IME rerun не повторял anchor/logcat; отдельный более ранний anchor QA остаётся PASS, а compact-form change не затрагивал anchor code.
-- Boundary: это worktree evidence, не APK/release/deploy. Production Android artifact ниже не содержит V21 candidate changes.
+- Backend/web V21 production rollout подтверждён в [[Док_Prod_Deploy_State]]; personal APK содержит соответствующий V21 source и проверен отдельно от server rollout.
 
 ## Текущий feature checkpoint 2026-08-10
 
@@ -85,3 +93,5 @@ Android local full gate после delivery-fix зелёный как historical
 - [[Задача_CI_Runtime_Lanes]]
 - [[MOC_Android]]
 - [[Док_Production_Rollout_20260810]]
+- [[Док_V21_Scroll_Priority_20260822]]
+- [[Док_Prod_Deploy_State]]

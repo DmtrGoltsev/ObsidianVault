@@ -142,6 +142,7 @@ id: "moc-rocketflow-main"
 - [[ADR_Scheduler_Advisory_Lock]]
 - [[ADR_Logical_Device_Upsert]]
 - [[ADR_Отказ_От_Приоритета_Задач]]
+- [[ADR_V21_Release_Backup_Waiver]]
 
 ## Доказательства
 
@@ -167,6 +168,7 @@ id: "moc-rocketflow-main"
 
 ## Задачи
 
+- [[Задача_Production_Deploy_Backup_Rollback]]
 - [[Задача_GHCR_Publish]]
 - [[Задача_Staging_Notification_Cert]]
 - [[Задача_CI_Runtime_Lanes]]

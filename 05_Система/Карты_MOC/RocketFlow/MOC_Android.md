@@ -8,7 +8,7 @@ id: "moc-android"
 обновлено: "2026-08-22"
 уверенность: "высокая"
 источники: ["docs/04-architecture-blueprint.md", "docs/68-scroll-and-priority-retirement-delivery.md", "docs/50-notification-runtime-clean-pass.md", "docs/67-weekly-focus-production-rollout-evidence.md"]
-доказательства: ["Док_V21_Scroll_Priority_20260822", "Док_Android_Build", "Док_Android_Verification", "Док_Production_Rollout_20260810", "Док_Нотификации_E2E"]
+доказательства: ["Док_Prod_Deploy_State", "Док_V21_Scroll_Priority_20260822", "Док_Android_Build", "Док_Android_Verification", "Док_Production_Rollout_20260810", "Док_Нотификации_E2E"]
 теги: ["moc", "android", "rocketflow"]
 ---
 
@@ -69,9 +69,9 @@ id: "moc-android"
 
 ## Сборка
 
-Candidate V21 2026-08-22: `90/90` unit PASS, `assembleDebug` PASS, lint `0` errors / `34` existing warnings, debug Android-test APK PASS. Visual scroll и portrait/landscape IME checks PASS; SQLite short-lived store lifecycle исправлен. Это worktree evidence, не новый production APK и не deploy. См. [[Док_V21_Scroll_Priority_20260822]].
+V21 source 2026-08-22: `90/90` unit PASS, `assembleDebug` PASS, lint `0` errors / `34` existing warnings, debug Android-test APK PASS. Visual scroll и portrait/landscape IME checks PASS; SQLite short-lived store lifecycle исправлен. Backend/web V21 rollout PASS; см. [[Док_V21_Scroll_Priority_20260822]].
 
-Gradle. Android CI lane больше не build-only: unit/build/lint. Для source SHA `910c061de4af9395d9bb682624bd966b2977a738` актуальный `RocketFlow-0.1.0-prod-debugcert.apk` является installable direct-sideload build: v2/v3/zipalign valid, `debuggable=false`, production API, install/runtime checks PASS, `77` tests и lint `0` errors. Это не Play Store production identity; updates требуют тот же debug certificate, Firebase/FCM config отсутствует. Прежний unsigned SHA-256 `1763de390dd587c686fe84152c521a2d92e65b747fb2689ec2076c0560c576d7` сохранён как superseded damaged/non-installable evidence.
+Current personal APK: `0.1.1`, `versionCode 2`, signed, SHA-256 `3DF9EB210D801D932A4C736A0EF682C8C0AADCB36536B81CA19267F326C52AF7`. `adb install -r` сохранил UID и `firstInstallTime`; cold launch PASS, crash/ANR `0/0`, current screen Login. Это direct-sideload artifact, не Play Store production identity. Исторические APK сохранены в [[Док_Android_Verification]].
 
 См. [[Док_Android_Build]], [[Док_Android_Verification]], [[Док_Production_Rollout_20260810]], [[Задача_CI_Runtime_Lanes]].
 

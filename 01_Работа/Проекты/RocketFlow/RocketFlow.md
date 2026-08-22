@@ -22,7 +22,7 @@ id: "proj-rocketflow"
 
 | Слой | Технологии |
 |------|-----------|
-| Backend | Java 21, Spring Boot 3.4.5, Spring Security, Spring Data JPA, Flyway, PostgreSQL 18.4 ([[Док_Production_Rollout_20260810|production evidence]]) |
+| Backend | Java 21, Spring Boot 3.4.5, Spring Security, Spring Data JPA, Flyway, PostgreSQL 18.4 ([[Док_Prod_Deploy_State|production evidence]]) |
 | Web | React 18, TypeScript 5, Vite 5, react-router-dom 6, lucide-react |
 | Android | Kotlin 1.9.24, minSdk 26, targetSdk 34, WorkManager 2.9.1, FCM 24.1.0 |
 | CI/CD | GitHub Actions (ubuntu-24.04) |
@@ -33,13 +33,18 @@ id: "proj-rocketflow"
 
 [[Modular_Monolith]] — один бэкенд, одна БД, один фоновый планировщик, web SPA, Android клиент.
 
-Модули бэкенда: `auth`, `accounts`, `settings`, `folders`, `goals`, `tasks`, `sharing`, `calendar`, `recurrence`, `reminders`, `notifications`, `ideas`, `links`, `notes`, `health`, `common`, `config`. Legacy priority-policy wire/storage остаётся только как временный слой совместимости кандидата V21 с production V20 и старыми APK.
+Модули бэкенда: `auth`, `accounts`, `settings`, `folders`, `goals`, `tasks`, `sharing`, `calendar`, `recurrence`, `reminders`, `notifications`, `ideas`, `links`, `notes`, `health`, `common`, `config`. Legacy priority-policy wire/storage остаётся временным слоем совместимости V21 с V20 application rollback и старыми APK.
 
 ## Текущий статус
 
-- Current worktree — кандидат V21, не production rollout. Реализованы stable-anchor восстановление Android Planner, отказ от task priority в UI/бизнес-логике, compatibility shadow для V20/old APK, SQLite lifecycle fixes и compact landscape editor с IME insets.
-- Candidate verification 2026-08-22: backend `142/142`; web `61/61`, build/audit PASS; Android `90/90`, assemble/lint/debug Android-test APK PASS; visual scroll и portrait/landscape IME evidence PASS. См. [[Док_V21_Scroll_Priority_20260822]].
-- Commit, push и deploy в рамках этой задачи не выполнялись. Production факты ниже остаются без изменений: source `910c061de4af9395d9bb682624bd966b2977a738`, release `sha-910c061de4af`, Flyway V20 (`20/20`).
+- Production rollout 2026-08-22 PASS: exact source SHA `50a63270ae094fe08ee57b945be0930cb1115dfe`, release `sha-50a63270ae09`, [GitHub Actions run 32551808905](https://github.com/DmtrGoltsev/RocketFlow/actions/runs/32551808905) `success`.
+- Backend и web promoted совместно; Flyway `20 -> 21`; backend health и web вернули HTTP `200`; duplicate promotion и rollback отсутствуют.
+- Authenticated disposable API smoke PASS; cleanup завершён, за окно smoke HTTP `5xx` — `0`.
+- Personal direct-sideload APK `0.1.1` (`versionCode 2`) подписан и проверен: SHA-256 `3DF9EB210D801D932A4C736A0EF682C8C0AADCB36536B81CA19267F326C52AF7`; `adb install -r` сохранил UID и `firstInstallTime`; cold launch PASS, crash/ANR `0/0`, текущий экран — Login.
+- Rollout выполнен по одноразовому [[ADR_V21_Release_Backup_Waiver]] без fresh DB recovery point. Waiver consumed и не является precedent; постоянный gate [[Задача_Production_Deploy_Backup_Rollback]] остаётся открытым.
+- Canonical current evidence: [[Док_Prod_Deploy_State]], [[Док_V21_Scroll_Priority_20260822]], [[Док_Android_Verification]].
+
+### Исторический production rollout 2026-08-10
 
 - Production rollout 2026-08-10: exact SHA `910c061de4af9395d9bb682624bd966b2977a738` развёрнут как release `sha-910c061de4af`; backend/web promotion и Flyway `V19`/`V20` завершены успешно.
 - Исторический feature checkpoint ранее в тот же день фиксировал branch `codex/weekly-focus-calendar-web-push` до commit/push и rollout; этот контекст сохранён в evidence.
@@ -82,13 +87,11 @@ id: "proj-rocketflow"
 
 - [ ] [[Задача_Production_Deploy_Backup_Rollback]] — dedicated backup identity, fresh verified backup before promotion и tested application rollback для будущих releases.
 - Production-equivalent FCM/Web Push configuration и provider smoke.
-- Android signed production artifact: release keystore и Firebase config отсутствуют; текущий unsigned APK не устанавливать и не публиковать.
-- Authenticated production read smoke с санкционированными QA credentials.
+- Android Play Store release identity и production Firebase configuration остаются отдельными gates; personal APK `0.1.1` подтверждён только для direct sideload.
 
 ## Известные риски
 
-- Одноразовый rollout без fresh DB recovery point разрешён пользователем только для exact SHA `50a63270ae094fe08ee57b945be0930cb1115dfe`; waiver теряет силу при изменении SHA и не является precedent: [[ADR_V21_Release_Backup_Waiver]].
-- Backend/web rollout завершён, но authenticated smoke gap не закрыт.
+- Одноразовый waiver для exact SHA `50a63270ae094fe08ee57b945be0930cb1115dfe` consumed при успешном rollout; fresh DB recovery point для этого release отсутствует. Waiver не может использоваться повторно: [[ADR_V21_Release_Backup_Waiver]].
 - Web Push и Focus cadence нельзя включать до production-equivalent credentials/configuration и контролируемого provider smoke.
 - Android debug/unit evidence не закрывает signing, Play-services device и production FCM delivery.
 - Historical baseline и current feature checkpoint должны оставаться явно разделены.
@@ -110,6 +113,9 @@ id: "proj-rocketflow"
 - [[Док_Cleanup_Manifest]] — cleanup/evidence manifest
 - [[Док_Backend_Verification]], [[Док_Web_Verification]], [[Док_Android_Verification]] — статус verification после audit
 - [[Док_Prod_Deploy_State]] — фактическая production deploy model
+- [[Док_V21_Scroll_Priority_20260822]] — V21 delivery и production rollout evidence
+- [[ADR_V21_Release_Backup_Waiver]] — исполненный одноразовый waiver для exact SHA
+- [[Задача_Production_Deploy_Backup_Rollback]] — открытый постоянный backup/rollback gate
 - [[Док_Calendar_Weekly_Focus_WebPush_20260810]] — текущий feature checkpoint и release boundary
 - [[Док_Production_Rollout_20260810]] — production rollout, backup, rollback readiness и smoke boundary
 
@@ -137,7 +143,7 @@ id: "proj-rocketflow"
 - **Residual risk:** independent DB read via local SSH principal unavailable; DB evidence comes from deploy logs.
 - **Evidence:** [[CI_CD_Production_Status_20260619]].
 
-## Production rollout state (2026-08-10)
+## Historical production rollout state (2026-08-10)
 
 - **Статус:** backend/web rollout PASS; rollback не использован.
 - **Source/deployed SHA:** `910c061de4af9395d9bb682624bd966b2977a738`; release `sha-910c061de4af`.
@@ -154,5 +160,8 @@ id: "proj-rocketflow"
 - [[MVP3_Упрощение]] — текущая стадия
 - [[Док_Calendar_Weekly_Focus_WebPush_20260810]] — Calendar/Weekly Focus/Web Push checkpoint
 - [[Док_Production_Rollout_20260810]] — production rollout 2026-08-10
+- [[Док_V21_Scroll_Priority_20260822]] — production rollout 2026-08-22
+- [[ADR_V21_Release_Backup_Waiver]] — consumed waiver для exact SHA
+- [[Задача_Production_Deploy_Backup_Rollback]] — будущий обязательный gate
 - [[Схема_Развертывания]] — схема деплоймента
 - [[Схема_Базы_Данных]] — схема БД

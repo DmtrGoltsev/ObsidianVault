@@ -8,7 +8,7 @@ id: "task-rocketflow-production-deploy-backup-rollback"
 обновлено: "2026-08-22"
 уверенность: "высокая"
 источники: ["docs/65-prod-db-backup-local-runbook.md", "docs/production/rocketflow-cicd-runbook.md", ".github/workflows/rocketflow-prod-rollback.yml"]
-доказательства: []
+доказательства: ["Док_Prod_Deploy_State", "ADR_V21_Release_Backup_Waiver"]
 теги: ["задача", "production", "backup", "rollback", "release-gate"]
 ---
 
@@ -29,6 +29,8 @@ id: "task-rocketflow-production-deploy-backup-rollback"
 ## Контекст
 
 Для exact SHA из [[ADR_V21_Release_Backup_Waiver]] пользователь принял одноразовый риск rollout без fresh backup. Waiver не распространяется на последующие SHA и не закрывает эту задачу.
+
+Waiver consumed при production rollout 2026-08-22. Ни один checkbox этой задачи им не закрыт: dedicated backup identity, fresh pre-promotion recovery point и tested permanent rollback gate по-прежнему отсутствуют.
 
 Backup-доступ должен принадлежать отдельной identity. Реализация не должна расширять `sudo`-полномочия `rocketdeploy` или превращать deploy identity в владельца DB recovery операций.
 
