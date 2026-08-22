@@ -80,12 +80,14 @@ id: "proj-rocketflow"
 
 ## Активные гейты
 
+- [ ] [[Задача_Production_Deploy_Backup_Rollback]] — dedicated backup identity, fresh verified backup before promotion и tested application rollback для будущих releases.
 - Production-equivalent FCM/Web Push configuration и provider smoke.
 - Android signed production artifact: release keystore и Firebase config отсутствуют; текущий unsigned APK не устанавливать и не публиковать.
 - Authenticated production read smoke с санкционированными QA credentials.
 
 ## Известные риски
 
+- Одноразовый rollout без fresh DB recovery point разрешён пользователем только для exact SHA `50a63270ae094fe08ee57b945be0930cb1115dfe`; waiver теряет силу при изменении SHA и не является precedent: [[ADR_V21_Release_Backup_Waiver]].
 - Backend/web rollout завершён, но authenticated smoke gap не закрыт.
 - Web Push и Focus cadence нельзя включать до production-equivalent credentials/configuration и контролируемого provider smoke.
 - Android debug/unit evidence не закрывает signing, Play-services device и production FCM delivery.
