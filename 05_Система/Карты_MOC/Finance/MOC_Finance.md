@@ -93,8 +93,9 @@ _(архитектурные и проектные решения — см. `04_
   `a5a3320`; Actions run `32563222674` PASS, backend full 313 passed/6 skipped,
   CI auth/migration 63, Alembic `20260822_0019`, iOS 77/77, UI 1/1,
   Debug/Release PASS; reviewer APPROVE. Physical iPhone/signing and production
-  HTTPS/ATS remain NOT RUN/BLOCKED. Production deploy preflight is blocked and
-  DB remains `20260618_0017`.
+  HTTPS/ATS remain NOT RUN/BLOCKED. Required reviewer superseded by the approved
+  solo-owner waiver; environment admits only `prod/release-*`. Backend deploy
+  was not run and DB remains `20260618_0017`.
 
 
 ## Схемы
@@ -103,7 +104,9 @@ _(схемы проекта — см. `05_Система/Схемы/Finance/`)_
 
 ## Регламенты
 
-_(регламенты проекта — см. `05_Система/Регламенты/Finance/`)_
+- [[Регламент_Деплоя_Finance]] — GitHub Actions production policy; solo-owner
+  waiver, только `prod/release-*`, обязательные CI/backup/migration/health gates
+  и запрет прямого SSH/SCP deploy
 
 ## Промпты
 

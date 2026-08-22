@@ -5,8 +5,8 @@ id: "reg-deploy-finance"
 проект: "Finance"
 владелец: "rocketflow-team"
 создано: "2026-06-13"
-обновлено: "2026-07-26"
-уверенность: "средняя"
+обновлено: "2026-08-22"
+уверенность: "высокая"
 источники: ["docs/deploy/finance-production-install.md", ".github/workflows/finance-hexcore-prod-deploy.yml"]
 доказательства: []
 теги: ["регламент", "деплой", "production", "finance", "hexcore"]
@@ -23,23 +23,38 @@ id: "reg-deploy-finance"
 Основной путь production deploy для Finance frontend/backend — GitHub Actions workflow `.github/workflows/finance-hexcore-prod-deploy.yml`.
 
 - Workflow выполняет frontend/backend package/deploy на HexCore.
-- Auto deploy запускается только при push в ветки, имя которых содержит `release`.
+- Auto deploy разрешён только при явном push владельца репозитория
+  `DmtrGoltsev` в ветку `prod/release-*`.
 - GitHub environment: `production`.
+- Required reviewer для solo Finance необязателен по утверждённому owner
+  waiver. Push владельца в `prod/release-*` считается production authorization.
+- Environment использует selected deployment branches; единственный
+  разрешённый pattern: `prod/release-*`.
 - Concurrency включен.
-- Required GitHub Actions secrets by name: `HEXCORE_PROD_SSH_HOST`, `HEXCORE_PROD_SSH_USER`, `HEXCORE_PROD_SSH_PRIVATE_KEY`, optional `HEXCORE_PROD_SSH_PORT`.
+- Required GitHub Actions secrets by name: `HEXCORE_PROD_SSH_HOST`,
+  `HEXCORE_PROD_SSH_USER`, `HEXCORE_PROD_SSH_PRIVATE_KEY`,
+  `HEXCORE_PROD_SSH_KNOWN_HOSTS`; optional `HEXCORE_PROD_SSH_PORT`.
 - Backend deploy automation включен в актуальный production workflow.
+
+Owner waiver отменяет только дополнительный ручной клик reviewer. Обязательны:
+
+- environment-scoped secrets;
+- frontend/backend CI gates;
+- pinned host key и `StrictHostKeyChecking=yes`;
+- backup перед миграцией и evidence с checksum;
+- единственная Alembic head и проверка current/target;
+- post-deploy health-check;
+- GitHub run URL, commit SHA, release id и rollback evidence.
 
 Примечание: финальный production deploy через этот путь подтвержден 2026-06-19; см. [[CI_CD_Production_Status_20260619]].
 
-## Fallback / alternative deploy
+## Запрещённый прямой deploy
 
-Direct SSH/SCP upload to HexCore остается fallback/alternative способом для ручного восстановления или разового deploy при недоступности GitHub Actions.
-
-Fallback boundary:
-- PWA static build может быть загружен в nginx docroot через SCP;
-- backend deploy через workflow является основным путем; direct SSH/SCP остается fallback;
-- secret values не документируются и не выводятся;
-- перед ручным fallback требуется явный smoke plan и rollback plan.
+Direct SSH/SCP upload, install, migration, restart и переключение release symlink
+на HexCore запрещены, в том числе как обычный emergency fallback. При
+недоступности GitHub Actions нужно восстановить CI/CD либо использовать
+утверждённый rollback workflow. SSH/SCP допустимы только внутри GitHub Actions с
+environment secrets и pinned host key.
 
 ## Известные blockers/risks
 
@@ -50,6 +65,8 @@ Fallback boundary:
 - DB rollback не автоматизирован; restore из backup выполняется вручную после approval.
 - Required secrets зафиксированы только по именам; значения не должны попадать в KB, логи или evidence.
 - HTTPS/domain/PWA install proof может требовать отдельного evidence, если scope release включает install behavior.
+- Owner waiver не разрешает ветки вне `prod/release-*` и не отменяет ни один
+  технический gate.
 
 ## Transfer assets/order deploy note (2026-07-12)
 
@@ -83,7 +100,7 @@ Status: PASS for local CI/CD preparation. This does not claim that a new product
 - Design: frontend/backend package/deploy design documented.
 - Safety: Alembic gated; restart gated; pinned `known_hosts`; no DB rollback.
 - Final review: workflow YAML parses, no raw input interpolation, no hardcoded secret values in reviewed workflow scope, no production actions executed.
-- Residual approvals: GitHub production environment/secrets/required reviewers, first production workflow run, deploy/restart/migration/rollback approvals, DB backup proof; DB rollback out of scope.
+- Residual approvals: GitHub production environment/secrets, first production workflow run, deploy/restart/migration/rollback authorization and DB backup proof; DB rollback out of scope. Required reviewer superseded by the solo-owner waiver on 2026-08-22.
 - Evidence: [[CI_CD_Production_Status_20260614]].
 
 ## Final production CI/CD state (2026-06-19)
@@ -93,13 +110,32 @@ Status: PASS. GitHub Actions release-branch production deploy is now the primary
 - Release branch: `release/finance-prod-ci-cd-27730f5`; release commit `d10ac448a12c6681577d13433ef6225a094afbc2`.
 - Final green run: `https://github.com/DmtrGoltsev/finance/actions/runs/27802865321`.
 - Current frontend/backend release: `20260619T030640Z-d10ac448`.
-- Trigger rule: branch name must contain `release`; push/cherry-pick/merge desired commit into `release/<project>-prod-...`, then watch GitHub Actions.
+- Current authorization rule: owner push to `prod/release-*`; historical
+  `release/<project>-prod-*` branches remain evidence only and are not allowed by
+  the current environment branch policy.
 - Manual `workflow_dispatch` remains available.
-- Direct SSH/SCP remains documented fallback, not primary.
+- Direct SSH/SCP production deploy is prohibited.
 - GitHub `production` environment and environment secrets are configured; secret values must never be stored in docs.
 - Verify after deploy: `http://45.10.110.42/finance/` and `http://45.10.110.42/finance-api/health`.
 - Rollback: use project rollback workflow where available; DB rollback is not automated and requires manual restore from backups after approval.
 - Evidence: [[CI_CD_Production_Status_20260619]].
+
+## Solo-owner production authorization (2026-08-22)
+
+Status: ACTIVE.
+
+- Пользователь явно выбрал owner waiver вместо Required reviewer.
+- GitHub environment `production` настроен без reviewer.
+- Selected deployment branches включены: `protected_branches=false`,
+  `custom_branch_policies=true`.
+- Единственная deployment branch policy: `prod/release-*`, type `branch`.
+- Явный push владельца `DmtrGoltsev` в такую ветку является production
+  authorization.
+- Secret names сохранены; значения не читались и не изменялись.
+- Эта настройка сама по себе deploy не запускает. Для deploy требуется новый
+  push в разрешённую release-ветку.
+- CI gates, backup, pinned host key, migrations, health, evidence и rollback
+  остаются обязательными.
 
 ## Auth/session deploy note (2026-07-25)
 

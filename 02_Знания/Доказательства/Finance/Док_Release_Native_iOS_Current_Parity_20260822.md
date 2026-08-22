@@ -96,13 +96,25 @@ Worker runs не заменяют final gate; code/CI-вывод основан 
   Team/provisioning и устройство.
 - **Production HTTPS/ATS: NOT RUN/BLOCKED.** Production Finance API остаётся
   plain HTTP. Нужен trusted HTTPS endpoint; broad ATS exception запрещён.
-- **Backend production deploy: PREFLIGHT BLOCKED / NOT PERFORMED.** Environment
-  `production` имеет `protection_rules=[]`; branch
-  `prod/release-finance-ios-backend-20260822` существует только локально и не
-  запушена; production DB остаётся на `20260618_0017`; health HTTP 200;
-  HTTPS/FQDN отсутствует. Head `20260822_0019` в production не применён.
+- **Backend production deploy: AUTHORIZATION READY / NOT PERFORMED.** Утверждён
+  solo-owner waiver: Required reviewer отсутствует, а явный push владельца в
+  `prod/release-*` считается production authorization. Environment допускает
+  только этот pattern. Branch `prod/release-finance-ios-backend-20260822`
+  существует только локально и не запушена; production DB остаётся на
+  `20260618_0017`; health HTTP 200; HTTPS/FQDN отсутствует. Head
+  `20260822_0019` в production не применён. Настройка governance сама deploy не
+  запускала.
 - **Physical OCR и полный offline reconnect: NOT RUN.** Автоматические границы
   PASS, но device evidence отсутствует.
+
+## Production governance waiver
+
+- Required reviewer необязателен только для solo Finance.
+- Environment secrets, CI gates, backup, pinned host key, migration/health
+  checks, evidence и rollback readiness обязательны.
+- Direct SSH/SCP production deployment запрещён.
+- Environment proof: `protected_branches=false`,
+  `custom_branch_policies=true`, branch policy `prod/release-*`.
 
 ## Секреты
 
