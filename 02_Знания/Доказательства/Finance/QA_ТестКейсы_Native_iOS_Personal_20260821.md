@@ -4,7 +4,7 @@ id: "finance-qa-native-ios-personal-20260821"
 проект: "Finance"
 название: "QA тест-кейсы — Native iOS Personal"
 создано: "2026-08-21"
-обновлено: "2026-08-22"
+обновлено: "2026-08-23"
 уверенность: "высокая"
 теги: ["qa", "finance", "ios", "native", "personal-only", "regression"]
 ссылки:
@@ -22,12 +22,14 @@ id: "finance-qa-native-ios-personal-20260821"
 ## Зафиксированная база
 
 - Branch: `codex/ios-native-current-parity-20260822`.
-- Verified commit: `a5a332093587fc2467383686cca089877d03f90e`.
-- CI: `https://github.com/DmtrGoltsev/finance/actions/runs/32563222674`.
-- Native automated baseline: backend full 313 passed/6 skipped, CI auth/migration
-  63, Debug/Release PASS, XCTest 77/77,
-  UI 1/1.
+- Immutable release branch:
+  `prod/release-finance-ios-current-parity-20260823-db7ebdd`.
+- Verified/deployed code: `db7ebdd41a35018ae59e1fc4f5c5e38f0ed37de6`.
+- CI: `https://github.com/DmtrGoltsev/finance/actions/runs/32603535573`.
+- Native automated baseline: backend full 317 passed/6 skipped;
+  Debug/Release/Personal PASS; normal model 87/0; personal transport 10/0.
 - Репозиторный handoff: `docs/ios-native-mac-handoff.md`.
+- Copy-paste Mac Codex task: `docs/ios-native-mac-codex-install-prompt.md`.
 - Evidence: `MVP_EVIDENCE/native-ios-current-parity-20260822/SUMMARY_SANITIZED.md`.
 
 ## Current-parity traceability 2026-08-22
@@ -57,9 +59,11 @@ id: "finance-qa-native-ios-personal-20260821"
 ## Точные внешние блокеры
 
 - Physical iPhone/signing: **NOT RUN/BLOCKED**. Signed IPA отсутствует.
-- Production HTTPS/ATS: **NOT RUN/BLOCKED**. Plain HTTP production endpoint
-  нельзя обходить broad ATS exception.
-- Production backend deploy/migration: **NOT PERFORMED** в этой iOS-волне.
+- Ordinary Release HTTPS/ATS: **NOT RUN/BLOCKED**. PersonalSideloadHTTP имеет
+  отдельный bundle id, exact HTTP allowlist, development-only signing/no archive
+  и owner waiver до 2026-11-22.
+- Production backend/PWA deploy/migration: **PASS**, run `32604838031`, DB
+  `20260822_0019`.
 - Physical OCR и полный offline reconnect: **NOT RUN**.
 
 Release evidence: [[Док_Release_Native_iOS_Current_Parity_20260822]].
@@ -72,7 +76,7 @@ Release evidence: [[Док_Release_Native_iOS_Current_Parity_20260822]].
 | FIN-IOS-BLD-002 | P0 | Debug device build без signing | `BUILD SUCCEEDED` | PASS CI |
 | FIN-IOS-BLD-003 | P0 | Release device build без signing с HTTPS URL | `BUILD SUCCEEDED` | PASS CI |
 | FIN-IOS-BLD-004 | P0 | Release с пустым/plain HTTP/local API URL | Приложение блокирует небезопасную конфигурацию | PASS automated/static |
-| FIN-IOS-TST-001 | P0 | Полный XCTest | 77/77, 0 failures | PASS CI |
+| FIN-IOS-TST-001 | P0 | Полный XCTest | Normal 87/0, personal 10/0 | PASS CI |
 | FIN-IOS-TST-002 | P0 | Launch UI personal-only | Вход/регистрация видимы; `Общее`/`Мой обзор` отсутствуют | PASS CI, 1/1 |
 | FIN-IOS-PER-001 | P0 | Account/category/asset list API | Только personal scope, household rows отфильтрованы | PASS automated/static |
 | FIN-IOS-PER-002 | P0 | Reports API | `reportMode=personal`, `householdId=nil` | PASS automated/static |
@@ -82,6 +86,8 @@ Release evidence: [[Док_Release_Native_iOS_Current_Parity_20260822]].
 | FIN-IOS-SYNC-002 | P0 | HTTP 403 | Identity, session и pending queue сохраняются | PASS XCTest |
 | FIN-IOS-SYNC-003 | P0 | Pending queue после cold start/network error | Очередь сохраняется и доступна для retry | PASS XCTest |
 | FIN-IOS-OCR-001 | P0 | OCR boundary | Screenshot/OCR не попадает в local store/pending queue | PASS XCTest/static |
+| FIN-IOS-PHTTP-001 | P0 | Personal built plist/identity/signing/archive policy | Exact HTTP host/path only; separate bundle; manual Apple Development; no archive/export | PASS CI |
+| FIN-IOS-PHTTP-002 | P0 | 3xx redirect and final URL validation | Redirect rejected; final response URL revalidated | PASS XCTest |
 
 ## Обязательные кейсы на Mac и физическом iPhone
 
@@ -109,16 +115,19 @@ Release evidence: [[Док_Release_Native_iOS_Current_Parity_20260822]].
 [[QA_Учетная_Запись_Production_20260822]]; не копировать credentials в project
 repo, release evidence, логи, screenshots или чат.
 
-## Release blocker
+## Release boundary
 
-Native iOS code/CI ready, но actual production login заблокирован до выбора
-trusted HTTPS endpoint. Запрещён произвольный ATS exception. Допустимы:
+Обычный public Release требует trusted HTTPS endpoint. Запрещён произвольный ATS
+exception. Для owner/family physical install утверждён отдельный
+`FinanceAppPersonalHTTP`/`PersonalSideloadHTTP` с точным production HTTP URL,
+отдельной identity, no archive/export и waiver до 2026-11-22.
 
 1. собственный домен/subdomain с публично доверенным TLS и автопродлением;
 2. публично доверенный short-lived Let's Encrypt IP certificate с IP в SAN,
    контролем продления и мониторингом срока.
 
-Plain HTTP production IP не является допустимым Release endpoint.
+Plain HTTP production IP не является допустимым ordinary/public Release
+endpoint, но разрешён в узком personal sideload scope выше с принятым риском.
 
 ## Финальный review closure
 
@@ -127,8 +136,6 @@ offline edit/delete analytics, отдельные access/refresh expiry, partial
 edit -> delete rebase и `uncategorized` breakdown имеют regression coverage.
 Final reviewer: **APPROVE for code/CI**.
 
-Production deploy preflight остаётся **BLOCKED / NOT PERFORMED**:
-`protection_rules=[]`, release branch
-`prod/release-finance-ios-backend-20260822` не запушена, production DB на
-`20260618_0017`, health HTTP 200, HTTPS/FQDN отсутствует, head
-`20260822_0019` не применён.
+Production deploy: **PASS**, run `32604838031`; DB migrated to
+`20260822_0019`; backup/smoke PASS. Final independent review exact
+`db7ebdd...`: **APPROVE**, no P0-P3. Physical iPhone remains NOT RUN.

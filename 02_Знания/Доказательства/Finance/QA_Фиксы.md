@@ -4,7 +4,7 @@ id: "qa-fixes-finance"
 статус: "активно"
 проект: "Finance"
 создано: "2026-06-06"
-обновлено: "2026-08-22"
+обновлено: "2026-08-23"
 ссылки:
   - "[[Finance]]"
   - "[[QA_Результаты]]"
@@ -357,9 +357,10 @@ Final status: PWA iPhone browser parity post-fix QA passed locally after `TopCat
 
 ## Wave 22 (2026-08-22): Native iOS final reviewer closure
 
-Final status: all P0/P1 findings from both native iOS review cycles are fixed at
+Historical predecessor status: all P0/P1 findings from both native iOS review cycles were fixed at
 `a5a332093587fc2467383686cca089877d03f90e`; Actions run `32563222674` PASS;
-reviewer verdict APPROVE for code/CI.
+reviewer verdict APPROVE for code/CI. Superseded by exact code `db7ebdd...`,
+iOS run `32603535573` and production run `32604838031` recorded in Wave 29.
 
 | ID | Description | Area | Date | Verified |
 |----|-------------|------|------|----------|

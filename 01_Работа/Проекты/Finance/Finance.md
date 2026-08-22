@@ -5,7 +5,7 @@ id: "project-finance"
 статус: "активно"
 владелец: "rocketflow-team"
 создано: "2026-06-01"
-обновлено: "2026-08-22"
+обновлено: "2026-08-23"
 уверенность: "средняя"
 теги: ["проект", "finance", "финансы", "учёт", "MVP"]
 источники:
@@ -71,6 +71,30 @@ Contract-first монолит-монорепо. Backend FastAPI — единст
 ## Текущая стадия
 
 **Production MVP functional GO (2026-05-19)** — закрытый MVP в production.
+
+### Текущий production release и native iOS handoff (2026-08-23)
+
+- Deployed exact code:
+  `db7ebdd41a35018ae59e1fc4f5c5e38f0ed37de6`.
+- Immutable release branch:
+  `prod/release-finance-ios-current-parity-20260823-db7ebdd`.
+- Production Actions run `32604838031` — SUCCESS; backend/frontend release
+  `20260822T231803Z-db7ebdd4`; service active through `/opt/finance/current`.
+- DB migrated `20260618_0017 -> 20260822_0018 -> 20260822_0019`; pre-upgrade
+  backup SHA-256
+  `238d8d441b5bacca2a5f0ddba728cdf4066c34bd0e32a6c1a589f13cfcd57142`.
+- Health/OpenAPI/frontend/service-worker/auth/read-only production smoke PASS;
+  rollback не запускался.
+- iOS run `32603535573` PASS: Debug/Release/Personal, normal 87/0, personal
+  10/0. Independent reviewer: APPROVE, no P0-P3.
+- Physical iPhone signing/install/login remains NOT RUN. Ordinary Release is
+  HTTPS-only. Owner/family PersonalSideloadHTTP waiver remains valid only in its
+  narrow scope and must be reviewed by 2026-11-22.
+- Mac Codex copy-paste task: project
+  `docs/ios-native-mac-codex-install-prompt.md`; architecture handoff:
+  `docs/ios-native-mac-handoff.md`.
+- Production QA credentials are discoverable only through
+  [[QA_Учетная_Запись_Production_20260822]]; do not duplicate them.
 
 ### Production deploy policy (2026-06-13)
 

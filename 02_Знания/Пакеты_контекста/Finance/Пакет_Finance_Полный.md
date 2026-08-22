@@ -4,7 +4,7 @@ id: "context-package-finance-full"
 проект: "Finance"
 название: "Пакет Finance — Полный контекст"
 создано: "2026-06-01"
-обновлено: "2026-08-22"
+обновлено: "2026-08-23"
 уверенность: "высокая"
 теги: ["пакет_контекста", "finance", "агрегация"]
 источники:
@@ -22,6 +22,7 @@ id: "context-package-finance-full"
   - "[[QA_ТестКейсы_Native_iOS_Personal_20260821]]"
   - "[[QA_ТестКейсы_Android_Production_20260822]]"
   - "[[Док_Release_Android_Production_20260822]]"
+  - "[[Док_Release_Native_iOS_Current_Parity_20260822]]"
   - "[[QA_Учетная_Запись_Production_20260822]]"
   - "[[Док_Release_NewDis_20260608]]"
   - "[[Док_Release_Planning_MVP_20260607]]"
@@ -208,7 +209,9 @@ P1-B02, P1-B03, tag misalignment; production deploy текущей постав�
 - Retention: NEVER DELETE / persistent test account; cleanup only if owner explicitly requests.
 - Search keywords: Finance Production QA account; persistent production test account; NEVER DELETE; qa login; Android prod E2E; PWA prod smoke; finance.qa.prod.20260711.6cb15851@local.test.
 
-## Personal-only/native iOS handoff (2026-08-21)
+## Personal-only/native iOS handoff (2026-08-21, historical predecessor)
+
+> Superseded by [[#Native iOS + production closure context (2026-08-23)]].
 
 - Active handoff branch: `codex/ios-native-personal-parity-20260820`; verified
   commit `96aa58226ad8f80834ea333192ebace7885d69c2`.
@@ -251,3 +254,24 @@ P1-B02, P1-B03, tag misalignment; production deploy текущей постав�
 - Source of truth: [[Док_Release_Android_Production_20260822]],
   [[QA_ТестКейсы_Android_Production_20260822]],
   [[QA_Результаты#Wave 27 Android production release (2026-08-22)]].
+## Native iOS + production closure context (2026-08-23)
+
+- Deployed code: `db7ebdd41a35018ae59e1fc4f5c5e38f0ed37de6`.
+- Immutable release branch:
+  `prod/release-finance-ios-current-parity-20260823-db7ebdd`.
+- iOS CI `32603535573` PASS; production CI-only `32604090062` PASS;
+  production deploy `32604838031` PASS.
+- Production release ID: `20260822T231803Z-db7ebdd4`; DB current
+  `20260822_0019`; backup and sanitized auth/read-only smoke PASS.
+- Independent review exact SHA: APPROVE, no P0-P3.
+- Physical iPhone signing/install remains NOT RUN.
+- Ordinary Release remains HTTPS-only. Personal owner/family sideload uses
+  `FinanceAppPersonalHTTP`/`PersonalSideloadHTTP`, exact
+  `http://45.10.110.42/finance-api`, separate bundle identity, development-only
+  signing, no archive/export, waiver review 2026-11-22.
+- Mac Codex prompt: project
+  `docs/ios-native-mac-codex-install-prompt.md`.
+- Test account locator: [[QA_Учетная_Запись_Production_20260822]]; credentials
+  must not be duplicated in prompts, evidence or logs.
+- Full release evidence: [[Док_Release_Native_iOS_Current_Parity_20260822]] and
+  [[QA_Результаты#Wave 29 Native iOS and production release closure (2026-08-23)]].

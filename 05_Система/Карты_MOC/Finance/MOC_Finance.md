@@ -5,7 +5,7 @@ id: "moc-finance"
 статус: "активно"
 владелец: "rocketflow-team"
 создано: "2026-06-01"
-обновлено: "2026-08-22"
+обновлено: "2026-08-23"
 уверенность: "высокая"
 теги: ["MOC", "finance", "навигация"]
 источники:
@@ -87,15 +87,16 @@ _(архитектурные и проектные решения — см. `04_
 - Latest PWA evidence — 2026-07-27 iPhone browser parity post-fix: [[QA_Результаты#Wave 25 PWA iPhone browser parity post-fix QA closure (2026-07-27)]], [[QA_Фиксы#Wave 21 (2026-07-27)]]. PWA unit/build PASS, local Playwright Chromium iPhone 14 smoke PASS for login/home/quick add/category overlay/analytics/top categories all; `TopCategoriesDialog` overlays FAB/bottom nav and inner list scrolls. Evidence `C:\Users\style\Documents\Codex\Финансы\MVP_EVIDENCE\pwa-iphone-parity-postfix-qa-20260727-005600\SUMMARY.md`; backend code unchanged; real iPhone/Safari, HTTPS secure-cookie and PWA/iOS OCR online-only risks remain.
 - Latest personal/native iOS evidence — 2026-08-21: [[QA_Результаты#Wave 26 Personal-only/native iOS final regression (2026-08-21)]]. Branch `codex/ios-native-personal-parity-20260820`, commit `96aa5822`; backend/Android/PWA full gates PASS; GitHub iOS run `32523201106` PASS, Debug/Release + XCTest 47/47 + UI 1/1. Native code/CI ready; physical prod login BLOCKED pending trusted HTTPS. `apps/ios` is target; legacy Capacitor is not.
 - Latest Android production evidence — 2026-08-22: [[QA_Результаты#Wave 27 Android production release (2026-08-22)]], [[Док_Release_Android_Production_20260822]]. Final source `43f4b178`, APK SHA-256 `b7244a339eb71bcb91dc8a02066e93bc219707691a350488315255a57f5cb1c4`, unit `167/167`, emulator targeted E2E PASS; backend Actions run `32540824773` PASS, frontend skipped, DB unchanged.
-- Latest native iOS current-parity evidence — 2026-08-22:
-  [[QA_Результаты#Wave 28 Native iOS final code approval (2026-08-22)]],
+- Latest native iOS/production evidence — 2026-08-23:
+  [[QA_Результаты#Wave 29 Native iOS and production release closure (2026-08-23)]],
   [[Док_Release_Native_iOS_Current_Parity_20260822]]. Integrated source
-  `a5a3320`; Actions run `32563222674` PASS, backend full 313 passed/6 skipped,
-  CI auth/migration 63, Alembic `20260822_0019`, iOS 77/77, UI 1/1,
-  Debug/Release PASS; reviewer APPROVE. Physical iPhone/signing and production
-  HTTPS/ATS remain NOT RUN/BLOCKED. Required reviewer superseded by the approved
-  solo-owner waiver; environment admits only `prod/release-*`. Backend deploy
-  was not run and DB remains `20260618_0017`.
+  `db7ebdd`; iOS run `32603535573` PASS, normal 87/0 and personal 10/0;
+  independent review APPROVE/no P0-P3. Production run `32604838031` PASS,
+  release `20260822T231803Z-db7ebdd4`, DB `20260822_0019`, backup/smoke PASS.
+  Physical iPhone signing/install remains NOT RUN. Ordinary Release remains
+  HTTPS-only; owner/family PersonalSideloadHTTP waiver review is 2026-11-22.
+  Mac Codex copy-paste prompt: project
+  `docs/ios-native-mac-codex-install-prompt.md`.
 
 
 ## Схемы

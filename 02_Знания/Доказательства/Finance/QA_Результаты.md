@@ -4,7 +4,7 @@ id: "qa-results-finance"
 статус: "активно"
 проект: "Finance"
 создано: "2026-06-06"
-обновлено: "2026-08-22"
+обновлено: "2026-08-23"
 ссылки:
   - "[[Finance]]"
   - "[[QA_Фиксы]]"
@@ -1255,7 +1255,9 @@ Evidence: [[Док_Release_Android_Production_20260822]]. Test model:
 [[QA_ТестКейсы_Android_Production_20260822]]. Reusable production account:
 [[QA_Учетная_Запись_Production_20260822]].
 
-## Wave 28 Native iOS final code approval (2026-08-22)
+## Wave 28 Native iOS final code approval (2026-08-22, historical predecessor)
+
+> Superseded by [[#Wave 29 Native iOS and production release closure (2026-08-23)]].
 
 **Scope:** secure iOS bearer session, account-scoped SwiftData/sync and current
 Android behavior parity integrated into native SwiftUI.
@@ -1296,3 +1298,43 @@ Evidence: [[Док_Release_Native_iOS_Current_Parity_20260822]]. Test model:
 [[QA_ТестКейсы_Native_iOS_Personal_20260821]]. Existing production QA account
 remains only in [[QA_Учетная_Запись_Production_20260822]]; no credentials were
 copied to project Git.
+## Wave 29 Native iOS and production release closure (2026-08-23)
+
+**Scope:** exact-SHA native iOS CI closure, independent review and GitHub Actions
+production deployment. Physical iPhone signing/install was not performed.
+
+| Check | Result |
+| --- | --- |
+| Integration branch | `codex/ios-native-current-parity-20260822` |
+| Immutable release branch | `prod/release-finance-ios-current-parity-20260823-db7ebdd` |
+| Deployed code | `db7ebdd41a35018ae59e1fc4f5c5e38f0ed37de6` |
+| iOS CI | PASS: run `32603535573`; Debug/Release/Personal; normal 87/0; personal 10/0 |
+| iOS artifact | `9483613408`; `sha256:52d98838dd947420e0093c308c58286ab3f5db831017030c4f64be61f6c7bc43` |
+| CI-only package proof | PASS: run `32604090062`; packages/common gate green; host/deploy skipped |
+| CI-only frontend artifact | `9483667044`; `sha256:0e430fdb2cfca47dcac29d18cec1351b45e17807fb2524800337c78a1db28bed` |
+| CI-only backend artifact | `9483674722`; `sha256:d38af135dab7b04ca1ce5c72c920f9e3f5b542eb73284964465d60fe3b522864` |
+| Independent review | APPROVE on exact SHA; no P0-P3 |
+| Production deploy | PASS: run `32604838031` |
+| New release | backend/frontend `20260822T231803Z-db7ebdd4` |
+| Previous releases | backend `finance-personal-backend-20260822-12a1b91f`; frontend `20260726T220603Z-55f4ac53` |
+| DB | PASS: `20260618_0017 -> 20260822_0018 -> 20260822_0019` |
+| Backup | PASS; SHA-256 `238d8d441b5bacca2a5f0ddba728cdf4066c34bd0e32a6c1a589f13cfcd57142` |
+| Smoke | PASS: health/OpenAPI/frontend/SW/auth rotation/logout/read-only personal endpoints |
+| Rollback | NOT REQUIRED; release branch retained |
+| Physical iPhone | NOT RUN: no signing/install/device smoke proof |
+
+Backup path:
+`/opt/finance/backups/postgres/finance_prod-20260822T232027Z-20260822T231803Z-db7ebdd4-20260618_0017-to-20260822_0019.dump`;
+sibling evidence suffix `.dump.evidence.txt`.
+
+Owner/family PersonalSideloadHTTP is isolated by target, bundle identity, exact
+ATS allowlist, development signing and no-archive/export policy. Waiver review:
+2026-11-22. Plaintext residual risk remains accepted only in that scope.
+
+Persistent production QA account remains discoverable through
+[[QA_Учетная_Запись_Production_20260822]] and must never be deleted. Credentials
+were not copied into this result.
+
+Project source of truth:
+`MVP_EVIDENCE/native-ios-current-parity-20260822/SUMMARY_SANITIZED.md` and
+`docs/ios-native-mac-codex-install-prompt.md`.

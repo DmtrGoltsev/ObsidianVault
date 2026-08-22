@@ -5,7 +5,7 @@ id: "reg-deploy-finance"
 проект: "Finance"
 владелец: "rocketflow-team"
 создано: "2026-06-13"
-обновлено: "2026-08-22"
+обновлено: "2026-08-23"
 уверенность: "высокая"
 источники: ["docs/deploy/finance-production-install.md", ".github/workflows/finance-hexcore-prod-deploy.yml"]
 доказательства: []
@@ -201,3 +201,33 @@ Status: backend production deploy successful for monthly investment transfer sum
 - Backup evidence file: `/opt/finance/backups/postgres/finance_prod-20260726T195057Z-20260726T194858Z-6a8d2656-20260618_0017-to-20260618_0017.dump.evidence.txt`.
 - Direct local SSH/SCP was not used.
 - Caveat: workflow emails may say failed due frontend job; backend deploy itself is successful. PWA failure signatures: `apps/web-pwa/src/App.test.tsx:709` expected `70`, got `Расходы месяца0 $`; `apps/web-pwa/src/App.test.tsx:799` date-range assertion.
+## Native iOS parity production deploy record (2026-08-23)
+
+Status: SUCCESS. Historical statements that current DB is `20260618_0017` or
+that this iOS release was not deployed remain evidence of the earlier state and
+are superseded by this record.
+
+- Release branch:
+  `prod/release-finance-ios-current-parity-20260823-db7ebdd`.
+- Exact deployed code:
+  `db7ebdd41a35018ae59e1fc4f5c5e38f0ed37de6`.
+- GitHub Actions:
+  `https://github.com/DmtrGoltsev/finance/actions/runs/32604838031` — success.
+- Pipeline order: packages -> common gate -> host preflight -> backend ->
+  frontend.
+- Current backend/frontend release ID: `20260822T231803Z-db7ebdd4`.
+- Previous backend: `finance-personal-backend-20260822-12a1b91f`.
+- Previous frontend: `20260726T220603Z-55f4ac53`.
+- Service: active through `/opt/finance/current`.
+- DB: `20260618_0017 -> 20260822_0018 -> 20260822_0019`.
+- Backup:
+  `/opt/finance/backups/postgres/finance_prod-20260822T232027Z-20260822T231803Z-db7ebdd4-20260618_0017-to-20260822_0019.dump`.
+- Backup SHA-256:
+  `238d8d441b5bacca2a5f0ddba728cdf4066c34bd0e32a6c1a589f13cfcd57142`.
+- Smoke: health 200; OpenAPI 200/42; frontend/manifest/assets/SW 200;
+  login 201; refresh 200 rotated; logout 204; post-logout 401; personal
+  read-only endpoints 200.
+- Direct manual SSH/SCP was not used. Rollback was not required; release branch
+  retained for the rollback window.
+- Sanitized downloaded run evidence outside Git:
+  `C:\Users\style\Documents\Codex\Finance-release-evidence\32604838031`.
