@@ -73,6 +73,8 @@ _(архитектурные и проектные решения — см. `04_
 - [[QA_ТестКейсы_Native_iOS_Personal_20260821]] — native iOS personal-only test model, Mac/device gates и HTTPS blocker
 - [[QA_ТестКейсы_Android_Production_20260822]] — Android secure session, account-isolated sync и production release regression model
 - [[Док_Release_Android_Production_20260822]] — sanitized Android APK/backend deploy evidence 2026-08-22
+- [[Док_Release_Native_iOS_Current_Parity_20260822]] — integrated native iOS CI
+  evidence, current-parity traceability и внешние signing/HTTPS blockers
 - [[QA_Учетная_Запись_Production_20260822]] — PRODUCTION TEST ACCOUNT, `NEVER DELETE`; restricted QA credential locator
 - Production QA persistent account (2026-07-11): account metadata and the owner-managed credential boundary are in [[QA_Результаты#Production QA persistent account (2026-07-11)]]. Keywords: Finance Production QA account; persistent production test account; NEVER DELETE; qa login; Android prod E2E; PWA prod smoke; finance.qa.prod.20260711.6cb15851@local.test.
 - [[Док_Release_NewDis_20260608]] — sanitized closure/evidence по production frontend release `newDis`, commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b`; latest Android critical investment fix addendum 2026-06-12 records project commit `d8175116f5123b6a304d4bd22dc083f2725505a0`
@@ -85,6 +87,12 @@ _(архитектурные и проектные решения — см. `04_
 - Latest PWA evidence — 2026-07-27 iPhone browser parity post-fix: [[QA_Результаты#Wave 25 PWA iPhone browser parity post-fix QA closure (2026-07-27)]], [[QA_Фиксы#Wave 21 (2026-07-27)]]. PWA unit/build PASS, local Playwright Chromium iPhone 14 smoke PASS for login/home/quick add/category overlay/analytics/top categories all; `TopCategoriesDialog` overlays FAB/bottom nav and inner list scrolls. Evidence `C:\Users\style\Documents\Codex\Финансы\MVP_EVIDENCE\pwa-iphone-parity-postfix-qa-20260727-005600\SUMMARY.md`; backend code unchanged; real iPhone/Safari, HTTPS secure-cookie and PWA/iOS OCR online-only risks remain.
 - Latest personal/native iOS evidence — 2026-08-21: [[QA_Результаты#Wave 26 Personal-only/native iOS final regression (2026-08-21)]]. Branch `codex/ios-native-personal-parity-20260820`, commit `96aa5822`; backend/Android/PWA full gates PASS; GitHub iOS run `32523201106` PASS, Debug/Release + XCTest 47/47 + UI 1/1. Native code/CI ready; physical prod login BLOCKED pending trusted HTTPS. `apps/ios` is target; legacy Capacitor is not.
 - Latest Android production evidence — 2026-08-22: [[QA_Результаты#Wave 27 Android production release (2026-08-22)]], [[Док_Release_Android_Production_20260822]]. Final source `43f4b178`, APK SHA-256 `b7244a339eb71bcb91dc8a02066e93bc219707691a350488315255a57f5cb1c4`, unit `167/167`, emulator targeted E2E PASS; backend Actions run `32540824773` PASS, frontend skipped, DB unchanged.
+- Latest native iOS current-parity evidence — 2026-08-22:
+  [[QA_Результаты#Wave 28 Native iOS current parity integration (2026-08-22)]],
+  [[Док_Release_Native_iOS_Current_Parity_20260822]]. Integrated source
+  `33df6710`; Actions run `32556492248` PASS, backend 29, iOS 69/69, UI
+  1/1. Physical iPhone/signing and production HTTPS/ATS remain NOT RUN/BLOCKED;
+  migration `20260822_0018` was not deployed in this wave.
 
 
 ## Схемы
