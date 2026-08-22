@@ -355,4 +355,21 @@ Final status: PWA iPhone browser parity post-fix QA passed locally after `TopCat
 | PWA-TOP-CATEGORIES-INTERNAL-SCROLL | Long all-categories content scrolls inside the dialog list container | PWA modal scroll | 2026-07-27 | Yes: inner `.listStack` `clientHeight=570`, `scrollHeight=2594`, `after=2024` |
 | PWA-PARITY-BACKEND-BOUNDARY | Backend code was not changed in this PWA parity task | Release boundary | 2026-07-27 | Documented |
 
+## Wave 22 (2026-08-22): Native iOS final reviewer closure
+
+Final status: all P0/P1 findings from both native iOS review cycles are fixed at
+`a5a332093587fc2467383686cca089877d03f90e`; Actions run `32563222674` PASS;
+reviewer verdict APPROVE for code/CI.
+
+| ID | Description | Area | Date | Verified |
+|----|-------------|------|------|----------|
+| IOS-OFFLINE-CAP-REAL-PATH | Keychain restore enforces 72-hour offline cap | iOS auth/security | 2026-08-22 | Yes: XCTest/final review |
+| IOS-ACCESS-REFRESH-EXPIRY | Access TTL 15m is separate from sliding refresh/session TTL 30d; real 401 refresh path works | Backend/iOS auth | 2026-08-22 | Yes: backend + iOS regression |
+| IOS-LOGOUT-REFRESH-RACE | Logout uses stable session-bound revoke proof across refresh race | Backend/iOS auth | 2026-08-22 | Yes: regression + review |
+| IOS-OFFLINE-ANALYTICS-EDIT-DELETE | Queued edit/delete updates selected-month analytics before sync | iOS analytics/sync | 2026-08-22 | Yes: XCTest |
+| IOS-PARTIAL-EDIT-DELETE-REBASE | Dependent delete receives applied edit version and analytics baseline | iOS sync | 2026-08-22 | Yes: partial-sync regression |
+| IOS-UNCATEGORIZED-DELTA | Uncategorized expense edit/delete uses canonical `uncategorized` delta | iOS analytics | 2026-08-22 | Yes: regression |
+| IOS-FINAL-CI | Backend 313 passed/6 skipped; CI auth/migration 63; Alembic `0019`; iOS 77/77; UI 1/1; Debug/Release PASS | Release gate | 2026-08-22 | Yes: run `32563222674` |
+| IOS-PROD-PREFLIGHT | Production deploy not performed: `protection_rules=[]`, release branch local/not pushed, DB `0017`, health HTTP 200, no HTTPS/FQDN | Release boundary | 2026-08-22 | BLOCKED / documented |
+
 ## Коммиты

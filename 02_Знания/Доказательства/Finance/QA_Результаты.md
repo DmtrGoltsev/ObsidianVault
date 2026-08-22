@@ -1255,18 +1255,19 @@ Evidence: [[Док_Release_Android_Production_20260822]]. Test model:
 [[QA_ТестКейсы_Android_Production_20260822]]. Reusable production account:
 [[QA_Учетная_Запись_Production_20260822]].
 
-## Wave 28 Native iOS current parity integration (2026-08-22)
+## Wave 28 Native iOS final code approval (2026-08-22)
 
 **Scope:** secure iOS bearer session, account-scoped SwiftData/sync and current
 Android behavior parity integrated into native SwiftUI.
 
 | Gate | Result |
 | --- | --- |
-| Integrated source | PASS: `33df6710a7ee3fb6386634563a0e8c5a33b80d20` |
-| GitHub Actions | PASS: run `32556492248` on exact SHA |
-| Backend auth/migration | PASS: 29 tests, Ruff, one Alembic head `20260822_0018` |
+| Final source | PASS: `a5a332093587fc2467383686cca089877d03f90e` |
+| GitHub Actions | PASS: run `32563222674` on exact SHA |
+| Backend full local | PASS: 313 passed, 6 skipped |
+| Backend auth/migration CI | PASS: 63 tests, Ruff, one Alembic head `20260822_0019` |
 | Native builds | PASS: XcodeGen, Debug and Release |
-| XCTest | PASS: 69/69 |
+| XCTest | PASS: 77/77 |
 | Launch UI | PASS: 1/1 |
 | Secure session/refresh/403/logout | PASS automated |
 | A -> B isolation, SwiftData migration and transactional sync | PASS automated |
@@ -1274,11 +1275,22 @@ Android behavior parity integrated into native SwiftUI.
 | Personal-only and OCR online-only | PASS automated |
 | Physical iPhone/signing | NOT RUN/BLOCKED |
 | Production HTTPS/ATS | NOT RUN/BLOCKED |
-| Backend production deploy/migration | NOT PERFORMED |
+| Final reviewer | APPROVE for code/CI; no open P0/P1 in reviewed scope |
+| Backend production deploy/migration | PREFLIGHT BLOCKED / NOT PERFORMED |
 
 Worker evidence: secure session run `32554005096`, SwiftData/sync run
-`32554343934`, UX parity run `32552813248`. Integrated release conclusion
-uses run `32556492248`.
+`32554343934`, UX parity run `32552813248`. Final code/CI conclusion uses run
+`32563222674`.
+
+Review cycle 1 closed the real-path 72-hour offline restore cap, refresh
+lifetime, offline edit/delete analytics and logout-vs-refresh race. Review
+cycle 2 closed access/refresh expiry separation, partial edit -> delete
+analytics rebase and uncategorized expense breakdown.
+
+Production preflight facts: environment `production` has
+`protection_rules=[]`; branch `prod/release-finance-ios-backend-20260822` is
+local and not pushed; production DB remains `20260618_0017`; health HTTP 200;
+HTTPS/FQDN absent; Alembic `20260822_0019` not applied.
 
 Evidence: [[Док_Release_Native_iOS_Current_Parity_20260822]]. Test model:
 [[QA_ТестКейсы_Native_iOS_Personal_20260821]]. Existing production QA account

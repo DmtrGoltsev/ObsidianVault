@@ -22,9 +22,10 @@ id: "finance-qa-native-ios-personal-20260821"
 ## Зафиксированная база
 
 - Branch: `codex/ios-native-current-parity-20260822`.
-- Verified commit: `33df6710a7ee3fb6386634563a0e8c5a33b80d20`.
-- CI: `https://github.com/DmtrGoltsev/finance/actions/runs/32556492248`.
-- Native automated baseline: backend 29, Debug/Release PASS, XCTest 69/69,
+- Verified commit: `a5a332093587fc2467383686cca089877d03f90e`.
+- CI: `https://github.com/DmtrGoltsev/finance/actions/runs/32563222674`.
+- Native automated baseline: backend full 313 passed/6 skipped, CI auth/migration
+  63, Debug/Release PASS, XCTest 77/77,
   UI 1/1.
 - Репозиторный handoff: `docs/ios-native-mac-handoff.md`.
 - Evidence: `MVP_EVIDENCE/native-ios-current-parity-20260822/SUMMARY_SANITIZED.md`.
@@ -71,7 +72,7 @@ Release evidence: [[Док_Release_Native_iOS_Current_Parity_20260822]].
 | FIN-IOS-BLD-002 | P0 | Debug device build без signing | `BUILD SUCCEEDED` | PASS CI |
 | FIN-IOS-BLD-003 | P0 | Release device build без signing с HTTPS URL | `BUILD SUCCEEDED` | PASS CI |
 | FIN-IOS-BLD-004 | P0 | Release с пустым/plain HTTP/local API URL | Приложение блокирует небезопасную конфигурацию | PASS automated/static |
-| FIN-IOS-TST-001 | P0 | Полный XCTest | 69/69, 0 failures | PASS CI |
+| FIN-IOS-TST-001 | P0 | Полный XCTest | 77/77, 0 failures | PASS CI |
 | FIN-IOS-TST-002 | P0 | Launch UI personal-only | Вход/регистрация видимы; `Общее`/`Мой обзор` отсутствуют | PASS CI, 1/1 |
 | FIN-IOS-PER-001 | P0 | Account/category/asset list API | Только personal scope, household rows отфильтрованы | PASS automated/static |
 | FIN-IOS-PER-002 | P0 | Reports API | `reportMode=personal`, `householdId=nil` | PASS automated/static |
@@ -118,3 +119,16 @@ trusted HTTPS endpoint. Запрещён произвольный ATS exception.
    контролем продления и мониторингом срока.
 
 Plain HTTP production IP не является допустимым Release endpoint.
+
+## Финальный review closure
+
+Оба reviewer-цикла закрыты: 72-hour restore cap, refresh/logout race,
+offline edit/delete analytics, отдельные access/refresh expiry, partial
+edit -> delete rebase и `uncategorized` breakdown имеют regression coverage.
+Final reviewer: **APPROVE for code/CI**.
+
+Production deploy preflight остаётся **BLOCKED / NOT PERFORMED**:
+`protection_rules=[]`, release branch
+`prod/release-finance-ios-backend-20260822` не запушена, production DB на
+`20260618_0017`, health HTTP 200, HTTPS/FQDN отсутствует, head
+`20260822_0019` не применён.
