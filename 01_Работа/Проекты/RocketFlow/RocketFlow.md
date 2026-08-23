@@ -5,10 +5,11 @@ id: "proj-rocketflow"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-08-22"
+обновлено: "2026-08-23"
 уверенность: "высокая"
-источники: ["docs/33-current-state-summary.md", "docs/68-scroll-and-priority-retirement-delivery.md", "docs/66-weekly-focus-calendar-delivery.md", "README.md", "docs/04-architecture-blueprint.md"]
-доказательства: ["Док_V21_Scroll_Priority_20260822", "Док_Production_Rollout_20260810", "docs/50-notification-runtime-clean-pass.md", "Док_Calendar_Weekly_Focus_WebPush_20260810", "Док_Cleanup_Manifest", "Док_Backend_Verification", "Док_Web_Verification", "Док_Android_Verification", "Док_Prod_Deploy_State"]
+источники: ["README.md", "docs/33-current-state-summary.md", "docs/58-github-cicd-policy.md", "docs/60-hexcore-prod-runbook.md", "docs/70-native-ios-parity-contract.md", "docs/71-native-ios-delivery.md", "ios/README.md", "docs/production/rocketflow-live-status.md"]
+доказательства: ["Док_iOS_Verification", "Док_Prod_Deploy_State"]
+исторические_доказательства: ["Док_V21_Scroll_Priority_20260822", "Док_Production_Rollout_20260810", "docs/50-notification-runtime-clean-pass.md", "Док_Calendar_Weekly_Focus_WebPush_20260810", "Док_Cleanup_Manifest", "Док_Backend_Verification", "Док_Web_Verification", "Док_Android_Verification"]
 теги: ["проект", "rocketflow", "mvp"]
 ---
 
@@ -25,24 +26,33 @@ id: "proj-rocketflow"
 | Backend | Java 21, Spring Boot 3.4.5, Spring Security, Spring Data JPA, Flyway, PostgreSQL 18.4 ([[Док_Prod_Deploy_State|production evidence]]) |
 | Web | React 18, TypeScript 5, Vite 5, react-router-dom 6, lucide-react |
 | Android | Kotlin 1.9.24, minSdk 26, targetSdk 34, WorkManager 2.9.1, FCM 24.1.0 |
-| CI/CD | GitHub Actions (ubuntu-24.04) |
+| iOS | Native iOS 16+, Swift/SwiftUI, GRDB, XcodeGen, Swift Package Manager |
+| CI/CD | GitHub Actions; macOS iOS Verify и platform-specific backend/web/Android lanes |
 | Production | [[HexCore]] (45.10.110.42), systemd + Nginx |
 | Тестирование | JUnit + Embedded PostgreSQL (zonky), Robolectric 4.12.2 |
 
 ## Архитектура
 
-[[Modular_Monolith]] — один бэкенд, одна БД, один фоновый планировщик, web SPA, Android клиент.
+[[Modular_Monolith]] — один бэкенд, одна БД, один фоновый планировщик, web SPA, Android и native iOS клиенты.
 
 Модули бэкенда: `auth`, `accounts`, `settings`, `folders`, `goals`, `tasks`, `sharing`, `calendar`, `recurrence`, `reminders`, `notifications`, `ideas`, `links`, `notes`, `health`, `common`, `config`. Legacy priority-policy wire/storage остаётся временным слоем совместимости V21 с V20 application rollback и старыми APK.
 
 ## Текущий статус
 
+- Current repo docs HEAD: branch `codex/native-ios-companion`, docs-only SHA `201a3de8657e56a3a67e1051522cb5793ce5c0b7`.
+- Immutable app-code/build evidence: SHA `35e98d965cf49a356e5a7a7ebdbc59afaa1f9fb3`, проверенный на этой ветке run `32655691351`; это не текущий branch HEAD.
+- Native iOS 16+ готов для clone/build/test на simulator: Planner, Calendar, Focus, offline GRDB/sync/conflicts, details/editors/sharing, reminders, RU/EN, durable restoration/deep links и account safety.
+- [iOS Verify run 32655691351](https://github.com/DmtrGoltsev/RocketFlow/actions/runs/32655691351), job `97233929959`: project/package parity и build PASS, `540` unit + `2` UI tests PASS; artifacts `9497494137` и `9497494432`. Exact evidence: [[Док_iOS_Verification]].
+- CI scheduling commit `0bbf4acb` пока candidate-only: email storm остановлен на `codex/native-ios-companion`, но `origin/master` `7d1ac74cf8f2bf7935c2578f3675db4ca54764bb` не содержит policy/`ios-verify`; default behavior изменится после merge. Production workflows unchanged, branch protection не настроена; [[MOC_DevOps]].
+- App Store/public iOS release остаётся **NO-GO** до Apple signing/team, `GoogleService-Info.plist` + APNs/Firebase, production deploy V22, HTTPS и real-device/accessibility/manual acceptance.
+
 - Production rollout 2026-08-22 PASS: exact source SHA `50a63270ae094fe08ee57b945be0930cb1115dfe`, release `sha-50a63270ae09`, [GitHub Actions run 32551808905](https://github.com/DmtrGoltsev/RocketFlow/actions/runs/32551808905) `success`.
-- Backend и web promoted совместно; Flyway `20 -> 21`; backend health и web вернули HTTP `200`; duplicate promotion и rollback отсутствуют.
+- Backend и web promoted совместно; preflight был `>=20`, manifest target и post-start count `>=21`; фактический Flyway достиг V21 (`21/21`). Backend health и web вернули HTTP `200`; duplicate promotion и rollback отсутствуют.
+- Production server baseline остаётся V21 (`21/21`). Candidate V22 для iOS device registrations находится только в repository и не deployed; production DB в этой документационной задаче не проверялась.
 - Authenticated disposable API smoke PASS; cleanup завершён, за окно smoke HTTP `5xx` — `0`.
 - Personal direct-sideload APK `0.1.1` (`versionCode 2`) подписан и проверен: SHA-256 `3DF9EB210D801D932A4C736A0EF682C8C0AADCB36536B81CA19267F326C52AF7`; `adb install -r` сохранил UID и `firstInstallTime`; cold launch PASS, crash/ANR `0/0`, текущий экран — Login.
 - Rollout выполнен по одноразовому [[ADR_V21_Release_Backup_Waiver]] без fresh DB recovery point. Waiver consumed и не является precedent; постоянный gate [[Задача_Production_Deploy_Backup_Rollback]] остаётся открытым.
-- Canonical current evidence: [[Док_Prod_Deploy_State]], [[Док_V21_Scroll_Priority_20260822]], [[Док_Android_Verification]].
+- Canonical current evidence: [[Док_Prod_Deploy_State]] и [[Док_iOS_Verification]]. Dated V20/V21 и Android sideload records ниже являются historical evidence.
 
 ### Исторический production rollout 2026-08-10
 
@@ -75,7 +85,7 @@ id: "proj-rocketflow"
 
 ## Команда
 
-Роли агентов: [[Оркестратор]], [[Агент_Бэкенд]], [[Агент_Веб]], [[Агент_Android]], [[Агент_QA]], [[Агент_DevOps]]
+Роли агентов: [[Оркестратор]], [[Агент_Бэкенд]], [[Агент_Веб]], [[Агент_Android]], [[Агент_iOS]], [[Агент_QA]], [[Агент_DevOps]]
 
 ## Окружения
 
@@ -88,12 +98,17 @@ id: "proj-rocketflow"
 - [ ] [[Задача_Production_Deploy_Backup_Rollback]] — dedicated backup identity, fresh verified backup before promotion и tested application rollback для будущих releases.
 - Production-equivalent FCM/Web Push configuration и provider smoke.
 - Android Play Store release identity и production Firebase configuration остаются отдельными gates; personal APK `0.1.1` подтверждён только для direct sideload.
+- Apple signing/team и App Store provisioning.
+- `GoogleService-Info.plist`, APNs/Firebase и production deploy V22 для iOS push.
+- HTTPS вместо временного host-scoped HTTP ATS exception.
+- iOS real-device, accessibility и manual acceptance.
 
 ## Известные риски
 
 - Одноразовый waiver для exact SHA `50a63270ae094fe08ee57b945be0930cb1115dfe` consumed при успешном rollout; fresh DB recovery point для этого release отсутствует. Waiver не может использоваться повторно: [[ADR_V21_Release_Backup_Waiver]].
 - Web Push и Focus cadence нельзя включать до production-equivalent credentials/configuration и контролируемого provider smoke.
 - Android debug/unit evidence не закрывает signing, Play-services device и production FCM delivery.
+- Green iOS simulator CI не закрывает Apple signing, real-device, production push или App Store acceptance; V22 не deployed.
 - Historical baseline и current feature checkpoint должны оставаться явно разделены.
 
 ## Документация
@@ -113,11 +128,13 @@ id: "proj-rocketflow"
 - [[Док_Cleanup_Manifest]] — cleanup/evidence manifest
 - [[Док_Backend_Verification]], [[Док_Web_Verification]], [[Док_Android_Verification]] — статус verification после audit
 - [[Док_Prod_Deploy_State]] — фактическая production deploy model
-- [[Док_V21_Scroll_Priority_20260822]] — V21 delivery и production rollout evidence
+- [[Док_V21_Scroll_Priority_20260822]] — historical V21 delivery и production rollout evidence
+- [[MOC_iOS]], [[Пакет_iOS]], [[Агент_iOS]] — iOS architecture, handoff и ownership
+- [[Док_iOS_Verification]] — exact iOS run/job/tests/artifacts и release boundary
 - [[ADR_V21_Release_Backup_Waiver]] — исполненный одноразовый waiver для exact SHA
 - [[Задача_Production_Deploy_Backup_Rollback]] — открытый постоянный backup/rollback gate
-- [[Док_Calendar_Weekly_Focus_WebPush_20260810]] — текущий feature checkpoint и release boundary
-- [[Док_Production_Rollout_20260810]] — production rollout, backup, rollback readiness и smoke boundary
+- [[Док_Calendar_Weekly_Focus_WebPush_20260810]] — исторический feature checkpoint и release boundary
+- [[Док_Production_Rollout_20260810]] — historical V20 production rollout, backup, rollback readiness и smoke boundary
 
 ## Скрипты
 
@@ -127,7 +144,7 @@ id: "proj-rocketflow"
 
 ## Ветки
 
-- `codex/weekly-focus-calendar-web-push`, `release-weekly-focus-calendar-910c061de4af`, `MVP3`, `MVP2`, historical release refs, `master`
+- `codex/native-ios-companion`: current docs HEAD `201a3de8657e56a3a67e1051522cb5793ce5c0b7`; immutable verified app evidence `35e98d965cf49a356e5a7a7ebdbc59afaa1f9fb3`. Также: `codex/weekly-focus-calendar-web-push`, `release-weekly-focus-calendar-910c061de4af`, `MVP3`, `MVP2`, historical release refs, `master`.
 
 ## Final production CI/CD state (2026-06-19)
 
@@ -158,9 +175,11 @@ id: "proj-rocketflow"
 
 - [[Wave_A]], [[Wave_B]], [[Wave_C]] — завершённые волны
 - [[MVP3_Упрощение]] — текущая стадия
-- [[Док_Calendar_Weekly_Focus_WebPush_20260810]] — Calendar/Weekly Focus/Web Push checkpoint
-- [[Док_Production_Rollout_20260810]] — production rollout 2026-08-10
-- [[Док_V21_Scroll_Priority_20260822]] — production rollout 2026-08-22
+- [[Док_Calendar_Weekly_Focus_WebPush_20260810]] — historical Calendar/Weekly Focus/Web Push checkpoint
+- [[Док_Production_Rollout_20260810]] — historical V20 production rollout 2026-08-10
+- [[Док_V21_Scroll_Priority_20260822]] — historical V21 production rollout 2026-08-22
+- [[Док_iOS_Verification]] — green native iOS delivery 2026-08-23
+- [[MOC_iOS]] — native iOS карта
 - [[ADR_V21_Release_Backup_Waiver]] — consumed waiver для exact SHA
 - [[Задача_Production_Deploy_Backup_Rollback]] — будущий обязательный gate
 - [[Схема_Развертывания]] — схема деплоймента

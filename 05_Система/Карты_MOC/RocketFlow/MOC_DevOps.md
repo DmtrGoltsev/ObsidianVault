@@ -5,92 +5,60 @@ id: "moc-devops"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-08-10"
+обновлено: "2026-08-23"
 уверенность: "высокая"
-источники: ["docs/33-current-state-summary.md", "docs/04-architecture-blueprint.md"]
-доказательства: ["Док_Production_Rollout_20260810", "Док_Cleanup_Manifest", "Док_Prod_Deploy_State"]
-теги: ["moc", "devops", "rocketflow"]
+источники: ["docs/58-github-cicd-policy.md", "docs/60-hexcore-prod-runbook.md", "docs/71-native-ios-delivery.md", "docs/production/rocketflow-cicd-runbook.md", ".github/workflows/ios-verify.yml", "commit 0bbf4acb0ba9620b931fa843dc9d2997379304fb"]
+доказательства: ["Док_iOS_Verification", "Док_Prod_Deploy_State"]
+теги: ["moc", "devops", "ci-cd", "rocketflow"]
 ---
 
 # MOC DevOps
 
-Карта DevOps и CI/CD RocketFlow. GitHub Actions (ubuntu-24.04), [[HexCore]] production, jar/systemd + web static deploy, [[Flyway]]. [[Docker_Image|Docker/GHCR]] остаётся open gate.
+Карта CI/CD и production boundary RocketFlow. Verify lanes работают в GitHub Actions; iOS использует macOS, остальные платформы — свои workflow environments. Production остаётся jar/systemd backend + web static/Nginx на [[HexCore]].
 
-## CI/CD воркфлоу (4 основных)
+Current repo docs HEAD на candidate branch: `201a3de8657e56a3a67e1051522cb5793ce5c0b7`. Immutable iOS build/test evidence отдельно закреплено за app SHA `35e98d965cf49a356e5a7a7ebdbc59afaa1f9fb3` и run `32655691351`.
 
-### 1. backend-verify.yml
-- `mvn test` — модульные тесты с Embedded PostgreSQL
-- `mvn compile` — компиляция
-- Триггер: push, pull_request в backend/
-- См. [[Док_Backend_Тесты]]
+## Verify workflows
 
-### 2. web-verify.yml
-- `npm ci` + `npm run build` — сборка веб-клиента
-- Триггер: push, pull_request в web/
-- См. [[Док_Web_Build]]
-- Статус: build-only (без runtime тестов) — см. [[Задача_CI_Runtime_Lanes]]
+| Workflow | Основной gate |
+|---|---|
+| `backend-verify.yml` | backend compile/tests и repository-defined checks |
+| `web-verify.yml` | `npm test`, `npm audit --audit-level=low`, `npm run build` |
+| `android-verify.yml` | Android unit/build/lint |
+| `ios-verify.yml` | macOS: XcodeGen parity, Swift package lock parity, unsigned simulator build, unit/UI tests, xcresult и generated-project artifacts |
 
-### 3. android-verify.yml
-- Unit/build/lint lane: Android unit tests, debug build, lint
-- Триггер: push, pull_request в android/
-- См. [[Док_Android_Build]]
-- Статус: не build-only; instrumented/runtime verifier остаётся отдельным gate — см. [[Док_Android_Verification]], [[Задача_CI_Runtime_Lanes]]
+Точный green iOS checkpoint: app SHA `35e98d965cf49a356e5a7a7ebdbc59afaa1f9fb3`, проверенный на `codex/native-ios-companion`, [run 32655691351](https://github.com/DmtrGoltsev/RocketFlow/actions/runs/32655691351), job `97233929959`, `540` unit + `2` UI tests PASS. Текущий branch HEAD этим не определяется; см. [[Док_iOS_Verification]].
 
-### 4. backend-hexcore-prod-deploy.yml
-- Деплой backend jar на [[HexCore]] через systemd
-- Деплой web static через Nginx
-- [[Flyway]] миграции при старте
-- См. [[Регламент_Деплоя]], [[Док_Prod_Deploy_State]]
-- Rollout 2026-08-10: SHA `910c061de4af9395d9bb682624bd966b2977a738`, run `31357406631` success, Flyway `20/20`, health `UP/200`; см. [[Док_Production_Rollout_20260810]]
+## Trigger policy
 
-### GHCR publish
-- Актуальный GHCR workflow отсутствует или требует восстановления
-- Docker/GHCR не считать resolved без отдельного evidence — см. [[Задача_GHCR_Publish]]
+Candidate commit `0bbf4acb0ba9620b931fa843dc9d2997379304fb` задаёт в `codex/native-ios-companion` новый контракт для четырёх verify workflow files:
 
-## HexCore (production)
+- `workflow_dispatch` доступен на любой ref;
+- конфигурация `pull_request` targeting `master` объявлена автоматической fail-closed verification;
+- конфигурация `push` в `master` объявлена автоматической полной verification;
+- обычный push в feature/codex/release branch verify не запускает;
+- workflow-level path filters удалены, чтобы PR/master checks публиковались независимо от затронутого пути.
 
-[[HexCore]] — production-сервер (45.10.110.42):
-- systemd — управление сервисами
-- Nginx — reverse proxy + статика веб-клиента
-- PostgreSQL 18.4 — база данных; version evidence: [[Док_Production_Rollout_20260810]]
-- Production model — Java jar под systemd + web static через Nginx
+Это уже прекратило automatic verify runs и постоянные fail-email от push в candidate branch. Но `origin/master` на `7d1ac74cf8f2bf7935c2578f3675db4ca54764bb` ещё не содержит ни commit `0bbf4acb`, ни `ios-verify`; default-branch behavior изменится только после merge. Genuine manual/PR и будущие master failures могут уведомлять. Production deploy/package/rollback workflows unchanged. Branch protection не настроена и не менялась.
 
-## Окружения
+Living policy/runbooks: [`docs/58-github-cicd-policy.md`](https://github.com/DmtrGoltsev/RocketFlow/blob/201a3de8657e56a3a67e1051522cb5793ce5c0b7/docs/58-github-cicd-policy.md), [`docs/60-hexcore-prod-runbook.md`](https://github.com/DmtrGoltsev/RocketFlow/blob/201a3de8657e56a3a67e1051522cb5793ce5c0b7/docs/60-hexcore-prod-runbook.md), [`docs/71-native-ios-delivery.md`](https://github.com/DmtrGoltsev/RocketFlow/blob/201a3de8657e56a3a67e1051522cb5793ce5c0b7/docs/71-native-ios-delivery.md), [`docs/production/rocketflow-cicd-runbook.md`](https://github.com/DmtrGoltsev/RocketFlow/blob/201a3de8657e56a3a67e1051522cb5793ce5c0b7/docs/production/rocketflow-cicd-runbook.md).
 
-- **local** — локальная разработка
-- **CI** — GitHub Actions (сборка и тесты)
-- **staging** — предпродакшен (опционально)
-- **production** — [[HexCore]]
+## Production
 
-## Скрипты автоматизации
+- Current backend/web release: SHA `50a63270ae094fe08ee57b945be0930cb1115dfe`, release `sha-50a63270ae09`, Flyway V21 (`21/21`); preflight `>=20`, manifest/post `>=21`; evidence [[Док_Prod_Deploy_State]].
+- Candidate V22 для iOS device registrations находится только в repository и не deployed.
+- Production DB в рамках этой документационной актуализации не проверялась.
+- Production workflow нельзя запускать для обычной verification задачи.
 
-- `backend-hexcore-prod-deploy.yml` — фактический production deploy workflow
-- `Dockerfile` — сборка образа бэкенда; GHCR publish остаётся open gate
-- Flyway миграции — автозапуск при старте
+## iOS external gates
 
-## Бэкапы
+Simulator CI не закрывает Apple signing/team, `GoogleService-Info.plist`, APNs/Firebase, V22 production deploy, HTTPS и real-device/accessibility/manual acceptance. Поэтому clone/build на Mac — **GO**, App Store/public release — **NO-GO**; см. [[MOC_iOS]] и [[Док_iOS_Verification]].
 
-- PostgreSQL — pg_dump по расписанию (определяется runbook)
-- Fresh verified backup перед rollout 2026-08-10: metadata и `pg_restore -l` PASS зафиксированы в [[Док_Production_Rollout_20260810]]; payload в vault не хранится
-- Релизные tar.gz архивы вынесены в `C:\Users\style\Documents\RocketFlow_Archive\release-packages\`
-- Docker-образы/GHCR — open gate
-
-## Мониторинг и оповещения
-
-См. [[Регламент_Нотификационного_Смока]], [[Источник_Продакшен_Runbook]].
-
-## Связанные MOC
+## Связанные заметки
 
 - [[MOC_RocketFlow]] — главная карта
-- [[MOC_Бэкенд]] — бэкенд
-- [[MOC_Веб]] — веб-клиент
-- [[MOC_Android]] — Android-клиент
-
-## Связанные задачи
-
-- [[Задача_GHCR_Publish]]
-- [[Задача_CI_Runtime_Lanes]]
-- [[Ограничения_и_Риски]]
-- [[Док_Cleanup_Manifest]]
-- [[Док_Prod_Deploy_State]]
-- [[Док_Production_Rollout_20260810]]
+- [[MOC_Бэкенд]] — backend и migration boundary
+- [[MOC_iOS]] — native iOS
+- [[Агент_DevOps]], [[Агент_QA]] — исполнительные роли
+- [[Регламент_CI_CD]], [[Регламент_Деплоя]] — регламенты
+- [[Задача_Production_Deploy_Backup_Rollback]], [[Задача_GHCR_Publish]], [[Задача_CI_Runtime_Lanes]] — открытые инфраструктурные задачи

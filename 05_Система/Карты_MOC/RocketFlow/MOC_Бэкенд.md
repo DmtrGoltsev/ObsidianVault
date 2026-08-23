@@ -5,16 +5,17 @@ id: "moc-backend"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-08-22"
+обновлено: "2026-08-23"
 уверенность: "высокая"
-источники: ["docs/04-architecture-blueprint.md", "docs/03-domain-specification.md"]
-доказательства: ["Док_Backend_Verification", "Док_Prod_Deploy_State", "Док_Production_Rollout_20260810"]
+источники: ["docs/04-architecture-blueprint.md", "docs/03-domain-specification.md", "docs/33-current-state-summary.md", "docs/60-hexcore-prod-runbook.md", "docs/production/rocketflow-live-status.md"]
+доказательства: ["Док_Prod_Deploy_State", "Док_iOS_Verification"]
+исторические_доказательства: ["Док_Backend_Verification", "Док_Production_Rollout_20260810", "Док_V21_Scroll_Priority_20260822"]
 теги: ["moc", "backend", "rocketflow"]
 ---
 
 # MOC Бэкенд
 
-Карта бэкенд-компонентов RocketFlow. Java 21, Spring Boot 3.4.5, Spring Security, Spring Data JPA, PostgreSQL 18.4 в production, Flyway, Docker. Version evidence: [[Док_Production_Rollout_20260810]].
+Карта бэкенд-компонентов RocketFlow. Java 21, Spring Boot 3.4.5, Spring Security, Spring Data JPA, PostgreSQL 18.4 в production, Flyway, Docker. Current production evidence: [[Док_Prod_Deploy_State]]; [[Док_Production_Rollout_20260810]] относится только к historical V20 checkpoint.
 
 ## Модули
 
@@ -51,7 +52,9 @@ id: "moc-backend"
 
 ## Миграции
 
-Production: [[Flyway]] V20 (`20/20`). Current worktree target: metadata-only V21, не deployed. См. [[ADR_Flyway_Миграции]], [[Док_V21_Scroll_Priority_20260822]].
+Production baseline: [[Flyway]] V21 (`21/21`) на exact backend SHA `50a63270ae094fe08ee57b945be0930cb1115dfe`; deploy contract требует preflight `>=20`, manifest target и post-start count `>=21`. Current carried-forward state: [[Док_Prod_Deploy_State]]; [[Док_V21_Scroll_Priority_20260822]] — historical rollout evidence. Candidate V22 добавляет backend support для iOS device registrations, но находится только в repository и в production не развёрнут. Production DB при актуализации vault не перепроверялась.
+
+До deploy V22 нельзя заявлять production iOS push end-to-end; полный список внешних гейтов находится в [[Док_iOS_Verification]].
 
 ## Тестирование
 

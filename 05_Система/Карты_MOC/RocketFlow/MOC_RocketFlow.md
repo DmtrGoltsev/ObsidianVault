@@ -5,16 +5,21 @@ id: "moc-rocketflow-main"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-08-22"
+обновлено: "2026-08-23"
 уверенность: "высокая"
-источники: ["docs/33-current-state-summary.md", "docs/68-scroll-and-priority-retirement-delivery.md", "docs/66-weekly-focus-calendar-delivery.md", "README.md"]
-доказательства: ["Док_V21_Scroll_Priority_20260822", "Док_Production_Rollout_20260810", "Док_Calendar_Weekly_Focus_WebPush_20260810", "Док_Cleanup_Manifest", "Док_Backend_Verification", "Док_Web_Verification", "Док_Android_Verification", "Док_Artifacts_Retention_Policy", "Док_Prod_Deploy_State"]
+источники: ["README.md", "docs/33-current-state-summary.md", "docs/58-github-cicd-policy.md", "docs/70-native-ios-parity-contract.md", "docs/71-native-ios-delivery.md", "ios/README.md"]
+доказательства: ["Док_iOS_Verification", "Док_Prod_Deploy_State", "Док_Artifacts_Retention_Policy"]
+исторические_доказательства: ["Док_V21_Scroll_Priority_20260822", "Док_Production_Rollout_20260810", "Док_Calendar_Weekly_Focus_WebPush_20260810", "Док_Cleanup_Manifest", "Док_Backend_Verification", "Док_Web_Verification", "Док_Android_Verification"]
 теги: ["moc", "навигация", "rocketflow"]
 ---
 
 # MOC RocketFlow — Главная навигационная карта
 
 Главная точка входа в Obsidian vault проекта RocketFlow. Связывает все компоненты знаний: проекты, архитектуру, глоссарий, источники, агентов, системные заметки, решения, доказательства и пакеты контекста.
+
+Current repo docs HEAD: `codex/native-ios-companion` / `201a3de8657e56a3a67e1051522cb5793ce5c0b7`. Immutable app-code/build checkpoint отдельно: `35e98d965cf49a356e5a7a7ebdbc59afaa1f9fb3`, green [[Док_iOS_Verification]]. Production server: SHA `50a63270ae094fe08ee57b945be0930cb1115dfe`, Flyway V21 (`21/21`), preflight `>=20`, manifest/post `>=21`; V22 not deployed.
+
+CI trigger policy `0bbf4acb` остаётся candidate-only; `origin/master` `7d1ac74cf8f2bf7935c2578f3675db4ca54764bb` ещё без policy/`ios-verify`. Candidate email storm остановлен, default behavior изменится после merge; см. [[MOC_DevOps]].
 
 ## Проект
 
@@ -29,6 +34,7 @@ id: "moc-rocketflow-main"
 - [[MOC_Бэкенд]] — карта бэкенд-компонентов
 - [[MOC_Веб]] — карта веб-клиента
 - [[MOC_Android]] — карта Android-клиента
+- [[MOC_iOS]] — карта native iOS-клиента
 - [[MOC_DevOps]] — карта DevOps и CI/CD
 
 ## Глоссарий
@@ -95,6 +101,7 @@ id: "moc-rocketflow-main"
 - [[Агент_Бэкенд]] — бэкенд-агент
 - [[Агент_Веб]] — веб-агент
 - [[Агент_Android]] — Android-агент
+- [[Агент_iOS]] — iOS-агент
 - [[Агент_QA]] — QA-агент
 - [[Агент_DevOps]] — DevOps-агент
 
@@ -146,6 +153,14 @@ id: "moc-rocketflow-main"
 
 ## Доказательства
 
+### Актуальные
+
+- [[Док_iOS_Verification]]
+- [[Док_Prod_Deploy_State]]
+- [[Док_Artifacts_Retention_Policy]]
+
+### Исторические checkpoints
+
 - [[Док_Backend_Тесты]]
 - [[Док_Web_Build]]
 - [[Док_Android_Build]]
@@ -155,8 +170,6 @@ id: "moc-rocketflow-main"
 - [[Док_Backend_Verification]]
 - [[Док_Web_Verification]]
 - [[Док_Android_Verification]]
-- [[Док_Artifacts_Retention_Policy]]
-- [[Док_Prod_Deploy_State]]
 - [[Док_Production_Rollout_20260810]]
 - [[Док_V21_Scroll_Priority_20260822]]
 
@@ -165,6 +178,7 @@ id: "moc-rocketflow-main"
 - [[Пакет_RocketFlow_Полный]]
 - [[Пакет_Бэкенд]]
 - [[Пакет_Android]]
+- [[Пакет_iOS]]
 
 ## Задачи
 
