@@ -5,7 +5,7 @@ id: "vault-readme"
 проект: "System"
 владелец: "knowledge-base"
 создано: "2026-05-31"
-обновлено: "2026-08-23"
+обновлено: "2026-08-24"
 уверенность: "высокая"
 источники: ["Старт_Агента", "MOC_Все_Проекты"]
 доказательства: []
@@ -28,7 +28,7 @@ id: "vault-readme"
 
 ## Активные проекты
 
-- [[RocketFlow]] — docs HEAD `201a3de8657e56a3a67e1051522cb5793ce5c0b7`; отдельно immutable iOS app evidence `35e98d965cf49a356e5a7a7ebdbc59afaa1f9fb3` / [[Док_iOS_Verification]]; навигация [[MOC_RocketFlow]]
+- [[RocketFlow]] — docs HEAD `b75ca723f767f520bee39ea72052b1a4b03a7e59`; Mac/iPhone entry [[Пакет_iOS_Mac_Установка]], evidence [[Док_iOS_Verification]]; навигация [[MOC_RocketFlow]]
 - [[Finance]] — ручной учёт личных и семейных финансов (скелет)
 
 ## Ключевые регламенты

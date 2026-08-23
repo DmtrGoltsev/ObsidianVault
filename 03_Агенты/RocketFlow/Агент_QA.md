@@ -5,7 +5,7 @@ id: "agent-qa"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-08-23"
+обновлено: "2026-08-24"
 уверенность: "высокая"
 источники: ["docs/06-qa-strategy.md", "docs/33-current-state-summary.md", "docs/70-native-ios-parity-contract.md", "docs/71-native-ios-delivery.md", ".github/workflows/ios-verify.yml"]
 доказательства: ["Док_iOS_Verification", "Док_Android_Verification", "Док_Backend_Verification", "Док_Web_Verification"]
@@ -34,10 +34,11 @@ id: "agent-qa"
 
 ## Текущий iOS gate
 
-- Current repo docs HEAD: `201a3de8657e56a3a67e1051522cb5793ce5c0b7`; immutable tested app SHA отдельно: `35e98d965cf49a356e5a7a7ebdbc59afaa1f9fb3`.
+- Current repo docs HEAD: `b75ca723f767f520bee39ea72052b1a4b03a7e59`; immutable tooling SHA отдельно: `a66b501f2a5ec8d8d25dc518a9fcd097e5ee1149`; tested app behavior SHA отдельно: `35e98d965cf49a356e5a7a7ebdbc59afaa1f9fb3`.
 - [Run 32655691351](https://github.com/DmtrGoltsev/RocketFlow/actions/runs/32655691351), job `97233929959`: parity/packages/build PASS, `540` unit + `2` UI tests PASS.
+- [Tooling run 32669924719](https://github.com/DmtrGoltsev/RocketFlow/actions/runs/32669924719), job `97269056380`: Mac contracts `174/174`, unit `540/0`, UI `2/0`, artifacts `9501177125` и `9501179599`.
 - Exact artifact IDs/digests и coverage boundary: [[Док_iOS_Verification]].
-- Green simulator CI разрешает clone/build verification на Mac, но не App Store claim.
+- Green simulator/tooling CI разрешает clone/build verification и handoff на Mac, но physical iPhone install ещё не доказан и App Store claim запрещён.
 
 ## Права на решения
 
@@ -48,7 +49,7 @@ id: "agent-qa"
 ## Активные задачи
 
 - Staging notification certification
-- Валидация MVP3 изменений
+- Валидация текущего candidate `codex/native-ios-companion`; MVP3 сохраняется только как historical baseline
 - Поддержание зелёных CI-воркфлоу
 - Real-device, RU/EN accessibility и manual acceptance для iOS до public release
 
@@ -64,6 +65,6 @@ id: "agent-qa"
 - [[Регламент_Нотификационного_Смока]] — smoke-процедура
 - [[Источник_Нотификация_Пруф]] — результаты proof
 - [[RocketFlow]] — проект
-- [[MOC_iOS]], [[Пакет_iOS]], [[Агент_iOS]] — iOS контекст
+- [[MOC_iOS]], [[Пакет_iOS]], [[Пакет_iOS_Mac_Установка]], [[Агент_iOS]] — iOS контекст
 - [[MOC_DevOps]] — candidate trigger policy; `origin/master` изменится только после merge
 - [[Док_iOS_Verification]] — exact iOS evidence и незакрытые внешние гейты

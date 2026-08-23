@@ -5,7 +5,7 @@ id: "agent-devops"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-08-23"
+обновлено: "2026-08-24"
 уверенность: "высокая"
 источники: ["docs/58-github-cicd-policy.md", "docs/60-hexcore-prod-runbook.md", "docs/71-native-ios-delivery.md", "docs/33-current-state-summary.md", ".github/workflows/ios-verify.yml", "commit 0bbf4acb0ba9620b931fa843dc9d2997379304fb"]
 доказательства: ["Док_iOS_Verification", "Док_Prod_Deploy_State"]
@@ -34,9 +34,9 @@ id: "agent-devops"
 
 Файлы: `.github/workflows/`
 
-Candidate trigger contract из commit `0bbf4acb0ba9620b931fa843dc9d2997379304fb` находится только в `codex/native-ios-companion`: `workflow_dispatch` на любой ref; workflow files объявляют automatic PR targeting `master` и push в `master`; обычный candidate feature push verify не запускает. Path filters на уровне workflow удалены. На candidate branch это остановило постоянные feature-push fail emails, но `origin/master` `7d1ac74cf8f2bf7935c2578f3675db4ca54764bb` ещё не содержит policy commit/`ios-verify`; default behavior изменится после merge. Genuine manual/PR и будущие master failures всё ещё могут уведомлять. Production workflows unchanged; branch protection не настроена и не менялась. Детали: [[MOC_DevOps]].
+Candidate trigger contract из commit `0bbf4acb0ba9620b931fa843dc9d2997379304fb` находится только в `codex/native-ios-companion`: feature push auto run `0`, `workflow_dispatch` доступен, а PR targeting `master` и push в `master` станут default behavior только после merge. На candidate branch это остановило постоянные feature-push fail emails. Genuine manual/PR и будущие master failures всё ещё могут уведомлять. Production workflows unchanged; branch protection не настроена и не менялась. Детали: [[MOC_DevOps]].
 
-Living docs зафиксированы на `201a3de8657e56a3a67e1051522cb5793ce5c0b7`: [`docs/58-github-cicd-policy.md`](https://github.com/DmtrGoltsev/RocketFlow/blob/201a3de8657e56a3a67e1051522cb5793ce5c0b7/docs/58-github-cicd-policy.md), [`docs/60-hexcore-prod-runbook.md`](https://github.com/DmtrGoltsev/RocketFlow/blob/201a3de8657e56a3a67e1051522cb5793ce5c0b7/docs/60-hexcore-prod-runbook.md), [`docs/71-native-ios-delivery.md`](https://github.com/DmtrGoltsev/RocketFlow/blob/201a3de8657e56a3a67e1051522cb5793ce5c0b7/docs/71-native-ios-delivery.md).
+Living docs зафиксированы на `b75ca723f767f520bee39ea72052b1a4b03a7e59`: [`docs/58-github-cicd-policy.md`](https://github.com/DmtrGoltsev/RocketFlow/blob/b75ca723f767f520bee39ea72052b1a4b03a7e59/docs/58-github-cicd-policy.md), [`docs/60-hexcore-prod-runbook.md`](https://github.com/DmtrGoltsev/RocketFlow/blob/b75ca723f767f520bee39ea72052b1a4b03a7e59/docs/60-hexcore-prod-runbook.md), [`docs/71-native-ios-delivery.md`](https://github.com/DmtrGoltsev/RocketFlow/blob/b75ca723f767f520bee39ea72052b1a4b03a7e59/docs/71-native-ios-delivery.md), [`docs/72-native-ios-mac-device-handoff.md`](https://github.com/DmtrGoltsev/RocketFlow/blob/b75ca723f767f520bee39ea72052b1a4b03a7e59/docs/72-native-ios-mac-device-handoff.md).
 
 ## Права на решения
 
@@ -51,6 +51,7 @@ Living docs зафиксированы на `201a3de8657e56a3a67e1051522cb5793ce
 - Поддержка production на [[HexCore]]
 - Apple signing/team, APNs/Firebase и HTTPS prerequisites для iOS release
 - Production deploy candidate V22 перед заявлением iOS push; сейчас production остаётся V21 (`21/21`), release checks preflight `>=20`, manifest/post `>=21`
+- Mac handoff tooling evidence `a66b501f2a5ec8d8d25dc518a9fcd097e5ee1149` / run `32669924719`; physical install остаётся внешним шагом [[Пакет_iOS_Mac_Установка]]
 
 ## Выполненные волны
 

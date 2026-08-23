@@ -5,9 +5,9 @@ id: "moc-rocketflow-main"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-08-23"
+обновлено: "2026-08-24"
 уверенность: "высокая"
-источники: ["README.md", "docs/33-current-state-summary.md", "docs/58-github-cicd-policy.md", "docs/70-native-ios-parity-contract.md", "docs/71-native-ios-delivery.md", "ios/README.md"]
+источники: ["README.md", "docs/33-current-state-summary.md", "docs/58-github-cicd-policy.md", "docs/70-native-ios-parity-contract.md", "docs/71-native-ios-delivery.md", "docs/72-native-ios-mac-device-handoff.md", "docs/ios-native-mac-codex-install-prompt.md", "ios/README.md"]
 доказательства: ["Док_iOS_Verification", "Док_Prod_Deploy_State", "Док_Artifacts_Retention_Policy"]
 исторические_доказательства: ["Док_V21_Scroll_Priority_20260822", "Док_Production_Rollout_20260810", "Док_Calendar_Weekly_Focus_WebPush_20260810", "Док_Cleanup_Manifest", "Док_Backend_Verification", "Док_Web_Verification", "Док_Android_Verification"]
 теги: ["moc", "навигация", "rocketflow"]
@@ -17,9 +17,9 @@ id: "moc-rocketflow-main"
 
 Главная точка входа в Obsidian vault проекта RocketFlow. Связывает все компоненты знаний: проекты, архитектуру, глоссарий, источники, агентов, системные заметки, решения, доказательства и пакеты контекста.
 
-Current repo docs HEAD: `codex/native-ios-companion` / `201a3de8657e56a3a67e1051522cb5793ce5c0b7`. Immutable app-code/build checkpoint отдельно: `35e98d965cf49a356e5a7a7ebdbc59afaa1f9fb3`, green [[Док_iOS_Verification]]. Production server: SHA `50a63270ae094fe08ee57b945be0930cb1115dfe`, Flyway V21 (`21/21`), preflight `>=20`, manifest/post `>=21`; V22 not deployed.
+Current repo docs HEAD: `codex/native-ios-companion` / `b75ca723f767f520bee39ea72052b1a4b03a7e59`. Immutable Mac tooling checkpoint отдельно: `a66b501f2a5ec8d8d25dc518a9fcd097e5ee1149` / run `32669924719`; app behavior checkpoint отдельно: `35e98d965cf49a356e5a7a7ebdbc59afaa1f9fb3` / run `32655691351`; [[Док_iOS_Verification]]. Production server: SHA `50a63270ae094fe08ee57b945be0930cb1115dfe`, Flyway V21; V22 not deployed, DB здесь не проверялась.
 
-CI trigger policy `0bbf4acb` остаётся candidate-only; `origin/master` `7d1ac74cf8f2bf7935c2578f3675db4ca54764bb` ещё без policy/`ios-verify`. Candidate email storm остановлен, default behavior изменится после merge; см. [[MOC_DevOps]].
+CI trigger policy `0bbf4acb` остаётся candidate-only: feature push auto run `0`, manual verify доступен, default PR/master behavior изменится после merge. Production workflows и branch protection не менялись; см. [[MOC_DevOps]].
 
 ## Проект
 
@@ -35,6 +35,7 @@ CI trigger policy `0bbf4acb` остаётся candidate-only; `origin/master` `7
 - [[MOC_Веб]] — карта веб-клиента
 - [[MOC_Android]] — карта Android-клиента
 - [[MOC_iOS]] — карта native iOS-клиента
+- [[Пакет_iOS_Mac_Установка]] — handoff на другой Mac и personal iPhone
 - [[MOC_DevOps]] — карта DevOps и CI/CD
 
 ## Глоссарий
@@ -42,16 +43,16 @@ CI trigger policy `0bbf4acb` остаётся candidate-only; `origin/master` `7
 - [[Folder]] — папка
 - [[Goal]] — цель
 - [[Task]] — задача
-- [[Green_Task]] — зелёная задача
-- [[Red_Task]] — красная задача
+- [[02_Знания/Глоссарий/RocketFlow/Green_Task|Green_Task]] — зелёная задача
+- [[02_Знания/Глоссарий/RocketFlow/Red_Task|Red_Task]] — красная задача
 - [[Tag]] — тег
 - [[Task_Link]] — связь между задачами
 - [[Planned_Time]] — плановое время
 - [[Due_Time]] — срок выполнения
-- [[Reminder_Rule]] — правило напоминания
-- [[Recurrence_Rule]] — правило повторения
+- [[02_Знания/Глоссарий/RocketFlow/Reminder_Rule|Reminder_Rule]] — правило напоминания
+- [[02_Знания/Глоссарий/RocketFlow/Recurrence_Rule|Recurrence_Rule]] — правило повторения
 - [[Reschedule_Event]] — событие переноса
-- [[Priority_Decay]] — выведенный из продукта legacy-механизм; compatibility shadow до завершения V20/old APK support
+- [[02_Знания/Глоссарий/RocketFlow/Priority_Decay|Priority_Decay]] — выведенный из продукта legacy-механизм; compatibility shadow до завершения V20/old APK support
 - [[Share_Invitation]] — приглашение к совместному доступу
 - [[Collaborator]] — соавтор
 - [[Device_Registration]] — регистрация устройства
@@ -74,10 +75,10 @@ CI trigger policy `0bbf4acb` остаётся candidate-only; `origin/master` `7
 
 ## Источники
 
-- [[Источник_README]] — README проекта
+- [[02_Знания/Источники/RocketFlow/Источник_README|Источник_README]] — README проекта
 - [[Источник_MVP_План]] — план MVP
 - [[Источник_Спецификация_Домена]] — спецификация домена
-- [[Источник_Архитектура]] — архитектурный blueprint
+- [[02_Знания/Источники/RocketFlow/Источник_Архитектура|Источник_Архитектура]] — архитектурный blueprint
 - [[Источник_API_Контракты]] — API контракты
 - [[Источник_QA_Стратегия]] — стратегия QA
 - [[Источник_План_Оркестрации]] — план оркестрации
@@ -179,6 +180,7 @@ CI trigger policy `0bbf4acb` остаётся candidate-only; `origin/master` `7
 - [[Пакет_Бэкенд]]
 - [[Пакет_Android]]
 - [[Пакет_iOS]]
+- [[Пакет_iOS_Mac_Установка]]
 
 ## Задачи
 
