@@ -5,7 +5,7 @@ id: "reg-cicd"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-08-22"
+обновлено: "2026-08-24"
 уверенность: "высокая"
 источники: ["docs/58-github-cicd-policy.md", "docs/68-scroll-and-priority-retirement-delivery.md"]
 доказательства: ["Док_V21_Scroll_Priority_20260822", "Док_Backend_Verification", "Док_Web_Verification", "Док_Android_Verification", "Док_Prod_Deploy_State"]
@@ -63,6 +63,7 @@ id: "reg-cicd"
 
 ## Связанные заметки
 
+- [[Регламент_GitHub_Actions_без_лишних_запусков]] — общий trigger policy, диагностика лишних runs и профилактика
 - [[Источник_CI_CD_Политика]] — политика-источник
 - [[Регламент_Деплоя]] — связанный регламент
 - [[Док_Prod_Deploy_State]] — фактический production deploy state

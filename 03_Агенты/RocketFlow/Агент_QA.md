@@ -34,7 +34,7 @@ id: "agent-qa"
 
 ## Текущий iOS gate
 
-- Current repo docs HEAD: `b75ca723f767f520bee39ea72052b1a4b03a7e59`; immutable tooling SHA отдельно: `a66b501f2a5ec8d8d25dc518a9fcd097e5ee1149`; tested app behavior SHA отдельно: `35e98d965cf49a356e5a7a7ebdbc59afaa1f9fb3`.
+- Current repo docs HEAD: `99172cd171e8cade0545fb442c9233961c7865d1`; immutable tooling SHA отдельно: `a66b501f2a5ec8d8d25dc518a9fcd097e5ee1149`; tested app behavior SHA отдельно: `35e98d965cf49a356e5a7a7ebdbc59afaa1f9fb3`.
 - [Run 32655691351](https://github.com/DmtrGoltsev/RocketFlow/actions/runs/32655691351), job `97233929959`: parity/packages/build PASS, `540` unit + `2` UI tests PASS.
 - [Tooling run 32669924719](https://github.com/DmtrGoltsev/RocketFlow/actions/runs/32669924719), job `97269056380`: Mac contracts `174/174`, unit `540/0`, UI `2/0`, artifacts `9501177125` и `9501179599`.
 - Exact artifact IDs/digests и coverage boundary: [[Док_iOS_Verification]].
@@ -66,5 +66,5 @@ id: "agent-qa"
 - [[Источник_Нотификация_Пруф]] — результаты proof
 - [[RocketFlow]] — проект
 - [[MOC_iOS]], [[Пакет_iOS]], [[Пакет_iOS_Mac_Установка]], [[Агент_iOS]] — iOS контекст
-- [[MOC_DevOps]] — candidate trigger policy; `origin/master` изменится только после merge
+- [[MOC_DevOps]] — trigger policy уже в `origin/master`; green Android/Backend/Web evidence и границы старых branches
 - [[Док_iOS_Verification]] — exact iOS evidence и незакрытые внешние гейты

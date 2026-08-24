@@ -39,12 +39,12 @@ id: "proj-rocketflow"
 
 ## Текущий статус
 
-- Current repo docs HEAD: branch `codex/native-ios-companion`, SHA `b75ca723f767f520bee39ea72052b1a4b03a7e59`.
+- Current repo docs HEAD: branch `codex/native-ios-companion`, SHA `99172cd171e8cade0545fb442c9233961c7865d1`.
 - Immutable Mac tooling evidence: SHA `a66b501f2a5ec8d8d25dc518a9fcd097e5ee1149`, [run 32669924719](https://github.com/DmtrGoltsev/RocketFlow/actions/runs/32669924719), job `97269056380`: contracts `174/174`, XcodeGen/parity/packages/build PASS, unit `540/0`, UI `2/0`; artifacts `9501177125` (`1,317,064` bytes) и `9501179599` (`25,070` bytes).
 - Отдельное immutable app behavior/build evidence: SHA `35e98d965cf49a356e5a7a7ebdbc59afaa1f9fb3`, проверенный run `32655691351`; это не текущий branch HEAD или tooling SHA.
 - Native iOS 16+ готов для clone/build/test на simulator: Planner, Calendar, Focus, offline GRDB/sync/conflicts, details/editors/sharing, reminders, RU/EN, durable restoration/deep links и account safety.
 - [Behavior iOS Verify run 32655691351](https://github.com/DmtrGoltsev/RocketFlow/actions/runs/32655691351), job `97233929959`: project/package parity и build PASS, `540` unit + `2` UI tests PASS; artifacts `9497494137` и `9497494432`. Exact evidence: [[Док_iOS_Verification]].
-- CI policy пока candidate-only: feature push auto run `0` на `codex/native-ios-companion`; manual verify доступен, PR/master behavior станет default только после merge. Production workflows unchanged, branch protection не настроена; [[MOC_DevOps]].
+- CI trigger fix действует на `origin/master` с `c0682493c93ac2d8ff1d31bca9e1b1c2546b3c56` (2026-08-24): `3 workflow files / 12 additions`, Android/Backend/Web runs `32766368686` / `32766368744` / `32766368663` success; iOS/deploy/publish не запускались. Candidate `99172cd` имеет эквивалент через `0bbf4acb`; старые другие branches автоматически не исправлены; [[MOC_DevOps]].
 - Mac handoff готов: другой Mac clone/pull branch и передаёт Codex canonical prompt из `docs/ios-native-mac-codex-install-prompt.md`; human boundary — `docs/72-native-ios-mac-device-handoff.md` и [[Пакет_iOS_Mac_Установка]]. Physical iPhone install ещё не доказан.
 - Default personal iPhone flow — `no-push` с Apple Account/Team, уникальным bundle ID и device. Push optional и требует `GoogleService-Info.plist`, APNs/Firebase и production V22. App Store/public release остаётся **NO-GO** до HTTPS и real-device/accessibility/manual acceptance.
 
@@ -146,7 +146,7 @@ id: "proj-rocketflow"
 
 ## Ветки
 
-- Текущая candidate-ветка `codex/native-ios-companion`: docs HEAD `b75ca723f767f520bee39ea72052b1a4b03a7e59`; immutable tooling evidence `a66b501f2a5ec8d8d25dc518a9fcd097e5ee1149`; immutable app behavior evidence `35e98d965cf49a356e5a7a7ebdbc59afaa1f9fb3`. `codex/weekly-focus-calendar-web-push`, `release-weekly-focus-calendar-910c061de4af`, `MVP3`, `MVP2`, historical release refs и `master` перечислены только как historical/adjacent refs, не как текущая стадия.
+- Текущая candidate-ветка `codex/native-ios-companion`: docs HEAD `99172cd171e8cade0545fb442c9233961c7865d1`; immutable tooling evidence `a66b501f2a5ec8d8d25dc518a9fcd097e5ee1149`; immutable app behavior evidence `35e98d965cf49a356e5a7a7ebdbc59afaa1f9fb3`. `codex/weekly-focus-calendar-web-push`, `release-weekly-focus-calendar-910c061de4af`, `MVP3`, `MVP2`, historical release refs и `master` перечислены только как historical/adjacent refs, не как текущая стадия.
 
 ## Historical production CI/CD checkpoint (2026-06-19)
 

@@ -19,14 +19,14 @@ id: "pkg-ios-mac-install"
 Практическая точка входа для переноса RocketFlow на другой Mac, локальной
 подписанной сборки и установки на личный iPhone. Полный копируемый сценарий для
 нового чата Codex находится в canonical
-[`docs/ios-native-mac-codex-install-prompt.md`](https://github.com/DmtrGoltsev/RocketFlow/blob/b75ca723f767f520bee39ea72052b1a4b03a7e59/docs/ios-native-mac-codex-install-prompt.md),
+[`docs/ios-native-mac-codex-install-prompt.md`](https://github.com/DmtrGoltsev/RocketFlow/blob/99172cd171e8cade0545fb442c9233961c7865d1/docs/ios-native-mac-codex-install-prompt.md),
 человеческий handoff — в
-[`docs/72-native-ios-mac-device-handoff.md`](https://github.com/DmtrGoltsev/RocketFlow/blob/b75ca723f767f520bee39ea72052b1a4b03a7e59/docs/72-native-ios-mac-device-handoff.md).
+[`docs/72-native-ios-mac-device-handoff.md`](https://github.com/DmtrGoltsev/RocketFlow/blob/99172cd171e8cade0545fb442c9233961c7865d1/docs/72-native-ios-mac-device-handoff.md).
 
 ## Текущая identity
 
 - Проектная ветка: `codex/native-ios-companion`.
-- Финальный docs HEAD: `b75ca723f767f520bee39ea72052b1a4b03a7e59`.
+- Финальный docs HEAD: `99172cd171e8cade0545fb442c9233961c7865d1`.
 - Immutable tooling commit A:
   `a66b501f2a5ec8d8d25dc518a9fcd097e5ee1149`.
 - Tooling evidence: [run 32669924719](https://github.com/DmtrGoltsev/RocketFlow/actions/runs/32669924719),
@@ -80,10 +80,11 @@ Exact таблицы доказательств и границы утвержд
   `50a63270ae094fe08ee57b945be0930cb1115dfe`, Flyway V21. Candidate V22 для iOS
   device registrations существует только в candidate и не deployed; DB в этой
   актуализации не проверялась.
-- Feature push на `codex/native-ios-companion` имеет automatic verify run `0`.
-  Policy остаётся candidate-only до merge в `master`; manual verify работает,
-  будущие PR/master triggers не следует выдавать за уже действующую default
-  branch policy. Production workflows и branch protection не менялись.
+- На `origin/master` trigger fix действует с commit
+  `c0682493c93ac2d8ff1d31bca9e1b1c2546b3c56` (2026-08-24): Android,
+  Backend и Web success runs `32766368686`, `32766368744`, `32766368663`;
+  iOS/deploy/publish не запускались. Candidate `99172cd` имеет эквивалентную
+  политику через `0bbf4acb`; старые другие branches автоматически не исправлены.
 - Physical iPhone build/install/launch ещё не доказаны. Статус изменяется только
   после redacted evidence с Mac; green CI доказывает tooling/simulator gate, а не
   physical device, push или App Store readiness.

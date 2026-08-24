@@ -17,9 +17,9 @@ id: "moc-rocketflow-main"
 
 Главная точка входа в Obsidian vault проекта RocketFlow. Связывает все компоненты знаний: проекты, архитектуру, глоссарий, источники, агентов, системные заметки, решения, доказательства и пакеты контекста.
 
-Current repo docs HEAD: `codex/native-ios-companion` / `b75ca723f767f520bee39ea72052b1a4b03a7e59`. Immutable Mac tooling checkpoint отдельно: `a66b501f2a5ec8d8d25dc518a9fcd097e5ee1149` / run `32669924719`; app behavior checkpoint отдельно: `35e98d965cf49a356e5a7a7ebdbc59afaa1f9fb3` / run `32655691351`; [[Док_iOS_Verification]]. Production server: SHA `50a63270ae094fe08ee57b945be0930cb1115dfe`, Flyway V21; V22 not deployed, DB здесь не проверялась.
+Current repo docs HEAD: `codex/native-ios-companion` / `99172cd171e8cade0545fb442c9233961c7865d1`. Immutable Mac tooling checkpoint отдельно: `a66b501f2a5ec8d8d25dc518a9fcd097e5ee1149` / run `32669924719`; app behavior checkpoint отдельно: `35e98d965cf49a356e5a7a7ebdbc59afaa1f9fb3` / run `32655691351`; [[Док_iOS_Verification]]. Production server: SHA `50a63270ae094fe08ee57b945be0930cb1115dfe`, Flyway V21; V22 not deployed, DB здесь не проверялась.
 
-CI trigger policy `0bbf4acb` остаётся candidate-only: feature push auto run `0`, manual verify доступен, default PR/master behavior изменится после merge. Production workflows и branch protection не менялись; см. [[MOC_DevOps]].
+CI trigger fix действует на `origin/master` с commit `c0682493c93ac2d8ff1d31bca9e1b1c2546b3c56`, pushed 2026-08-24: exact `3 workflow files / 12 additions`; Android `32766368686`, Backend `32766368744`, Web `32766368663` success; no iOS/deploy/publish. Candidate `99172cd` имеет эквивалентную политику через `0bbf4acb`; docs-only candidate push `99172cd` дал `0` automatic runs после более чем 120 секунд, без manual run. Старые другие branches автоматически не исправлены; см. [[MOC_DevOps]].
 
 ## Проект
 
@@ -110,6 +110,7 @@ CI trigger policy `0bbf4acb` остаётся candidate-only: feature push auto 
 
 ### Регламенты
 - [[Регламент_CI_CD]]
+- [[Регламент_GitHub_Actions_без_лишних_запусков]]
 - [[Регламент_Деплоя]]
 - [[Регламент_Нотификационного_Смока]]
 - [[Регламент_Оркестратора]]

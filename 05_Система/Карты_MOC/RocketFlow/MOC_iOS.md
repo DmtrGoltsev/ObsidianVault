@@ -14,7 +14,7 @@ id: "moc-ios"
 
 # MOC iOS
 
-Точка входа для native RocketFlow iOS 16+. Current repo docs HEAD на branch `codex/native-ios-companion`: `b75ca723f767f520bee39ea72052b1a4b03a7e59`. Immutable tooling evidence отдельно: `a66b501f2a5ec8d8d25dc518a9fcd097e5ee1149` / run `32669924719`; app behavior/build evidence отдельно: `35e98d965cf49a356e5a7a7ebdbc59afaa1f9fb3` / run `32655691351`. Branch HEAD не приравнивается ни к одной evidence identity.
+Точка входа для native RocketFlow iOS 16+. Current repo docs HEAD на branch `codex/native-ios-companion`: `99172cd171e8cade0545fb442c9233961c7865d1`. Immutable tooling evidence отдельно: `a66b501f2a5ec8d8d25dc518a9fcd097e5ee1149` / run `32669924719`; app behavior/build evidence отдельно: `35e98d965cf49a356e5a7a7ebdbc59afaa1f9fb3` / run `32655691351`. Branch HEAD не приравнивается ни к одной evidence identity.
 
 ## Функциональный контур
 
@@ -25,11 +25,11 @@ id: "moc-ios"
 - durable navigation restoration и deep links;
 - account-scoped safety и очистка состояния.
 
-Living contract: [`docs/70-native-ios-parity-contract.md`](https://github.com/DmtrGoltsev/RocketFlow/blob/b75ca723f767f520bee39ea72052b1a4b03a7e59/docs/70-native-ios-parity-contract.md), delivery: [`docs/71-native-ios-delivery.md`](https://github.com/DmtrGoltsev/RocketFlow/blob/b75ca723f767f520bee39ea72052b1a4b03a7e59/docs/71-native-ios-delivery.md), canonical Mac prompt: [`docs/ios-native-mac-codex-install-prompt.md`](https://github.com/DmtrGoltsev/RocketFlow/blob/b75ca723f767f520bee39ea72052b1a4b03a7e59/docs/ios-native-mac-codex-install-prompt.md), human handoff: [`docs/72-native-ios-mac-device-handoff.md`](https://github.com/DmtrGoltsev/RocketFlow/blob/b75ca723f767f520bee39ea72052b1a4b03a7e59/docs/72-native-ios-mac-device-handoff.md), toolchain/configuration: [`ios/README.md`](https://github.com/DmtrGoltsev/RocketFlow/blob/b75ca723f767f520bee39ea72052b1a4b03a7e59/ios/README.md). Immutable verified XcodeGen behavior source: [`ios/project.yml`](https://github.com/DmtrGoltsev/RocketFlow/blob/35e98d965cf49a356e5a7a7ebdbc59afaa1f9fb3/ios/project.yml).
+Living contract: [`docs/70-native-ios-parity-contract.md`](https://github.com/DmtrGoltsev/RocketFlow/blob/99172cd171e8cade0545fb442c9233961c7865d1/docs/70-native-ios-parity-contract.md), delivery: [`docs/71-native-ios-delivery.md`](https://github.com/DmtrGoltsev/RocketFlow/blob/99172cd171e8cade0545fb442c9233961c7865d1/docs/71-native-ios-delivery.md), canonical Mac prompt: [`docs/ios-native-mac-codex-install-prompt.md`](https://github.com/DmtrGoltsev/RocketFlow/blob/99172cd171e8cade0545fb442c9233961c7865d1/docs/ios-native-mac-codex-install-prompt.md), human handoff: [`docs/72-native-ios-mac-device-handoff.md`](https://github.com/DmtrGoltsev/RocketFlow/blob/99172cd171e8cade0545fb442c9233961c7865d1/docs/72-native-ios-mac-device-handoff.md), toolchain/configuration: [`ios/README.md`](https://github.com/DmtrGoltsev/RocketFlow/blob/99172cd171e8cade0545fb442c9233961c7865d1/ios/README.md). Immutable verified XcodeGen behavior source: [`ios/project.yml`](https://github.com/DmtrGoltsev/RocketFlow/blob/35e98d965cf49a356e5a7a7ebdbc59afaa1f9fb3/ios/project.yml).
 
 ## Verification
 
-[[Док_iOS_Verification]] раздельно фиксирует behavior run `32655691351` и tooling run `32669924719`: job `97269056380`, contracts `174/174`, unit `540/0`, UI `2/0`, artifacts `9501177125` (`1,317,064` bytes) и `9501179599` (`25,070` bytes). [[MOC_DevOps]] фиксирует candidate-only trigger policy и границы CI.
+[[Док_iOS_Verification]] раздельно фиксирует behavior run `32655691351` и tooling run `32669924719`: job `97269056380`, contracts `174/174`, unit `540/0`, UI `2/0`, artifacts `9501177125` (`1,317,064` bytes) и `9501179599` (`25,070` bytes). [[MOC_DevOps]] фиксирует уже действующую `origin/master` trigger policy, эквивалентную candidate policy и границы старых branches.
 
 ## Server boundary
 

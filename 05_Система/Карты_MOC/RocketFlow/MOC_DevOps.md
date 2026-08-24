@@ -7,7 +7,7 @@ id: "moc-devops"
 создано: "2026-05-31"
 обновлено: "2026-08-24"
 уверенность: "высокая"
-источники: ["docs/58-github-cicd-policy.md", "docs/60-hexcore-prod-runbook.md", "docs/71-native-ios-delivery.md", "docs/72-native-ios-mac-device-handoff.md", "docs/ios-native-mac-codex-install-prompt.md", "docs/production/rocketflow-cicd-runbook.md", ".github/workflows/ios-verify.yml", "commit 0bbf4acb0ba9620b931fa843dc9d2997379304fb"]
+источники: ["docs/58-github-cicd-policy.md", "docs/60-hexcore-prod-runbook.md", "docs/71-native-ios-delivery.md", "docs/72-native-ios-mac-device-handoff.md", "docs/ios-native-mac-codex-install-prompt.md", "docs/production/rocketflow-cicd-runbook.md", ".github/workflows/ios-verify.yml", "commit 0bbf4acb0ba9620b931fa843dc9d2997379304fb", "origin/master commit c0682493c93ac2d8ff1d31bca9e1b1c2546b3c56"]
 доказательства: ["Док_iOS_Verification", "Док_Prod_Deploy_State"]
 теги: ["moc", "devops", "ci-cd", "rocketflow"]
 ---
@@ -16,7 +16,7 @@ id: "moc-devops"
 
 Карта CI/CD и production boundary RocketFlow. Verify lanes работают в GitHub Actions; iOS использует macOS, остальные платформы — свои workflow environments. Production остаётся jar/systemd backend + web static/Nginx на [[HexCore]].
 
-Current repo docs HEAD на candidate branch: `b75ca723f767f520bee39ea72052b1a4b03a7e59`. Immutable Mac tooling evidence отдельно закреплено за SHA `a66b501f2a5ec8d8d25dc518a9fcd097e5ee1149` и run `32669924719`; iOS behavior/build evidence — за app SHA `35e98d965cf49a356e5a7a7ebdbc59afaa1f9fb3` и run `32655691351`.
+Current repo docs HEAD на candidate branch: `99172cd171e8cade0545fb442c9233961c7865d1`. Immutable Mac tooling evidence отдельно закреплено за SHA `a66b501f2a5ec8d8d25dc518a9fcd097e5ee1149` и run `32669924719`; iOS behavior/build evidence — за app SHA `35e98d965cf49a356e5a7a7ebdbc59afaa1f9fb3` и run `32655691351`.
 
 ## Verify workflows
 
@@ -33,17 +33,16 @@ Current repo docs HEAD на candidate branch: `b75ca723f767f520bee39ea72052b1a4b
 
 ## Trigger policy
 
-Candidate commit `0bbf4acb0ba9620b931fa843dc9d2997379304fb` задаёт в `codex/native-ios-companion` новый контракт для четырёх verify workflow files:
+На `origin/master` политика действует с commit `c0682493c93ac2d8ff1d31bca9e1b1c2546b3c56`, pushed 2026-08-24. Commit содержит ровно `3 workflow files / 12 additions` и ограничивает автоматические verify runs для Android, Backend и Web:
 
-- `workflow_dispatch` доступен на любой ref;
-- конфигурация `pull_request` targeting `master` объявлена автоматической fail-closed verification;
-- конфигурация `push` в `master` объявлена автоматической полной verification;
-- обычный push в feature/codex/release branch verify не запускает;
-- workflow-level path filters удалены, чтобы PR/master checks публиковались независимо от затронутого пути.
+- [Android run 32766368686](https://github.com/DmtrGoltsev/RocketFlow/actions/runs/32766368686) — success;
+- [Backend run 32766368744](https://github.com/DmtrGoltsev/RocketFlow/actions/runs/32766368744) — success;
+- [Web run 32766368663](https://github.com/DmtrGoltsev/RocketFlow/actions/runs/32766368663) — success;
+- iOS verify, deploy и publish workflows этим master commit не запускались и не изменялись.
 
-Feature push auto run `0` уже действует на candidate branch и прекратил постоянные fail-email от таких push. Default-branch behavior изменится только после merge. Genuine manual/PR и будущие master failures могут уведомлять. Production deploy/package/rollback workflows unchanged. Branch protection не настроена и не менялась.
+Контракт на `origin/master`: `workflow_dispatch`, PR targeting `master` и push в `master`; обычный feature-branch push не запускает эти три verify workflows. Candidate docs branch `codex/native-ios-companion` на HEAD `99172cd171e8cade0545fb442c9233961c7865d1` уже имеет эквивалентную расширенную политику через commit `0bbf4acb0ba9620b931fa843dc9d2997379304fb`, включая iOS verify. Docs-only push этого HEAD проверен через GitHub Actions API 2026-08-24 в 23:04 Europe/Moscow, более чем через 120 секунд после commit/push: automatic runs `0`, manual run не запускался. Genuine manual/PR/master failures по-прежнему могут уведомлять. Старые другие branches автоматически не исправлены: их нужно обновить этим контрактом или retire, иначе собственная старая ревизия workflow ещё может запускаться. Общая процедура: [[Регламент_GitHub_Actions_без_лишних_запусков]]. Production deploy/package/rollback workflows и branch protection этим исправлением не менялись.
 
-Living policy/runbooks: [`docs/58-github-cicd-policy.md`](https://github.com/DmtrGoltsev/RocketFlow/blob/b75ca723f767f520bee39ea72052b1a4b03a7e59/docs/58-github-cicd-policy.md), [`docs/60-hexcore-prod-runbook.md`](https://github.com/DmtrGoltsev/RocketFlow/blob/b75ca723f767f520bee39ea72052b1a4b03a7e59/docs/60-hexcore-prod-runbook.md), [`docs/71-native-ios-delivery.md`](https://github.com/DmtrGoltsev/RocketFlow/blob/b75ca723f767f520bee39ea72052b1a4b03a7e59/docs/71-native-ios-delivery.md), [`docs/72-native-ios-mac-device-handoff.md`](https://github.com/DmtrGoltsev/RocketFlow/blob/b75ca723f767f520bee39ea72052b1a4b03a7e59/docs/72-native-ios-mac-device-handoff.md), [`docs/production/rocketflow-cicd-runbook.md`](https://github.com/DmtrGoltsev/RocketFlow/blob/b75ca723f767f520bee39ea72052b1a4b03a7e59/docs/production/rocketflow-cicd-runbook.md).
+Living policy/runbooks: [`docs/33-current-state-summary.md`](https://github.com/DmtrGoltsev/RocketFlow/blob/99172cd171e8cade0545fb442c9233961c7865d1/docs/33-current-state-summary.md), [`docs/58-github-cicd-policy.md`](https://github.com/DmtrGoltsev/RocketFlow/blob/99172cd171e8cade0545fb442c9233961c7865d1/docs/58-github-cicd-policy.md), [`docs/60-hexcore-prod-runbook.md`](https://github.com/DmtrGoltsev/RocketFlow/blob/99172cd171e8cade0545fb442c9233961c7865d1/docs/60-hexcore-prod-runbook.md), [`docs/71-native-ios-delivery.md`](https://github.com/DmtrGoltsev/RocketFlow/blob/99172cd171e8cade0545fb442c9233961c7865d1/docs/71-native-ios-delivery.md), [`docs/72-native-ios-mac-device-handoff.md`](https://github.com/DmtrGoltsev/RocketFlow/blob/99172cd171e8cade0545fb442c9233961c7865d1/docs/72-native-ios-mac-device-handoff.md), [`docs/production/rocketflow-cicd-runbook.md`](https://github.com/DmtrGoltsev/RocketFlow/blob/99172cd171e8cade0545fb442c9233961c7865d1/docs/production/rocketflow-cicd-runbook.md). `docs/33` и `docs/58` на этом SHA уже фиксируют master commit `c0682493c93ac2d8ff1d31bca9e1b1c2546b3c56` как действующий.
 
 ## Production
 
@@ -62,5 +61,6 @@ Simulator/tooling CI не закрывает Apple signing/team и physical devi
 - [[MOC_Бэкенд]] — backend и migration boundary
 - [[MOC_iOS]] — native iOS
 - [[Агент_DevOps]], [[Агент_QA]] — исполнительные роли
-- [[Регламент_CI_CD]], [[Регламент_Деплоя]] — регламенты
+- [[Регламент_CI_CD]], [[Регламент_Деплоя]] — проектные регламенты
+- [[Регламент_GitHub_Actions_без_лишних_запусков]] — общий регламент triggers и CI-уведомлений
 - [[Задача_Production_Deploy_Backup_Rollback]], [[Задача_GHCR_Publish]], [[Задача_CI_Runtime_Lanes]] — открытые инфраструктурные задачи

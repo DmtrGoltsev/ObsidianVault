@@ -25,12 +25,12 @@ id: "pkg-rocketflow-full"
 
 ## Current application checkpoint 2026-08-24
 
-- Current repo docs HEAD: `codex/native-ios-companion` / `b75ca723f767f520bee39ea72052b1a4b03a7e59`.
+- Current repo docs HEAD: `codex/native-ios-companion` / `99172cd171e8cade0545fb442c9233961c7865d1`.
 - Immutable Mac tooling evidence: `a66b501f2a5ec8d8d25dc518a9fcd097e5ee1149` / run `32669924719`, job `97269056380`, contracts `174/174`, unit `540/0`, UI `2/0`, artifacts `9501177125` (`1,317,064` bytes) и `9501179599` (`25,070` bytes).
 - Immutable app behavior/build evidence отдельно: `35e98d965cf49a356e5a7a7ebdbc59afaa1f9fb3` / run `32655691351`; branch HEAD, tooling SHA и app SHA не тождественны.
 - Native iOS 16+ реализует Planner/Calendar/Focus, offline GRDB/sync/conflicts, details/editors/sharing, reminders, RU/EN, restoration/deep links и account safety.
 - [iOS Verify run 32655691351](https://github.com/DmtrGoltsev/RocketFlow/actions/runs/32655691351), job `97233929959`: parity/packages/build PASS, `540` unit + `2` UI tests PASS; [[Док_iOS_Verification]].
-- CI policy пока candidate-only: feature push auto run `0`; manual verify доступен, PR/master behavior станет default только после merge. Production workflows unchanged, branch protection не настроена; [[MOC_DevOps]].
+- CI trigger fix действует на `origin/master` с `c0682493c93ac2d8ff1d31bca9e1b1c2546b3c56` (2026-08-24): ровно `3 workflow files / 12 additions`, Android/Backend/Web runs `32766368686` / `32766368744` / `32766368663` success; iOS/deploy/publish не запускались. Candidate `99172cd` имеет эквивалент через `0bbf4acb`; старые другие branches автоматически не исправлены; [[MOC_DevOps]].
 - Clone/build/test simulator и Mac handoff tooling — **GO**; physical iPhone install остаётся внешним непроверенным шагом. Default `no-push` готов, push optional; App Store/public release — **NO-GO** до внешних гейтов.
 - Production server остаётся на SHA `50a63270ae094fe08ee57b945be0930cb1115dfe`, Flyway V21 (`21/21`); preflight `>=20`, manifest/post `>=21`. Candidate V22 для iOS device registrations не deployed; DB здесь не проверялась.
 

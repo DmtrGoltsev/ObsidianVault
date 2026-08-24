@@ -16,7 +16,7 @@ id: "proof-ios-verification-2026-08-23"
 
 ## Что доказано
 
-На branch `codex/native-ios-companion` существуют две отдельные immutable evidence identity. Behavior/build SHA `35e98d965cf49a356e5a7a7ebdbc59afaa1f9fb3` доказывает app behavior через run `32655691351`. Tooling SHA `a66b501f2a5ec8d8d25dc518a9fcd097e5ee1149` доказывает Mac handoff scripts/contracts через run `32669924719`. Финальный docs HEAD `b75ca723f767f520bee39ea72052b1a4b03a7e59` содержит canonical prompt/handoff, но не подменяет ни одну evidence identity.
+На branch `codex/native-ios-companion` существуют две отдельные immutable evidence identity. Behavior/build SHA `35e98d965cf49a356e5a7a7ebdbc59afaa1f9fb3` доказывает app behavior через run `32655691351`. Tooling SHA `a66b501f2a5ec8d8d25dc518a9fcd097e5ee1149` доказывает Mac handoff scripts/contracts через run `32669924719`. Финальный docs HEAD `99172cd171e8cade0545fb442c9233961c7865d1` содержит canonical prompt/handoff и актуальную CI policy, но не подменяет ни одну evidence identity.
 
 ## Exact CI evidence
 
@@ -25,7 +25,7 @@ id: "proof-ios-verification-2026-08-23"
 | Workflow run | [32655691351](https://github.com/DmtrGoltsev/RocketFlow/actions/runs/32655691351), `success` |
 | Job | [97233929959](https://github.com/DmtrGoltsev/RocketFlow/actions/runs/32655691351/job/97233929959), `Generate, build, and test`, `success` |
 | Verified app source | `35e98d965cf49a356e5a7a7ebdbc59afaa1f9fb3` on `codex/native-ios-companion` at run time |
-| Current docs HEAD | `b75ca723f767f520bee39ea72052b1a4b03a7e59` on `codex/native-ios-companion` |
+| Current docs HEAD | `99172cd171e8cade0545fb442c9233961c7865d1` on `codex/native-ios-companion` |
 | Tests | `540` unit + `2` UI, PASS |
 | Result artifact | `RocketFlow-xcresult`, ID `9497494137`, digest `sha256:73610a53af8e2443e727083dd0f625ee327400b92b94f975d1b6ad97f10f0d48` |
 | Project artifact | `RocketFlow-xcodeproj-xcodegen-2.46.0`, ID `9497494432`, digest `sha256:5825b9347d985d3218d217c7541c138887ed3aad96760c396369144449d2150f` |
@@ -49,7 +49,7 @@ Tooling run доказывает fail-closed Mac handoff contract, но не ф�
 
 ## Product coverage
 
-Native iOS 16+ содержит Planner, Calendar и Focus, offline GRDB/sync/conflicts, details/editors/sharing, reminders, RU/EN, durable restoration/deep links и account safety. Living contract/delivery docs: [`docs/70-native-ios-parity-contract.md`](https://github.com/DmtrGoltsev/RocketFlow/blob/b75ca723f767f520bee39ea72052b1a4b03a7e59/docs/70-native-ios-parity-contract.md) и [`docs/71-native-ios-delivery.md`](https://github.com/DmtrGoltsev/RocketFlow/blob/b75ca723f767f520bee39ea72052b1a4b03a7e59/docs/71-native-ios-delivery.md). Build/test identity остаётся behavior SHA из таблицы; Mac tooling identity остаётся отдельной.
+Native iOS 16+ содержит Planner, Calendar и Focus, offline GRDB/sync/conflicts, details/editors/sharing, reminders, RU/EN, durable restoration/deep links и account safety. Living contract/delivery docs: [`docs/70-native-ios-parity-contract.md`](https://github.com/DmtrGoltsev/RocketFlow/blob/99172cd171e8cade0545fb442c9233961c7865d1/docs/70-native-ios-parity-contract.md) и [`docs/71-native-ios-delivery.md`](https://github.com/DmtrGoltsev/RocketFlow/blob/99172cd171e8cade0545fb442c9233961c7865d1/docs/71-native-ios-delivery.md). Build/test identity остаётся behavior SHA из таблицы; Mac tooling identity остаётся отдельной.
 
 ## Factual boundary
 
@@ -62,7 +62,7 @@ Native iOS 16+ содержит Planner, Calendar и Focus, offline GRDB/sync/co
 
 ## CI policy boundary
 
-Candidate commit `0bbf4acb0ba9620b931fa843dc9d2997379304fb` меняет scheduling только в `codex/native-ios-companion`: feature push auto run `0`, а `workflow_dispatch`, PR в `master` и будущий push в `master` описаны новым контрактом. Default-branch behavior изменится только после merge. Поэтому почтовый storm остановлен на candidate branch, а genuine manual/PR и будущие master failures всё ещё могут уведомлять. Production workflows unchanged; branch protection не настроена и не менялась. См. [[MOC_DevOps]].
+Default-branch trigger fix доставлен в `origin/master` commit `c0682493c93ac2d8ff1d31bca9e1b1c2546b3c56`, pushed 2026-08-24: exact diff `3 workflow files / 12 additions`; [Android run 32766368686](https://github.com/DmtrGoltsev/RocketFlow/actions/runs/32766368686), [Backend run 32766368744](https://github.com/DmtrGoltsev/RocketFlow/actions/runs/32766368744) и [Web run 32766368663](https://github.com/DmtrGoltsev/RocketFlow/actions/runs/32766368663) — success. iOS verify, deploy и publish не запускались. Candidate branch HEAD `99172cd171e8cade0545fb442c9233961c7865d1` имеет эквивалентную политику через `0bbf4acb0ba9620b931fa843dc9d2997379304fb`. Genuine manual/PR/master failures всё ещё могут уведомлять. Старые другие branches автоматически не исправлены: их собственная старая ревизия workflow может запускаться до получения fix или retirement. См. [[MOC_DevOps]], [[Регламент_GitHub_Actions_без_лишних_запусков]].
 
 ## Связанные заметки
 
