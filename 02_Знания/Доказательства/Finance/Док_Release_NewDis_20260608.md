@@ -1,0 +1,286 @@
+---
+id: "finance-release-newdis-20260608"
+тип: "доказательство"
+статус: "активно"
+проект: "Finance"
+владелец: "rocketflow-team"
+создано: "2026-06-08"
+обновлено: "2026-06-12"
+уверенность: "высокая"
+источники:
+  - "Sanitized release closure handoff for Finance newDis"
+доказательства:
+  - "[[QA_Результаты]]"
+  - "[[QA_Фиксы]]"
+  - "[[Единый_Документ_Критики_И_План_NewDis]]"
+  - "[[Карта_Пользовательских_Путей_Finance]]"
+теги: ["finance", "release", "newdis", "production", "evidence", "sanitized"]
+ссылки:
+  - "[[Finance]]"
+  - "[[MOC_Finance]]"
+  - "[[Пакет_Finance_Полный]]"
+---
+
+# Release evidence — newDis UX simplification (2026-06-08)
+
+## Что доказывается
+
+Release `newDis` закрыт по commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b` (`feat(finance): simplify newDis UX flows`). Production frontend подтвержден как байтово совпадающий с локальным `apps/web-pwa/dist`, Android debug APK собран и проверен по unit/lint evidence, backend redeploy waiver принят.
+
+Аддендум Android APK prod API base: исходный APK этой заметки с SHA256 `D1DDE146BB0576D438B173E3910AAADDFFDA1382CDBF5C27BDD1C6E75DC0391D` superseded, потому что аудит APK нашел `http://10.0.2.2:8000` и не нашел `/finance-api`. Актуальный production-path APK собран после project commit `1581a6fc464521f7d2503ac4bbdcb6c918f8fbd3` (`fix(android): use production API base for APK`) и имеет SHA256 `593F88085D7EC2AE39141CA5AC3317C74A7473C94AE1F24E1CE373DCF11C3F94`.
+
+Аддендум Android UX fixes: после P0/P1-clean review применён project commit `16a8be832d7c7fbaacf03325325da63db357d450` (`fix(android): refine asset category interactions`), branch `newDis`, remote parity OK. Изменения ограничены `apps/android/app/src/main/java/com/finance/mvp/api/ApiClient.kt` и `apps/android/app/src/main/java/com/finance/mvp/ui/FinanceApp.kt`; новый APK supersedes SHA `593F88085D7EC2AE39141CA5AC3317C74A7473C94AE1F24E1CE373DCF11C3F94` и имеет SHA256 `B0CC0C8D66196CA2503759F2CA4FC07E5700AD6E7DB4B64A229DBEC9D3F3F42A`.
+
+Аддендум Android final correction: два оставшихся user misses закрыты project commit `f5afcda40e12b881ccc31a6b32221b24327cdbd8` (`fix(android): complete legacy asset edit and IME handling`), branch `newDis`, remote parity OK. Изменения ограничены `apps/android/app/src/main/AndroidManifest.xml`, `apps/android/app/src/main/java/com/finance/mvp/api/ApiClient.kt` и `apps/android/app/src/main/java/com/finance/mvp/ui/FinanceApp.kt`; новый APK supersedes SHA `B0CC0C8D66196CA2503759F2CA4FC07E5700AD6E7DB4B64A229DBEC9D3F3F42A` и имеет SHA256 `4A3C32727C69427A714E82C45CF77A2666D2C52A4792B909B3153F763DB34A7B`.
+
+Аддендум compact investment asset categories: compact card/edit/iconKey/analytics fix закрыт project commit `09ea6479451c61b3d06a412e5aaaecec534fc96a` (`fix(finance): compact investment asset categories`), branch `newDis`, remote parity OK. Изменения покрывают compact `AssetCategoryGroupCard`, упрощённый edit mode, скрытие manual amount при linked accounts, удаление linked accounts list из category edit/card, investment badge с trending-up icon, icon picker и persisted `asset_categories.icon_key` на backend/API/Android, а также analytics fix через удаление Android forced currency filter и parsing investment totals из backend contract. Новый APK supersedes SHA `4A3C32727C69427A714E82C45CF77A2666D2C52A4792B909B3153F763DB34A7B` и имеет SHA256 `D1734426439FF38627C230D454D04E66229655C8DF6FD651087DC065B7A30733`.
+
+Аддендум critical investment save regression: Android regression `Брокер -> Инвестиция -> Сохранить` закрыт 2026-06-12; project commit `d8175116f5123b6a304d4bd22dc083f2725505a0` (`fix(finance): migrate legacy brokerage assets`) pushed to `origin/newDis`. Root cause: Android отправлял `iconKey` в `POST /api/v1/asset-categories`, а deployed strict OpenAPI `AssetCategoryCreateRequest` отвергал extra field через `additionalProperties=false`. Fix: create payload больше не содержит `iconKey`. Новый APK supersedes SHA `FCD7EE0D870A12B3B88416DAEBCB3CF35FC513618C865B427E30E5F77F688411` и имеет SHA256 `B6960DB5D13198405984C027746343432CB95B0C08BB24F54D6A7FCD5061DCC7`.
+
+Эта заметка содержит только sanitized closure: без секретов, сырых логов, скриншотов, session/operator данных и персональных данных.
+
+## Метод проверки
+
+- Git/release metadata: branch `newDis`, `HEAD = origin/newDis = 6ce31f53f6150050b4cb0dad8488254bd04ff31b`.
+- Diff boundary: commit меняет UI/test files; `apps/backend`, `db`, `api` не менялись.
+- Production frontend: `/finance/COMMIT`, `/finance/`, `/finance/sw.js`, manifest и JS/CSS assets сверены с локальным `apps/web-pwa/dist`.
+- Production backend health: `/finance-api/health` проверен; exact backend commit endpoint отсутствует.
+- Android artifact: APK path, SHA256, size и application metadata сверены.
+- Android APK prod-path correction: rebuild with `-PfinanceApiBaseUrl=http://45.10.110.42/finance-api`, APK string scan and production smoke verified.
+- Android UX fixes: custom `AddAccountState?` Saver, explicit asset-category edit/delete affordances, keyboard-safe account sheet, safe category archive behavior and local drag reorder persistence verified by code review plus unit/Kotlin gates.
+- Android final correction: legacy old asset group conversion to real investment asset category, link rollback safety and strengthened account creation IME handling verified by final review plus unit/Kotlin/assemble gates.
+- Compact investment asset categories: backend/API/Android `icon_key`, compact card/edit UX, investment badge and backend-contract analytics parsing verified by targeted backend tests, Android unit/build gates and integration review.
+- QA evidence: Android unit XML, Android lint, historical PWA/backend/OpenAPI evidence классифицированы по актуальности.
+
+## Результат
+
+| Проверка | Значение |
+|----------|----------|
+| Статус | Закрыто с ограничениями |
+| Project branch | `newDis` |
+| Project commit | `6ce31f53f6150050b4cb0dad8488254bd04ff31b` |
+| Commit message | `feat(finance): simplify newDis UX flows` |
+| Remote parity | `HEAD = origin/newDis = 6ce31f53f6150050b4cb0dad8488254bd04ff31b` |
+| Backend/API/DB delta | Нет изменений в `apps/backend`, `db`, `api` |
+| Backend redeploy | Waiver принят: exact backend commit напрямую не доказан, но final HEAD не содержит backend/db/api delta |
+| Android APK correction commit | `1581a6fc464521f7d2503ac4bbdcb6c918f8fbd3` (`fix(android): use production API base for APK`), branch `newDis`, remote parity OK |
+| Android UX fix commit | `16a8be832d7c7fbaacf03325325da63db357d450` (`fix(android): refine asset category interactions`), branch `newDis`, remote parity OK |
+| Android final correction commit | `f5afcda40e12b881ccc31a6b32221b24327cdbd8` (`fix(android): complete legacy asset edit and IME handling`), branch `newDis`, remote parity OK |
+| Compact asset category fix commit | `09ea6479451c61b3d06a412e5aaaecec534fc96a` (`fix(finance): compact investment asset categories`), branch `newDis`, remote parity OK |
+| Critical investment fix commit | `d8175116f5123b6a304d4bd22dc083f2725505a0` (`fix(finance): migrate legacy brokerage assets`), pushed to `origin/newDis` |
+
+## Production frontend evidence
+
+| Проверка | Значение |
+|----------|----------|
+| `/finance/COMMIT` | HTTP `200`, body `6ce31f53f6150050b4cb0dad8488254bd04ff31b` |
+| Local dist `COMMIT` | `6ce31f53f6150050b4cb0dad8488254bd04ff31b` |
+| `/finance/` | byte-hash equal local `apps/web-pwa/dist` |
+| `/finance/sw.js` | byte-hash equal local `apps/web-pwa/dist` |
+| Manifest | byte-hash equal local `apps/web-pwa/dist` |
+| JS/CSS assets | byte-hash equal local `apps/web-pwa/dist` |
+
+## PWA hashes
+
+| Artifact | SHA256 |
+|----------|--------|
+| Index | `c6c7b6331ecbc8b3cfd82a7a41a846ae3c33340be8b334c14777c1a584924540` |
+| Service worker | `0aaedaf8d30b892b4cd7faa192b473d2803a285e5753bf87935db0e6ab99498f` |
+| Manifest | `23ae090c2961076254e9015bab16dbba3fa10a6d7a05d06eaea590acd2182ad8` |
+| JavaScript asset | `bf6d7b481c32d91a95cc17f987ac505b90723abcbdc3c574ee453fa806b9cdaf` |
+| CSS asset | `10329625103101e5c48e28fb81135c19fdfb46c97f19a2b0f916c960518e4947` |
+
+## Production backend evidence
+
+| Проверка | Значение |
+|----------|----------|
+| `/finance-api/health` | HTTP `200`, body `{status:ok}` |
+| Exact commit endpoints | `/finance-api/COMMIT`, `/commit`, `/version` return `404` |
+| Route surface | Matches post-808/newDis route surface |
+| Waiver | Backend exact commit not directly proven; runtime route surface matches post-808/newDis and final HEAD has no backend/db/api delta |
+
+## Android APK prod-path correction
+
+| Параметр | Значение |
+|----------|----------|
+| Status | PASS, supersedes previous APK hash `D1DDE146BB0576D438B173E3910AAADDFFDA1382CDBF5C27BDD1C6E75DC0391D` |
+| Project commit | `1581a6fc464521f7d2503ac4bbdcb6c918f8fbd3` |
+| Commit message | `fix(android): use production API base for APK` |
+| Build command | `.\gradlew.bat :app:testDebugUnitTest :app:assembleDebug -PfinanceApiBaseUrl=http://45.10.110.42/finance-api` -> `BUILD SUCCESSFUL` |
+| Unit XML summary | 9 XML files, 61 tests, 0 failures/errors/skipped |
+| APK | `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-newd-0.1.0-debug.apk` |
+| SHA256 | `593F88085D7EC2AE39141CA5AC3317C74A7473C94AE1F24E1CE373DCF11C3F94` |
+| Size | `54,235,660` |
+| Contains | `http://45.10.110.42/finance-api` |
+| Does not contain | `http://10.0.2.2:8000`, `localhost:8000`, `127.0.0.1`, `http://45.10.110.42/api/v1`, `http://45.10.110.42/finance-api/api/v1` as base |
+| Prod smoke | `/finance-api/health` -> HTTP `200` `{status:ok}`; protected `/finance-api/api/v1/sessions/current` and `/accounts` -> HTTP `401` without auth |
+| Web commit context | `/finance/COMMIT` remains `6ce31f53f6150050b4cb0dad8488254bd04ff31b`; not a blocker for Android-only fix |
+| Known waiver | Plain HTTP remains accepted until HTTPS/domain |
+
+## Android UX fixes addendum
+
+| Параметр | Значение |
+|----------|----------|
+| Status | PASS with manual gesture/IME caveats |
+| Project commit | `16a8be832d7c7fbaacf03325325da63db357d450` |
+| Commit message | `fix(android): refine asset category interactions` |
+| Changed files | `apps/android/app/src/main/java/com/finance/mvp/api/ApiClient.kt`; `apps/android/app/src/main/java/com/finance/mvp/ui/FinanceApp.kt` |
+| Recents/overview stability | Probable crash fixed through custom Saver for nullable `AddAccountState?` |
+| Asset category edit | Explicit edit icon; investment checkbox visible and saved through existing update flow |
+| Add account keyboard UX | Sheet uses IME padding, scroll and BringIntoView for focused fields above keyboard |
+| Destructive category action | Bulk archive gesture removed; trash action requires confirmation; non-empty category archive is blocked and asks user to move/delete accounts first; empty category archive calls backend category archive endpoint |
+| Asset category reorder | Long-press drag reorder added with local `SharedPreferences` persistence |
+| Review result | P0/P1 clean after P1 fix |
+| Unit tests | `:app:testDebugUnitTest` -> `BUILD SUCCESSFUL`; 61 tests, 0 failures/errors/skipped |
+| Kotlin compile | `:app:compileDebugKotlin` -> `BUILD SUCCESSFUL` |
+| APK | `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-newd-0.1.0-debug.apk` |
+| SHA256 | `B0CC0C8D66196CA2503759F2CA4FC07E5700AD6E7DB4B64A229DBEC9D3F3F42A` |
+| Size | `54,235,660` |
+| Content verification | Contains `http://45.10.110.42/finance-api`; no dev/local URLs found |
+| Remaining manual QA | Actual recents/overview, keyboard behavior, drag gestures and confirmation dialogs still need device/emulator visual proof |
+
+## Android final correction addendum
+
+| Параметр | Значение |
+|----------|----------|
+| Status | PASS with live migration/visual IME caveats |
+| Project commit | `f5afcda40e12b881ccc31a6b32221b24327cdbd8` |
+| Commit message | `fix(android): complete legacy asset edit and IME handling` |
+| Changed files | `apps/android/app/src/main/AndroidManifest.xml`; `apps/android/app/src/main/java/com/finance/mvp/api/ApiClient.kt`; `apps/android/app/src/main/java/com/finance/mvp/ui/FinanceApp.kt` |
+| Legacy group investment edit | Legacy old asset group like `Вклад` has `Инвестиция` checkbox in legacy edit dialog |
+| Rename-only compatibility | Checkbox off keeps old rename-only behavior |
+| Legacy conversion | Checkbox on converts legacy group to real asset category with `isInvestment=true` and links active legacy accounts |
+| Conversion guards | Blocks empty group, mixed-currency group, overview/no writable scope |
+| Rollback safety | Link failure rollback uses updated account versions and archives created category |
+| Account creation IME | `adjustResize`, `skipPartiallyExpanded`, `imePadding`, `navigationBarsPadding`, repeated `BringIntoView`, larger spacer |
+| Material3 compatibility | `windowInsets` unavailable; compatible fallback used |
+| Review result | Final review P0/P1 clean |
+| Unit tests | `:app:testDebugUnitTest` PASS; 61 tests, 0 failures/errors/skipped |
+| Kotlin compile | `:app:compileDebugKotlin` PASS |
+| APK build | `assembleDebug` PASS |
+| APK | `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-newd-0.1.0-debug.apk` |
+| SHA256 | `4A3C32727C69427A714E82C45CF77A2666D2C52A4792B909B3153F763DB34A7B` |
+| Size | `54,235,660` |
+| Content verification | Production API base found x2; dev URLs absent |
+| Remaining manual QA | Device/emulator visual IME and live migration proof still required |
+
+## Compact investment asset categories addendum
+
+| Параметр | Значение |
+|----------|----------|
+| Status | PASS with visual manual QA caveat |
+| Project commit | `09ea6479451c61b3d06a412e5aaaecec534fc96a` |
+| Commit message | `fix(finance): compact investment asset categories` |
+| Branch/remote | `newDis`, remote parity OK |
+| Compact card | `AssetCategoryGroupCard` compacted; linked accounts list removed from card |
+| Edit mode | Simplified; manual amount hidden when linked accounts exist; linked accounts list removed from category edit |
+| Investment marker | Investment badge uses trending-up icon |
+| Icon persistence | Icon picker added; `asset_categories.icon_key` persisted through backend/API/Android |
+| Analytics fix | Android forced currency filter removed; investment totals parsed from backend contract |
+| Backend tests | `.venv` targeted pytest suite: `31 passed, 2 warnings` |
+| Android unit | `:app:testDebugUnitTest` successful |
+| Android build | `:app:assembleDebug` successful |
+| Integration review | P0/P1 clean; P2 staging risk handled by curated commit |
+| APK | `artifacts/apk/finance-mvp-newd-0.1.0-debug.apk` |
+| SHA256 | `D1734426439FF38627C230D454D04E66229655C8DF6FD651087DC065B7A30733` |
+| Size | `54,235,740` |
+| Content verification | Production API base present; dev URLs absent |
+| Remaining manual QA | Visual screenshot/device check for compact card, edit mode, icon picker and investment badge |
+
+## Android artifact
+
+| Параметр | Значение |
+|----------|----------|
+| APK | `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-newd-0.1.0-debug.apk` |
+| SHA256 | `B6960DB5D13198405984C027746343432CB95B0C08BB24F54D6A7FCD5061DCC7` |
+| Size | `54,235,740` |
+| Supersedes | Previous APK SHA256 `FCD7EE0D870A12B3B88416DAEBCB3CF35FC513618C865B427E30E5F77F688411` from asset/planning regression addendum; earlier APK SHA256 `D1734426439FF38627C230D454D04E66229655C8DF6FD651087DC065B7A30733` from compact investment asset categories; earlier APK SHA256 `4A3C32727C69427A714E82C45CF77A2666D2C52A4792B909B3153F763DB34A7B` from Android final correction; earlier APK SHA256 `B0CC0C8D66196CA2503759F2CA4FC07E5700AD6E7DB4B64A229DBEC9D3F3F42A` from Android UX fixes; older production-path APK SHA256 `593F88085D7EC2AE39141CA5AC3317C74A7473C94AE1F24E1CE373DCF11C3F94` already superseded `D1DDE146BB0576D438B173E3910AAADDFFDA1382CDBF5C27BDD1C6E75DC0391D`, which retained emulator dev base URL |
+| applicationId | `com.finance.mvp` |
+| versionCode | `1` |
+| versionName | `0.1.0` |
+| minSdk | `26` |
+| targetSdk | `34` |
+| Signing | debug-signed, не release-signed |
+
+## QA gate
+
+| Область | Результат |
+|---------|-----------|
+| Android unit XML | 9 files, 61 tests, 0 failures, 0 errors, 0 skipped for prod-path correction |
+| Android UX unit gate | `:app:testDebugUnitTest` BUILD SUCCESSFUL; 61 tests, 0 failures/errors/skipped |
+| Android Kotlin compile | `:app:compileDebugKotlin` BUILD SUCCESSFUL |
+| Android final correction gate | `:app:testDebugUnitTest` PASS, 61 tests, 0 failures/errors/skipped; `:app:compileDebugKotlin` PASS; `assembleDebug` PASS |
+| Compact asset category backend gate | Targeted `.venv` pytest suite: `31 passed, 2 warnings` |
+| Compact asset category Android gate | `:app:testDebugUnitTest` successful; `:app:assembleDebug` successful |
+| Compact asset category review | Integration review P0/P1 clean; P2 staging risk handled by curated commit |
+| Critical investment build gate | `compileDebugKotlin` PASS; `testDebugUnitTest` PASS, 71 tests; `assembleDebug` PASS |
+| Critical investment quick QA | PASS on `emulator-5556`; linked asset category id present after save/restart, `isInvestment=True`, `investmentCategories.count=1`, totals `150000.0000 RUB`, no `Validation failed`; secret scan PASS |
+| Critical investment harness | PASS on `emulator-5556`; selected serial, APK hash, install, launch and bounded UI probe verified |
+| Android UX review | P0/P1 clean after P1 fix |
+| Android final review | P0/P1 clean |
+| Android lint | 0 errors, 6 warnings |
+| PWA Vitest | Historical only: old reports, not direct `6ce31f5` closure |
+| Backend pytest | Historical only: `152 passed, 4 warnings`, not direct `6ce31f5` closure |
+| OpenAPI redocly | Historical PASS, not direct `6ce31f5` closure |
+| Android prod rerun sanitized PASS | Historical context only: targets old commits `d9ffc75`/`808f7278` |
+| Connected instrumentation stale failing XML | Не используется как green evidence |
+
+## Acceptance clarification
+
+- `newDis` closure подтверждает production PWA static deployment and byte parity for commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b`.
+- Backend redeploy не требовался по принятому waiver: final HEAD не менял backend/db/api.
+- Android UX addendum закрывает code-review/unit/Kotlin evidence для asset category interactions, AddAccountSheet keyboard handling and recents Saver; финальный Android correction addendum закрывает legacy asset edit conversion и усиленный IME handling; compact investment asset category addendum закрывает compact card/edit/iconKey/analytics fix; manual device proof остаётся отдельным gate.
+- Planning/OCR/product limitations из [[Карта_Пользовательских_Путей_Finance]] остаются действующими: `Overview` read-only, Planning для `newDis` трактуется Android-first без отдельного PWA Planning proof, OCR copy не должна обещать Android on-device OCR без отдельной реализации и QA evidence.
+
+## Известные ограничения и риски
+
+- HTTP IP limits не позволяют считать PWA install/service worker proof полным; для полного PWA install proof ещё нужны HTTPS/domain.
+- Backend exact commit endpoint отсутствует, поэтому backend exact commit directly not proven.
+- Authenticated production login/OCR smoke и retention/privacy evidence не закрыты этой поставкой.
+- APK debug-signed, не release-signed.
+- Historical reports не должны подаваться как direct green evidence для commit `6ce31f5`.
+- Actual recents/overview, keyboard, long-press drag reorder and confirmation dialogs require emulator/device manual QA; live migration of legacy old asset groups and visual IME behavior also require device/emulator proof; compact card/edit mode/icon picker/investment badge require visual screenshot/device check.
+
+## Asset/planning regression addendum
+
+| Параметр | Значение |
+|----------|----------|
+| Status | PASS with prod data-check and visual manual QA caveats |
+| Project commit | `1013e632d54c6af6ed9326d8b7f761bdd381bade` |
+| Branch/remote | `newDis`, project commit pushed before KB update |
+| Fix summary | Restored linked account rows in expanded asset category card; restored legacy `Карта`/`Банк` visibility without duplicates; fixed category-level `isInvestment` save/local state; clamped planning month selection to current-or-future; treated missing plan 404 as empty state / friendly planning message |
+| Expanded card | `Вклад` should show 4 linked accounts when expanded; edit mode remains clean without account list |
+| Investment state | Marking `Брокер` investment updates badge/state and analytics inputs |
+| Russian input diagnosis | No app-level Cyrillic filter found; AVD `Codex` had `hw.keyboard=yes`; likely emulator/IME config |
+| Kotlin compile | `.\gradlew.bat :app:compileDebugKotlin --console=plain` SUCCESS |
+| Android unit | `.\gradlew.bat :app:testDebugUnitTest --console=plain` SUCCESS |
+| Packaging unit | `.\gradlew.bat :app:testDebugUnitTest --console=plain` SUCCESS (`BUILD SUCCESSFUL in 2s`) |
+| APK build | `.\gradlew.bat :app:assembleDebug -PfinanceApiBaseUrl=http://45.10.110.42/finance-api --console=plain` SUCCESS (`BUILD SUCCESSFUL in 36s`) |
+| Review | No P0/P1; P2 missing UI/Compose coverage only |
+| APK | `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-newd-0.1.0-debug.apk` |
+| SHA256 | `FCD7EE0D870A12B3B88416DAEBCB3CF35FC513618C865B427E30E5F77F688411` |
+| Size | `54,235,740` |
+| Content verification | Prod URL `http://45.10.110.42/finance-api` found in `classes7.dex`, `classes5.dex`; dev URLs absent (`10.0.2.2`, `localhost`, `127.0.0.1`, `0.0.0.0`, `192.168.`) |
+| Install | AVD `Codex`, serial `emulator-5554`, install `Success`, package `com.finance.mvp` |
+| Remaining manual QA | Prod auth/DB read-only data-check not covered; no UI/Compose automated coverage for visual regressions; Russian input likely emulator settings and should be rechecked after keyboard/IME workaround |
+
+## Critical investment save regression addendum
+
+| Параметр | Значение |
+|----------|----------|
+| Status | PASS with project commit recorded and debug-signing caveat |
+| Project commit | `d8175116f5123b6a304d4bd22dc083f2725505a0` (`fix(finance): migrate legacy brokerage assets`), pushed to `origin/newDis` |
+| Root cause | Android sent `iconKey` in `POST /api/v1/asset-categories`; deployed strict OpenAPI `AssetCategoryCreateRequest` has `additionalProperties=false`, so backend validation failed before create/link |
+| Fix summary | Create payload no longer includes `iconKey` |
+| Changed files | `FinanceApp.kt`; `AppSectionTest.kt`; `ApiClient.kt`; `ApiClientPlanningAllocationTest.kt` |
+| Kotlin compile | `compileDebugKotlin` PASS, exit 0 |
+| Android unit | `testDebugUnitTest` PASS, 71 tests, exit 0 |
+| APK build | `assembleDebug` PASS, exit 0 |
+| APK | `C:\Users\style\Documents\Codex\Финансы\artifacts\apk\finance-mvp-newd-0.1.0-debug.apk` |
+| SHA256 | `B6960DB5D13198405984C027746343432CB95B0C08BB24F54D6A7FCD5061DCC7` |
+| Size | `54,235,740` |
+| Quick QA | `MVP_EVIDENCE/critical-investment-qa-quick-20260612-013822/QA_REPORT_SANITIZED.md`; PASS on `emulator-5556` |
+| Harness | `MVP_EVIDENCE/critical-investment-qa-harness-20260612-015225/HARNESS_REPORT_SANITIZED.md`; PASS on `emulator-5556` |
+| Runtime proof | After save/restart linked asset category id present, `linkedAssetCategory.isInvestment=True`, `investmentCategories.count=1`, totals `150000.0000 RUB`, no `Validation failed` |
+| Sanitized project summary | `MVP_EVIDENCE/critical-investment-fix-20260612/SUMMARY_SANITIZED.md` |
+| Historical non-final evidence | `critical-investment-qa-20260612-003254` FAIL and `critical-investment-qa-20260612-010747` stale/incomplete are not final PASS evidence |

@@ -5,10 +5,10 @@ id: "moc-android"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-06-01"
-уверенность: "средняя"
-источники: ["docs/04-architecture-blueprint.md", "docs/50-notification-runtime-clean-pass.md"]
-доказательства: ["Док_Android_Build", "Док_Нотификации_E2E"]
+обновлено: "2026-08-22"
+уверенность: "высокая"
+источники: ["docs/04-architecture-blueprint.md", "docs/68-scroll-and-priority-retirement-delivery.md", "docs/50-notification-runtime-clean-pass.md", "docs/67-weekly-focus-production-rollout-evidence.md"]
+доказательства: ["Док_Prod_Deploy_State", "Док_V21_Scroll_Priority_20260822", "Док_Android_Build", "Док_Android_Verification", "Док_Production_Rollout_20260810", "Док_Нотификации_E2E"]
 теги: ["moc", "android", "rocketflow"]
 ---
 
@@ -40,7 +40,7 @@ id: "moc-android"
 Аутентификация, хранение токенов, автообновление сессии.
 
 ### planning
-Полный цикл офлайн-планирования с синхронизацией. [[TaskPlan|План задач]] с приоритетной сортировкой, drag-drop. [[PlanningSync|Офлайн-синхронизация]] через PlanningSyncWorker, ConflictResolver.
+Полный цикл офлайн-планирования с синхронизацией. [[TaskPlan|План задач]] сортируется детерминированно без task priority. Home/Planner восстанавливает stable visible anchor и pixel offset при перестроении списка и возврате из деталей. [[PlanningSync|Офлайн-синхронизация]] выполняется через `PlanningSyncWorker`.
 
 ### browse
 Навигация по дереву: папки → цели → задачи.
@@ -69,16 +69,19 @@ id: "moc-android"
 
 ## Сборка
 
-Gradle. `assembleDebug` — отладочная сборка. CI: android-verify.yml.
+V21 source 2026-08-22: `90/90` unit PASS, `assembleDebug` PASS, lint `0` errors / `34` existing warnings, debug Android-test APK PASS. Visual scroll и portrait/landscape IME checks PASS; SQLite short-lived store lifecycle исправлен. Backend/web V21 rollout PASS; см. [[Док_V21_Scroll_Priority_20260822]].
 
-См. [[Док_Android_Build]], [[Задача_CI_Runtime_Lanes]].
+Current personal APK: `0.1.1`, `versionCode 2`, signed, SHA-256 `3DF9EB210D801D932A4C736A0EF682C8C0AADCB36536B81CA19267F326C52AF7`. `adb install -r` сохранил UID и `firstInstallTime`; cold launch PASS, crash/ANR `0/0`, current screen Login. Это direct-sideload artifact, не Play Store production identity. Исторические APK сохранены в [[Док_Android_Verification]].
+
+См. [[Док_Android_Build]], [[Док_Android_Verification]], [[Док_Production_Rollout_20260810]], [[Задача_CI_Runtime_Lanes]].
 
 ## Эмулятор
 
-Тестирование на Android Emulator (API 34).
+Тестирование на Android Emulator. Локально исправлено: SDK `C:\Users\style\AppData\Local\Android\Sdk`, `android/local.properties` ignored by git, emulator `emulator-5554` видим. См. [[Источник_Android_Local_Setup]].
 
 ## Связанные MOC
 
 - [[MOC_RocketFlow]] — главная карта
 - [[MOC_Бэкенд]] — бэкенд API
 - [[MOC_DevOps]] — CI/CD
+- [[Источник_Android_Local_Setup]]

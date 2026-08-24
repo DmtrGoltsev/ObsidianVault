@@ -5,7 +5,7 @@ id: "moc-all-projects"
 проект: ""
 владелец: "rocketflow-team"
 создано: "2026-06-01"
-обновлено: "2026-06-01"
+обновлено: "2026-06-06"
 уверенность: "высокая"
 источники: ["README.md"]
 доказательства: []
@@ -29,6 +29,12 @@ id: "moc-all-projects"
 - **Стек:** Python/FastAPI + React PWA + Kotlin Android + PostgreSQL
 - **Стадия:** Production MVP functional GO (2026-05-19)
 - **Под-MOC:** [[MOC_Finance]]
+
+### [[Focus]]
+- **Тип:** планировщик задач и целей с green/red механикой
+- **Стек:** Java 21/Spring Boot 3.4 + React 18 + Kotlin Android + PostgreSQL
+- **Стадия:** Активная разработка + QA тестирование (253 кейса)
+- **Под-MOC:** [[MOC_Focus]]
 
 ### Новые проекты
 _(добавлять новые проекты сюда по шаблону выше)_

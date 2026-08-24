@@ -5,10 +5,10 @@ id: "moc-web"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-05-31"
+обновлено: "2026-06-07"
 уверенность: "средняя"
 источники: ["docs/04-architecture-blueprint.md"]
-доказательства: ["Док_Web_Build"]
+доказательства: ["Док_Web_Build", "Док_Web_Verification"]
 теги: ["moc", "web", "rocketflow"]
 ---
 
@@ -61,7 +61,7 @@ Vite 5. `npm run build` — production-сборка в статические ф
 
 ## CI
 
-[[Регламент_CI_CD]] — web-verify.yml (build-only). См. [[Док_Web_Build]], [[Задача_CI_Runtime_Lanes]].
+[[Регламент_CI_CD]] — web-verify.yml (`npm run build`); web test scripts отсутствуют, runtime lane open. См. [[Док_Web_Build]], [[Док_Web_Verification]], [[Задача_CI_Runtime_Lanes]].
 
 ## Связанные MOC
 

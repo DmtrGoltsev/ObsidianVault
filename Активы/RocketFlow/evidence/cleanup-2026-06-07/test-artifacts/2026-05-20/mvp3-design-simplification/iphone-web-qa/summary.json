@@ -1,0 +1,752 @@
+{
+  "status": "WARN",
+  "checks": [
+    {
+      "id": "runtime",
+      "status": "PASS",
+      "summary": "Playwright WebKit launched; evidence is iPhone-class viewport, not real iPhone.",
+      "evidence": [
+        "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\logs\\runtime-setup.log"
+      ]
+    },
+    {
+      "id": "empty-state",
+      "status": "WARN",
+      "summary": "Empty state captured. UI still exposes secondary New folder action on the empty state, so MVP3 simplicity gate is not a clean PASS.",
+      "evidence": [
+        "iphone390-empty-state.png",
+        "iphone430-empty-state.png"
+      ]
+    },
+    {
+      "id": "quick-capture-no-orphan",
+      "status": "WARN",
+      "summary": "API-created tasks have goalId. UI quick capture without any goal does not open focused task input; it shows create-goal/menu state instead.",
+      "evidence": [
+        "iphone390-empty-quick-capture-no-goal.png",
+        "seed-data.json"
+      ]
+    },
+    {
+      "id": "compact-hierarchy-overflow",
+      "status": "PASS",
+      "summary": "No document-level horizontal overflow detected in captured iPhone-class states.",
+      "evidence": [
+        "localization-overflow-audit.json"
+      ]
+    },
+    {
+      "id": "task-detail-summary-edit",
+      "status": "WARN",
+      "summary": "Task summary and edit screenshots captured. Detail view is summary-ish, but advanced rows (links/notes/access) are still always nearby and edit form has no explicit cancel/restore inside edit section.",
+      "evidence": [
+        "iphone390-owner-task-a-summary.png",
+        "iphone390-owner-task-a-edit.png"
+      ]
+    },
+    {
+      "id": "links-dependencies",
+      "status": "PASS",
+      "summary": "Dependency direction screenshots captured; API rejected blocked close and non-task dependency. UI wording is shorter than the required task-language phrase.",
+      "evidence": [
+        "iphone390-owner-task-a-links-notes.png",
+        "iphone390-owner-task-b-dependency-direction.png",
+        "seed-data.json"
+      ]
+    },
+    {
+      "id": "redaction",
+      "status": "PASS",
+      "summary": "Full-access collaborator API evidence redacts inaccessible private linked target without leaking private title.",
+      "evidence": [
+        "iphone390-full-redacted-private-link.png",
+        "seed-data.json"
+      ]
+    },
+    {
+      "id": "sharing-access",
+      "status": "WARN",
+      "summary": "Sharing screenshots captured. Detail uses collapsed inline disclosure/form, not a true sheet with segmented Просмотр/Полный and existing invite list; revoke appears only on pending invitation route.",
+      "evidence": [
+        "iphone390-owner-sharing-inline.png",
+        "iphone390-owner-sharing-route-revoke.png"
+      ]
+    },
+    {
+      "id": "read-only-full-access-semantics",
+      "status": "WARN",
+      "summary": "API confirms read-only create rejection and full-access collaborator creation with owner semantics.",
+      "evidence": [
+        "iphone390-read-only-task-detail.png",
+        "seed-data.json"
+      ]
+    },
+    {
+      "id": "dnd-move",
+      "status": "WARN",
+      "summary": "Fallback Move screenshot captured and invalid DnD state file written. UI has no persistent valid target highlight evidence; invalid drop feedback may be too transient.",
+      "evidence": [
+        "iphone390-owner-fallback-move.png",
+        "iphone390-owner-invalid-dnd-task-folder.png",
+        "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\state\\iphone390-dnd-invalid-task-to-folder-state.json"
+      ]
+    },
+    {
+      "id": "settings-logout",
+      "status": "WARN",
+      "summary": "Settings/logout screenshots captured. Settings/language/logout remain on planning rail rather than profile/menu, which conflicts with MVP3 contract.",
+      "evidence": [
+        "iphone390-owner-settings-profile-logout-placement.png",
+        "iphone390-logout-complete.png",
+        "iphone390-protected-route-after-logout.png"
+      ]
+    },
+    {
+      "id": "ru-localization",
+      "status": "PASS",
+      "summary": "No banned English glossary hits found in captured RU screen text.",
+      "evidence": [
+        "localization-overflow-audit.json"
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "id": "iphone390-empty-state",
+      "path": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\screenshots\\iphone390-empty-state.png",
+      "statePath": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\state\\iphone390-empty-state.json",
+      "capturedAt": "2026-05-20T06:53:21.318Z",
+      "device": "iPhone-class WebKit 390x844",
+      "role": "Empty RU account",
+      "route": "/app/tasks",
+      "screen": "empty state exact copy and primary CTA",
+      "horizontalOverflow": false
+    },
+    {
+      "id": "iphone390-empty-quick-capture-no-goal",
+      "path": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\screenshots\\iphone390-empty-quick-capture-no-goal.png",
+      "statePath": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\state\\iphone390-empty-quick-capture-no-goal.json",
+      "capturedAt": "2026-05-20T06:53:21.682Z",
+      "device": "iPhone-class WebKit 390x844",
+      "role": "Empty RU account",
+      "route": "/app/tasks",
+      "screen": "primary +Задача quick capture/no-goal resolver attempt",
+      "horizontalOverflow": false
+    },
+    {
+      "id": "iphone390-empty-advanced-picker",
+      "path": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\screenshots\\iphone390-empty-advanced-picker.png",
+      "statePath": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\state\\iphone390-empty-advanced-picker.json",
+      "capturedAt": "2026-05-20T06:53:21.804Z",
+      "device": "iPhone-class WebKit 390x844",
+      "role": "Empty RU account",
+      "route": "/app/tasks",
+      "screen": "advanced entity picker after no-goal quick action",
+      "horizontalOverflow": false
+    },
+    {
+      "id": "iphone430-empty-state",
+      "path": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\screenshots\\iphone430-empty-state.png",
+      "statePath": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\state\\iphone430-empty-state.json",
+      "capturedAt": "2026-05-20T06:53:23.301Z",
+      "device": "iPhone-class WebKit 430x932",
+      "role": "Empty RU account",
+      "route": "/app/tasks",
+      "screen": "empty state exact copy and primary CTA",
+      "horizontalOverflow": false
+    },
+    {
+      "id": "iphone430-empty-quick-capture-no-goal",
+      "path": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\screenshots\\iphone430-empty-quick-capture-no-goal.png",
+      "statePath": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\state\\iphone430-empty-quick-capture-no-goal.json",
+      "capturedAt": "2026-05-20T06:53:23.688Z",
+      "device": "iPhone-class WebKit 430x932",
+      "role": "Empty RU account",
+      "route": "/app/tasks",
+      "screen": "primary +Задача quick capture/no-goal resolver attempt",
+      "horizontalOverflow": false
+    },
+    {
+      "id": "iphone430-empty-advanced-picker",
+      "path": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\screenshots\\iphone430-empty-advanced-picker.png",
+      "statePath": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\state\\iphone430-empty-advanced-picker.json",
+      "capturedAt": "2026-05-20T06:53:23.855Z",
+      "device": "iPhone-class WebKit 430x932",
+      "role": "Empty RU account",
+      "route": "/app/tasks",
+      "screen": "advanced entity picker after no-goal quick action",
+      "horizontalOverflow": false
+    },
+    {
+      "id": "iphone390-owner-compact-hierarchy",
+      "path": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\screenshots\\iphone390-owner-compact-hierarchy.png",
+      "statePath": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\state\\iphone390-owner-compact-hierarchy.json",
+      "capturedAt": "2026-05-20T06:53:25.635Z",
+      "device": "iPhone-class WebKit 390x844",
+      "role": "Owner A",
+      "route": "/app/tasks",
+      "screen": "compact hierarchy with folder/goal/task/idea/note rows",
+      "horizontalOverflow": false
+    },
+    {
+      "id": "iphone390-owner-task-a-summary",
+      "path": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\screenshots\\iphone390-owner-task-a-summary.png",
+      "statePath": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\state\\iphone390-owner-task-a-summary.json",
+      "capturedAt": "2026-05-20T06:53:26.119Z",
+      "device": "iPhone-class WebKit 390x844",
+      "role": "Owner A",
+      "route": "/app/tasks",
+      "screen": "task detail summary/view mode",
+      "horizontalOverflow": false
+    },
+    {
+      "id": "iphone390-owner-task-a-edit",
+      "path": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\screenshots\\iphone390-owner-task-a-edit.png",
+      "statePath": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\state\\iphone390-owner-task-a-edit.json",
+      "capturedAt": "2026-05-20T06:53:26.813Z",
+      "device": "iPhone-class WebKit 390x844",
+      "role": "Owner A",
+      "route": "/app/tasks",
+      "screen": "task detail edit mode after explicit edit",
+      "horizontalOverflow": false
+    },
+    {
+      "id": "iphone390-owner-task-a-links-notes",
+      "path": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\screenshots\\iphone390-owner-task-a-links-notes.png",
+      "statePath": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\state\\iphone390-owner-task-a-links-notes.json",
+      "capturedAt": "2026-05-20T06:53:27.829Z",
+      "device": "iPhone-class WebKit 390x844",
+      "role": "Owner A",
+      "route": "/app/tasks",
+      "screen": "links, dependency row, linked notes",
+      "horizontalOverflow": false
+    },
+    {
+      "id": "iphone390-owner-link-picker",
+      "path": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\screenshots\\iphone390-owner-link-picker.png",
+      "statePath": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\state\\iphone390-owner-link-picker.json",
+      "capturedAt": "2026-05-20T06:53:28.352Z",
+      "device": "iPhone-class WebKit 390x844",
+      "role": "Owner A",
+      "route": "/app/tasks",
+      "screen": "link picker/editor; folders should be absent from options",
+      "horizontalOverflow": false
+    },
+    {
+      "id": "iphone390-owner-task-b-dependency-direction",
+      "path": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\screenshots\\iphone390-owner-task-b-dependency-direction.png",
+      "statePath": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\state\\iphone390-owner-task-b-dependency-direction.json",
+      "capturedAt": "2026-05-20T06:53:29.290Z",
+      "device": "iPhone-class WebKit 390x844",
+      "role": "Owner A",
+      "route": "/app/tasks",
+      "screen": "reverse dependency direction from task B",
+      "horizontalOverflow": false
+    },
+    {
+      "id": "iphone390-owner-sharing-inline",
+      "path": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\screenshots\\iphone390-owner-sharing-inline.png",
+      "statePath": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\state\\iphone390-owner-sharing-inline.json",
+      "capturedAt": "2026-05-20T06:53:30.775Z",
+      "device": "iPhone-class WebKit 390x844",
+      "role": "Owner A",
+      "route": "/app/tasks",
+      "screen": "access/share surface from task detail",
+      "horizontalOverflow": false
+    },
+    {
+      "id": "iphone390-owner-fallback-move",
+      "path": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\screenshots\\iphone390-owner-fallback-move.png",
+      "statePath": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\state\\iphone390-owner-fallback-move.json",
+      "capturedAt": "2026-05-20T06:53:31.676Z",
+      "device": "iPhone-class WebKit 390x844",
+      "role": "Owner A",
+      "route": "/app/tasks",
+      "screen": "fallback Move surface",
+      "horizontalOverflow": false
+    },
+    {
+      "id": "iphone390-owner-quick-capture-with-goal",
+      "path": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\screenshots\\iphone390-owner-quick-capture-with-goal.png",
+      "statePath": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\state\\iphone390-owner-quick-capture-with-goal.json",
+      "capturedAt": "2026-05-20T06:53:43.828Z",
+      "device": "iPhone-class WebKit 390x844",
+      "role": "Owner A",
+      "route": "/app/tasks",
+      "screen": "quick capture with existing goal",
+      "horizontalOverflow": false
+    },
+    {
+      "id": "iphone390-owner-invalid-dnd-task-folder",
+      "path": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\screenshots\\iphone390-owner-invalid-dnd-task-folder.png",
+      "statePath": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\state\\iphone390-owner-invalid-dnd-task-folder.json",
+      "capturedAt": "2026-05-20T06:53:45.631Z",
+      "device": "iPhone-class WebKit 390x844",
+      "role": "Owner A",
+      "route": "/app/tasks",
+      "screen": "invalid DnD task -> folder feedback/no-mutation",
+      "horizontalOverflow": false
+    },
+    {
+      "id": "iphone390-full-shared-hierarchy",
+      "path": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\screenshots\\iphone390-full-shared-hierarchy.png",
+      "statePath": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\state\\iphone390-full-shared-hierarchy.json",
+      "capturedAt": "2026-05-20T06:53:47.063Z",
+      "device": "iPhone-class WebKit 390x844",
+      "role": "Full-access collaborator B",
+      "route": "/app/tasks",
+      "screen": "shared hierarchy as full-access collaborator",
+      "horizontalOverflow": false
+    },
+    {
+      "id": "iphone390-full-redacted-private-link",
+      "path": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\screenshots\\iphone390-full-redacted-private-link.png",
+      "statePath": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\state\\iphone390-full-redacted-private-link.json",
+      "capturedAt": "2026-05-20T06:53:47.960Z",
+      "device": "iPhone-class WebKit 390x844",
+      "role": "Full-access collaborator B",
+      "route": "/app/tasks",
+      "screen": "private linked entity redacted placeholder",
+      "horizontalOverflow": false
+    },
+    {
+      "id": "iphone390-read-only-task-detail",
+      "path": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\screenshots\\iphone390-read-only-task-detail.png",
+      "statePath": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\state\\iphone390-read-only-task-detail.json",
+      "capturedAt": "2026-05-20T06:53:49.848Z",
+      "device": "iPhone-class WebKit 390x844",
+      "role": "Status-only/read collaborator C",
+      "route": "/app/tasks",
+      "screen": "read-only collaborator task detail / disabled mutation surface",
+      "horizontalOverflow": false
+    },
+    {
+      "id": "iphone430-owner-compact-hierarchy",
+      "path": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\screenshots\\iphone430-owner-compact-hierarchy.png",
+      "statePath": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\state\\iphone430-owner-compact-hierarchy.json",
+      "capturedAt": "2026-05-20T06:53:51.511Z",
+      "device": "iPhone-class WebKit 430x932",
+      "role": "Owner A",
+      "route": "/app/tasks",
+      "screen": "compact hierarchy with folder/goal/task/idea/note rows",
+      "horizontalOverflow": false
+    },
+    {
+      "id": "iphone430-owner-task-a-summary",
+      "path": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\screenshots\\iphone430-owner-task-a-summary.png",
+      "statePath": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\state\\iphone430-owner-task-a-summary.json",
+      "capturedAt": "2026-05-20T06:53:52.027Z",
+      "device": "iPhone-class WebKit 430x932",
+      "role": "Owner A",
+      "route": "/app/tasks",
+      "screen": "task detail summary/view mode",
+      "horizontalOverflow": false
+    },
+    {
+      "id": "iphone430-owner-task-a-edit",
+      "path": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\screenshots\\iphone430-owner-task-a-edit.png",
+      "statePath": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\state\\iphone430-owner-task-a-edit.json",
+      "capturedAt": "2026-05-20T06:53:52.547Z",
+      "device": "iPhone-class WebKit 430x932",
+      "role": "Owner A",
+      "route": "/app/tasks",
+      "screen": "task detail edit mode after explicit edit",
+      "horizontalOverflow": false
+    },
+    {
+      "id": "iphone430-owner-task-a-links-notes",
+      "path": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\screenshots\\iphone430-owner-task-a-links-notes.png",
+      "statePath": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\state\\iphone430-owner-task-a-links-notes.json",
+      "capturedAt": "2026-05-20T06:53:53.339Z",
+      "device": "iPhone-class WebKit 430x932",
+      "role": "Owner A",
+      "route": "/app/tasks",
+      "screen": "links, dependency row, linked notes",
+      "horizontalOverflow": false
+    },
+    {
+      "id": "iphone430-owner-link-picker",
+      "path": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\screenshots\\iphone430-owner-link-picker.png",
+      "statePath": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\state\\iphone430-owner-link-picker.json",
+      "capturedAt": "2026-05-20T06:53:53.830Z",
+      "device": "iPhone-class WebKit 430x932",
+      "role": "Owner A",
+      "route": "/app/tasks",
+      "screen": "link picker/editor; folders should be absent from options",
+      "horizontalOverflow": false
+    },
+    {
+      "id": "iphone430-owner-task-b-dependency-direction",
+      "path": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\screenshots\\iphone430-owner-task-b-dependency-direction.png",
+      "statePath": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\state\\iphone430-owner-task-b-dependency-direction.json",
+      "capturedAt": "2026-05-20T06:53:54.879Z",
+      "device": "iPhone-class WebKit 430x932",
+      "role": "Owner A",
+      "route": "/app/tasks",
+      "screen": "reverse dependency direction from task B",
+      "horizontalOverflow": false
+    },
+    {
+      "id": "iphone430-owner-sharing-inline",
+      "path": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\screenshots\\iphone430-owner-sharing-inline.png",
+      "statePath": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\state\\iphone430-owner-sharing-inline.json",
+      "capturedAt": "2026-05-20T06:53:56.196Z",
+      "device": "iPhone-class WebKit 430x932",
+      "role": "Owner A",
+      "route": "/app/tasks",
+      "screen": "access/share surface from task detail",
+      "horizontalOverflow": false
+    },
+    {
+      "id": "iphone430-owner-fallback-move",
+      "path": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\screenshots\\iphone430-owner-fallback-move.png",
+      "statePath": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\state\\iphone430-owner-fallback-move.json",
+      "capturedAt": "2026-05-20T06:53:57.032Z",
+      "device": "iPhone-class WebKit 430x932",
+      "role": "Owner A",
+      "route": "/app/tasks",
+      "screen": "fallback Move surface",
+      "horizontalOverflow": false
+    },
+    {
+      "id": "iphone430-owner-quick-capture-with-goal",
+      "path": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\screenshots\\iphone430-owner-quick-capture-with-goal.png",
+      "statePath": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\state\\iphone430-owner-quick-capture-with-goal.json",
+      "capturedAt": "2026-05-20T06:54:09.064Z",
+      "device": "iPhone-class WebKit 430x932",
+      "role": "Owner A",
+      "route": "/app/tasks",
+      "screen": "quick capture with existing goal",
+      "horizontalOverflow": false
+    },
+    {
+      "id": "iphone430-owner-invalid-dnd-task-folder",
+      "path": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\screenshots\\iphone430-owner-invalid-dnd-task-folder.png",
+      "statePath": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\state\\iphone430-owner-invalid-dnd-task-folder.json",
+      "capturedAt": "2026-05-20T06:54:10.818Z",
+      "device": "iPhone-class WebKit 430x932",
+      "role": "Owner A",
+      "route": "/app/tasks",
+      "screen": "invalid DnD task -> folder feedback/no-mutation",
+      "horizontalOverflow": false
+    },
+    {
+      "id": "iphone390-owner-sharing-route-revoke",
+      "path": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\screenshots\\iphone390-owner-sharing-route-revoke.png",
+      "statePath": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\state\\iphone390-owner-sharing-route-revoke.json",
+      "capturedAt": "2026-05-20T06:54:12.319Z",
+      "device": "iPhone-class WebKit 390x844",
+      "role": "Owner A",
+      "route": "/app/sharing",
+      "screen": "sharing/access list and revoke visibility",
+      "horizontalOverflow": false
+    },
+    {
+      "id": "iphone390-owner-settings-profile-logout-placement",
+      "path": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\screenshots\\iphone390-owner-settings-profile-logout-placement.png",
+      "statePath": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\state\\iphone390-owner-settings-profile-logout-placement.json",
+      "capturedAt": "2026-05-20T06:54:13.236Z",
+      "device": "iPhone-class WebKit 390x844",
+      "role": "Owner A",
+      "route": "/app/settings",
+      "screen": "settings/language/logout placement",
+      "horizontalOverflow": false
+    },
+    {
+      "id": "iphone390-logout-complete",
+      "path": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\screenshots\\iphone390-logout-complete.png",
+      "statePath": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\state\\iphone390-logout-complete.json",
+      "capturedAt": "2026-05-20T06:54:13.539Z",
+      "device": "iPhone-class WebKit 390x844",
+      "role": "Owner A",
+      "route": "/auth/login",
+      "screen": "logout complete",
+      "horizontalOverflow": false
+    },
+    {
+      "id": "iphone390-protected-route-after-logout",
+      "path": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\screenshots\\iphone390-protected-route-after-logout.png",
+      "statePath": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\state\\iphone390-protected-route-after-logout.json",
+      "capturedAt": "2026-05-20T06:54:14.440Z",
+      "device": "iPhone-class WebKit 390x844",
+      "role": "Owner A after logout",
+      "route": "/app/tasks",
+      "screen": "protected route after logout/refresh",
+      "horizontalOverflow": false
+    },
+    {
+      "id": "iphone430-owner-sharing-route-revoke",
+      "path": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\screenshots\\iphone430-owner-sharing-route-revoke.png",
+      "statePath": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\state\\iphone430-owner-sharing-route-revoke.json",
+      "capturedAt": "2026-05-20T06:54:15.941Z",
+      "device": "iPhone-class WebKit 430x932",
+      "role": "Owner A",
+      "route": "/app/sharing",
+      "screen": "sharing/access list and revoke visibility",
+      "horizontalOverflow": false
+    },
+    {
+      "id": "iphone430-owner-settings-profile-logout-placement",
+      "path": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\screenshots\\iphone430-owner-settings-profile-logout-placement.png",
+      "statePath": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\state\\iphone430-owner-settings-profile-logout-placement.json",
+      "capturedAt": "2026-05-20T06:54:16.878Z",
+      "device": "iPhone-class WebKit 430x932",
+      "role": "Owner A",
+      "route": "/app/settings",
+      "screen": "settings/language/logout placement",
+      "horizontalOverflow": false
+    },
+    {
+      "id": "iphone430-logout-complete",
+      "path": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\screenshots\\iphone430-logout-complete.png",
+      "statePath": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\state\\iphone430-logout-complete.json",
+      "capturedAt": "2026-05-20T06:54:17.249Z",
+      "device": "iPhone-class WebKit 430x932",
+      "role": "Owner A",
+      "route": "/auth/login",
+      "screen": "logout complete",
+      "horizontalOverflow": false
+    },
+    {
+      "id": "iphone430-protected-route-after-logout",
+      "path": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\screenshots\\iphone430-protected-route-after-logout.png",
+      "statePath": "C:\\Users\\style\\Documents\\Codex\\RocketFlow\\test-artifacts\\2026-05-20\\mvp3-design-simplification\\iphone-web-qa\\state\\iphone430-protected-route-after-logout.json",
+      "capturedAt": "2026-05-20T06:54:18.126Z",
+      "device": "iPhone-class WebKit 430x932",
+      "role": "Owner A after logout",
+      "route": "/app/tasks",
+      "screen": "protected route after logout/refresh",
+      "horizontalOverflow": false
+    }
+  ],
+  "audit": [
+    {
+      "screenshot": "iphone390-empty-state",
+      "horizontalOverflow": false,
+      "bannedEnglishHits": [],
+      "bannedLegacyHits": []
+    },
+    {
+      "screenshot": "iphone390-empty-quick-capture-no-goal",
+      "horizontalOverflow": false,
+      "bannedEnglishHits": [],
+      "bannedLegacyHits": []
+    },
+    {
+      "screenshot": "iphone390-empty-advanced-picker",
+      "horizontalOverflow": false,
+      "bannedEnglishHits": [],
+      "bannedLegacyHits": []
+    },
+    {
+      "screenshot": "iphone430-empty-state",
+      "horizontalOverflow": false,
+      "bannedEnglishHits": [],
+      "bannedLegacyHits": []
+    },
+    {
+      "screenshot": "iphone430-empty-quick-capture-no-goal",
+      "horizontalOverflow": false,
+      "bannedEnglishHits": [],
+      "bannedLegacyHits": []
+    },
+    {
+      "screenshot": "iphone430-empty-advanced-picker",
+      "horizontalOverflow": false,
+      "bannedEnglishHits": [],
+      "bannedLegacyHits": []
+    },
+    {
+      "screenshot": "iphone390-owner-compact-hierarchy",
+      "horizontalOverflow": false,
+      "bannedEnglishHits": [],
+      "bannedLegacyHits": []
+    },
+    {
+      "screenshot": "iphone390-owner-task-a-summary",
+      "horizontalOverflow": false,
+      "bannedEnglishHits": [],
+      "bannedLegacyHits": []
+    },
+    {
+      "screenshot": "iphone390-owner-task-a-edit",
+      "horizontalOverflow": false,
+      "bannedEnglishHits": [],
+      "bannedLegacyHits": []
+    },
+    {
+      "screenshot": "iphone390-owner-task-a-links-notes",
+      "horizontalOverflow": false,
+      "bannedEnglishHits": [],
+      "bannedLegacyHits": []
+    },
+    {
+      "screenshot": "iphone390-owner-link-picker",
+      "horizontalOverflow": false,
+      "bannedEnglishHits": [],
+      "bannedLegacyHits": []
+    },
+    {
+      "screenshot": "iphone390-owner-task-b-dependency-direction",
+      "horizontalOverflow": false,
+      "bannedEnglishHits": [],
+      "bannedLegacyHits": []
+    },
+    {
+      "screenshot": "iphone390-owner-sharing-inline",
+      "horizontalOverflow": false,
+      "bannedEnglishHits": [],
+      "bannedLegacyHits": []
+    },
+    {
+      "screenshot": "iphone390-owner-fallback-move",
+      "horizontalOverflow": false,
+      "bannedEnglishHits": [],
+      "bannedLegacyHits": []
+    },
+    {
+      "screenshot": "iphone390-owner-quick-capture-with-goal",
+      "horizontalOverflow": false,
+      "bannedEnglishHits": [],
+      "bannedLegacyHits": []
+    },
+    {
+      "screenshot": "iphone390-owner-invalid-dnd-task-folder",
+      "horizontalOverflow": false,
+      "bannedEnglishHits": [],
+      "bannedLegacyHits": []
+    },
+    {
+      "screenshot": "iphone390-full-shared-hierarchy",
+      "horizontalOverflow": false,
+      "bannedEnglishHits": [],
+      "bannedLegacyHits": []
+    },
+    {
+      "screenshot": "iphone390-full-redacted-private-link",
+      "horizontalOverflow": false,
+      "bannedEnglishHits": [],
+      "bannedLegacyHits": []
+    },
+    {
+      "screenshot": "iphone390-read-only-task-detail",
+      "horizontalOverflow": false,
+      "bannedEnglishHits": [],
+      "bannedLegacyHits": []
+    },
+    {
+      "screenshot": "iphone430-owner-compact-hierarchy",
+      "horizontalOverflow": false,
+      "bannedEnglishHits": [],
+      "bannedLegacyHits": []
+    },
+    {
+      "screenshot": "iphone430-owner-task-a-summary",
+      "horizontalOverflow": false,
+      "bannedEnglishHits": [],
+      "bannedLegacyHits": []
+    },
+    {
+      "screenshot": "iphone430-owner-task-a-edit",
+      "horizontalOverflow": false,
+      "bannedEnglishHits": [],
+      "bannedLegacyHits": []
+    },
+    {
+      "screenshot": "iphone430-owner-task-a-links-notes",
+      "horizontalOverflow": false,
+      "bannedEnglishHits": [],
+      "bannedLegacyHits": []
+    },
+    {
+      "screenshot": "iphone430-owner-link-picker",
+      "horizontalOverflow": false,
+      "bannedEnglishHits": [],
+      "bannedLegacyHits": []
+    },
+    {
+      "screenshot": "iphone430-owner-task-b-dependency-direction",
+      "horizontalOverflow": false,
+      "bannedEnglishHits": [],
+      "bannedLegacyHits": []
+    },
+    {
+      "screenshot": "iphone430-owner-sharing-inline",
+      "horizontalOverflow": false,
+      "bannedEnglishHits": [],
+      "bannedLegacyHits": []
+    },
+    {
+      "screenshot": "iphone430-owner-fallback-move",
+      "horizontalOverflow": false,
+      "bannedEnglishHits": [],
+      "bannedLegacyHits": []
+    },
+    {
+      "screenshot": "iphone430-owner-quick-capture-with-goal",
+      "horizontalOverflow": false,
+      "bannedEnglishHits": [],
+      "bannedLegacyHits": []
+    },
+    {
+      "screenshot": "iphone430-owner-invalid-dnd-task-folder",
+      "horizontalOverflow": false,
+      "bannedEnglishHits": [],
+      "bannedLegacyHits": []
+    },
+    {
+      "screenshot": "iphone390-owner-sharing-route-revoke",
+      "horizontalOverflow": false,
+      "bannedEnglishHits": [],
+      "bannedLegacyHits": []
+    },
+    {
+      "screenshot": "iphone390-owner-settings-profile-logout-placement",
+      "horizontalOverflow": false,
+      "bannedEnglishHits": [],
+      "bannedLegacyHits": []
+    },
+    {
+      "screenshot": "iphone390-logout-complete",
+      "horizontalOverflow": false,
+      "bannedEnglishHits": [],
+      "bannedLegacyHits": []
+    },
+    {
+      "screenshot": "iphone390-protected-route-after-logout",
+      "horizontalOverflow": false,
+      "bannedEnglishHits": [],
+      "bannedLegacyHits": []
+    },
+    {
+      "screenshot": "iphone430-owner-sharing-route-revoke",
+      "horizontalOverflow": false,
+      "bannedEnglishHits": [],
+      "bannedLegacyHits": []
+    },
+    {
+      "screenshot": "iphone430-owner-settings-profile-logout-placement",
+      "horizontalOverflow": false,
+      "bannedEnglishHits": [],
+      "bannedLegacyHits": []
+    },
+    {
+      "screenshot": "iphone430-logout-complete",
+      "horizontalOverflow": false,
+      "bannedEnglishHits": [],
+      "bannedLegacyHits": []
+    },
+    {
+      "screenshot": "iphone430-protected-route-after-logout",
+      "horizontalOverflow": false,
+      "bannedEnglishHits": [],
+      "bannedLegacyHits": []
+    }
+  ],
+  "browserEvidence": {
+    "requestedEngine": "webkit",
+    "actualEngine": "webkit",
+    "realDevice": false,
+    "evidenceClass": "Playwright WebKit/iPhone-class viewport"
+  }
+}

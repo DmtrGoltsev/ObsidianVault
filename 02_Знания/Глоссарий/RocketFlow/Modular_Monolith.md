@@ -5,7 +5,7 @@ id: "term-modular-monolith"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-05-31"
+обновлено: "2026-08-22"
 уверенность: "высокая"
 источники: ["docs/04-architecture-blueprint.md"]
 доказательства: []
@@ -27,7 +27,7 @@ id: "term-modular-monolith"
 
 ## Модули бэкенда
 
-`auth`, `accounts`, `settings`, `folders`, `goals`, `tasks`, `sharing`, `calendar`, `recurrence`, `reminders`, `prioritypolicy`, `notifications` (источник: `docs/04-architecture-blueprint.md`)
+`auth`, `accounts`, `settings`, `folders`, `goals`, `tasks`, `sharing`, `calendar`, `recurrence`, `reminders`, `notifications`, а также идеи/связи/заметки и общая инфраструктура. Legacy priority-policy storage/wire contract временно сохраняется без продуктовой логики; см. [[ADR_Отказ_От_Приоритета_Задач]].
 
 ## Связанные термины
 

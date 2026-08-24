@@ -5,10 +5,10 @@ id: "proof-web-build"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-05-31"
+обновлено: "2026-06-07"
 уверенность: "высокая"
 источники: [".github/workflows/web-verify.yml"]
-доказательства: []
+доказательства: ["Док_Web_Verification"]
 теги: ["доказательство", "сборка", "web", "ci"]
 ---
 
@@ -24,13 +24,14 @@ CI: web-verify.yml
 
 ## Когда проверено
 
-Автоматически при каждом push/pull_request в web/.
+Автоматически при каждом push/pull_request в web/; эта запись является historical/last recorded evidence, а не fresh gate для текущего HEAD `21f95c1`.
 
 ## Результат
 
-- Сборка завершается успешно (зелёный билд)
+- Last recorded web build завершается успешно (зелёный билд); канонический verification-док содержит актуальную оговорку, а текущий HEAD `21f95c1` требует fresh evidence.
 - Vite 5 генерирует статические файлы (JS, CSS, HTML)
 - TypeScript-компиляция без ошибок
+- Audit 2026-06-07: web test scripts отсутствуют; см. [[Док_Web_Verification]]
 
 ## Ограничение
 
@@ -44,3 +45,4 @@ GitHub Actions → web-verify.yml
 
 - [[MOC_Веб]]
 - [[Регламент_CI_CD]]
+- [[Док_Web_Verification]]

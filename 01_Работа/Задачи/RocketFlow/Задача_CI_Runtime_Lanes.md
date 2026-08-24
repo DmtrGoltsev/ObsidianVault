@@ -1,11 +1,11 @@
 ---
 id: "task-ci-runtime-lanes"
 тип: "задача"
-статус: "черновик"
+статус: "активно"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-05-31"
+обновлено: "2026-06-07"
 уверенность: "средняя"
 источники: [".github/workflows/web-verify.yml", ".github/workflows/android-verify.yml"]
 доказательства: ["Док_Web_Build", "Док_Android_Build"]
@@ -16,22 +16,23 @@ id: "task-ci-runtime-lanes"
 
 ## Описание
 
-Расширить CI-воркфлоу web и Android: добавить runtime-тесты дополнительно к текущей build-only проверке.
+Закрыть runtime-verification gaps в web и Android после cleanup/repo audit.
 
 ## Контекст
 
 Сейчас:
-- **web-verify.yml** — только `npm run build` (build-only)
-- **android-verify.yml** — только `assembleDebug` (build-only)
+- **web-verify.yml** — `npm run build`; web test scripts отсутствуют.
+- **android-verify.yml** — больше не build-only: unit/build/lint lane.
 
 Требуется добавить:
-- **Web**: Jest unit-тесты + Playwright E2E (или аналог)
-- **Android**: Robolectric unit-тесты + эмуляторные тесты
+- **Web**: test scripts и минимальный runtime/unit lane (Jest/Vitest + Playwright или аналог).
+- **Android**: финальный post-cleanup verifier и отдельный instrumented/runtime lane при необходимости.
 
 ## Критерии приёмки
 
-- [ ] web-verify.yml запускает `npm test` (Jest) после сборки
-- [ ] android-verify.yml запускает Robolectric-тесты после сборки
+- [ ] web имеет test scripts и CI запускает их после сборки
+- [ ] android unit/build/lint lane подтверждён актуальным evidence
+- [ ] Android instrumented/runtime verifier либо добавлен в CI, либо явно вынесен в отдельный регламентированный gate
 - [ ] Падение тестов блокирует merge PR
 - [ ] Время CI не превышает 15 минут
 
@@ -42,3 +43,5 @@ id: "task-ci-runtime-lanes"
 - [[Регламент_CI_CD]]
 - [[Док_Web_Build]]
 - [[Док_Android_Build]]
+- [[Док_Web_Verification]]
+- [[Док_Android_Verification]]

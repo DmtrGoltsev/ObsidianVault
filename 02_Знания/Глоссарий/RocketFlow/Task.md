@@ -5,10 +5,10 @@ id: "term-task"
 проект: "RocketFlow"
 владелец: "rocketflow-team"
 создано: "2026-05-31"
-обновлено: "2026-05-31"
+обновлено: "2026-08-22"
 уверенность: "высокая"
-источники: ["docs/03-domain-specification.md"]
-доказательства: []
+источники: ["docs/03-domain-specification.md", "docs/68-scroll-and-priority-retirement-delivery.md"]
+доказательства: ["Док_V21_Scroll_Priority_20260822"]
 теги: ["домен", "сущность", "ядро"]
 ---
 
@@ -23,7 +23,7 @@ id: "term-task"
 - Принадлежит ровно одной [[Goal|цели]]
 - Принадлежит ровно одному владельцу
 - Тип: `green` или `red` (см. [[Green_Task]], [[Red_Task]])
-- Приоритет: от 1 до 10
+- Пользовательского приоритета нет; legacy `priority` временно сохраняется только как compatibility shadow для V20/старых APK
 - Статусы: `todo`, `in_progress`, `done`, `cancelled`
 - Может иметь напоминания ([[Reminder_Rule]])
 - Может иметь одно правило повторения в MVP ([[Recurrence_Rule]])
@@ -36,7 +36,7 @@ id: "term-task"
 - id, goal_id, owner_user_id
 - title, description (опционально)
 - type: `green` | `red`
-- priority: 1–10
+- priority: deprecated compatibility shadow; новые задачи получают `5`, update сохраняет историческое значение до завершения compatibility window
 - status: todo/in_progress/done/cancelled
 - planned_time, due_time, completed_at (опционально)
 - created_at, updated_at, archived_flag
@@ -52,4 +52,4 @@ id: "term-task"
 - [[Red_Task]] — красный тип задачи
 - [[Planned_Time]] — плановое время выполнения
 - [[Due_Time]] — крайний срок
-- [[Priority_Decay]] — автоснижение приоритета
+- [[ADR_Отказ_От_Приоритета_Задач]] — актуальное решение и граница совместимости
