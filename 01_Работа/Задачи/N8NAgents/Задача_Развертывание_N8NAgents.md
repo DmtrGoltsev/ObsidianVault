@@ -10,7 +10,8 @@ id: "task-n8nagents-deployment-001"
 источники:
   - "[[Источник_Мастер_Промпт_N8NAgents]]"
   - "[[Промпт_N8NAgents_v1_2026-08-25]]"
-доказательства: []
+доказательства:
+  - "[[Доказательство_T1_Local_SSH_Preflight_N8NAgents]]"
 теги: ["n8n", "развертывание", "ssh-preflight", "безопасность"]
 ---
 
@@ -26,7 +27,7 @@ id: "task-n8nagents-deployment-001"
 
 ## Definition of Done (DoD)
 
-- [ ] Локальный SSH-preflight завершён без раскрытия секретов.
+- [x] Локальный SSH-preflight завершён без раскрытия секретов.
 - [ ] Фактический SSH-порт и ожидаемый host fingerprint независимо подтверждены.
 - [ ] Выполнен только read-only discovery VPS; evidence сохранён без секретов.
 - [ ] Представлены архитектура, затрагиваемые файлы, rollback и non-secret параметры.
@@ -51,21 +52,25 @@ id: "task-n8nagents-deployment-001"
 
 ## Текущий gate
 
-- Разрешён только local SSH-preflight.
+- T1 local SSH-preflight: `PASS` — [[Доказательство_T1_Local_SSH_Preflight_N8NAgents]].
+- Текущий gate G1: `BLOCKED-EXTERNAL` до независимого подтверждения фактического SSH-порта, ожидаемого SSH host fingerprint и доступности provider console.
 - До независимого подтверждения фактического порта и ожидаемого host fingerprint SSH запрещён.
 - До discovery, архитектуры и явного approval изменения VPS запрещены.
 
 ## Сделанные изменения
 
 - Создана стартовая структура знаний и навигация проекта.
+- Выполнен только локальный read-only SSH-preflight; key material и fingerprint не сохранены, ключи и ACL не изменялись.
 
 ## Оставшаяся работа
 
-- Выполнить local SSH-preflight после получения отдельного поручения.
+- Независимо подтвердить фактический SSH-порт, ожидаемый SSH host fingerprint и доступность provider console.
+- Только после прохождения gate G1 отдельно разрешить read-only SSH discovery.
 
 ## Доказательства
 
 - Контрольная сумма исходного мастер-промпта: [[Источник_Мастер_Промпт_N8NAgents]].
+- Local SSH-preflight: [[Доказательство_T1_Local_SSH_Preflight_N8NAgents]].
 
 ## Связанные заметки
 
