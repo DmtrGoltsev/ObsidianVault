@@ -25,7 +25,7 @@ id: "task-n8nagents-deployment-001"
 
 ## Контекст
 
-Источник требований: [[Источник_Мастер_Промпт_N8NAgents]]. Локальная проверка SSH-предпосылок завершена. Пользователь 2026-08-26 явно принял ограниченное TOFU-исключение для первого подключения без независимой проверки host fingerprint: [[Доказательство_G1_User_Accepted_TOFU_Exception_N8NAgents]].
+Источник требований: [[Источник_Мастер_Промпт_N8NAgents]]. Локальная проверка SSH-предпосылок завершена. Пользователь 2026-08-26 явно принял ограниченное TOFU-исключение для первого подключения без независимой проверки host fingerprint: [[Доказательство_G1_User_Accepted_TOFU_Exception_N8NAgents]]. Compatibility baseline: [[Матрица_Совместимости_N8NAgents_2026-08-26]]; runtime-утверждения, помеченные `UNVERIFIED`, требуют live evidence.
 
 ## Definition of Done (DoD)
 
@@ -71,6 +71,7 @@ id: "task-n8nagents-deployment-001"
 
 - Снять P0 provider-console blocker из [[Очередь_Ручных_Действий_N8NAgents]] и только затем решить, допустима ли A2.
 - Сохранить redacted evidence исхода A2, если она будет авторизована; не считать G1 `PASS` без независимой проверки.
+- Закрыть compatibility acceptance gates из [[Матрица_Совместимости_N8NAgents_2026-08-26]] до production deployment.
 - Закрыть non-secret входные данные из ручной очереди; секреты вводить напрямую в server-side credential flow.
 - Перед server mutation иметь завершённый discovery, архитектуру, точные команды/объекты, downtime/rollback и fresh console check.
 
@@ -89,3 +90,4 @@ id: "task-n8nagents-deployment-001"
 - [[Промпт_N8NAgents_v1_2026-08-25]]
 - [[Журнал_Автономной_Работы_N8NAgents]]
 - [[Очередь_Ручных_Действий_N8NAgents]]
+- [[Матрица_Совместимости_N8NAgents_2026-08-26]]
