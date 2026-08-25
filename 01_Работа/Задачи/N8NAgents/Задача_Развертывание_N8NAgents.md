@@ -13,6 +13,7 @@ id: "task-n8nagents-deployment-001"
 доказательства:
   - "[[Доказательство_T1_Local_SSH_Preflight_N8NAgents]]"
   - "[[Доказательство_G1_User_Accepted_TOFU_Exception_N8NAgents]]"
+  - "[[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]]"
 теги: ["n8n", "развертывание", "ssh-preflight", "безопасность"]
 ---
 
@@ -31,7 +32,7 @@ id: "task-n8nagents-deployment-001"
 - [x] Локальный SSH-preflight завершён без раскрытия секретов.
 - [ ] Фактический SSH-порт и ожидаемый host fingerprint независимо подтверждены. Исключение пользователя не закрывает этот пункт.
 - [x] Явное принятие риска TOFU зафиксировано для точного ограниченного scope; G1 не повышен до `PASS`.
-- [ ] Выполнен только read-only discovery VPS; evidence сохранён без секретов.
+- [ ] Выполнен только read-only discovery VPS; A1 не закрывает пункт: session channel остановился до `/usr/bin/id`, evidence в [[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]].
 - [ ] Представлены архитектура, затрагиваемые файлы, rollback и non-secret параметры.
 - [ ] Получен явный approval перед любыми изменениями VPS.
 - [ ] MVP Phase A прошёл заявленные проверки.
@@ -48,36 +49,37 @@ id: "task-n8nagents-deployment-001"
 
 **Stop если:** discovery обнаружит неизвестную установку, конфликт портов 80/443, недостаток ресурсов или иной стоп-фактор из мастер-промпта.
 
-**Go только для узкой read-only discovery:** точный IP `154.59.110.121`, предполагаемый `TCP/22`, SSH user `root`, key-only authentication, отдельный project-scoped `known_hosts` и `StrictHostKeyChecking=accept-new`. Это user-accepted exception, а не подтверждение G1.
+**Go только после снятия `BLOCKED-EXTERNAL`:** A1 подтвердила transport, pinned host key и public-key authentication, но server не ответил на session-channel request. До provider-console diagnosis A2 не начинать.
 
 **Kill если:** дальнейший шаг требует обхода TLS, использования `StrictHostKeyChecking=no`, ослабления firewall/authentication либо любого действия вне документированного TOFU-исключения и явно согласованного scope.
 
 ## Текущий gate
 
 - T1 local SSH-preflight: `PASS` — [[Доказательство_T1_Local_SSH_Preflight_N8NAgents]].
-- Текущий gate — **G1: NOT VERIFIED — USER-ACCEPTED-EXCEPTION (TOFU via accept-new)**.
-- Host fingerprint и фактический SSH-порт не подтверждены; G1 никогда не считать `PASS` на основании этого исключения.
-- Разрешена только одна узкая read-only discovery-сессия в точном scope из [[Доказательство_G1_User_Accepted_TOFU_Exception_N8NAgents]].
-- До discovery, архитектуры и явного approval изменения VPS запрещены.
+- A1: TCP, pinned host key и public-key authentication `PASS`; session channel `BLOCKED-EXTERNAL` до `/usr/bin/id`, exit `255` — [[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]].
+- A2: не начата; повтор запрещён до provider-console diagnosis.
+- SSH discovery: **`BLOCKED-EXTERNAL`**. Server mutations: не начаты.
 
 ## Сделанные изменения
 
 - Создана стартовая структура знаний и навигация проекта.
 - Выполнен только локальный read-only SSH-preflight; key material и fingerprint не сохранены, ключи и ACL не изменялись.
 - Дословно и с датой зафиксировано явное принятие пользователем остаточного риска TOFU; SSH/VPS-действия в рамках этой фиксации не выполнялись.
+- A1 ограниченно подтвердила transport/authentication, но не выполнила remote command; удалённых mutations не было.
 
 ## Оставшаяся работа
 
-- Выполнить только ограниченную read-only SSH discovery для `154.59.110.121:22` в режиме key-only + project-scoped `known_hosts` + `accept-new`; без port scan и mutations.
-- Сохранить redacted evidence фактически принятого host key и discovery, не повышая G1 до `PASS`.
-- Независимое подтверждение host fingerprint и фактического SSH-порта остаётся незакрытым, если пользователь позднее потребует verified gate.
-- Перед любыми изменениями VPS представить архитектуру, точные команды/объекты, downtime/rollback и получить отдельный явный approval.
+- Снять P0 provider-console blocker из [[Очередь_Ручных_Действий_N8NAgents]] и только затем решить, допустима ли A2.
+- Сохранить redacted evidence исхода A2, если она будет авторизована; не считать G1 `PASS` без независимой проверки.
+- Закрыть non-secret входные данные из ручной очереди; секреты вводить напрямую в server-side credential flow.
+- Перед server mutation иметь завершённый discovery, архитектуру, точные команды/объекты, downtime/rollback и fresh console check.
 
 ## Доказательства
 
 - Контрольная сумма исходного мастер-промпта: [[Источник_Мастер_Промпт_N8NAgents]].
 - Local SSH-preflight: [[Доказательство_T1_Local_SSH_Preflight_N8NAgents]].
 - User-accepted TOFU exception: [[Доказательство_G1_User_Accepted_TOFU_Exception_N8NAgents]].
+- A1 SSH session-channel: [[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]].
 
 ## Связанные заметки
 
@@ -85,3 +87,5 @@ id: "task-n8nagents-deployment-001"
 - [[MOC_N8NAgents]]
 - [[Пакет_N8NAgents_Стартовый]]
 - [[Промпт_N8NAgents_v1_2026-08-25]]
+- [[Журнал_Автономной_Работы_N8NAgents]]
+- [[Очередь_Ручных_Действий_N8NAgents]]

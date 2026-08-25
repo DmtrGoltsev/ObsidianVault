@@ -13,6 +13,7 @@ id: "ctx-n8nagents-start-001"
 доказательства:
   - "[[Доказательство_T1_Local_SSH_Preflight_N8NAgents]]"
   - "[[Доказательство_G1_User_Accepted_TOFU_Exception_N8NAgents]]"
+  - "[[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]]"
 теги: ["n8n", "пакет_контекста", "старт", "безопасность"]
 ---
 
@@ -30,6 +31,9 @@ id: "ctx-n8nagents-start-001"
 - [[Промпт_N8NAgents_v1_2026-08-25]] — зафиксированные ограничения и этапы.
 - [[Доказательство_T1_Local_SSH_Preflight_N8NAgents]] — redacted evidence успешного локального SSH-preflight.
 - [[Доказательство_G1_User_Accepted_TOFU_Exception_N8NAgents]] — дословно зафиксированное принятие пользователем ограниченного риска TOFU; не `PASS` fingerprint gate.
+- [[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]] — A1: transport/authentication `PASS`, session channel `BLOCKED-EXTERNAL`; remote command/mutations отсутствуют.
+- [[Журнал_Автономной_Работы_N8NAgents]] — статус ночной работы, риски и rollback.
+- [[Очередь_Ручных_Действий_N8NAgents]] — внешний и владелецский input без секретов.
 - [[MOC_N8NAgents]] — навигация по знаниям.
 
 ## Когда использовать
@@ -38,9 +42,9 @@ id: "ctx-n8nagents-start-001"
 
 ## Текущий безопасный режим
 
-T1 local SSH-preflight завершён со статусом `PASS`. Текущий статус: **G1: NOT VERIFIED — USER-ACCEPTED-EXCEPTION (TOFU via accept-new)**. Пользователь 2026-08-26 явно принял остаточный риск первого неподтверждённого host key только для одной узкой read-only discovery-сессии: точный IP `154.59.110.121`, предполагаемый `TCP/22`, user `root`, key-only authentication, отдельный project-scoped `known_hosts`, `StrictHostKeyChecking=accept-new`. Это не подтверждение fingerprint или порта и никогда не `PASS`.
+T1 local SSH-preflight завершён со статусом `PASS`. В A1 transport, pinned host key и public-key authentication также `PASS`, но server прекратил отвечать до `/usr/bin/id`; exit `255`. Поэтому SSH discovery — **`BLOCKED-EXTERNAL`**, A2 не начата, server mutations не начаты. Границы, rollback и ручная очередь: [[Журнал_Автономной_Работы_N8NAgents]] и [[Очередь_Ручных_Действий_N8NAgents]].
 
-Если `TCP/22` недоступен, key-only authentication не проходит, запрашивается password, target/host key изменён или требуется иной host/port, port scan, глобальный `known_hosts`, `StrictHostKeyChecking=no` либо mutation — немедленный Stop. Любые изменения VPS по-прежнему требуют redacted discovery report, архитектуры, точных команд/объектов, downtime/rollback и отдельного явного approval.
+Не повторять SSH до provider-console diagnosis session-channel failure. Если требуется иной host/port, password, port scan, глобальный `known_hosts`, `StrictHostKeyChecking=no` либо mutation — Stop. Любые VPS changes требуют completed discovery, architecture, exact command/object list, downtime/rollback и fresh console check.
 
 ## Вне контекста и запрещено
 
