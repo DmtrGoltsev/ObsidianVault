@@ -31,6 +31,7 @@ id: "manualqueue-n8nagents-20260826"
 | P1 | Владелец backup | Destination, retention, RPO/RTO, encryption/key-custody policy; ключи не записывать здесь | WAITING |
 | P2 | Владелец проекта | IPv6 policy | WAITING |
 | P2 | Владелец / валидатор | Final E2E: Telegram → DeepSeek → Telegram, authorization before LLM/tools, persistence, backup/restore и external exposure checks | WAITING |
+| P2 | Локальный валидатор | Сохранить отдельное evidence `jsonschema` metaschema и positive/negative fixtures; до этого semantic contracts остаются PENDING-RECHECK | WAITING |
 
 ## Правило разблокировки
 

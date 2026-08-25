@@ -11,6 +11,7 @@ id: "proj-n8nagents-001"
   - "[[Источник_Мастер_Промпт_N8NAgents]]"
 доказательства:
   - "[[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]]"
+  - "[[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]]"
 теги: ["n8n", "ai-ассистент", "self-hosted", "vps", "безопасность"]
 ---
 
@@ -33,7 +34,7 @@ id: "proj-n8nagents-001"
 
 ## Текущий статус
 
-SSH discovery заблокирован на внешней стороне: transport, pinned host key и public-key authentication прошли, но session channel не ответил до `/usr/bin/id`. Server mutations не начаты. Совместимость и локальная реализация идут отдельным потоком; итог ещё не принят.
+SSH discovery заблокирован на внешней стороне: transport, pinned host key и public-key authentication прошли, но session channel не ответил до `/usr/bin/id`. Server mutations не начаты. Локальная foundation прошла независимое ревью с `GO-LOCAL`; server deployment остаётся `NO-GO`: [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]].
 
 ## Окружения
 
@@ -65,4 +66,5 @@ SSH discovery заблокирован на внешней стороне: trans
 - [[Журнал_Автономной_Работы_N8NAgents]]
 - [[Очередь_Ручных_Действий_N8NAgents]]
 - [[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]]
+- [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]]
 - [[MOC_Все_Проекты]]

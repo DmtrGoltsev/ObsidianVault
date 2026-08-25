@@ -13,6 +13,7 @@ id: "tasklog-n8nagents-autonomous-work-20260826"
   - "[[Доказательство_G1_User_Accepted_TOFU_Exception_N8NAgents]]"
 доказательства:
   - "[[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]]"
+  - "[[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]]"
 теги: ["n8n", "журнал", "автономная-работа", "blocked-external"]
 ---
 
@@ -40,6 +41,7 @@ id: "tasklog-n8nagents-autonomous-work-20260826"
 | A1 session channel / discovery | BLOCKED-EXTERNAL | Server stopped responding до `/usr/bin/id`; exit `255`; remote commands/mutations не выполнены | Причина на стороне provider/server не установлена | Нет удалённых изменений для отката |
 | A2 bounded diagnostic | NOT STARTED / BLOCKED-EXTERNAL | Не запускалась, пока не снят внешний блокер | Повторение не даст достоверного результата | Не применимо |
 | C1 compatibility baseline | COMPLETE (documentation) | [[Матрица_Совместимости_N8NAgents_2026-08-26]] создана; live/runtime пункты явно `UNVERIFIED` | Матрица не является deployment evidence | Git revert focused документационного commit |
+| E1 local foundation/review | GO-LOCAL | `codex/n8nagents-foundation` at `1839a29e1620a670c80b1428bfb4d4f56ba867ac`; [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]] | Static evidence не покрывает Docker/Bash/runtime/import/E2E/restore; `jsonschema` semantic recheck pending | Откатить только локальный foundation commit его владельцем; сервер не затронут |
 | Совместимость и локальная реализация | PARTIALLY COMPLETE | C1 закрыта как документация; локальная реализация отдельно, server discovery не изменён | Версии и external API требуют отдельного live evidence | Локальные артефакты откатываются только их владельцем |
 | Server mutations | NOT STARTED | Нет выполненных mutations | Нельзя строить на неполном discovery | Не применимо |
 
@@ -48,6 +50,7 @@ id: "tasklog-n8nagents-autonomous-work-20260826"
 - SSH discovery: **`BLOCKED-EXTERNAL`**.
 - Server mutations: **не начаты**.
 - C1 compatibility baseline: **COMPLETE (documentation only)**; [[Матрица_Совместимости_N8NAgents_2026-08-26]] не закрывает runtime/deployment гейты.
+- E1 foundation: **`GO-LOCAL`**, но server deployment — **`NO-GO`**; точные ограничения приведены в [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]].
 - Server discovery: по-прежнему **`BLOCKED-EXTERNAL`**; C1 не меняет SSH или VPS статус.
 - Полный список зависимостей владельца: [[Очередь_Ручных_Действий_N8NAgents]].
 

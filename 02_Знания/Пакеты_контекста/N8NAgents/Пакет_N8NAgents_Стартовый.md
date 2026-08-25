@@ -14,6 +14,7 @@ id: "ctx-n8nagents-start-001"
   - "[[Доказательство_T1_Local_SSH_Preflight_N8NAgents]]"
   - "[[Доказательство_G1_User_Accepted_TOFU_Exception_N8NAgents]]"
   - "[[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]]"
+  - "[[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]]"
 теги: ["n8n", "пакет_контекста", "старт", "безопасность"]
 ---
 
@@ -32,6 +33,7 @@ id: "ctx-n8nagents-start-001"
 - [[Доказательство_T1_Local_SSH_Preflight_N8NAgents]] — redacted evidence успешного локального SSH-preflight.
 - [[Доказательство_G1_User_Accepted_TOFU_Exception_N8NAgents]] — дословно зафиксированное принятие пользователем ограниченного риска TOFU; не `PASS` fingerprint gate.
 - [[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]] — A1: transport/authentication `PASS`, session channel `BLOCKED-EXTERNAL`; remote command/mutations отсутствуют.
+- [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]] — local foundation получила `GO-LOCAL`; server deployment сохраняет `NO-GO`.
 - [[Журнал_Автономной_Работы_N8NAgents]] — статус ночной работы, риски и rollback.
 - [[Очередь_Ручных_Действий_N8NAgents]] — внешний и владелецский input без секретов.
 - [[MOC_N8NAgents]] — навигация по знаниям.
@@ -46,6 +48,8 @@ id: "ctx-n8nagents-start-001"
 T1 local SSH-preflight завершён со статусом `PASS`. В A1 transport, pinned host key и public-key authentication также `PASS`, но server прекратил отвечать до `/usr/bin/id`; exit `255`. Поэтому SSH discovery — **`BLOCKED-EXTERNAL`**, A2 не начата, server mutations не начаты. Границы, rollback и ручная очередь: [[Журнал_Автономной_Работы_N8NAgents]] и [[Очередь_Ручных_Действий_N8NAgents]].
 
 Не повторять SSH до provider-console diagnosis session-channel failure. Если требуется иной host/port, password, port scan, глобальный `known_hosts`, `StrictHostKeyChecking=no` либо mutation — Stop. Любые VPS changes требуют completed discovery, architecture, exact command/object list, downtime/rollback и fresh console check.
+
+Локальный статический `PASS` не закрывает Docker/Bash/runtime/import/E2E/restore или `jsonschema` semantic validation; этот recheck имеет статус PENDING-RECHECK в [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]].
 
 ## Вне контекста и запрещено
 
