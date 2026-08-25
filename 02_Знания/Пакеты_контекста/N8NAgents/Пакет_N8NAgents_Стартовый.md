@@ -5,13 +5,14 @@ id: "ctx-n8nagents-start-001"
 проект: "N8NAgents"
 владелец: "style"
 создано: "2026-08-25"
-обновлено: "2026-08-25"
+обновлено: "2026-08-26"
 уверенность: "высокая"
 источники:
   - "[[Источник_Мастер_Промпт_N8NAgents]]"
   - "[[Промпт_N8NAgents_v1_2026-08-25]]"
 доказательства:
   - "[[Доказательство_T1_Local_SSH_Preflight_N8NAgents]]"
+  - "[[Доказательство_G1_User_Accepted_TOFU_Exception_N8NAgents]]"
 теги: ["n8n", "пакет_контекста", "старт", "безопасность"]
 ---
 
@@ -28,6 +29,7 @@ id: "ctx-n8nagents-start-001"
 - [[Источник_Мастер_Промпт_N8NAgents]] — происхождение и SHA-256 исходного файла.
 - [[Промпт_N8NAgents_v1_2026-08-25]] — зафиксированные ограничения и этапы.
 - [[Доказательство_T1_Local_SSH_Preflight_N8NAgents]] — redacted evidence успешного локального SSH-preflight.
+- [[Доказательство_G1_User_Accepted_TOFU_Exception_N8NAgents]] — дословно зафиксированное принятие пользователем ограниченного риска TOFU; не `PASS` fingerprint gate.
 - [[MOC_N8NAgents]] — навигация по знаниям.
 
 ## Когда использовать
@@ -36,17 +38,20 @@ id: "ctx-n8nagents-start-001"
 
 ## Текущий безопасный режим
 
-T1 local SSH-preflight завершён со статусом `PASS`. Текущий gate G1 остаётся `BLOCKED-EXTERNAL`: нельзя инициировать SSH-сеанс, принимать неизвестный host key или менять VPS до независимого подтверждения фактического SSH-порта, ожидаемого SSH host fingerprint и доступности provider console. Затем требуется отдельное разрешение на read-only discovery; любые изменения VPS по-прежнему требуют архитектуры и явного approval.
+T1 local SSH-preflight завершён со статусом `PASS`. Текущий статус: **G1: NOT VERIFIED — USER-ACCEPTED-EXCEPTION (TOFU via accept-new)**. Пользователь 2026-08-26 явно принял остаточный риск первого неподтверждённого host key только для одной узкой read-only discovery-сессии: точный IP `154.59.110.121`, предполагаемый `TCP/22`, user `root`, key-only authentication, отдельный project-scoped `known_hosts`, `StrictHostKeyChecking=accept-new`. Это не подтверждение fingerprint или порта и никогда не `PASS`.
+
+Если `TCP/22` недоступен, key-only authentication не проходит, запрашивается password, target/host key изменён или требуется иной host/port, port scan, глобальный `known_hosts`, `StrictHostKeyChecking=no` либо mutation — немедленный Stop. Любые изменения VPS по-прежнему требуют redacted discovery report, архитектуры, точных команд/объектов, downtime/rollback и отдельного явного approval.
 
 ## Вне контекста и запрещено
 
 - Не читать и не передавать содержимое private key.
 - Не хранить токены, API keys, пароли, `.env`, ключи шифрования или персональные данные.
+- Не выполнять port scan, password authentication, `StrictHostKeyChecking=no`, подключение к другому host/port или принятие изменившегося/reinstalled host key.
 - Не выполнять изменения на VPS без отдельного approval gate.
 
 ## Зависимости
 
-- Независимое подтверждение фактического SSH-порта, ожидаемого host fingerprint и доступности provider console.
+- Для разрешённого исключения: только точный scope из [[Доказательство_G1_User_Accepted_TOFU_Exception_N8NAgents]] и redacted evidence результата; независимая проверка fingerprint и порта остаётся незакрытой.
 - Non-secret параметры доменов, DNS, timezone, Telegram и backup-политики — после discovery и в одном согласованном пакете.
 
 ## Связанные заметки
