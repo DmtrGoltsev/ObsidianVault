@@ -25,8 +25,8 @@ id: "evidence-n8nagents-e1-local-foundation-review-20260826"
 ## Локальные доказательства
 
 - `./scripts/verify-static.ps1`: `PASS` для JSON, YAML с проверкой duplicate keys, ссылок/указателей JSON Schema, migration sentinel, статической Compose-топологии, Caddy route-гейтов, secret-like scan и PowerShell syntax.
-- JSON Schema semantic/metaschema и positive/negative fixtures: **PENDING-RECHECK** — локальный валидатор `jsonschema` может быть запущен отдельным потоком; до его evidence не повышать этот пункт до `PASS`.
-- Docker/Compose parser и runtime, Bash syntax, Caddy container validation, disposable PostgreSQL, import workflow, live integrations, persistence, external exposure, backup/restore: не подтверждены этой локальной проверкой.
+- Временная, secret-free проверка через официальный PyPI разрешила `jsonschema 4.26.0` и `referencing 0.37.0`; все 12 Draft 2020-12 metaschemas и ссылки прошли `PASS`. DeepSeek fixtures: 6 positive / 3 negative — `PASS`; tool fixtures: 5 positive / 5 negative — `PASS`. Временное окружение после проверки удалено, project tree не изменялся.
+- WSL доступен, но Linux distribution отсутствует, поэтому Bash syntax остаётся `BLOCKED-LOCAL`. Docker/Compose parser и runtime, Caddy container validation и disposable PostgreSQL также `BLOCKED-LOCAL`; import workflow, live integrations, persistence, external exposure и backup/restore этой локальной проверкой не подтверждены.
 - Выполнена read-only проверка ветки и HEAD; сервер, VPS, SSH и production-сервисы этим evidence не затрагивались.
 
 ## Зафиксированные security outcomes foundation
@@ -43,7 +43,7 @@ id: "evidence-n8nagents-e1-local-foundation-review-20260826"
 
 **`NO-GO` для server deployment.** A2 SSH discovery остаётся `BLOCKED-EXTERNAL`: A1 дошла до transport, pinned host key и public-key authentication, но session channel не выполнил remote command. До provider-console diagnosis нельзя начинать A2, hardening или mutations.
 
-Даже после снятия SSH-блокера обязательны evidence: Docker/Bash/Compose и runtime checks, `jsonschema` semantic recheck, immutable image digests, n8n workflow import, Telegram/DeepSeek E2E, persistence/isolation, edge exposure, quiesced signed backup и authenticated isolated restore. Никаких секретов, workflow exports или server facts в этой заметке нет.
+Даже после снятия SSH-блокера обязательны evidence: Docker/Bash/Compose и runtime checks, immutable image digests, n8n workflow import, Telegram/DeepSeek E2E, persistence/isolation, edge exposure, quiesced signed backup и authenticated isolated restore. Никаких секретов, workflow exports или server facts в этой заметке нет.
 
 ## Связанные заметки
 
