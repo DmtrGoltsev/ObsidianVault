@@ -25,6 +25,7 @@ id: "moc-n8nagents-001"
 - [[Задача_Развертывание_N8NAgents]] — активная задача: безопасный старт развертывания.
 - [[Журнал_Автономной_Работы_N8NAgents]] — статус этапов, evidence, риски и rollback ночной работы.
 - [[Очередь_Ручных_Действий_N8NAgents]] — действия владельца и внешние блокеры без секретов.
+- [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]] — независимое `GO-LOCAL` для foundation и отдельный `NO-GO` server deployment.
 
 ## Источники и промпты
 
@@ -39,6 +40,7 @@ id: "moc-n8nagents-001"
 ## Текущее доказательство
 
 - [[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]] — A1 завершена на transport/authentication; SSH discovery `BLOCKED-EXTERNAL` до provider-console diagnosis.
+- [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]] — статическое локальное evidence и незакрытые runtime/deployment гейты.
 
 ## Проектные разделы
 

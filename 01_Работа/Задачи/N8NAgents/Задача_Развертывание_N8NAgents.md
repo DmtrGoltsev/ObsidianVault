@@ -14,6 +14,7 @@ id: "task-n8nagents-deployment-001"
   - "[[Доказательство_T1_Local_SSH_Preflight_N8NAgents]]"
   - "[[Доказательство_G1_User_Accepted_TOFU_Exception_N8NAgents]]"
   - "[[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]]"
+  - "[[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]]"
 теги: ["n8n", "развертывание", "ssh-preflight", "безопасность"]
 ---
 
@@ -36,6 +37,7 @@ id: "task-n8nagents-deployment-001"
 - [ ] Представлены архитектура, затрагиваемые файлы, rollback и non-secret параметры.
 - [ ] Получен явный approval перед любыми изменениями VPS.
 - [ ] MVP Phase A прошёл заявленные проверки.
+- [x] Локальная foundation подготовлена и получила `GO-LOCAL`; этот пункт не заменяет server/runtime гейты.
 
 ## Уровень рассуждения
 
@@ -59,6 +61,7 @@ id: "task-n8nagents-deployment-001"
 - A1: TCP, pinned host key и public-key authentication `PASS`; session channel `BLOCKED-EXTERNAL` до `/usr/bin/id`, exit `255` — [[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]].
 - A2: не начата; повтор запрещён до provider-console diagnosis.
 - SSH discovery: **`BLOCKED-EXTERNAL`**. Server mutations: не начаты.
+- E1 local foundation review: **`GO-LOCAL`**; server deployment: **`NO-GO`** — [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]].
 
 ## Сделанные изменения
 
@@ -66,12 +69,14 @@ id: "task-n8nagents-deployment-001"
 - Выполнен только локальный read-only SSH-preflight; key material и fingerprint не сохранены, ключи и ACL не изменялись.
 - Дословно и с датой зафиксировано явное принятие пользователем остаточного риска TOFU; SSH/VPS-действия в рамках этой фиксации не выполнялись.
 - A1 ограниченно подтвердила transport/authentication, но не выполнила remote command; удалённых mutations не было.
+- Локальная secret-free foundation подготовлена в `codex/n8nagents-foundation` на HEAD `1839a29e1620a670c80b1428bfb4d4f56ba867ac`; статические проверки прошли в объёме evidence E1.
 
 ## Оставшаяся работа
 
 - Снять P0 provider-console blocker из [[Очередь_Ручных_Действий_N8NAgents]] и только затем решить, допустима ли A2.
 - Сохранить redacted evidence исхода A2, если она будет авторизована; не считать G1 `PASS` без независимой проверки.
 - Закрыть compatibility acceptance gates из [[Матрица_Совместимости_N8NAgents_2026-08-26]] до production deployment.
+- Перепроверить JSON Schema semantic validation, когда локальный `jsonschema`-валидатор даст отдельное evidence; не считать её пройденной по статическому `PASS`.
 - Закрыть non-secret входные данные из ручной очереди; секреты вводить напрямую в server-side credential flow.
 - Перед server mutation иметь завершённый discovery, архитектуру, точные команды/объекты, downtime/rollback и fresh console check.
 
@@ -81,6 +86,7 @@ id: "task-n8nagents-deployment-001"
 - Local SSH-preflight: [[Доказательство_T1_Local_SSH_Preflight_N8NAgents]].
 - User-accepted TOFU exception: [[Доказательство_G1_User_Accepted_TOFU_Exception_N8NAgents]].
 - A1 SSH session-channel: [[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]].
+- E1 local foundation/review: [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]].
 
 ## Связанные заметки
 
