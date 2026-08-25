@@ -31,11 +31,12 @@ id: "manualqueue-n8nagents-20260826"
 | P1 | Владелец backup | Destination, retention, RPO/RTO, encryption/key-custody policy; ключи не записывать здесь | WAITING |
 | P2 | Владелец проекта | IPv6 policy | WAITING |
 | P2 | Владелец / валидатор | Final E2E: Telegram → DeepSeek → Telegram, authorization before LLM/tools, persistence, backup/restore и external exposure checks | WAITING |
-| P2 | Локальный валидатор | Сохранить отдельное evidence `jsonschema` metaschema и positive/negative fixtures; до этого semantic contracts остаются PENDING-RECHECK | WAITING |
 
 ## Правило разблокировки
 
 Первым снимается только P0 provider-console diagnosis. До него `A2` не запускать; изменения VPS, SSH hardening и deployment не начинать. Остальные пункты не предполагают передачу секретов через vault или чат.
+
+Локальная проверка JSON Schema закрыта в [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]]; Docker/Bash/runtime гейты этим не закрываются.
 
 ## Связанные заметки
 

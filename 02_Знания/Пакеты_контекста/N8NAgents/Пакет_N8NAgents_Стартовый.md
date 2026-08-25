@@ -49,7 +49,7 @@ T1 local SSH-preflight завершён со статусом `PASS`. В A1 tran
 
 Не повторять SSH до provider-console diagnosis session-channel failure. Если требуется иной host/port, password, port scan, глобальный `known_hosts`, `StrictHostKeyChecking=no` либо mutation — Stop. Любые VPS changes требуют completed discovery, architecture, exact command/object list, downtime/rollback и fresh console check.
 
-Локальный статический `PASS` не закрывает Docker/Bash/runtime/import/E2E/restore или `jsonschema` semantic validation; этот recheck имеет статус PENDING-RECHECK в [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]].
+Временная official-PyPI проверка закрыла `jsonschema` semantic/metaschema и fixture gates: Draft 2020-12 metaschemas/refs, 6+/3− DeepSeek и 5+/5− tool fixtures — `PASS`; окружение удалено, project tree не изменялся. Это не закрывает Bash (WSL без Linux distribution), Docker/Caddy/PostgreSQL/Compose runtime, import, E2E или restore: см. [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]].
 
 ## Вне контекста и запрещено
 
