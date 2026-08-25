@@ -5,7 +5,7 @@ id: "moc-all-projects"
 проект: ""
 владелец: "rocketflow-team"
 создано: "2026-06-01"
-обновлено: "2026-06-06"
+обновлено: "2026-08-25"
 уверенность: "высокая"
 источники: ["README.md"]
 доказательства: []
@@ -35,6 +35,12 @@ id: "moc-all-projects"
 - **Стек:** Java 21/Spring Boot 3.4 + React 18 + Kotlin Android + PostgreSQL
 - **Стадия:** Активная разработка + QA тестирование (253 кейса)
 - **Под-MOC:** [[MOC_Focus]]
+
+### [[N8NAgents]]
+- **Тип:** self-hosted персональный AI-помощник
+- **Стек:** n8n Community Edition + Docker Compose + Caddy + PostgreSQL + Telegram + DeepSeek
+- **Стадия:** Инициализация; разрешён только local SSH-preflight
+- **Под-MOC:** [[MOC_N8NAgents]]
 
 ### Новые проекты
 _(добавлять новые проекты сюда по шаблону выше)_
