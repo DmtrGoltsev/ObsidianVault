@@ -10,6 +10,7 @@ id: "manualqueue-n8nagents-20260826"
 источники:
   - "[[Источник_Мастер_Промпт_N8NAgents]]"
   - "[[Журнал_Автономной_Работы_N8NAgents]]"
+  - "[[Доказательство_H1_Phase_A_User_Approval_N8NAgents_20260826]]"
 доказательства:
   - "[[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]]"
   - "[[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]]"
@@ -23,7 +24,7 @@ id: "manualqueue-n8nagents-20260826"
 | Приоритет | Требуется от владельца / внешней стороны | Что подтвердить или выполнить | Статус |
 |---|---|---|---|
 | P0 | Provider / владелец | Подтвердить firewall policy провайдера и допустимые inbound ports (`22`, затем `80/443`); отдельно определить IPv6 policy | WAITING |
-| P0 | Владелец / валидатор | Review exact deployment plan: архитектура, список команд и объектов, downtime и rollback; после review дать отдельный approval на mutations | WAITING |
+| P0 | Владелец / валидатор | Review exact deployment plan, commit `d1703bdfbdb183836afe7d75c871938ca8a9f196`, и отдельный approval на mutations для `phase-a-internal` | CLOSED FOR PHASE A — пользователь выбрал `SWAP_OPTION=plaintext-2g`; исполнение начато, outcome pending |
 | P1 | Владелец доменов | `EDITOR_DOMAIN`, `WEBHOOK_DOMAIN`, DNS provider, readiness DNS и ACME email | WAITING |
 | P1 | Владелец проекта | Timezone | WAITING |
 | P1 | Владелец Telegram | Наличие отдельных dev/prod bots, username(s) и allowed IDs; token вводить только напрямую в защищённый server-side credential flow, не в vault/чат | WAITING |
@@ -35,7 +36,7 @@ id: "manualqueue-n8nagents-20260826"
 
 ## Правило разблокировки
 
-A2 read-only discovery завершён `PASS` после reboot VPS: [[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]]. До server mutations должны быть закрыты P0 firewall/IPv6 и review exact deployment plan с отдельным approval. Остальные пункты не предполагают передачу секретов через vault или чат.
+A2 read-only discovery завершён `PASS` после reboot VPS: [[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]]. Review и отдельный approval закрыты только для `phase-a-internal`: утверждён commit `d1703bdfbdb183836afe7d75c871938ca8a9f196`, выбран `SWAP_OPTION=plaintext-2g`, исполнение начато, outcome pending — [[Доказательство_H1_Phase_A_User_Approval_N8NAgents_20260826]]. Provider firewall/IPv6 и все прочие пункты остаются `WAITING`, но не входят в этот внутренний scope. Остальные пункты не предполагают передачу секретов через vault или чат.
 
 Локальная проверка JSON Schema закрыта в [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]]; Docker/Bash/runtime гейты этим не закрываются.
 

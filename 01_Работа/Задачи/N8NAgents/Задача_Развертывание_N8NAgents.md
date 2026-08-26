@@ -16,6 +16,7 @@ id: "task-n8nagents-deployment-001"
   - "[[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]]"
   - "[[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]]"
   - "[[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]]"
+  - "[[Доказательство_H1_Phase_A_User_Approval_N8NAgents_20260826]]"
 теги: ["n8n", "развертывание", "ssh-preflight", "безопасность"]
 ---
 
@@ -36,7 +37,7 @@ id: "task-n8nagents-deployment-001"
 - [x] Явное принятие риска TOFU зафиксировано для точного ограниченного scope; G1 не повышен до `PASS`.
 - [x] Выполнен read-only discovery VPS без mutations: [[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]].
 - [ ] Представлены архитектура, затрагиваемые файлы, rollback и non-secret параметры.
-- [ ] Получен явный approval перед любыми изменениями VPS.
+- [x] Получен явный approval только для `phase-a-internal`: commit `d1703bdfbdb183836afe7d75c871938ca8a9f196`, `SWAP_OPTION=plaintext-2g`; outcome исполнения pending — [[Доказательство_H1_Phase_A_User_Approval_N8NAgents_20260826]].
 - [ ] MVP Phase A прошёл заявленные проверки.
 - [x] Локальная foundation подготовлена и получила `GO-LOCAL`; этот пункт не заменяет server/runtime гейты.
 
@@ -61,7 +62,7 @@ id: "task-n8nagents-deployment-001"
 - T1 local SSH-preflight: `PASS` — [[Доказательство_T1_Local_SSH_Preflight_N8NAgents]].
 - A1: первоначальная session-channel проблема зафиксирована в [[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]].
 - A2: **`PASS`** после reboot VPS; полный read-only discovery clean, без mutations — [[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]].
-- Server mutations: не начаты. Следующий gate — exact deployment plan/review и отдельный approval.
+- Server mutations: разрешённое исполнение `phase-a-internal` начато; outcome pending. Caddy, публичные порты, firewall, IPv6, domains, SSH hardening, owner, 2FA, workflows и credentials не входят в approval.
 - E1 local foundation review: **`GO-LOCAL`**; server deployment: **`NO-GO`** — [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]].
 
 ## Сделанные изменения
@@ -71,6 +72,7 @@ id: "task-n8nagents-deployment-001"
 - Дословно и с датой зафиксировано явное принятие пользователем остаточного риска TOFU; SSH/VPS-действия в рамках этой фиксации не выполнялись.
 - A1 ограниченно подтвердила transport/authentication, но не выполнила remote command; удалённых mutations не было.
 - Локальная secret-free foundation подготовлена в `codex/n8nagents-foundation` на HEAD `1839a29e1620a670c80b1428bfb4d4f56ba867ac`; статические проверки прошли в объёме evidence E1.
+- Явный approval Phase A зафиксирован с точным commit и swap option; TOFU G1 не повышен до `PASS`, а server outcome ещё не подтверждён.
 
 ## Оставшаяся работа
 
@@ -89,6 +91,7 @@ id: "task-n8nagents-deployment-001"
 - A1 SSH session-channel: [[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]].
 - A2 read-only discovery: [[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]].
 - E1 local foundation/review: [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]].
+- H1 Phase A approval: [[Доказательство_H1_Phase_A_User_Approval_N8NAgents_20260826]].
 
 ## Связанные заметки
 
