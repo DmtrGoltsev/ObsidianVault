@@ -14,6 +14,7 @@ id: "proj-n8nagents-001"
   - "[[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]]"
   - "[[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]]"
   - "[[Доказательство_H7_Full_Delivery_Plan_Approval_N8NAgents_20260826]]"
+  - "[[Доказательство_R7_K4_Recovery_Stop_N8NAgents_20260826]]"
 теги: ["n8n", "ai-ассистент", "self-hosted", "vps", "безопасность"]
 ---
 
@@ -36,7 +37,7 @@ id: "proj-n8nagents-001"
 
 ## Текущий статус
 
-SSH discovery завершён с `PASS` после reboot VPS: минимальная проверка и полный read-only discovery завершились clean. `AUTHORIZATION_ID=N8NAgents-FULL-DELIVERY-v1`, `PLAN_VERSION=1` активирует запуск утверждённого Full Delivery v1 с baseline `9e024c3f5f2aba9d3727e0a26ffb7a6fc8e3147b` и `plaintext-2g`; outcome исполнения остаётся `PENDING`. Локальная foundation имеет `GO-LOCAL`; каждый server/runtime gate требует собственного evidence и независимого `GO`: [[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]], [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]], [[Доказательство_H7_Full_Delivery_Plan_Approval_N8NAgents_20260826]].
+SSH discovery завершён с `PASS` после reboot VPS: минимальная проверка и полный read-only discovery завершились clean. H7 Full Delivery v1 сохраняется как plan-level authority, но K4 recovery остановлен и лимит двух попыток этого gate исчерпан. Статус delivery: **`WAITING-USER-AUTHORIZATION`** для нового отдельно названного corrective cycle; сейчас нет авторизованного exact commit для remote execution. Локальная foundation имеет `GO-LOCAL`; каждый server/runtime gate требует собственного evidence и независимого `GO`: [[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]], [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]], [[Доказательство_R7_K4_Recovery_Stop_N8NAgents_20260826]].
 
 ## Окружения
 
@@ -46,7 +47,7 @@ SSH discovery завершён с `PASS` после reboot VPS: минималь
 
 ## Активные гейты
 
-1. H7 Full Delivery v1 authority активен; execution outcome ещё не получен.
+1. K4 recovery остановлен; требуется новый user authorization на расширенный offline recovery budget и новый corrective cycle до предложения remote gate.
 2. Firewall/provider firewall, IPv6, DNS/provider UI, secrets и owner/2FA сохраняют свои ручные/security gates.
 3. Каждый результат deployment, runtime, backup/restore и hardening требует evidence; approval не равен `PASS`.
 4. Секреты не создаются и не сохраняются в vault, Git или отчетах.
@@ -71,4 +72,5 @@ SSH discovery завершён с `PASS` после reboot VPS: минималь
 - [[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]]
 - [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]]
 - [[Доказательство_H7_Full_Delivery_Plan_Approval_N8NAgents_20260826]]
+- [[Доказательство_R7_K4_Recovery_Stop_N8NAgents_20260826]]
 - [[MOC_Все_Проекты]]

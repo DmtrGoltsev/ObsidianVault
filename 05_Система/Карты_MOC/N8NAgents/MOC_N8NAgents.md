@@ -26,7 +26,8 @@ id: "moc-n8nagents-001"
 - [[Журнал_Автономной_Работы_N8NAgents]] — статус этапов, evidence, риски и rollback ночной работы.
 - [[Очередь_Ручных_Действий_N8NAgents]] — действия владельца и внешние блокеры без секретов.
 - [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]] — независимое `GO-LOCAL` для foundation и отдельный `NO-GO` server deployment.
-- [[Доказательство_H7_Full_Delivery_Plan_Approval_N8NAgents_20260826]] — активное plan-level authority Full Delivery v1; outcome execution pending.
+- [[Доказательство_H7_Full_Delivery_Plan_Approval_N8NAgents_20260826]] — plan-level authority Full Delivery v1; K4 outcome заменён R7 STOP.
+- [[Доказательство_R7_K4_Recovery_Stop_N8NAgents_20260826]] — K4 STOP: retry cap исчерпан; новый recovery cycle ожидает отдельной авторизации.
 
 ## Источники и промпты
 
