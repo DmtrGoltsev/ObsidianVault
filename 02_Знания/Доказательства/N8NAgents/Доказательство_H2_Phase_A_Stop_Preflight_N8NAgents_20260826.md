@@ -50,7 +50,7 @@ Gate policy переработан в commit `7998020`; финальный revie
 
 ## Следующий gate
 
-Запросить у пользователя явный повторный approval финального commit `f6e0c745ab889c11df1ab83ccf7957534be600cd`. До него состояние: **no execution**.
+Пользователь дал отдельный повторный approval финального commit; retry начат, outcome pending — [[Доказательство_H3_Phase_A_Reapproval_N8NAgents_20260826]]. H2 остаётся историческим `STOP — PRE-MUTATION` первоначальной попытки.
 
 ## Связанные заметки
 
