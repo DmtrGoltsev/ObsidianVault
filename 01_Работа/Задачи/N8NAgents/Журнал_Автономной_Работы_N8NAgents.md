@@ -5,7 +5,7 @@ id: "tasklog-n8nagents-autonomous-work-20260826"
 проект: "N8NAgents"
 владелец: "style"
 создано: "2026-08-26"
-обновлено: "2026-08-26"
+обновлено: "2026-08-27"
 уверенность: "высокая"
 источники:
   - "[[Источник_Мастер_Промпт_N8NAgents]]"
@@ -19,6 +19,7 @@ id: "tasklog-n8nagents-autonomous-work-20260826"
   - "[[Доказательство_H6_Third_Stop_Packaging_Incident_N8NAgents_20260826]]"
   - "[[Доказательство_H7_Full_Delivery_Plan_Approval_N8NAgents_20260826]]"
   - "[[Доказательство_R7_K4_Recovery_Stop_N8NAgents_20260826]]"
+  - "[[Доказательство_R8_K4R_Offline_v2_Blocked_N8NAgents_20260827]]"
 доказательства:
   - "[[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]]"
   - "[[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]]"
@@ -61,6 +62,7 @@ id: "tasklog-n8nagents-autonomous-work-20260826"
 | H6 packaging / target incident | STOP — STATE FROZEN | Remote archive wrapper: CRLF/hash `8ec`/`1868`/`RC=2`; canonical `ffd5`/`1820`/LF/`PASS`; target incident resolved — [[Доказательство_H6_Third_Stop_Packaging_Incident_N8NAgents_20260826]] | App/containers/volumes absent; `.env` untouched; provider mapping residual, public-edge deferred | Не выполнять новый release без approval |
 | H7 Full Delivery v1 | EXECUTION KICKOFF ACTIVE — OUTCOME PENDING | `AUTHORIZATION_ID=N8NAgents-FULL-DELIVERY-v1`, `PLAN_VERSION=1`; baseline `9e024c3f5f2aba9d3727e0a26ffb7a6fc8e3147b`, `plaintext-2g`, до 2 reviewed retries/gate, nondestructive rollback, DeepSeek <= `5 USD`, Telegram <= `20` только allowlisted test chat — [[Доказательство_H7_Full_Delivery_Plan_Approval_N8NAgents_20260826]] | Manual gates/exclusions, security gates и budget ceilings обязательны; не является completed deployment evidence | Stop unhealthy containers; revert to last known-good release/config snapshot; never auto-delete data or volumes |
 | R7 K4 recovery | STOP — RETRY CAP EXHAUSTED | Retry 1 pre-write STOP: несовместимый вызов `swapon`; Linux R1: `-perm/022` выбрал symlink `l777`; `b3020ee` STOP с P1; единственная local retry `11974a33` STOP / CHANGES_REQUIRED. Package evidence local only: `9c3b793…`, 84246 bytes, 91 entries, 75 regular, 0 symlinks — [[Доказательство_R7_K4_Recovery_Stop_N8NAgents_20260826]] | «VPS unchanged» — attestation исполнителя, не independent observation; remote execution не доказан | Третьей попытки нет. WAITING-USER-AUTHORIZATION: expanded offline recovery budget/new corrective cycle, затем fresh QA/review и новый named remote gate |
+| R8 K4R-OFFLINE-v2 | BLOCKED — LOCAL LINUX BOUNDARY | Quorum-v2 sealed; dirty draft = 21 allowlisted paths, no commit, attempt 1 unconsumed. B2 initial semantic two-engine PASS, затем 3/3 CHANGES_REQUIRED; B2r contract/replay prepared. Terminal `B2R_NETWORK_BOUNDARY`, RC `45`, до validator start — [[Доказательство_R8_K4R_Offline_v2_Blocked_N8NAgents_20260827]] | Windows Sandbox/Hyper-V/WSL/netns/local v86 unavailable; v86 boot/runtime inputs отсутствуют. B2r run: REMOTE/VPS/VAULT/NETWORK=0 | Владелец выбирает Windows Sandbox (system feature/reboot) или exact hash-pinned local HTTPS download Linux/v86 inputs для no-NIC sandbox; VPS OS не переустанавливать |
 | Server mutations | PARTIAL BASELINE — EXECUTION OUTCOME PENDING | До H7 созданы approval/archive/non-current release, `current` был `f6e0`; app/containers/volumes отсутствовали | Нельзя считать app deployment выполненным; H7-authorized execution требует нового evidence | Nondestructive rollback в границах H7: known-good release/config snapshot, без auto-delete данных или volumes |
 
 ## Текущий статус
@@ -73,6 +75,7 @@ id: "tasklog-n8nagents-autonomous-work-20260826"
 - H5/bae8 approval: immutable/historical для нового release; H6 остановил archive wrapper, state frozen — [[Доказательство_H6_Third_Stop_Packaging_Incident_N8NAgents_20260826]].
 - H7 Full Delivery v1: **EXECUTION KICKOFF ACTIVE; OUTCOME PENDING**. Baseline `9e024c3f5f2aba9d3727e0a26ffb7a6fc8e3147b`, `plaintext-2g`; максимум два reviewed retries/gate, nondestructive rollback, DeepSeek <= `5 USD`, Telegram <= `20` в allowlisted test chat — [[Доказательство_H7_Full_Delivery_Plan_Approval_N8NAgents_20260826]].
 - R7 K4 recovery: **`STOP — RETRY CAP EXHAUSTED`**. Статус delivery — **`WAITING-USER-AUTHORIZATION`** на expanded offline recovery budget/new corrective cycle. Нет текущей авторизации exact commit для remote execution; remote факт «VPS unchanged» не является independently observed evidence — [[Доказательство_R7_K4_Recovery_Stop_N8NAgents_20260826]].
+- R8 K4R-OFFLINE-v2: **`BLOCKED`** на локальной Linux boundary, terminal `B2R_NETWORK_BOUNDARY`/`RC=45` до validator start. B2r run зафиксировал `REMOTE/VPS/VAULT/NETWORK=0`; настоящая последующая документация не входит в этот run — [[Доказательство_R8_K4R_Offline_v2_Blocked_N8NAgents_20260827]].
 - Server mutations: прежнее frozen state остаётся фактом до нового evidence; `current` был `f6e0`, app/containers/volumes отсутствовали, `.env` не затронут. H7 даёт authority начать approved execution, но не доказывает его результат.
 - C1 compatibility baseline: **COMPLETE (documentation only)**; [[Матрица_Совместимости_N8NAgents_2026-08-26]] не закрывает runtime/deployment гейты.
 - E1 foundation: **`GO-LOCAL`**, но server deployment — **`NO-GO`**; точные ограничения приведены в [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]].
@@ -88,6 +91,7 @@ id: "tasklog-n8nagents-autonomous-work-20260826"
 - Не считать `/usr/bin/id` или иной remote command выполненной без отдельного evidence.
 - Не выходить за `AUTHORIZATION_ID=N8NAgents-FULL-DELIVERY-v1`; ручные gates — secrets, DNS/provider UI, owner/2FA, destructive/data-loss, новые получатели, дополнительные расходы и расширение scope.
 - Не запускать третий K4 retry. Новый remote gate возможен только после новой отдельно зафиксированной authorisation, planning, corrective commit, fresh Linux QA и independent review.
+- Не обходить локальную Linux boundary, не выполнять VPS/provider/network action и не переустанавливать VPS OS ради R8. До явного решения владельца разрешён только документационный контур.
 - Не записывать secrets или персональные identifiers в vault.
 - Не выполнять VPS mutations из этого журнала.
 
@@ -98,3 +102,4 @@ id: "tasklog-n8nagents-autonomous-work-20260826"
 - [[Пакет_N8NAgents_Стартовый]]
 - [[MOC_N8NAgents]]
 - [[Доказательство_R7_K4_Recovery_Stop_N8NAgents_20260826]]
+- [[Доказательство_R8_K4R_Offline_v2_Blocked_N8NAgents_20260827]]

@@ -5,7 +5,7 @@ id: "proj-n8nagents-001"
 проект: "N8NAgents"
 владелец: "style"
 создано: "2026-08-25"
-обновлено: "2026-08-26"
+обновлено: "2026-08-27"
 уверенность: "высокая"
 источники:
   - "[[Источник_Мастер_Промпт_N8NAgents]]"
@@ -15,6 +15,7 @@ id: "proj-n8nagents-001"
   - "[[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]]"
   - "[[Доказательство_H7_Full_Delivery_Plan_Approval_N8NAgents_20260826]]"
   - "[[Доказательство_R7_K4_Recovery_Stop_N8NAgents_20260826]]"
+  - "[[Доказательство_R8_K4R_Offline_v2_Blocked_N8NAgents_20260827]]"
 теги: ["n8n", "ai-ассистент", "self-hosted", "vps", "безопасность"]
 ---
 
@@ -37,7 +38,7 @@ id: "proj-n8nagents-001"
 
 ## Текущий статус
 
-SSH discovery завершён с `PASS` после reboot VPS: минимальная проверка и полный read-only discovery завершились clean. H7 Full Delivery v1 сохраняется как plan-level authority, но K4 recovery остановлен и лимит двух попыток этого gate исчерпан. Статус delivery: **`WAITING-USER-AUTHORIZATION`** для нового отдельно названного corrective cycle; сейчас нет авторизованного exact commit для remote execution. Локальная foundation имеет `GO-LOCAL`; каждый server/runtime gate требует собственного evidence и независимого `GO`: [[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]], [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]], [[Доказательство_R7_K4_Recovery_Stop_N8NAgents_20260826]].
+SSH discovery завершён с `PASS` после reboot VPS: минимальная проверка и полный read-only discovery завершились clean. K4R-OFFLINE-v2 сейчас **`BLOCKED`** на локальной Linux boundary (`B2R_NETWORK_BOUNDARY`, `RC=45`) до запуска валидатора. H7 остаётся историческим plan-level authority, но для remote execution нет авторизованного exact commit. Локальная foundation имеет `GO-LOCAL`; каждый server/runtime gate требует собственного evidence и независимого `GO`: [[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]], [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]], [[Доказательство_R7_K4_Recovery_Stop_N8NAgents_20260826]], [[Доказательство_R8_K4R_Offline_v2_Blocked_N8NAgents_20260827]].
 
 ## Окружения
 
@@ -47,7 +48,7 @@ SSH discovery завершён с `PASS` после reboot VPS: минималь
 
 ## Активные гейты
 
-1. K4 recovery остановлен; требуется новый user authorization на расширенный offline recovery budget и новый corrective cycle до предложения remote gate.
+1. K4R-OFFLINE-v2 `BLOCKED`: владелец должен выбрать Windows Sandbox либо точечно разрешить локальную HTTPS-загрузку hash-pinned Linux/v86 inputs; remote gate до этого не предлагать.
 2. Firewall/provider firewall, IPv6, DNS/provider UI, secrets и owner/2FA сохраняют свои ручные/security gates.
 3. Каждый результат deployment, runtime, backup/restore и hardening требует evidence; approval не равен `PASS`.
 4. Секреты не создаются и не сохраняются в vault, Git или отчетах.
@@ -73,4 +74,5 @@ SSH discovery завершён с `PASS` после reboot VPS: минималь
 - [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]]
 - [[Доказательство_H7_Full_Delivery_Plan_Approval_N8NAgents_20260826]]
 - [[Доказательство_R7_K4_Recovery_Stop_N8NAgents_20260826]]
+- [[Доказательство_R8_K4R_Offline_v2_Blocked_N8NAgents_20260827]]
 - [[MOC_Все_Проекты]]
