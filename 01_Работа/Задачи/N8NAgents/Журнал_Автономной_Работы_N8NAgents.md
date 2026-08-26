@@ -15,6 +15,7 @@ id: "tasklog-n8nagents-autonomous-work-20260826"
   - "[[Доказательство_H2_Phase_A_Stop_Preflight_N8NAgents_20260826]]"
   - "[[Доказательство_H3_Phase_A_Reapproval_N8NAgents_20260826]]"
   - "[[Доказательство_H4_Phase_A_Wrapper_Stop_Recovery_Plan_N8NAgents_20260826]]"
+  - "[[Доказательство_H5_Phase_A_Recovery_Approval_N8NAgents_20260826]]"
 доказательства:
   - "[[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]]"
   - "[[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]]"
@@ -51,9 +52,10 @@ id: "tasklog-n8nagents-autonomous-work-20260826"
 | Совместимость и локальная реализация | PARTIALLY COMPLETE | C1 закрыта как документация; локальная реализация отдельно, server discovery не изменён | Версии и external API требуют отдельного live evidence | Локальные артефакты откатываются только их владельцем |
 | H1 Phase A approval | HISTORICAL — STOPPED BEFORE MUTATION | Пользователь 2026-08-26 (Europe/Moscow) утвердил `phase-a-internal`, commit `d1703bdfbdb183836afe7d75c871938ca8a9f196`, `SWAP_OPTION=plaintext-2g`; H2 остановил preflight — [[Доказательство_H1_Phase_A_User_Approval_N8NAgents_20260826]], [[Доказательство_H2_Phase_A_Stop_Preflight_N8NAgents_20260826]] | Approval не является deployment evidence; исключены Caddy, публичные порты, firewall, IPv6, domains, SSH hardening, owner, 2FA, workflows, credentials | Superseded для execution H3 reapproval |
 | H2 Phase A preflight | STOP — PRE-MUTATION | Timezone label `Etc/UTC` не совпал с literal `UTC`; `MemAvailable` short `27,277,721` bytes; остальные redacted checks `PASS` — [[Доказательство_H2_Phase_A_Stop_Preflight_N8NAgents_20260826]] | Новый plan нельзя исполнять по H1 | H3 reapproval получен; H2 сохранён как история initial attempt |
-| H3 Phase A reapproval | HISTORICAL — PARTIAL PROGRESS, WRAPPER STOP | Пользователь 2026-08-26 (Europe/Moscow) одобрил `phase-a-internal`, commit `f6e0c745ab889c11df1ab83ccf7957534be600cd`, `SWAP_OPTION=plaintext-2g`; partial `PASS`, затем wrapper stop — [[Доказательство_H3_Phase_A_Reapproval_N8NAgents_20260826]], [[Доказательство_H4_Phase_A_Wrapper_Stop_Recovery_Plan_N8NAgents_20260826]] | H3 immutable/historical для нового release; исключены Caddy, public ports, firewall, IPv6, domains, SSH hardening, owner, 2FA, workflows, credentials | Нужен новый explicit approval final reviewed recovery commit |
-| H4 wrapper validation / recovery plan | STOP — BEFORE CONFIG/APP START | `/bin/sh -n` вернул `RC=2`; approval/preflight/swap/Docker/deploy-user/release/images/secret-safety `PASS`; OOM=`0`, PSI=`0` — [[Доказательство_H4_Phase_A_Wrapper_Stop_Recovery_Plan_N8NAgents_20260826]] | Config/app start не выполнялись; `.env` content не читался | Сохранить partial state и запросить approval final recovery commit |
-| Server mutations | PARTIAL STATE PRESERVED — EXECUTION STOPPED | Сохранены swap, Docker, deploy-user, release и images; containers/volumes/app/public listeners отсутствуют — [[Доказательство_H4_Phase_A_Wrapper_Stop_Recovery_Plan_N8NAgents_20260826]] | Нельзя считать app deployment выполненным | Не выполнять recovery execution без нового approval |
+| H3 Phase A reapproval | HISTORICAL — PARTIAL PROGRESS, WRAPPER STOP | Пользователь 2026-08-26 (Europe/Moscow) одобрил `phase-a-internal`, commit `f6e0c745ab889c11df1ab83ccf7957534be600cd`, `SWAP_OPTION=plaintext-2g`; partial `PASS`, затем wrapper stop — [[Доказательство_H3_Phase_A_Reapproval_N8NAgents_20260826]], [[Доказательство_H4_Phase_A_Wrapper_Stop_Recovery_Plan_N8NAgents_20260826]] | H3 immutable/historical для нового release; исключены Caddy, public ports, firewall, IPv6, domains, SSH hardening, owner, 2FA, workflows, credentials | Superseded для execution H5 constrained recovery approval |
+| H4 wrapper validation / recovery plan | STOP — BEFORE CONFIG/APP START | `/bin/sh -n` вернул `RC=2`; approval/preflight/swap/Docker/deploy-user/release/images/secret-safety `PASS`; OOM=`0`, PSI=`0` — [[Доказательство_H4_Phase_A_Wrapper_Stop_Recovery_Plan_N8NAgents_20260826]] | Config/app start не выполнялись; `.env` content не читался | H5 constrained recovery approval получен; H4 сохранён как history |
+| H5 constrained recovery approval | APPROVED — RESUME STARTED, OUTCOME PENDING | Пользователь 2026-08-26 (Europe/Moscow) одобрил `phase-a-internal`, commit `bae8c88f7a7d153ffc4a5ae28028045a0a27d319`, `SWAP_OPTION=plaintext-2g` — [[Доказательство_H5_Phase_A_Recovery_Approval_N8NAgents_20260826]] | Только partial-state revalidation, versioned release/atomic `current`, wrapper/hash/`sh -n`/config, internal start/health/listeners/memory; exclusions сохранены | Зафиксировать outcome отдельным evidence |
+| Server mutations | CONSTRAINED RESUME STARTED — OUTCOME PENDING | H4 partial state сохранён; H5 не разрешает host-prep repeat, `.env` read/regen, deletion или rollback | Нельзя считать app deployment завершённым до outcome evidence | Определяется итоговым evidence constrained resume |
 
 ## Текущий статус
 
@@ -62,19 +64,20 @@ id: "tasklog-n8nagents-autonomous-work-20260826"
 - Historical Phase A approval: `d1703bdfbdb183836afe7d75c871938ca8a9f196`, `SWAP_OPTION=plaintext-2g`; H2 остановил preflight до mutations — [[Доказательство_H2_Phase_A_Stop_Preflight_N8NAgents_20260826]].
 - Client key: **`PASS`** — [[Доказательство_T1_Local_SSH_Preflight_N8NAgents]].
 - H3/f6e0 approval: immutable/historical для нового release; partial progress остановлен на wrapper validation до config/app start — [[Доказательство_H4_Phase_A_Wrapper_Stop_Recovery_Plan_N8NAgents_20260826]].
-- Server mutations: **partial state сохранён; execution остановлен**. Swap, Docker, deploy-user, release и images прошли; containers/volumes/app/public listeners отсутствуют.
+- Current recovery approval: H5, `bae8c88f7a7d153ffc4a5ae28028045a0a27d319`, `phase-a-internal`, `SWAP_OPTION=plaintext-2g` — [[Доказательство_H5_Phase_A_Recovery_Approval_N8NAgents_20260826]].
+- Server mutations: **constrained resume начат; outcome pending**. Это не является подтверждением успешного recovery или app deployment.
 - C1 compatibility baseline: **COMPLETE (documentation only)**; [[Матрица_Совместимости_N8NAgents_2026-08-26]] не закрывает runtime/deployment гейты.
 - E1 foundation: **`GO-LOCAL`**, но server deployment — **`NO-GO`**; точные ограничения приведены в [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]].
 - B3: `jsonschema 4.26.0` / `referencing 0.37.0` временно проверили все Draft 2020-12 metaschemas/refs и 6+/3− DeepSeek, 5+/5− tool fixtures с `PASS`; временное окружение удалено, project tree не менялся.
-- G1 TOFU: **`NOT VERIFIED — USER-ACCEPTED-EXCEPTION`**; H1/H3 не меняют его статус и не расширяют scope.
-- Recovery plan: local fix `2240c47`, final reviewed commit `bae8c88f7a7d153ffc4a5ae28028045a0a27d319`; independent review `GO` только на запрос нового approval. До approval — no recovery execution.
+- G1 TOFU: **`NOT VERIFIED — USER-ACCEPTED-EXCEPTION`**; H1/H3/H5 не меняют его статус и не расширяют scope.
+- Recovery plan: local fix `2240c47`, final reviewed commit `bae8c88f7a7d153ffc4a5ae28028045a0a27d319`; H5 получил отдельный явный approval. Следующий gate — outcome evidence constrained resume.
 - Firewall/IPv6 и все исключённые из Phase A темы остаются отдельными gates.
 - Полный список зависимостей владельца: [[Очередь_Ручных_Действий_N8NAgents]].
 
 ## Стоп-условия
 
 - Не считать `/usr/bin/id` или иной remote command выполненной без отдельного evidence.
-- Не выполнять wrapper recovery/VPS mutations по historical H3/f6e0; нужен новый явный approval final reviewed commit `bae8c88f7a7d153ffc4a5ae28028045a0a27d319`.
+- Не выполнять VPS mutations вне H5 exact scope: partial-state revalidation, new versioned release, atomic `current`, wrapper/hash/`sh -n`/config, internal start/health/listeners/memory. Не повторять host prep, не читать/не регенерировать `.env`, не выполнять deletion или rollback.
 - Не записывать secrets или персональные identifiers в vault.
 - Не выполнять VPS mutations из этого журнала.
 
