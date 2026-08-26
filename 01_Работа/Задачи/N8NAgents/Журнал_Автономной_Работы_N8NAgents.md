@@ -13,6 +13,7 @@ id: "tasklog-n8nagents-autonomous-work-20260826"
   - "[[Доказательство_G1_User_Accepted_TOFU_Exception_N8NAgents]]"
   - "[[Доказательство_H1_Phase_A_User_Approval_N8NAgents_20260826]]"
   - "[[Доказательство_H2_Phase_A_Stop_Preflight_N8NAgents_20260826]]"
+  - "[[Доказательство_H3_Phase_A_Reapproval_N8NAgents_20260826]]"
 доказательства:
   - "[[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]]"
   - "[[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]]"
@@ -47,28 +48,31 @@ id: "tasklog-n8nagents-autonomous-work-20260826"
 | C1 compatibility baseline | COMPLETE (documentation) | [[Матрица_Совместимости_N8NAgents_2026-08-26]] создана; live/runtime пункты явно `UNVERIFIED` | Матрица не является deployment evidence | Git revert focused документационного commit |
 | E1 local foundation/review | GO-LOCAL | Final `GO-LOCAL`; `codex/n8nagents-foundation` at `1839a29e1620a670c80b1428bfb4d4f56ba867ac`; Draft 2020-12 metaschemas/refs и DeepSeek/tool fixtures `PASS`, см. [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]] | Docker/Bash/runtime/import/E2E/restore не подтверждены; Bash/Docker runtime `BLOCKED-LOCAL` | Откатить только локальный foundation commit его владельцем; сервер не затронут |
 | Совместимость и локальная реализация | PARTIALLY COMPLETE | C1 закрыта как документация; локальная реализация отдельно, server discovery не изменён | Версии и external API требуют отдельного live evidence | Локальные артефакты откатываются только их владельцем |
-| H1 Phase A approval | HISTORICAL — STOPPED BEFORE MUTATION | Пользователь 2026-08-26 (Europe/Moscow) утвердил `phase-a-internal`, commit `d1703bdfbdb183836afe7d75c871938ca8a9f196`, `SWAP_OPTION=plaintext-2g`; H2 остановил preflight — [[Доказательство_H1_Phase_A_User_Approval_N8NAgents_20260826]], [[Доказательство_H2_Phase_A_Stop_Preflight_N8NAgents_20260826]] | Approval не является deployment evidence; исключены Caddy, публичные порты, firewall, IPv6, domains, SSH hardening, owner, 2FA, workflows, credentials | Нужен новый явный approval финального reviewed commit |
-| H2 Phase A preflight | STOP — PRE-MUTATION | Timezone label `Etc/UTC` не совпал с literal `UTC`; `MemAvailable` short `27,277,721` bytes; остальные redacted checks `PASS` — [[Доказательство_H2_Phase_A_Stop_Preflight_N8NAgents_20260826]] | Новый plan нельзя исполнять по H1 | Запросить reapproval для final commit |
-| Server mutations | NOT STARTED — STOPPED BEFORE MUTATION | Не созданы archive, approval record, swap, packages, service user, release, secrets, images, containers или volumes — [[Доказательство_H2_Phase_A_Stop_Preflight_N8NAgents_20260826]] | Нельзя считать Docker, swap, PostgreSQL или n8n успешно применёнными | Не применимо: удалённое состояние не менялось |
+| H1 Phase A approval | HISTORICAL — STOPPED BEFORE MUTATION | Пользователь 2026-08-26 (Europe/Moscow) утвердил `phase-a-internal`, commit `d1703bdfbdb183836afe7d75c871938ca8a9f196`, `SWAP_OPTION=plaintext-2g`; H2 остановил preflight — [[Доказательство_H1_Phase_A_User_Approval_N8NAgents_20260826]], [[Доказательство_H2_Phase_A_Stop_Preflight_N8NAgents_20260826]] | Approval не является deployment evidence; исключены Caddy, публичные порты, firewall, IPv6, domains, SSH hardening, owner, 2FA, workflows, credentials | Superseded для execution H3 reapproval |
+| H2 Phase A preflight | STOP — PRE-MUTATION | Timezone label `Etc/UTC` не совпал с literal `UTC`; `MemAvailable` short `27,277,721` bytes; остальные redacted checks `PASS` — [[Доказательство_H2_Phase_A_Stop_Preflight_N8NAgents_20260826]] | Новый plan нельзя исполнять по H1 | H3 reapproval получен; H2 сохранён как история initial attempt |
+| H3 Phase A reapproval | APPROVED — RETRY STARTED, OUTCOME PENDING | Пользователь 2026-08-26 (Europe/Moscow) повторно одобрил `phase-a-internal`, commit `f6e0c745ab889c11df1ab83ccf7957534be600cd`, `SWAP_OPTION=plaintext-2g` — [[Доказательство_H3_Phase_A_Reapproval_N8NAgents_20260826]] | H3 не является deployment evidence; исключены Caddy, public ports, firewall, IPv6, domains, SSH hardening, owner, 2FA, workflows, credentials | Зафиксировать outcome и rollback-статус отдельным evidence |
+| Server mutations | RETRY STARTED — OUTCOME PENDING | Первоначальная попытка H2 не создала archive, approval record, swap, packages, service user, release, secrets, images, containers или volumes; текущий retry ещё не имеет outcome evidence | Нельзя считать Docker, swap, PostgreSQL или n8n успешно применёнными | Определяется итоговым evidence retry |
 
 ## Текущий статус
 
 - SSH discovery: **`PASS`** — [[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]].
 - Console recovery: **`MANUAL-PASS`** до Phase A; A2 read-only discovery `PASS`.
 - Historical Phase A approval: `d1703bdfbdb183836afe7d75c871938ca8a9f196`, `SWAP_OPTION=plaintext-2g`; H2 остановил preflight до mutations — [[Доказательство_H2_Phase_A_Stop_Preflight_N8NAgents_20260826]].
-- Server mutations: **не начаты**; отсутствуют archive, approval record, swap, packages, service user, release, secrets, images, containers и volumes.
+- Client key: **`PASS`** — [[Доказательство_T1_Local_SSH_Preflight_N8NAgents]].
+- Current Phase A approval: `f6e0c745ab889c11df1ab83ccf7957534be600cd`, `phase-a-internal`, `SWAP_OPTION=plaintext-2g` — [[Доказательство_H3_Phase_A_Reapproval_N8NAgents_20260826]].
+- Server mutations: **retry начат; outcome pending**. Это не является подтверждением успешной установки или запуска.
 - C1 compatibility baseline: **COMPLETE (documentation only)**; [[Матрица_Совместимости_N8NAgents_2026-08-26]] не закрывает runtime/deployment гейты.
 - E1 foundation: **`GO-LOCAL`**, но server deployment — **`NO-GO`**; точные ограничения приведены в [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]].
 - B3: `jsonschema 4.26.0` / `referencing 0.37.0` временно проверили все Draft 2020-12 metaschemas/refs и 6+/3− DeepSeek, 5+/5− tool fixtures с `PASS`; временное окружение удалено, project tree не менялся.
-- G1 TOFU: **`NOT VERIFIED — USER-ACCEPTED-EXCEPTION`**; H1 не меняет его статус и не расширяет scope.
-- Новый gate policy: `7998020`, финальный reviewed commit `f6e0c745ab889c11df1ab83ccf7957534be600cd`; independent review `GO` только на запрос повторного approval. До явного нового approval — **no execution**.
+- G1 TOFU: **`NOT VERIFIED — USER-ACCEPTED-EXCEPTION`**; H1/H3 не меняют его статус и не расширяют scope.
+- Новый gate policy: `7998020`, финальный reviewed commit `f6e0c745ab889c11df1ab83ccf7957534be600cd`; H3 получил явный повторный approval. Следующий gate — outcome evidence retry.
 - Firewall/IPv6 и все исключённые из Phase A темы остаются отдельными gates.
 - Полный список зависимостей владельца: [[Очередь_Ручных_Действий_N8NAgents]].
 
 ## Стоп-условия
 
 - Не считать `/usr/bin/id` или иной remote command выполненной без отдельного evidence.
-- Не выполнять VPS mutations по historical approval H1; до execution нужен новый явный approval финального reviewed commit `f6e0c745ab889c11df1ab83ccf7957534be600cd`.
+- Не выполнять VPS mutations вне H3: `phase-a-internal`, commit `f6e0c745ab889c11df1ab83ccf7957534be600cd`, `SWAP_OPTION=plaintext-2g`; для любого расширения нужен новый явный approval.
 - Не записывать secrets или персональные identifiers в vault.
 - Не выполнять VPS mutations из этого журнала.
 
