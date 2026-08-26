@@ -36,7 +36,7 @@ id: "evidence-n8nagents-h1-phase-a-user-approval-20260826"
 ## Состояние исполнения и доказательства
 
 - Console recovery уже был продемонстрирован до этого approval: A2 выполнен после reboot и завершил read-only discovery с `PASS` — [[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]].
-- Исполнение на сервере начато, но на момент этой фиксации итог, фактические изменения и проверки ещё не получены. Поэтому H1 — доказательство **полномочия**, а не успешного deployment.
+- Последующий preflight остановил Phase A до всех mutations; исходный approval не даёт права исполнять переработанный plan. Полный outcome: [[Доказательство_H2_Phase_A_Stop_Preflight_N8NAgents_20260826]].
 - В эту заметку не копируются IP-адреса, host-key fingerprints, секреты или иные служебные идентификаторы.
 
 ## TOFU
@@ -45,7 +45,7 @@ id: "evidence-n8nagents-h1-phase-a-user-approval-20260826"
 
 ## Следующий gate
 
-Зафиксировать фактический outcome Phase A, локальные проверки и rollback-статус отдельным evidence. До этого нельзя заявлять, что PostgreSQL, n8n или swap успешно применены.
+H2 зафиксировал `STOP — PRE-MUTATION`; требуется новый явный approval финального reviewed commit, прежде чем вновь начинать execution. До этого нельзя заявлять, что PostgreSQL, n8n или swap успешно применены.
 
 ## Связанные заметки
 
