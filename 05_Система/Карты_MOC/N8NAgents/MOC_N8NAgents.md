@@ -39,7 +39,8 @@ id: "moc-n8nagents-001"
 
 ## Текущее доказательство
 
-- [[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]] — A1 завершена на transport/authentication; SSH discovery `BLOCKED-EXTERNAL` до provider-console diagnosis.
+- [[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]] — исторический A1 session-channel blocker до reboot VPS.
+- [[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]] — A2 read-only discovery `PASS`; server mutations не начаты.
 - [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]] — статическое локальное evidence и незакрытые runtime/deployment гейты.
 
 ## Проектные разделы

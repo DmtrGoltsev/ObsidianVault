@@ -14,6 +14,7 @@ id: "task-n8nagents-deployment-001"
   - "[[Доказательство_T1_Local_SSH_Preflight_N8NAgents]]"
   - "[[Доказательство_G1_User_Accepted_TOFU_Exception_N8NAgents]]"
   - "[[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]]"
+  - "[[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]]"
   - "[[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]]"
 теги: ["n8n", "развертывание", "ssh-preflight", "безопасность"]
 ---
@@ -33,7 +34,7 @@ id: "task-n8nagents-deployment-001"
 - [x] Локальный SSH-preflight завершён без раскрытия секретов.
 - [ ] Фактический SSH-порт и ожидаемый host fingerprint независимо подтверждены. Исключение пользователя не закрывает этот пункт.
 - [x] Явное принятие риска TOFU зафиксировано для точного ограниченного scope; G1 не повышен до `PASS`.
-- [ ] Выполнен только read-only discovery VPS; A1 не закрывает пункт: session channel остановился до `/usr/bin/id`, evidence в [[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]].
+- [x] Выполнен read-only discovery VPS без mutations: [[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]].
 - [ ] Представлены архитектура, затрагиваемые файлы, rollback и non-secret параметры.
 - [ ] Получен явный approval перед любыми изменениями VPS.
 - [ ] MVP Phase A прошёл заявленные проверки.
@@ -51,16 +52,16 @@ id: "task-n8nagents-deployment-001"
 
 **Stop если:** discovery обнаружит неизвестную установку, конфликт портов 80/443, недостаток ресурсов или иной стоп-фактор из мастер-промпта.
 
-**Go только после снятия `BLOCKED-EXTERNAL`:** A1 подтвердила transport, pinned host key и public-key authentication, но server не ответил на session-channel request. До provider-console diagnosis A2 не начинать.
+**Go к plan review:** A2 read-only discovery `PASS`; до server mutations необходимы exact command/object list, архитектура, downtime/rollback, firewall/IPv6 решение и отдельный approval.
 
 **Kill если:** дальнейший шаг требует обхода TLS, использования `StrictHostKeyChecking=no`, ослабления firewall/authentication либо любого действия вне документированного TOFU-исключения и явно согласованного scope.
 
 ## Текущий gate
 
 - T1 local SSH-preflight: `PASS` — [[Доказательство_T1_Local_SSH_Preflight_N8NAgents]].
-- A1: TCP, pinned host key и public-key authentication `PASS`; session channel `BLOCKED-EXTERNAL` до `/usr/bin/id`, exit `255` — [[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]].
-- A2: не начата; повтор запрещён до provider-console diagnosis.
-- SSH discovery: **`BLOCKED-EXTERNAL`**. Server mutations: не начаты.
+- A1: первоначальная session-channel проблема зафиксирована в [[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]].
+- A2: **`PASS`** после reboot VPS; полный read-only discovery clean, без mutations — [[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]].
+- Server mutations: не начаты. Следующий gate — exact deployment plan/review и отдельный approval.
 - E1 local foundation review: **`GO-LOCAL`**; server deployment: **`NO-GO`** — [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]].
 
 ## Сделанные изменения
@@ -73,8 +74,8 @@ id: "task-n8nagents-deployment-001"
 
 ## Оставшаяся работа
 
-- Снять P0 provider-console blocker из [[Очередь_Ручных_Действий_N8NAgents]] и только затем решить, допустима ли A2.
-- Сохранить redacted evidence исхода A2, если она будет авторизована; не считать G1 `PASS` без независимой проверки.
+- Подготовить и пройти review exact deployment plan: команды/объекты, архитектура, firewall/IPv6 policy, downtime и rollback.
+- Не считать G1 `PASS` без независимой проверки.
 - Закрыть compatibility acceptance gates из [[Матрица_Совместимости_N8NAgents_2026-08-26]] до production deployment.
 - Перепроверить JSON Schema semantic validation, когда локальный `jsonschema`-валидатор даст отдельное evidence; не считать её пройденной по статическому `PASS`.
 - Закрыть non-secret входные данные из ручной очереди; секреты вводить напрямую в server-side credential flow.
@@ -86,6 +87,7 @@ id: "task-n8nagents-deployment-001"
 - Local SSH-preflight: [[Доказательство_T1_Local_SSH_Preflight_N8NAgents]].
 - User-accepted TOFU exception: [[Доказательство_G1_User_Accepted_TOFU_Exception_N8NAgents]].
 - A1 SSH session-channel: [[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]].
+- A2 read-only discovery: [[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]].
 - E1 local foundation/review: [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]].
 
 ## Связанные заметки

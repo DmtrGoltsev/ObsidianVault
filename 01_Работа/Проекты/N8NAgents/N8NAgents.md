@@ -11,6 +11,7 @@ id: "proj-n8nagents-001"
   - "[[Источник_Мастер_Промпт_N8NAgents]]"
 доказательства:
   - "[[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]]"
+  - "[[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]]"
   - "[[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]]"
 теги: ["n8n", "ai-ассистент", "self-hosted", "vps", "безопасность"]
 ---
@@ -34,26 +35,26 @@ id: "proj-n8nagents-001"
 
 ## Текущий статус
 
-SSH discovery заблокирован на внешней стороне: transport, pinned host key и public-key authentication прошли, но session channel не ответил до `/usr/bin/id`. Server mutations не начаты. Локальная foundation прошла независимое ревью с `GO-LOCAL`; server deployment остаётся `NO-GO`: [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]].
+SSH discovery завершён с `PASS` после reboot VPS: минимальная проверка и полный read-only discovery завершились clean, без mutations. Server mutations не начаты. Локальная foundation прошла независимое ревью с `GO-LOCAL`; server deployment остаётся `NO-GO` до review точного deployment plan и отдельного approval: [[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]], [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]].
 
 ## Окружения
 
 - Локальное: SSH-preflight `PASS`; совместимость/локальная реализация в работе.
-- VPS: TCP, pinned host key и public-key authentication подтверждены в A1; remote command не выполнена, discovery `BLOCKED-EXTERNAL`.
+- VPS: A2 read-only discovery `PASS`; подтверждены свободные порты и отсутствие целевого стека. RAM ниже предпочтительных 4 GiB, swap отсутствует; firewall/provider firewall и IPv6 policy требуют решения.
 - Production: не начат.
 
 ## Активные гейты
 
-1. A1 завершена только на transport/authentication; session channel требует provider-console diagnosis.
-2. A2 не начинать до снятия внешнего блокера и свежей console-проверки.
-3. Server mutations не начаты; hardening требует rollback и console-проверки.
+1. A2 read-only discovery завершён `PASS` после reboot VPS.
+2. Перед mutations обязателен review exact deployment plan: команды/объекты, архитектура, downtime и rollback.
+3. Server mutations не начаты; firewall/provider firewall и IPv6 policy — обязательные гейты.
 4. Секреты не создаются и не сохраняются в vault, Git или отчетах.
 
 ## Известные риски
 
-- Причина неответа session channel на VPS/provider стороне неизвестна.
 - Независимая верификация фактического порта и host fingerprint не завершена.
-- Неизвестны существующие сервисы, занятые порты и ресурсы VPS.
+- RAM ниже предпочтительных 4 GiB и swap отсутствует; ресурсный риск для пилота.
+- Provider firewall и IPv6 policy не подтверждены.
 - Не предоставлены обязательные non-secret параметры доменов, DNS, timezone, Telegram и backup-политики.
 
 ## Связанные заметки
@@ -66,5 +67,6 @@ SSH discovery заблокирован на внешней стороне: trans
 - [[Журнал_Автономной_Работы_N8NAgents]]
 - [[Очередь_Ручных_Действий_N8NAgents]]
 - [[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]]
+- [[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]]
 - [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]]
 - [[MOC_Все_Проекты]]

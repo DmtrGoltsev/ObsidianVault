@@ -41,7 +41,7 @@ id: "evidence-n8nagents-e1-local-foundation-review-20260826"
 
 ## Раздельный deployment-статус
 
-**`NO-GO` для server deployment.** A2 SSH discovery остаётся `BLOCKED-EXTERNAL`: A1 дошла до transport, pinned host key и public-key authentication, но session channel не выполнил remote command. До provider-console diagnosis нельзя начинать A2, hardening или mutations.
+**`NO-GO` для server deployment.** Это локальное evidence не заменяет A2. A2 read-only discovery впоследствии завершён `PASS` после reboot VPS: [[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]]. До server mutation требуются review точного deployment plan, firewall/IPv6 решение и отдельный approval.
 
 Даже после снятия SSH-блокера обязательны evidence: Docker/Bash/Compose и runtime checks, immutable image digests, n8n workflow import, Telegram/DeepSeek E2E, persistence/isolation, edge exposure, quiesced signed backup и authenticated isolated restore. Никаких секретов, workflow exports или server facts в этой заметке нет.
 
