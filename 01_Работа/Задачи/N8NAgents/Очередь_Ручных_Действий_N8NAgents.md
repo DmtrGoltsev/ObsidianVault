@@ -14,6 +14,7 @@ id: "manualqueue-n8nagents-20260826"
   - "[[Доказательство_H2_Phase_A_Stop_Preflight_N8NAgents_20260826]]"
   - "[[Доказательство_H3_Phase_A_Reapproval_N8NAgents_20260826]]"
   - "[[Доказательство_H4_Phase_A_Wrapper_Stop_Recovery_Plan_N8NAgents_20260826]]"
+  - "[[Доказательство_H5_Phase_A_Recovery_Approval_N8NAgents_20260826]]"
 доказательства:
   - "[[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]]"
   - "[[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]]"
@@ -27,7 +28,7 @@ id: "manualqueue-n8nagents-20260826"
 | Приоритет | Требуется от владельца / внешней стороны | Что подтвердить или выполнить | Статус |
 |---|---|---|---|
 | P0 | Provider / владелец | Подтвердить firewall policy провайдера и допустимые inbound ports (`22`, затем `80/443`); отдельно определить IPv6 policy | WAITING |
-| P0 | Владелец | Дать новый явный approval финального reviewed commit `bae8c88f7a7d153ffc4a5ae28028045a0a27d319` для wrapper recovery | WAITING USER REAPPROVAL — independent review `GO` разрешает только запрос approval, не execution |
+| P0 | Владелец | Явно одобрил final reviewed commit `bae8c88f7a7d153ffc4a5ae28028045a0a27d319` для constrained wrapper recovery | CLOSED FOR CONSTRAINED RESUME — `phase-a-internal`, `SWAP_OPTION=plaintext-2g`; outcome pending |
 | P1 | Владелец доменов | `EDITOR_DOMAIN`, `WEBHOOK_DOMAIN`, DNS provider, readiness DNS и ACME email | WAITING |
 | P1 | Владелец проекта | Timezone | WAITING |
 | P1 | Владелец Telegram | Наличие отдельных dev/prod bots, username(s) и allowed IDs; token вводить только напрямую в защищённый server-side credential flow, не в vault/чат | WAITING |
@@ -39,7 +40,7 @@ id: "manualqueue-n8nagents-20260826"
 
 ## Правило разблокировки
 
-A2 read-only discovery завершён `PASS` после reboot VPS: [[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]]. H3/f6e0 retry имеет partial `PASS`, но остановлен wrapper-проверкой `/bin/sh -n` с `RC=2` до config/app start; partial state сохранён — [[Доказательство_H4_Phase_A_Wrapper_Stop_Recovery_Plan_N8NAgents_20260826]]. Локальный fix `2240c47` завершён final reviewed commit `bae8c88f7a7d153ffc4a5ae28028045a0a27d319`; нужен новый явный approval, до него execution запрещён. Provider firewall/IPv6 и все прочие пункты остаются `WAITING` и не входят в внутренний scope. Остальные пункты не предполагают передачу секретов через vault или чат.
+A2 read-only discovery завершён `PASS` после reboot VPS: [[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]]. H3/f6e0 retry имеет partial `PASS`, но остановлен wrapper-проверкой `/bin/sh -n` с `RC=2` до config/app start; partial state сохранён — [[Доказательство_H4_Phase_A_Wrapper_Stop_Recovery_Plan_N8NAgents_20260826]]. Пользователь дал H5 approval финального reviewed commit `bae8c88f7a7d153ffc4a5ae28028045a0a27d319` для constrained `phase-a-internal` resume; outcome pending — [[Доказательство_H5_Phase_A_Recovery_Approval_N8NAgents_20260826]]. Provider firewall/IPv6 и все прочие пункты остаются `WAITING` и не входят в внутренний scope. Остальные пункты не предполагают передачу секретов через vault или чат.
 
 Локальная проверка JSON Schema закрыта в [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]]; Docker/Bash/runtime гейты этим не закрываются.
 

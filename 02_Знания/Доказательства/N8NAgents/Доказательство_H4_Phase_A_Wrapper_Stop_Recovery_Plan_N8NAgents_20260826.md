@@ -43,7 +43,7 @@ Wrapper остановился на `/bin/sh -n` с `RC=2` **до** config/app s
 
 ## Следующий gate
 
-Получить отдельный явный approval commit `bae8c88f7a7d153ffc4a5ae28028045a0a27d319`. До него wrapper recovery/server execution не выполняются; partial state сохраняется.
+Пользователь дал отдельный H5 approval commit `bae8c88f7a7d153ffc4a5ae28028045a0a27d319`; constrained resume начат с outcome pending — [[Доказательство_H5_Phase_A_Recovery_Approval_N8NAgents_20260826]]. H4 остаётся историческим wrapper `STOP`, partial state сохраняется.
 
 ## Связанные заметки
 
