@@ -13,6 +13,7 @@ id: "proj-n8nagents-001"
   - "[[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]]"
   - "[[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]]"
   - "[[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]]"
+  - "[[Доказательство_H7_Full_Delivery_Plan_Approval_N8NAgents_20260826]]"
 теги: ["n8n", "ai-ассистент", "self-hosted", "vps", "безопасность"]
 ---
 
@@ -35,7 +36,7 @@ id: "proj-n8nagents-001"
 
 ## Текущий статус
 
-SSH discovery завершён с `PASS` после reboot VPS: минимальная проверка и полный read-only discovery завершились clean, без mutations. Server mutations не начаты. Локальная foundation прошла независимое ревью с `GO-LOCAL`; server deployment остаётся `NO-GO` до review точного deployment plan и отдельного approval: [[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]], [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]].
+SSH discovery завершён с `PASS` после reboot VPS: минимальная проверка и полный read-only discovery завершились clean. `AUTHORIZATION_ID=N8NAgents-FULL-DELIVERY-v1`, `PLAN_VERSION=1` активирует запуск утверждённого Full Delivery v1 с baseline `9e024c3f5f2aba9d3727e0a26ffb7a6fc8e3147b` и `plaintext-2g`; outcome исполнения остаётся `PENDING`. Локальная foundation имеет `GO-LOCAL`; каждый server/runtime gate требует собственного evidence и независимого `GO`: [[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]], [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]], [[Доказательство_H7_Full_Delivery_Plan_Approval_N8NAgents_20260826]].
 
 ## Окружения
 
@@ -45,9 +46,9 @@ SSH discovery завершён с `PASS` после reboot VPS: минималь
 
 ## Активные гейты
 
-1. A2 read-only discovery завершён `PASS` после reboot VPS.
-2. Перед mutations обязателен review exact deployment plan: команды/объекты, архитектура, downtime и rollback.
-3. Server mutations не начаты; firewall/provider firewall и IPv6 policy — обязательные гейты.
+1. H7 Full Delivery v1 authority активен; execution outcome ещё не получен.
+2. Firewall/provider firewall, IPv6, DNS/provider UI, secrets и owner/2FA сохраняют свои ручные/security gates.
+3. Каждый результат deployment, runtime, backup/restore и hardening требует evidence; approval не равен `PASS`.
 4. Секреты не создаются и не сохраняются в vault, Git или отчетах.
 
 ## Известные риски
@@ -69,4 +70,5 @@ SSH discovery завершён с `PASS` после reboot VPS: минималь
 - [[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]]
 - [[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]]
 - [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]]
+- [[Доказательство_H7_Full_Delivery_Plan_Approval_N8NAgents_20260826]]
 - [[MOC_Все_Проекты]]

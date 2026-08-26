@@ -26,6 +26,7 @@ id: "moc-n8nagents-001"
 - [[Журнал_Автономной_Работы_N8NAgents]] — статус этапов, evidence, риски и rollback ночной работы.
 - [[Очередь_Ручных_Действий_N8NAgents]] — действия владельца и внешние блокеры без секретов.
 - [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]] — независимое `GO-LOCAL` для foundation и отдельный `NO-GO` server deployment.
+- [[Доказательство_H7_Full_Delivery_Plan_Approval_N8NAgents_20260826]] — активное plan-level authority Full Delivery v1; outcome execution pending.
 
 ## Источники и промпты
 
