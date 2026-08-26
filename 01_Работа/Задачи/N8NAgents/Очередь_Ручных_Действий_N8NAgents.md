@@ -16,6 +16,7 @@ id: "manualqueue-n8nagents-20260826"
   - "[[Доказательство_H4_Phase_A_Wrapper_Stop_Recovery_Plan_N8NAgents_20260826]]"
   - "[[Доказательство_H5_Phase_A_Recovery_Approval_N8NAgents_20260826]]"
   - "[[Доказательство_H6_Third_Stop_Packaging_Incident_N8NAgents_20260826]]"
+  - "[[Доказательство_H7_Full_Delivery_Plan_Approval_N8NAgents_20260826]]"
 доказательства:
   - "[[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]]"
   - "[[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]]"
@@ -29,7 +30,7 @@ id: "manualqueue-n8nagents-20260826"
 | Приоритет | Требуется от владельца / внешней стороны | Что подтвердить или выполнить | Статус |
 |---|---|---|---|
 | P0 | Provider / владелец | Подтвердить firewall policy провайдера и допустимые inbound ports (`22`, затем `80/443`); отдельно определить IPv6 policy | WAITING — provider live-panel mapping остаётся residual; public-edge deferred |
-| P0 | Владелец | Дать новый explicit approval final reviewed packaging commit `9e024c3f5f2aba9d3727e0a26ffb7a6fc8e3147b` | WAITING USER REAPPROVAL — independent review `GO` разрешает только запрос approval, не execution |
+| P0 | Владелец / provider | Актуальная сверка VPS в Hexcore, provider firewall и IPv6 policy перед public edge | WAITING — H7 разрешает execution, но DNS/provider UI остаётся ручным gate |
 | P1 | Владелец доменов | `EDITOR_DOMAIN`, `WEBHOOK_DOMAIN`, DNS provider, readiness DNS и ACME email | WAITING |
 | P1 | Владелец проекта | Timezone | WAITING |
 | P1 | Владелец Telegram | Наличие отдельных dev/prod bots, username(s) и allowed IDs; token вводить только напрямую в защищённый server-side credential flow, не в vault/чат | WAITING |
@@ -41,7 +42,7 @@ id: "manualqueue-n8nagents-20260826"
 
 ## Правило разблокировки
 
-A2 read-only discovery завершён `PASS` после reboot VPS: [[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]]. H5 создал approval/archive/non-current release, но H6 остановил exact remote archive wrapper на CRLF/hash `8ec`/`1868`/`RC=2`; `current` остался `f6e0`, state frozen — [[Доказательство_H6_Third_Stop_Packaging_Incident_N8NAgents_20260826]]. Safe packaging final reviewed commit `9e024c3f5f2aba9d3727e0a26ffb7a6fc8e3147b` требует нового explicit approval; до него execution запрещён. Provider firewall/IPv6 и все прочие пункты остаются `WAITING` и не входят в внутренний scope. Остальные пункты не предполагают передачу секретов через vault или чат.
+A2 read-only discovery завершён `PASS` после reboot VPS: [[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]]. H5/H6 сохраняются историей frozen state. H7 даёт plan-level authority (`AUTHORIZATION_ID=N8NAgents-FULL-DELIVERY-v1`, `PLAN_VERSION=1`) начать execution с reviewed baseline `9e024c3f5f2aba9d3727e0a26ffb7a6fc8e3147b`, но provider UI/DNS, secrets, owner/2FA и остальные строки этой очереди остаются ручными gates — [[Доказательство_H7_Full_Delivery_Plan_Approval_N8NAgents_20260826]]. Остальные пункты не предполагают передачу секретов через vault или чат.
 
 Локальная проверка JSON Schema закрыта в [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]]; Docker/Bash/runtime гейты этим не закрываются.
 
