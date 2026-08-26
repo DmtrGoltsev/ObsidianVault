@@ -5,7 +5,7 @@ id: "moc-n8nagents-001"
 проект: "N8NAgents"
 владелец: "style"
 создано: "2026-08-25"
-обновлено: "2026-08-26"
+обновлено: "2026-08-27"
 уверенность: "высокая"
 источники:
   - "[[N8NAgents]]"
@@ -28,6 +28,7 @@ id: "moc-n8nagents-001"
 - [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]] — независимое `GO-LOCAL` для foundation и отдельный `NO-GO` server deployment.
 - [[Доказательство_H7_Full_Delivery_Plan_Approval_N8NAgents_20260826]] — plan-level authority Full Delivery v1; K4 outcome заменён R7 STOP.
 - [[Доказательство_R7_K4_Recovery_Stop_N8NAgents_20260826]] — K4 STOP: retry cap исчерпан; новый recovery cycle ожидает отдельной авторизации.
+- [[Доказательство_R8_K4R_Offline_v2_Blocked_N8NAgents_20260827]] — K4R-OFFLINE-v2 `BLOCKED` до validator start; нужен ручной выбор локального Linux sandbox path.
 
 ## Источники и промпты
 

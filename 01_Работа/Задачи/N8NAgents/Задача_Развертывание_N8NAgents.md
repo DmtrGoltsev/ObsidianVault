@@ -5,7 +5,7 @@ id: "task-n8nagents-deployment-001"
 проект: "N8NAgents"
 владелец: "style"
 создано: "2026-08-25"
-обновлено: "2026-08-26"
+обновлено: "2026-08-27"
 уверенность: "высокая"
 источники:
   - "[[Источник_Мастер_Промпт_N8NAgents]]"
@@ -24,6 +24,7 @@ id: "task-n8nagents-deployment-001"
   - "[[Доказательство_H6_Third_Stop_Packaging_Incident_N8NAgents_20260826]]"
   - "[[Доказательство_H7_Full_Delivery_Plan_Approval_N8NAgents_20260826]]"
   - "[[Доказательство_R7_K4_Recovery_Stop_N8NAgents_20260826]]"
+  - "[[Доказательство_R8_K4R_Offline_v2_Blocked_N8NAgents_20260827]]"
 теги: ["n8n", "развертывание", "ssh-preflight", "безопасность"]
 ---
 
@@ -49,6 +50,7 @@ id: "task-n8nagents-deployment-001"
 - [x] Получен отдельный approval constrained wrapper recovery commit `bae8c88f7a7d153ffc4a5ae28028045a0a27d319` для `phase-a-internal`, `SWAP_OPTION=plaintext-2g`; H6 остановил execution на archive wrapper и froze state — [[Доказательство_H6_Third_Stop_Packaging_Incident_N8NAgents_20260826]].
 - [x] Получен plan-level approval `AUTHORIZATION_ID=N8NAgents-FULL-DELIVERY-v1`, `PLAN_VERSION=1`: baseline final reviewed packaging commit `9e024c3f5f2aba9d3727e0a26ffb7a6fc8e3147b`, `SWAP_OPTION=plaintext-2g`; outcome execution остаётся pending — [[Доказательство_H7_Full_Delivery_Plan_Approval_N8NAgents_20260826]].
 - [ ] K4 recovery acceptance: остановлен; обе попытки исчерпаны. Для нового цикла требуется expanded offline recovery authorization, planning, corrective commit, fresh Linux QA и independent review — [[Доказательство_R7_K4_Recovery_Stop_N8NAgents_20260826]].
+- [ ] K4R-OFFLINE-v2 Linux boundary: `BLOCKED` до запуска валидатора; candidate/commit отсутствуют, attempt 1 не израсходован. Требуется один из ручных вариантов R8 — [[Доказательство_R8_K4R_Offline_v2_Blocked_N8NAgents_20260827]].
 - [ ] MVP Phase A прошёл заявленные проверки.
 - [x] Локальная foundation подготовлена и получила `GO-LOCAL`; этот пункт не заменяет server/runtime гейты.
 
@@ -78,6 +80,7 @@ id: "task-n8nagents-deployment-001"
 - H5: созданы approval/archive/non-current release, затем H6 третий `STOP`: exact remote archive wrapper CRLF/hash `8ec`/`1868`/`RC=2` вместо canonical `ffd5`/`1820`/LF/`PASS`; `current` остался `f6e0` — [[Доказательство_H6_Third_Stop_Packaging_Incident_N8NAgents_20260826]].
 - H7 Full Delivery v1: **EXECUTION KICKOFF ACTIVE; OUTCOME PENDING**. Authority включает утверждённые обратимые этапы VPS, Docker, PostgreSQL, n8n, Caddy, firewall, SSH, workflows, backup и monitoring в границах H7; manual gates для secrets, DNS/provider UI, owner/2FA, destructive/data-loss, новых получателей, дополнительных расходов и расширения scope сохранены — [[Доказательство_H7_Full_Delivery_Plan_Approval_N8NAgents_20260826]].
 - R7 K4 recovery: **`STOP — RETRY CAP EXHAUSTED`**. Retry 1 был pre-write STOP на `swapon`; Linux R1 выявил ложную выборку `l777` symlink выражением `-perm/022`; `b3020ee` получил P1 STOP, а sole local retry `11974a33` — `STOP / CHANGES_REQUIRED`. Нет авторизованного exact commit для remote execution — [[Доказательство_R7_K4_Recovery_Stop_N8NAgents_20260826]].
+- R8 K4R-OFFLINE-v2: **`BLOCKED`**, `B2R_NETWORK_BOUNDARY`, `RC=45` до validator start. B2r prepared contract/replay bundle, но Linux boundary отсутствует; `REMOTE/VPS/VAULT/NETWORK=0` относится к B2r run. Канонический Ajv `8.18` unavailable; accepted quorum engine pair после B2r corrections — Ajv `8.17` + SchemaSafe — не снимает boundary requirement — [[Доказательство_R8_K4R_Offline_v2_Blocked_N8NAgents_20260827]].
 - E1 local foundation review: **`GO-LOCAL`**; server deployment: **`NO-GO`** — [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]].
 
 ## Сделанные изменения
@@ -114,6 +117,7 @@ id: "task-n8nagents-deployment-001"
 - H6 third STOP/packaging incident: [[Доказательство_H6_Third_Stop_Packaging_Incident_N8NAgents_20260826]].
 - H7 Full Delivery v1 approval: [[Доказательство_H7_Full_Delivery_Plan_Approval_N8NAgents_20260826]].
 - R7 K4 recovery STOP: [[Доказательство_R7_K4_Recovery_Stop_N8NAgents_20260826]].
+- R8 K4R-OFFLINE-v2 BLOCKED: [[Доказательство_R8_K4R_Offline_v2_Blocked_N8NAgents_20260827]].
 
 ## Связанные заметки
 

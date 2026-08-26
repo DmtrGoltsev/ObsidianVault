@@ -5,7 +5,7 @@ id: "manualqueue-n8nagents-20260826"
 проект: "N8NAgents"
 владелец: "style"
 создано: "2026-08-26"
-обновлено: "2026-08-26"
+обновлено: "2026-08-27"
 уверенность: "высокая"
 источники:
   - "[[Источник_Мастер_Промпт_N8NAgents]]"
@@ -18,6 +18,7 @@ id: "manualqueue-n8nagents-20260826"
   - "[[Доказательство_H6_Third_Stop_Packaging_Incident_N8NAgents_20260826]]"
   - "[[Доказательство_H7_Full_Delivery_Plan_Approval_N8NAgents_20260826]]"
   - "[[Доказательство_R7_K4_Recovery_Stop_N8NAgents_20260826]]"
+  - "[[Доказательство_R8_K4R_Offline_v2_Blocked_N8NAgents_20260827]]"
 доказательства:
   - "[[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]]"
   - "[[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]]"
@@ -30,6 +31,7 @@ id: "manualqueue-n8nagents-20260826"
 
 | Приоритет | Требуется от владельца / внешней стороны | Что подтвердить или выполнить | Статус |
 |---|---|---|---|
+| P0 | Владелец проекта | Выбрать один способ закрытия K4R локальной Linux boundary: включить Windows Sandbox **или** разрешить локальную HTTPS-загрузку exact hash-pinned Linux/v86 boot/runtime inputs для no-NIC sandbox | WAITING — `B2R_NETWORK_BOUNDARY`/RC45; Windows Sandbox является system feature и может потребовать reboot; не переустанавливать VPS OS |
 | P0 | Владелец проекта | Явно авторизовать расширенный offline recovery budget и новый corrective cycle для K4; это **не** authorizes remote execution | WAITING — K4 retry cap исчерпан; сначала planning, corrective commit, fresh Linux QA и independent review |
 | P0 | Provider / владелец | Подтвердить firewall policy провайдера и допустимые inbound ports (`22`, затем `80/443`); отдельно определить IPv6 policy | WAITING — provider live-panel mapping остаётся residual; public-edge deferred |
 | P0 | Владелец / provider | Актуальная сверка VPS в Hexcore, provider firewall и IPv6 policy перед public edge | WAITING — H7 разрешает execution, но DNS/provider UI остаётся ручным gate |
@@ -44,7 +46,7 @@ id: "manualqueue-n8nagents-20260826"
 
 ## Правило разблокировки
 
-A2 read-only discovery завершён `PASS` после reboot VPS: [[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]]. H5/H6 сохраняются историей frozen state. H7 остаётся plan-level authority, но K4 recovery исчерпал лимит двух попыток; требуется новое отдельное user authorization сначала на offline recovery cycle. Только после planning, corrective commit, fresh Linux QA и independent review может быть предложен новый remote gate с exact commit и новым attempt budget — [[Доказательство_R7_K4_Recovery_Stop_N8NAgents_20260826]]. Остальные пункты не предполагают передачу секретов через vault или чат.
+A2 read-only discovery завершён `PASS` после reboot VPS: [[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]]. H5/H6 сохраняются историей frozen state. K4R-OFFLINE-v2 `BLOCKED` до validator start, поэтому сначала требуется выбор владельца по локальной Linux boundary. B2r evidence сохраняет `REMOTE/VPS/VAULT/NETWORK=0`; это обновление документов сделано после run и не изменяет его измерение. Только после выбранного offline пути, success evidence, нового planning/review и отдельно named authorization может быть предложен remote gate с exact commit и attempt budget — [[Доказательство_R8_K4R_Offline_v2_Blocked_N8NAgents_20260827]]. Остальные пункты не предполагают передачу секретов через vault или чат.
 
 Локальная проверка JSON Schema закрыта в [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]]; Docker/Bash/runtime гейты этим не закрываются.
 
