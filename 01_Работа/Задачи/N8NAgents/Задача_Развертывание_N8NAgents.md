@@ -21,6 +21,7 @@ id: "task-n8nagents-deployment-001"
   - "[[Доказательство_H3_Phase_A_Reapproval_N8NAgents_20260826]]"
   - "[[Доказательство_H4_Phase_A_Wrapper_Stop_Recovery_Plan_N8NAgents_20260826]]"
   - "[[Доказательство_H5_Phase_A_Recovery_Approval_N8NAgents_20260826]]"
+  - "[[Доказательство_H6_Third_Stop_Packaging_Incident_N8NAgents_20260826]]"
 теги: ["n8n", "развертывание", "ssh-preflight", "безопасность"]
 ---
 
@@ -43,7 +44,8 @@ id: "task-n8nagents-deployment-001"
 - [ ] Представлены архитектура, затрагиваемые файлы, rollback и non-secret параметры.
 - [x] Historical approval для `phase-a-internal`: commit `d1703bdfbdb183836afe7d75c871938ca8a9f196`, `SWAP_OPTION=plaintext-2g`; H2 остановил preflight до mutations — [[Доказательство_H2_Phase_A_Stop_Preflight_N8NAgents_20260826]].
 - [x] Получен approval финального reviewed commit `f6e0c745ab889c11df1ab83ccf7957534be600cd` для `phase-a-internal`, `SWAP_OPTION=plaintext-2g`; H3 retry частично прошёл и остановлен H4 wrapper validation до config/app start — [[Доказательство_H4_Phase_A_Wrapper_Stop_Recovery_Plan_N8NAgents_20260826]].
-- [x] Получен отдельный approval constrained wrapper recovery commit `bae8c88f7a7d153ffc4a5ae28028045a0a27d319` для `phase-a-internal`, `SWAP_OPTION=plaintext-2g`; outcome pending — [[Доказательство_H5_Phase_A_Recovery_Approval_N8NAgents_20260826]].
+- [x] Получен отдельный approval constrained wrapper recovery commit `bae8c88f7a7d153ffc4a5ae28028045a0a27d319` для `phase-a-internal`, `SWAP_OPTION=plaintext-2g`; H6 остановил execution на archive wrapper и froze state — [[Доказательство_H6_Third_Stop_Packaging_Incident_N8NAgents_20260826]].
+- [ ] Получен новый explicit approval final reviewed packaging commit `9e024c3f5f2aba9d3727e0a26ffb7a6fc8e3147b`.
 - [ ] MVP Phase A прошёл заявленные проверки.
 - [x] Локальная foundation подготовлена и получила `GO-LOCAL`; этот пункт не заменяет server/runtime гейты.
 
@@ -70,8 +72,8 @@ id: "task-n8nagents-deployment-001"
 - A2: **`PASS`** после reboot VPS; полный read-only discovery clean, без mutations — [[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]].
 - H2: **`STOP — PRE-MUTATION`**; timezone label `Etc/UTC` не прошёл literal `UTC`, `MemAvailable` short `27,277,721` bytes; прочие redacted prechecks `PASS` — [[Доказательство_H2_Phase_A_Stop_Preflight_N8NAgents_20260826]].
 - H3: partial `PASS` для approval/preflight/swap/Docker/deploy-user/release/images/secret-safety, затем H4 wrapper `STOP` на `/bin/sh -n` с `RC=2` до config/app start — [[Доказательство_H4_Phase_A_Wrapper_Stop_Recovery_Plan_N8NAgents_20260826]].
-- H5: constrained resume exact commit `bae8c88f7a7d153ffc4a5ae28028045a0a27d319` начат; разрешены partial-state revalidation, versioned release/atomic `current`, wrapper/hash/`sh -n`/config и internal start/health/listeners/memory; outcome pending — [[Доказательство_H5_Phase_A_Recovery_Approval_N8NAgents_20260826]].
-- Server mutations: H5 запрещает host-prep repeat, `.env` read/regen, deletion и rollback. Caddy, публичные порты, firewall, IPv6, domains, SSH hardening, owner, 2FA, workflows и credentials не входят в approval.
+- H5: созданы approval/archive/non-current release, затем H6 третий `STOP`: exact remote archive wrapper CRLF/hash `8ec`/`1868`/`RC=2` вместо canonical `ffd5`/`1820`/LF/`PASS`; `current` остался `f6e0` — [[Доказательство_H6_Third_Stop_Packaging_Incident_N8NAgents_20260826]].
+- Server mutations: state frozen; app/containers/volumes отсутствуют, `.env` untouched. Root cause packaging resolved final reviewed commit `9e024c3f5f2aba9d3727e0a26ffb7a6fc8e3147b`, но нужна отдельная reapproval. Caddy, публичные порты, firewall, IPv6, domains, SSH hardening, owner, 2FA, workflows и credentials не входят в approval.
 - E1 local foundation review: **`GO-LOCAL`**; server deployment: **`NO-GO`** — [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]].
 
 ## Сделанные изменения
@@ -105,6 +107,7 @@ id: "task-n8nagents-deployment-001"
 - H3 Phase A reapproval: [[Доказательство_H3_Phase_A_Reapproval_N8NAgents_20260826]].
 - H4 Phase A wrapper STOP/recovery plan: [[Доказательство_H4_Phase_A_Wrapper_Stop_Recovery_Plan_N8NAgents_20260826]].
 - H5 Phase A constrained recovery approval: [[Доказательство_H5_Phase_A_Recovery_Approval_N8NAgents_20260826]].
+- H6 third STOP/packaging incident: [[Доказательство_H6_Third_Stop_Packaging_Incident_N8NAgents_20260826]].
 
 ## Связанные заметки
 

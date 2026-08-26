@@ -43,7 +43,7 @@ id: "evidence-n8nagents-h5-phase-a-recovery-approval-20260826"
 
 ## Состояние исполнения
 
-Constrained recovery resume начат; outcome и результаты проверок **pending**. H5 доказывает только полномочие и старт ограниченной попытки, а не успешность config/app start, health checks или application deployment.
+H5 сделал частичный progress, но H6 зафиксировал третий `STOP` на archive wrapper до config/app start. Approval H5 immutable/historical для нового release; полный incident и frozen state: [[Доказательство_H6_Third_Stop_Packaging_Incident_N8NAgents_20260826]].
 
 ## Сохраняющиеся gates
 
@@ -52,7 +52,7 @@ Constrained recovery resume начат; outcome и результаты пров
 
 ## Следующий gate
 
-Зафиксировать отдельным evidence фактический outcome constrained resume, проверочные результаты и состояние partial state. До этого нельзя заявлять, что recovery/app deployment завершён успешно.
+H6 зафиксировал третий `STOP`, root cause и final reviewed packaging fix. Требуется новый explicit approval final commit, прежде чем продолжать execution.
 
 ## Связанные заметки
 
