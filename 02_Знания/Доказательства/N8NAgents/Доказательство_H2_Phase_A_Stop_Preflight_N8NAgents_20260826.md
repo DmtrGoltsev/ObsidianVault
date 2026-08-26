@@ -50,7 +50,7 @@ Gate policy переработан в commit `7998020`; финальный revie
 
 ## Следующий gate
 
-Пользователь дал отдельный повторный approval финального commit; retry начат, outcome pending — [[Доказательство_H3_Phase_A_Reapproval_N8NAgents_20260826]]. H2 остаётся историческим `STOP — PRE-MUTATION` первоначальной попытки.
+Пользователь дал отдельный повторный approval финального commit; H3 retry частично прошёл и H4 остановил wrapper до config/app start — [[Доказательство_H4_Phase_A_Wrapper_Stop_Recovery_Plan_N8NAgents_20260826]]. H2 остаётся историческим `STOP — PRE-MUTATION` первоначальной попытки.
 
 ## Связанные заметки
 

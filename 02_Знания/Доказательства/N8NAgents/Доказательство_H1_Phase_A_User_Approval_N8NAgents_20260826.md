@@ -45,7 +45,7 @@ id: "evidence-n8nagents-h1-phase-a-user-approval-20260826"
 
 ## Следующий gate
 
-H2 зафиксировал `STOP — PRE-MUTATION`; H3 содержит последующее отдельное approval финального reviewed commit и отмечает retry как начатый с outcome pending — [[Доказательство_H3_Phase_A_Reapproval_N8NAgents_20260826]]. До outcome evidence нельзя заявлять, что PostgreSQL, n8n или swap успешно применены.
+H2 зафиксировал `STOP — PRE-MUTATION`; H3 дал последующее отдельное approval, но H4 остановил wrapper до config/app start и потребовал approval нового recovery release — [[Доказательство_H4_Phase_A_Wrapper_Stop_Recovery_Plan_N8NAgents_20260826]]. До outcome evidence нельзя заявлять, что PostgreSQL или n8n успешно применены.
 
 ## Связанные заметки
 

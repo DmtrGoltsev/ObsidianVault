@@ -30,11 +30,11 @@ id: "evidence-n8nagents-h3-phase-a-reapproval-20260826"
 
 - Предыдущее одобрение `d1703bdfbdb183836afe7d75c871938ca8a9f196` является историческим и superseded для execution — [[Доказательство_H1_Phase_A_User_Approval_N8NAgents_20260826]].
 - H2 `STOP — PRE-MUTATION` сохраняется в истории без изменения: он подтвердил отсутствие mutations в первоначальной попытке — [[Доказательство_H2_Phase_A_Stop_Preflight_N8NAgents_20260826]].
-- H3 — единственное действующее approval для retry финального commit; его нельзя распространять на иной plan или scope.
+- H3 является immutable historical approval для f6e0 retry и не разрешает новый recovery release; его нельзя распространять на иной plan или scope.
 
 ## Состояние retry
 
-Retry Phase A начат. Итог и результаты проверок на момент этой записи **pending**. H3 доказывает только полномочие и старт retry, но не успешную установку или запуск Docker, PostgreSQL, n8n либо swap.
+H3 retry частично продвинулся: approval, preflight, swap, Docker, deploy-user, release, images и secret-safety gate получили `PASS`, но wrapper остановился на `/bin/sh -n` с `RC=2` до config/app start. Полный status и recovery plan: [[Доказательство_H4_Phase_A_Wrapper_Stop_Recovery_Plan_N8NAgents_20260826]]. H3 не разрешает новый release.
 
 ## Сохраняющиеся security gates
 
@@ -48,7 +48,7 @@ Retry Phase A начат. Итог и результаты проверок на
 
 ## Следующий gate
 
-Зафиксировать отдельным evidence outcome retry, проверочные результаты и rollback-статус. До этого нельзя заявлять, что какая-либо серверная mutation успешно завершена.
+H4 зафиксировал wrapper `STOP` и partial state. Для recovery требуется новый отдельный approval final reviewed commit; до него нельзя выполнять config/app start.
 
 ## Связанные заметки
 
