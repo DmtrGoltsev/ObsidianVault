@@ -12,6 +12,7 @@ id: "manualqueue-n8nagents-20260826"
   - "[[Журнал_Автономной_Работы_N8NAgents]]"
 доказательства:
   - "[[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]]"
+  - "[[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]]"
 теги: ["n8n", "ручные-действия", "provider", "secrets", "blocked-external"]
 ---
 
@@ -21,8 +22,8 @@ id: "manualqueue-n8nagents-20260826"
 
 | Приоритет | Требуется от владельца / внешней стороны | Что подтвердить или выполнить | Статус |
 |---|---|---|---|
-| P0 | Provider console | Диагностировать SSH session-channel: transport/auth проходят, но сервер не отвечает после channel request; подтвердить состояние SSH daemon, account/session limits и console access без изменения конфигурации | BLOCKED-EXTERNAL |
-| P0 | Provider console | Свежая console-проверка перед любым SSH hardening или server mutation | WAITING |
+| P0 | Provider / владелец | Подтвердить firewall policy провайдера и допустимые inbound ports (`22`, затем `80/443`); отдельно определить IPv6 policy | WAITING |
+| P0 | Владелец / валидатор | Review exact deployment plan: архитектура, список команд и объектов, downtime и rollback; после review дать отдельный approval на mutations | WAITING |
 | P1 | Владелец доменов | `EDITOR_DOMAIN`, `WEBHOOK_DOMAIN`, DNS provider, readiness DNS и ACME email | WAITING |
 | P1 | Владелец проекта | Timezone | WAITING |
 | P1 | Владелец Telegram | Наличие отдельных dev/prod bots, username(s) и allowed IDs; token вводить только напрямую в защищённый server-side credential flow, не в vault/чат | WAITING |
@@ -34,7 +35,7 @@ id: "manualqueue-n8nagents-20260826"
 
 ## Правило разблокировки
 
-Первым снимается только P0 provider-console diagnosis. До него `A2` не запускать; изменения VPS, SSH hardening и deployment не начинать. Остальные пункты не предполагают передачу секретов через vault или чат.
+A2 read-only discovery завершён `PASS` после reboot VPS: [[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]]. До server mutations должны быть закрыты P0 firewall/IPv6 и review exact deployment plan с отдельным approval. Остальные пункты не предполагают передачу секретов через vault или чат.
 
 Локальная проверка JSON Schema закрыта в [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]]; Docker/Bash/runtime гейты этим не закрываются.
 

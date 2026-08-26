@@ -13,6 +13,7 @@ id: "tasklog-n8nagents-autonomous-work-20260826"
   - "[[Доказательство_G1_User_Accepted_TOFU_Exception_N8NAgents]]"
 доказательства:
   - "[[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]]"
+  - "[[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]]"
   - "[[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]]"
 теги: ["n8n", "журнал", "автономная-работа", "blocked-external"]
 ---
@@ -38,8 +39,8 @@ id: "tasklog-n8nagents-autonomous-work-20260826"
 | T1 local SSH-preflight | PASS | [[Доказательство_T1_Local_SSH_Preflight_N8NAgents]] | Key material не реплицируется | Не применимо: только read-only local check |
 | G1 TOFU exception | USER-ACCEPTED-EXCEPTION | [[Доказательство_G1_User_Accepted_TOFU_Exception_N8NAgents]] | Независимый fingerprint gate не `PASS` | Прекратить соединение; расследовать перед новым подключением |
 | A1 SSH transport/auth | Частичный PASS | TCP, pinned host key и public-key auth прошли; см. [[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]] | Неполный session channel | Новых SSH попыток нет; не менять VPS |
-| A1 session channel / discovery | BLOCKED-EXTERNAL | Server stopped responding до `/usr/bin/id`; exit `255`; remote commands/mutations не выполнены | Причина на стороне provider/server не установлена | Нет удалённых изменений для отката |
-| A2 bounded diagnostic | NOT STARTED / BLOCKED-EXTERNAL | Не запускалась, пока не снят внешний блокер | Повторение не даст достоверного результата | Не применимо |
+| A1 session channel / discovery | HISTORICAL BLOCKED-EXTERNAL | До reboot server stopped responding до `/usr/bin/id`; exit `255`; remote commands/mutations не выполнены | Причина до reboot не установлена | Нет удалённых изменений для отката |
+| A2 bounded diagnostic | PASS | После reboot pinned SSH minimal test и полный read-only discovery: exit `0`, stderr отсутствует, mutations отсутствуют — [[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]] | 1.6 GiB RAM, no swap; provider firewall/IPv6 policy unverified | Не применимо: только read-only |
 | C1 compatibility baseline | COMPLETE (documentation) | [[Матрица_Совместимости_N8NAgents_2026-08-26]] создана; live/runtime пункты явно `UNVERIFIED` | Матрица не является deployment evidence | Git revert focused документационного commit |
 | E1 local foundation/review | GO-LOCAL | Final `GO-LOCAL`; `codex/n8nagents-foundation` at `1839a29e1620a670c80b1428bfb4d4f56ba867ac`; Draft 2020-12 metaschemas/refs и DeepSeek/tool fixtures `PASS`, см. [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]] | Docker/Bash/runtime/import/E2E/restore не подтверждены; Bash/Docker runtime `BLOCKED-LOCAL` | Откатить только локальный foundation commit его владельцем; сервер не затронут |
 | Совместимость и локальная реализация | PARTIALLY COMPLETE | C1 закрыта как документация; локальная реализация отдельно, server discovery не изменён | Версии и external API требуют отдельного live evidence | Локальные артефакты откатываются только их владельцем |
@@ -47,18 +48,18 @@ id: "tasklog-n8nagents-autonomous-work-20260826"
 
 ## Текущий статус
 
-- SSH discovery: **`BLOCKED-EXTERNAL`**.
+- SSH discovery: **`PASS`** — [[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]].
 - Server mutations: **не начаты**.
 - C1 compatibility baseline: **COMPLETE (documentation only)**; [[Матрица_Совместимости_N8NAgents_2026-08-26]] не закрывает runtime/deployment гейты.
 - E1 foundation: **`GO-LOCAL`**, но server deployment — **`NO-GO`**; точные ограничения приведены в [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]].
 - B3: `jsonschema 4.26.0` / `referencing 0.37.0` временно проверили все Draft 2020-12 metaschemas/refs и 6+/3− DeepSeek, 5+/5− tool fixtures с `PASS`; временное окружение удалено, project tree не менялся.
-- Server discovery: по-прежнему **`BLOCKED-EXTERNAL`**; C1 не меняет SSH или VPS статус.
+- Следующий gate: exact deployment plan/review (архитектура, команды/объекты, firewall/IPv6, downtime/rollback) и отдельный approval перед mutation.
 - Полный список зависимостей владельца: [[Очередь_Ручных_Действий_N8NAgents]].
 
 ## Стоп-условия
 
 - Не считать `/usr/bin/id` или иной remote command выполненной без отдельного evidence.
-- Не запускать `A2`, пока provider console не проверена и не объяснён session-channel failure.
+- Не выполнять server mutations до review exact deployment plan и отдельного approval.
 - Не записывать secrets или персональные identifiers в vault.
 - Не выполнять VPS mutations из этого журнала.
 
