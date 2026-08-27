@@ -1,0 +1,158 @@
+{
+  "schema_version": 1,
+  "audit_id": "N8NAgents-PlanV2-V0-Baseline-Audit-a64a14c3-v1",
+  "created_date": "2026-08-27",
+  "status": "PASS",
+  "scope": "V0 evidence and coverage only; no plan v2 sections",
+  "branch": "agent/codex/n8nagents-local-docker-plan-v2",
+  "base_review_commit": "db6efd85fdc6b1f11616c6eca8a6ee49673b0798",
+  "baseline": {
+    "path": "01_Работа/Ревью/N8NAgents/PlanV2_Work_a64a14c3/00_FINDINGS_BASELINE.json",
+    "bytes": 213739,
+    "sha256": "934c449aa75ad157b1702afefcbaac4eab80b750801f172226d065b5a528c4aa",
+    "encoding": "UTF-8 without BOM",
+    "line_endings": "LF",
+    "final_lf_count": 1,
+    "entry_count": 114,
+    "sort": "finding_id ordinal ASCII ascending"
+  },
+  "canonicalization": {
+    "version": "N8NAgents-Finding-Canonical-v1",
+    "algorithm": "SHA-256",
+    "input_fields_in_order": [
+      "finding_id",
+      "severity",
+      "affected_section",
+      "claim",
+      "evidence",
+      "impact",
+      "required_resolution",
+      "acceptance_test",
+      "blocking",
+      "confidence"
+    ],
+    "serialization": "compact UTF-8 JSON object in fixed field order, no BOM and no final LF in per-finding hash input",
+    "value_rule": "decoded raw JSON values are copied without trim, normalization, translation or rephrasing"
+  },
+  "mapping_rules": {
+    "raw_record_relpath_base": "Obsidian Vault root",
+    "raw_record_sha256": "recomputed raw file SHA-256 and exact-match against committed review manifest",
+    "source_verdict": "exact verdict value from the containing raw review record",
+    "v1_cluster_and_disposition": "exact table cell values parsed from the committed quorum report full finding map",
+    "responsible_domain": "deterministic reviewer-role mapping declared in baseline",
+    "missing_quorum_mapping": "audit failure",
+    "duplicate_finding_id": "audit failure"
+  },
+  "sources": {
+    "v1_plan": {
+      "bytes": 46234,
+      "sha256": "a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79"
+    },
+    "v1_bundle": {
+      "aggregate_sha256": "ac97cdacc140c7bcb186672aa63d002acc1658c767775a3d0718b406f17728e2",
+      "manifest_sha256": "7fbec135d522a5a79a50f7568c5d53a371f2c1b17b26664f3652e67e09f320d5"
+    },
+    "review_result": {
+      "commit": "db6efd85fdc6b1f11616c6eca8a6ee49673b0798",
+      "manifest": {
+        "path": "01_Работа/Ревью/N8NAgents/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/00_REVIEW_RECORDS_MANIFEST.json",
+        "bytes": 3078,
+        "sha256": "90d4e1a299c4115b07ca3b46e4009a87eb270420d007be30e757a11bebfa7886"
+      },
+      "quorum_report": {
+        "path": "01_Работа/Ревью/N8NAgents/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/Итог_Кворума_10_Ревью_Docker_Desktop_N8NAgents_v1_2026-08-27.md",
+        "bytes": 21742,
+        "sha256": "08a59e4838d42102f94bb0bb826201d5edec704fcd90a6fe401f8e05f4eff5e7"
+      },
+      "raw_records": [
+        {"path": "R01.json", "bytes": 26209, "sha256": "df9c80bc7eb5067f0c293f1373221722ef64e983d520fa9c2ce5999f05449571", "verdict": "STOP", "findings": 12},
+        {"path": "R02.json", "bytes": 30224, "sha256": "6e1956b5506f80cd0e803474556804d98023f569c96c60fac974f09e6cf4f397", "verdict": "CHANGES_REQUIRED", "findings": 12},
+        {"path": "R03.json", "bytes": 18954, "sha256": "6406e4e72c6b09f677dc444ecad75f54caba4aae0bf2ea5785fc559f77e0d6ee", "verdict": "CHANGES_REQUIRED", "findings": 8},
+        {"path": "R04.json", "bytes": 19401, "sha256": "0742637f353d0faa830fa7d36e76322a3eeabff32d50cb0c00cf7bec37f4060b", "verdict": "CHANGES_REQUIRED", "findings": 10},
+        {"path": "R05.json", "bytes": 35904, "sha256": "cb994f31ad9b93d4c5be24760bb8be6f489178047e46160d30b339a770269c6d", "verdict": "CHANGES_REQUIRED", "findings": 16},
+        {"path": "R06.json", "bytes": 30341, "sha256": "622d437cf758c43690f7390dc48484762c27166a319189bd797b90c4d4fc217d", "verdict": "CHANGES_REQUIRED", "findings": 11},
+        {"path": "R07.json", "bytes": 27919, "sha256": "888d23387d76aa3e44d6f30fb88cd76fa1819614eeae5e6ed02c1754ce2d11e1", "verdict": "CHANGES_REQUIRED", "findings": 12},
+        {"path": "R08.json", "bytes": 26877, "sha256": "3a67acc0a50b798bde557225898e4edb8566081528428a61a9844d7509b47a70", "verdict": "CHANGES_REQUIRED", "findings": 12},
+        {"path": "R09.json", "bytes": 22738, "sha256": "b803a6e096e70cc807e417b7d679364b7e178c7c950958877694dc953cf7e234", "verdict": "CHANGES_REQUIRED", "findings": 10},
+        {"path": "R10.json", "bytes": 28751, "sha256": "ce11263b855c4c0d40b6a6e14634b0cac5a720042fcb1cc231afe08996071373", "verdict": "CHANGES_REQUIRED", "findings": 11}
+      ]
+    }
+  },
+  "counts": {
+    "raw_records": 10,
+    "source_findings": 114,
+    "baseline_findings": 114,
+    "unique_source_finding_ids": 114,
+    "unique_baseline_finding_ids": 114,
+    "severity": {"P0": 1, "P1": 83, "P2": 28, "P3": 2},
+    "blocking": {"true": 84, "false": 30},
+    "source_verdicts": {"GO": 0, "CHANGES_REQUIRED": 9, "STOP": 1, "BLOCKED": 0},
+    "responsible_domains": {
+      "windows-wsl": 12,
+      "supply-chain-license": 12,
+      "isolation-network-privileged": 8,
+      "compose-n8n-postgresql": 10,
+      "telegram": 16,
+      "secrets-pii-logs": 11,
+      "persistence-backup": 12,
+      "b2r-o5-evidence": 12,
+      "dirty-worktree-touchset-rollback": 10,
+      "user-operability-resources-recovery": 11
+    }
+  },
+  "coverage_checks": {
+    "source_manifest_hash_match": true,
+    "all_raw_record_size_hash_matches": true,
+    "raw_manifest_record_set_equals_R01_through_R10": true,
+    "source_to_baseline_finding_id_set_equality": true,
+    "source_duplicate_finding_ids": 0,
+    "baseline_duplicate_finding_ids": 0,
+    "source_missing_in_baseline": 0,
+    "baseline_missing_in_source": 0,
+    "missing_quorum_mappings": 0,
+    "duplicate_quorum_mappings": 0,
+    "altered_source_severity_values": 0,
+    "altered_source_blocking_values": 0,
+    "altered_source_claim_values": 0,
+    "altered_source_required_resolution_values": 0,
+    "altered_source_acceptance_test_values": 0,
+    "altered_canonical_finding_hashes": 0,
+    "altered_raw_record_hashes": 0,
+    "sorted_by_finding_id": true
+  },
+  "mechanical_passes": [
+    {
+      "pass_id": "PASS-A-NODE",
+      "runtime": "Node.js v24.15.0",
+      "implementation": "independent Node JSON parser, crypto SHA-256, source/map/set/value validator",
+      "exit_code": 0,
+      "result": "PASS",
+      "validated_entries": 114
+    },
+    {
+      "pass_id": "PASS-B-PYTHON",
+      "runtime": "Python 3.14.5",
+      "implementation": "independent Python JSON parser, hashlib SHA-256, source/map/set/value validator",
+      "exit_code": 0,
+      "result": "PASS",
+      "validated_entries": 114
+    }
+  ],
+  "mutation_canaries": [
+    {"canary": "remove_finding_id", "expected": "nonzero", "exit_code": 41, "result": "REJECTED"},
+    {"canary": "duplicate_finding_id", "expected": "nonzero", "exit_code": 42, "result": "REJECTED"},
+    {"canary": "alter_severity", "expected": "nonzero", "exit_code": 43, "result": "REJECTED"},
+    {"canary": "alter_blocking", "expected": "nonzero", "exit_code": 44, "result": "REJECTED"},
+    {"canary": "alter_canonical_finding_sha256", "expected": "nonzero", "exit_code": 45, "result": "REJECTED"}
+  ],
+  "mutation_canaries_all_nonzero": true,
+  "scope_attestation": {
+    "v2_sections_drafted": false,
+    "project_repo_changed": false,
+    "windows_changed": false,
+    "docker_changed": false,
+    "vps_or_provider_accessed": false,
+    "internet_accessed": false,
+    "secrets_read": false
+  }
+}
