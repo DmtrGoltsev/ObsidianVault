@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "captured_date": "2026-08-27",
+  "scope": "secret-free read-only known facts for plan review",
+  "known": {
+    "host_os_family": "Windows",
+    "workspace_root_kind": "local Windows filesystem",
+    "docker_runtime_available_at_last_gate": false,
+    "podman_available_at_last_gate": false,
+    "configured_linux_distribution_available_at_last_gate": false,
+    "native_linux_capability_gate_completed": false,
+    "project_can_be_read_locally": true
+  },
+  "unknown_until_preflight": [
+    "Windows edition/build/architecture",
+    "hardware virtualization enabled state",
+    "WSL and Virtual Machine Platform feature state",
+    "existing Docker Desktop installation/data",
+    "Docker Desktop license eligibility",
+    "available RAM/CPU/free disk",
+    "App Control/antivirus restrictions",
+    "free loopback port 5678",
+    "administrator/UAC and reboot requirements"
+  ],
+  "forbidden_during_review": [
+    "download",
+    "install",
+    "enable Windows feature",
+    "reboot",
+    "Docker container or VM start",
+    "secret access",
+    "network/provider/VPS action"
+  ],
+  "excluded_sensitive_fields": [
+    "Windows account identifiers",
+    "serial numbers",
+    "tokens",
+    "passwords",
+    "private keys",
+    "raw Telegram identifiers"
+  ]
+}

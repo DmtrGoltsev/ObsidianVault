@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "bundle_id": "N8NAgents-Docker-Desktop-Plan-v1-20260827",
+  "bundle_state": "FROZEN_FOR_REVIEW",
+  "created_date": "2026-08-27",
+  "encoding": "UTF-8 without BOM",
+  "line_endings": "LF",
+  "plan": {
+    "canonical_path": "01_Работа/Задачи/N8NAgents/План_Лаборатория_Docker_Desktop_N8NAgents_v1_2026-08-27.md",
+    "bundle_copy": "07_FULL_PLAN.md",
+    "bytes": 46234,
+    "sha256": "a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79",
+    "byte_identical": true
+  },
+  "content_aggregate": {
+    "algorithm": "SHA-256",
+    "canonical_record_format": "filename<TAB>bytes<TAB>sha256<LF>",
+    "ordering": "ordinal ascending filename",
+    "included_files": "01_ through 11_ only; excludes 00_MANIFEST.json and BUNDLE_ANCHOR.txt to avoid circular hashing",
+    "canonical_record_bytes": 1063,
+    "sha256": "ac97cdacc140c7bcb186672aa63d002acc1658c767775a3d0718b406f17728e2"
+  },
+  "files": [
+    {"path": "01_ORIGINAL_USER_REQUEST.md", "bytes": 3902, "sha256": "523574d7812363447938b63a8d9c1ce6e1e00c0c408422d194308d9e9583a9b6"},
+    {"path": "02_CONTEXT_AND_CONSTRAINTS.md", "bytes": 3593, "sha256": "c175d11b577db539eb502838bc82eeba5d2f59f40170456265e3694c9e591c1e"},
+    {"path": "03_LOCAL_INFRASTRUCTURE_KNOWN.json", "bytes": 1288, "sha256": "456e4501011b68cdf90d4c82893ed62c8db19ee87e6bf4390ef504e4bb7cbca6"},
+    {"path": "04_VPS_INFRASTRUCTURE_REDACTED.md", "bytes": 1945, "sha256": "39cd16df675d4626355469aef64c7f9531b10c66731e0992d31b3a325b8e3bb4"},
+    {"path": "05_REPO_STATE.json", "bytes": 1762, "sha256": "e15ef976a63ae675d3d7e359da4b33941de140b32cb3845e3c07f9df94a26c5d"},
+    {"path": "06_ARCHITECTURE_BASELINE.md", "bytes": 2516, "sha256": "441881fbcfc974c78bf3c8ab57f394c30c419f2d82b899c3aea01b0ae9eee929"},
+    {"path": "07_FULL_PLAN.md", "bytes": 46234, "sha256": "a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79"},
+    {"path": "08_PRIMARY_SOURCES.md", "bytes": 3049, "sha256": "1350fb3d273d54614e71a8337585c450d3262e99720f31979a991339c1c86717"},
+    {"path": "09_REVIEW_SCHEMA.json", "bytes": 2275, "sha256": "de8935d9e2fe990bc41c70fdfb1dcc946b13942ee81064d028753a583b7c7b26"},
+    {"path": "10_REVIEWER_INSTRUCTIONS.md", "bytes": 4956, "sha256": "7a42eb6e0dcb0de3fe9280bf86cd4717764797fcba3384bf43dabef0d3afed92"},
+    {"path": "11_EXCLUSIONS_AND_UNKNOWNS.md", "bytes": 2372, "sha256": "6bdce03f793b464f8170f5977a581ef08fdc8d1e1af1abdc46694a67f5445d59"}
+  ],
+  "secret_free_attestation": "No tokens, passwords, private keys, raw allowlist IDs, raw VPS address or secret values are intentionally included.",
+  "review_outputs_included": false
+}
