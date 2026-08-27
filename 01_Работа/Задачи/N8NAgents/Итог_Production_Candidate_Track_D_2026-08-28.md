@@ -19,9 +19,9 @@ id: "n8nagents-production-candidate-track-d-2026-08-28"
 
 ## Статус
 
-`LOCAL_RELEASE_GO=PASS`, `PROM_READY=PRE_REVIEW`, `PRODUCTION_DEPLOYMENT=NOT_STARTED`.
+`CORRECTIVE_LOCAL_RELEASE_GO=PASS`, `PROM_READY=PRE_REVIEW`, `PRODUCTION_DEPLOYMENT=NOT_STARTED`.
 
-Candidate подготовлен на ветке `codex/n8nagents-production-candidate` от baseline `11974a33fa78bb72598059671cef9465402ab091` и закоммичен только из ранее валидированного selective index: commit `37fe60e1e38e824a63d60e02569dd358433e0427`, tree `213b84ea3ab2fd909780172aa7d93ad509e8de96`. Worktree после commit чист; на VPS ничего не отправлено. Production workflows неактивны и default-deny: credentials, owner bindings, DeepSeek mode/model и реальные получатели отсутствуют.
+Предыдущий commit `37fe60e1e38e824a63d60e02569dd358433e0427` отклонён review и не является release authority. Его прямой corrective descendant на ветке `codex/n8nagents-production-candidate`: commit `e2ac110d0ef7f62b721d41dfb35627704ed23bed`, tree `89c5d15a19b263d2ca3cc4c491d32e5cc13ab357`, message `fix(n8nagents): close production review blockers`. Worktree после commit чист; на VPS ничего не отправлено. Production workflows неактивны и default-deny: credentials, owner bindings, DeepSeek mode/model и реальные получатели отсутствуют.
 
 ## Доказательства
 
@@ -31,9 +31,10 @@ Candidate подготовлен на ветке `codex/n8nagents-production-can
 - Disposable PostgreSQL migrations `001–006`, grants/isolation/runtime APIs/idempotency/fault rollback: `PASS`.
 - Local Docker project `n8nagents-local-candidate`, только `127.0.0.1:5679`: core/import/mock/backup-restore/stop-start persistence `PASS`; real Telegram не запускался.
 - Исходный Docker project на `127.0.0.1:5678` остался healthy.
-- Exact manifest: `131` entries + self-excluded manifest, aggregate `4f27763e4971d0ed1a2afb283eac3cf6e26545b2bda13dfdf350ed5dc3709467`, проверено против prospective Git index и exact commit tree.
-- Commit создан из ровно `85` changed paths; paths вне `N8NAgents/`: `0`; cached diff whitespace errors: `0`.
-- Reproducible exact-commit archive: `C:/Users/style/Documents/ChatGPT/N8NAgents-production-artifacts/37fe60e1e38e824a63d60e02569dd358433e0427/N8NAgents-37fe60e1e38e824a63d60e02569dd358433e0427.tar.gz`; SHA-256 `8d849c82ea6aca476e91277d669b27bca51d6ec7cf92c182b8b8a8986d7fc621`. Независимый повтор дал тот же hash; 132 файла привязаны к commit по bytes и modes, runtime secrets/evidence отсутствуют.
+- Corrective V2 manifest: `139` entries + self-excluded manifest, aggregate `186532d18b59ff9b2d2ea76ed0eec7cfddf70ae24d24183fb206784dafc355ce`, проверено против prospective index и exact commit tree.
+- Corrective commit создан из ровно `57` changed paths; paths вне `N8NAgents/`: `0`; cached diff whitespace errors: `0`.
+- Reproducible exact-commit archive: `C:/Users/style/Documents/ChatGPT/N8NAgents-production-artifacts/e2ac110d0ef7f62b721d41dfb35627704ed23bed/N8NAgents-e2ac110d0ef7f62b721d41dfb35627704ed23bed.tar.gz`; SHA-256 `c385f69c20a776758f41438dcbd9aea832830d7c15c61ced97c35bcf792fcaf9`. Независимый повтор дал тот же hash; 140 файлов привязаны к commit по bytes и modes, runtime secrets/evidence отсутствуют.
+- Fresh и upgrade PostgreSQL `001`–`008`, shared outbound budget/restart, reminder lease reclaim, exact n8n import, mock и backup/restore: `PASS`.
 - Source worktree preservation: `PASS`, 118 файлов; tree aggregate `e9085c0e7e39008e235fce51b8dedeb1a4f7594e135c4165794891fa86e44593` совпал с pre-work snapshot, pre-commit status gate также совпал.
 
 ## Следующий gate
