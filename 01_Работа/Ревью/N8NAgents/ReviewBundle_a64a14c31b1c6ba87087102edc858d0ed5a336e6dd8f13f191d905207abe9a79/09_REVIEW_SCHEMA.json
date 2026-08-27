@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:n8nagents:docker-desktop-plan-review:v1",
+  "title": "N8NAgents Docker Desktop Plan Review",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "review_id",
+    "reviewer_role",
+    "model",
+    "reasoning_level",
+    "bundle_sha256",
+    "plan_sha256",
+    "plan_bytes",
+    "started_utc",
+    "completed_utc",
+    "verdict",
+    "findings",
+    "independence_attestation"
+  ],
+  "properties": {
+    "review_id": {"type": "string", "minLength": 1},
+    "reviewer_role": {"type": "string", "enum": ["R1", "R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9", "R10"]},
+    "model": {"type": "string", "minLength": 1},
+    "reasoning_level": {"type": "string", "enum": ["high", "xhigh"]},
+    "bundle_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "plan_sha256": {"type": "string", "const": "a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79"},
+    "plan_bytes": {"type": "integer", "const": 46234},
+    "started_utc": {"type": "string", "format": "date-time"},
+    "completed_utc": {"type": "string", "format": "date-time"},
+    "verdict": {"type": "string", "enum": ["GO", "CHANGES_REQUIRED", "STOP", "BLOCKED"]},
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["finding_id", "severity", "affected_section", "claim", "evidence", "impact", "required_resolution", "acceptance_test", "blocking", "confidence"],
+        "properties": {
+          "finding_id": {"type": "string", "minLength": 1},
+          "severity": {"type": "string", "enum": ["P0", "P1", "P2", "P3"]},
+          "affected_section": {"type": "string", "minLength": 1},
+          "claim": {"type": "string", "minLength": 1},
+          "evidence": {"type": "string", "minLength": 1},
+          "impact": {"type": "string", "minLength": 1},
+          "required_resolution": {"type": "string", "minLength": 1},
+          "acceptance_test": {"type": "string", "minLength": 1},
+          "blocking": {"type": "boolean"},
+          "confidence": {"type": "string", "enum": ["high", "medium", "low"]}
+        }
+      }
+    },
+    "independence_attestation": {"type": "string", "minLength": 1}
+  }
+}
