@@ -19,9 +19,9 @@ id: "n8nagents-production-candidate-track-d-2026-08-28"
 
 ## Статус
 
-`LOCAL_RELEASE_GO=PASS`, `PRODUCTION_DEPLOYMENT=NOT_STARTED`.
+`LOCAL_RELEASE_GO=PASS`, `PROM_READY=PRE_REVIEW`, `PRODUCTION_DEPLOYMENT=NOT_STARTED`.
 
-Candidate подготовлен на ветке `codex/n8nagents-production-candidate` от baseline `11974a33fa78bb72598059671cef9465402ab091`, selective staged для независимого review, но не закоммичен и не отправлен на VPS. Production workflows неактивны и default-deny: credentials, owner bindings, DeepSeek mode/model и реальные получатели отсутствуют.
+Candidate подготовлен на ветке `codex/n8nagents-production-candidate` от baseline `11974a33fa78bb72598059671cef9465402ab091` и закоммичен только из ранее валидированного selective index: commit `37fe60e1e38e824a63d60e02569dd358433e0427`, tree `213b84ea3ab2fd909780172aa7d93ad509e8de96`. Worktree после commit чист; на VPS ничего не отправлено. Production workflows неактивны и default-deny: credentials, owner bindings, DeepSeek mode/model и реальные получатели отсутствуют.
 
 ## Доказательства
 
@@ -31,13 +31,14 @@ Candidate подготовлен на ветке `codex/n8nagents-production-can
 - Disposable PostgreSQL migrations `001–006`, grants/isolation/runtime APIs/idempotency/fault rollback: `PASS`.
 - Local Docker project `n8nagents-local-candidate`, только `127.0.0.1:5679`: core/import/mock/backup-restore/stop-start persistence `PASS`; real Telegram не запускался.
 - Исходный Docker project на `127.0.0.1:5678` остался healthy.
-- Exact manifest: `131` entries + self-excluded manifest, aggregate `4f27763e4971d0ed1a2afb283eac3cf6e26545b2bda13dfdf350ed5dc3709467`, проверено против prospective Git index.
-- Staged paths вне `N8NAgents/`: `0`; cached diff whitespace errors: `0`.
-- Source worktree preservation: `PASS`, 118 файлов; pre/post tree/status aggregates совпали.
+- Exact manifest: `131` entries + self-excluded manifest, aggregate `4f27763e4971d0ed1a2afb283eac3cf6e26545b2bda13dfdf350ed5dc3709467`, проверено против prospective Git index и exact commit tree.
+- Commit создан из ровно `85` changed paths; paths вне `N8NAgents/`: `0`; cached diff whitespace errors: `0`.
+- Reproducible exact-commit archive: `C:/Users/style/Documents/ChatGPT/N8NAgents-production-artifacts/37fe60e1e38e824a63d60e02569dd358433e0427/N8NAgents-37fe60e1e38e824a63d60e02569dd358433e0427.tar.gz`; SHA-256 `8d849c82ea6aca476e91277d669b27bca51d6ec7cf92c182b8b8a8986d7fc621`. Независимый повтор дал тот же hash; 132 файла привязаны к commit по bytes и modes, runtime secrets/evidence отсутствуют.
+- Source worktree preservation: `PASS`, 118 файлов; tree aggregate `e9085c0e7e39008e235fce51b8dedeb1a4f7594e135c4165794891fa86e44593` совпал с pre-work snapshot, pre-commit status gate также совпал.
 
 ## Следующий gate
 
-Нужен независимый review exact staged candidate. До его GO запрещены commit/deploy, production credential binding, DNS/public edge, DeepSeek spend и Telegram traffic. Existing PostgreSQL volume требует backup и явный `db-migrate`/approved recreate для migrations `005/006`; service rollback не откатывает схему.
+Нужен независимый review exact commit/tree/archive. До его GO запрещены deploy, production credential binding, DNS/public edge, DeepSeek spend и Telegram traffic. Existing PostgreSQL volume требует backup и явный `db-migrate`/approved recreate для migrations `005/006`; service rollback не откатывает схему.
 
 ## Связи
 
