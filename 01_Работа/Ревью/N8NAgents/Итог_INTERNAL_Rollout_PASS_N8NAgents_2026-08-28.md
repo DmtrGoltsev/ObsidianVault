@@ -67,3 +67,7 @@ Consolidated manual gate:
 - evidence reference addendum: `/opt/n8n-stack/shared/evidence/20260828T073800Z-attempt6-evidence-addendum`; `evidence.sha256` SHA-256 `9196cab8b3a84a782095b7ad766f67c64be528ae598d9176d4bc2443caa29091`.
 
 Addendum preserves and corrects one blank prior-index reference in the already immutable primary PASS bundle; runtime/release state was not changed by this correction.
+
+## Обновление Stage B
+
+После настройки owner и 2FA восемь точных workflow были импортированы с owner/project binding и оставлены неактивными. n8n повторно запущен без reimport или изменения БД; до/после совпали entity, dependency и полный DB tuple digests. Подробности и immutable evidence: [[Доказательство_StageB_Workflows_Runtime_PASS_N8NAgents_20260828]].
