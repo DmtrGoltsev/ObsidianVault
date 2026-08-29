@@ -30,7 +30,7 @@ id: "vault-readme"
 
 - [[RocketFlow]] — docs HEAD `b75ca723f767f520bee39ea72052b1a4b03a7e59`; Mac/iPhone entry [[Пакет_iOS_Mac_Установка]], evidence [[Док_iOS_Verification]]; навигация [[MOC_RocketFlow]]
 - [[Finance]] — ручной учёт личных и семейных финансов (скелет)
-- [[N8NAgents]] — production MVP accepted; канонический AS-IS [[CURRENT_STATE_N8NAgents_2026-08-29]], обязательные схемы [[Participants_and_Flows_N8NAgents]], [[Runtime_Flows_N8NAgents]], [[Change_History_N8NAgents]]; навигация [[MOC_N8NAgents]]
+- [[N8NAgents]] — production MVP accepted; канонический AS-IS [[CURRENT_STATE_N8NAgents_2026-08-29]], полная архитектура [[Архитектура_AS_IS_и_API_Tools_N8NAgents]], обязательные схемы [[Participants_and_Flows_N8NAgents]], [[Runtime_Flows_N8NAgents]], [[Change_History_N8NAgents]]; навигация [[MOC_N8NAgents]]
 
 ## Ключевые регламенты
 
