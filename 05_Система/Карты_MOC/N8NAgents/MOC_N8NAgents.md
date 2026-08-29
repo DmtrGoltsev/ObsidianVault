@@ -11,6 +11,7 @@ id: "moc-n8nagents-001"
   - "[[N8NAgents]]"
   - "[[Источник_Мастер_Промпт_N8NAgents]]"
   - "[[CURRENT_STATE_N8NAgents_2026-08-29]]"
+  - "[[Архитектура_AS_IS_и_API_Tools_N8NAgents]]"
 доказательства:
   - "[[Доказательство_Production_Acceptance_N8NAgents_20260829]]"
 теги: ["MOC", "n8n", "навигация"]
@@ -22,6 +23,7 @@ id: "moc-n8nagents-001"
 
 - [[N8NAgents]] — цель, стек, статус и активные гейты.
 - [[CURRENT_STATE_N8NAgents_2026-08-29]] — каноническая полная AS-IS сводка production, архитектуры, workflows, operations, incidents, scope и commit matrix.
+- [[Архитектура_AS_IS_и_API_Tools_N8NAgents]] — полный canonical human/agent-readable документ: verified production topology, каталог 8 workflows, runtime/data/memory flows, текущие ограничения и отдельно размеченная TARGET API-tools архитектура.
 
 ## Работа
 
@@ -38,6 +40,44 @@ id: "moc-n8nagents-001"
 - [[Промпт_Recovery_Handoff_N8NAgents_2026-08-29]] — standalone prompt для нового Codex chat.
 - [[Матрица_Совместимости_N8NAgents_2026-08-26]] — baseline версий, runtime, proxy, node targets и гейтов совместимости.
 
+## Импортированная source documentation
+
+Полный human/agent-readable inventory из source final GO `09824a6e...` перенесён в canonical vault. `source_path`, commit/tree, дата импорта, point-in-time status и redaction review закреплены во frontmatter каждой заметки. Machine-only source hygiene successor `d163606a532529ab18cc6064a69d1fc7305b27cf`, tree `3cab9ff5d5a6f2e1bf656766dcde9bdb8918463a`, parent `09824a6e...`, прошёл все gates и содержит zero tracked `README/.md/.txt`. Source paths — только provenance; current runtime facts определяют [[CURRENT_STATE_N8NAgents_2026-08-29]] и [[Архитектура_AS_IS_и_API_Tools_N8NAgents]].
+
+### Repository и архитектурные snapshots
+
+- [[Источник_Repository_Overview_N8NAgents_2026-08-29]]
+- [[Источник_Architecture_and_Trust_Boundaries_N8NAgents_2026-08-29]] — historical source snapshot; не заменяет canonical architecture.
+- [[Источник_AS_IS_and_API_Tools_N8NAgents_2026-08-29]] — полный historical source snapshot; не второй AS-IS канон.
+- [[Источник_Compatibility_Matrix_Source_2026-08-29]]
+- [[Источник_Credential_Binding_N8NAgents_2026-08-29]]
+- [[Источник_Threat_Model_N8NAgents_2026-08-29]]
+- [[Источник_Version_Digest_Inventory_N8NAgents_2026-08-29]] — production digests `UNKNOWN`; exact values только local/parity pins.
+
+### Evidence, history и operations
+
+- [[Исторический_Манифест_Phase_A_Deploy_Rollback_N8NAgents]]
+- [[Исторический_Full_Delivery_Scope_v1_N8NAgents]]
+- [[Доказательство_Local_Verification_2026-08-27_N8NAgents]]
+- [[Исторические_Manual_Inputs_N8NAgents]]
+- [[Матрица_Верификации_N8NAgents_2026-08-29]]
+- [[Регламент_Backup_Restore_N8NAgents]]
+- [[Регламент_Operations_N8NAgents]]
+- [[Регламент_Security_N8NAgents]]
+- [[Лаборатория_Local_Docker_N8NAgents]]
+- [[Регламент_Local_Secret_Leaves_N8NAgents]]
+
+Production acceptance source полностью merged в [[Доказательство_Production_Acceptance_N8NAgents_20260829]], а source discovery — в [[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]].
+
+### Workflow specifications
+
+- [[Workflow_Artifacts_and_Import_Gate]]
+- [[00_Import_and_Compatibility_Gate]]
+- [[01_Telegram_Assistant]]
+- [[02_Tool_Subworkflows]]
+- [[03_Reminder_Dispatcher]]
+- [[04_Error_Handler]]
+
 ## Контекст
 
 - [[Пакет_N8NAgents_Стартовый]] — актуальная точка входа следующего агента.
@@ -48,8 +88,11 @@ id: "moc-n8nagents-001"
 - [[Participants_and_Flows_N8NAgents]] — участники, trust boundaries и data flow.
 - [[Runtime_Flows_N8NAgents]] — production topology, execution и containment flows.
 - [[Change_History_N8NAgents]] — redacted change history и status deployed/source-only.
+- [[Архитектура_AS_IS_и_API_Tools_N8NAgents]] — полный AS-IS catalogue/capabilities/limits и отдельный TARGET API-tools contract.
 
-Обновлять их только по цепочке `change → tests → rollout → production PASS → diagrams/descriptions → link/secret checks → Obsidian acceptance`.
+Все четыре artifacts обновлять только по цепочке `change → tests → rollout → production PASS → diagrams/descriptions → link/secret checks → Obsidian acceptance`. Planned state держать отдельно; failed rollout или rollback сохраняет last verified AS-IS до нового production verification `PASS`.
+
+Вся human/agent-readable документация N8NAgents канонична только в этом vault. Source repository предназначен для machine-consumed code/config/tests/contracts и не является запасным каноном документации.
 
 ## Текущее доказательство
 

@@ -10,6 +10,8 @@ id: "proj-n8nagents-001"
 источники:
   - "[[Источник_Мастер_Промпт_N8NAgents]]"
   - "[[CURRENT_STATE_N8NAgents_2026-08-29]]"
+  - "[[Архитектура_AS_IS_и_API_Tools_N8NAgents]]"
+  - "[[Источник_Repository_Overview_N8NAgents_2026-08-29]]"
 доказательства:
   - "[[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]]"
   - "[[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]]"
@@ -40,11 +42,11 @@ id: "proj-n8nagents-001"
 
 ## Текущий статус
 
-Production MVP принят после containment первого retry incident и новой A/B-проверки. Current exact S2 release — `36e149374802263d644cc98e510f6113e1095dae`, mode `public`; Caddy/n8n/PostgreSQL healthy; strict IP TLS с SNI и без SNI `PASS`; единственный публичный application listener — `443`, management SSH — `22`, n8n только loopback `5678`; `1/8` workflow active/published; webhook queue `pending=0` без ошибки; running executions отсутствуют; лимит `2/20`. Подтверждены «один update — один execution — один outbound» и continuity памяти в одной сессии: [[Доказательство_Production_Acceptance_N8NAgents_20260829]]. Каноническая полная сводка: [[CURRENT_STATE_N8NAgents_2026-08-29]].
+Production MVP принят после containment первого retry incident и новой A/B-проверки. Current exact S2 release — `36e149374802263d644cc98e510f6113e1095dae`, mode `public`; Caddy/n8n/PostgreSQL healthy; strict IP TLS с SNI и без SNI `PASS`; единственный публичный application listener — `443`, management SSH — `22`, n8n только loopback `5678`; `1/8` workflow active/published; webhook queue `pending=0` без ошибки; running executions отсутствуют. Acceptance checkpoint завершился на `2/20`, более поздний redacted cumulative snapshot показал `4/20`. Подтверждены «один update — один execution — один outbound» и continuity памяти в одной сессии: [[Доказательство_Production_Acceptance_N8NAgents_20260829]]. Каноническая полная сводка: [[CURRENT_STATE_N8NAgents_2026-08-29]], полная архитектура: [[Архитектура_AS_IS_и_API_Tools_N8NAgents]].
 
 ## Окружения
 
-- Code workspace: local repository `C:\Users\style\Documents\ChatGPT\Агенты`, project `N8NAgents`; reconciled source commit `aa087b59f0c8b44ee6ebe93ccbd9f996eca49ce9`; remote `origin` не настроен.
+- Code workspace: local repository `C:\Users\style\Documents\ChatGPT\Агенты`, project `N8NAgents`; machine-only source hygiene successor `d163606a532529ab18cc6064a69d1fc7305b27cf`, tree `3cab9ff5d5a6f2e1bf656766dcde9bdb8918463a`, parent/import base `09824a6e...`. Human/agent-readable документация канонична только в Obsidian; source содержит 63 tracked machine files и zero tracked `README/.md/.txt`.
 - Obsidian: production acceptance predecessor `b037cd23690b35ded8e2a0c5c9e2473a53f4fbba`; текущая AS-IS документация ведется в отдельной handoff branch.
 - Production: основной Telegram/memory E2E принят; current S2 и runtime override hashes приведены в [[CURRENT_STATE_N8NAgents_2026-08-29]].
 
@@ -58,14 +60,14 @@ Production MVP принят после containment первого retry incident
 
 ## Известные риски
 
-- Deployed release `36e149...` имеет verified runtime drift: Caddy override и production memory/grant corrections; source reconciliation `aa087b59...` еще не новый release.
+- Deployed release `36e149...` имеет verified runtime drift: Caddy override и production memory/grant corrections; source hygiene successor `d163606a...` еще не новый deployed release.
 - Полное соответствие семи inactive production objects каноническому workflow catalogue не доказано secret-free export.
 - Ресурсный запас небольшого VPS требует наблюдения; любые tuning/resource changes — отдельная задача.
 - Provider firewall/IPv6 и independent SSH host-key provenance остаются отдельными operational risks, а не основанием переписывать прошедший acceptance.
 
 ## Knowledge governance
 
-[[Participants_and_Flows_N8NAgents]], [[Runtime_Flows_N8NAgents]] и [[Change_History_N8NAgents]] — обязательные поддерживаемые artifacts. Порядок для каждой change: `change → tests → rollout → production PASS → AS-IS diagrams/descriptions → frontmatter/wikilink/secret checks → Obsidian acceptance`. Planned state хранить отдельно от AS-IS.
+[[Participants_and_Flows_N8NAgents]], [[Runtime_Flows_N8NAgents]], [[Change_History_N8NAgents]] и [[Архитектура_AS_IS_и_API_Tools_N8NAgents]] — обязательные поддерживаемые artifacts. Порядок для каждой change: `change → tests → rollout → production PASS → AS-IS diagrams/descriptions → frontmatter/wikilink/secret checks → Obsidian acceptance`. Planned state хранить отдельно; failed rollout или rollback сохраняет last verified AS-IS до нового production `PASS`.
 
 ## Связанные заметки
 
@@ -84,6 +86,8 @@ Production MVP принят после containment первого retry incident
 - [[Доказательство_R8_K4R_Offline_v2_Blocked_N8NAgents_20260827]]
 - [[Доказательство_Production_Acceptance_N8NAgents_20260829]]
 - [[CURRENT_STATE_N8NAgents_2026-08-29]]
+- [[Архитектура_AS_IS_и_API_Tools_N8NAgents]]
+- [[Источник_Repository_Overview_N8NAgents_2026-08-29]]
 - [[Открытые_Задачи_N8NAgents_2026-08-29]]
 - [[Participants_and_Flows_N8NAgents]]
 - [[Runtime_Flows_N8NAgents]]

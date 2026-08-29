@@ -9,6 +9,7 @@ id: "prompt-n8nagents-recovery-handoff-20260829"
 уверенность: "высокая"
 источники:
   - "[[CURRENT_STATE_N8NAgents_2026-08-29]]"
+  - "[[Архитектура_AS_IS_и_API_Tools_N8NAgents]]"
   - "[[Агент_Production_Handoff_N8NAgents]]"
   - "[[Доказательство_Production_Acceptance_N8NAgents_20260829]]"
 доказательства:
@@ -32,7 +33,9 @@ id: "prompt-n8nagents-recovery-handoff-20260829"
 - Handoff documentation worktree/branch at creation time: `C:\Users\style\Documents\ObsidianVault-n8nagents-handoff`, `agent/codex/n8nagents-prod-handoff-20260829`
 - Production host: `154.59.110.121`, SSH port `22`; strict host-key checking обязателен. Не искать и не читать private key material.
 
-Code repository сейчас имеет локальную ветку `codex/n8nagents-foundation`; remote `origin` не настроен. Не выдумывай remote и не push code до отдельного решения владельца. Canonical source reconciliation commit: `aa087b59f0c8b44ee6ebe93ccbd9f996eca49ce9` (`fix: reconcile trusted session memory contract`). Он не является текущим immutable production release.
+Final functional source GO/import base: `09824a6e16e479d2283ddbd4fb5125a50bda5113`, tree `5eb0df96c8ab908ba45cdd18c8286ce683528135`. Machine-only source hygiene successor: `d163606a532529ab18cc6064a69d1fc7305b27cf`, tree `3cab9ff5d5a6f2e1bf656766dcde9bdb8918463a`, parent `09824a6e...`; `SOURCE_HYGIENE_STATUS=PASS`, 63 tracked machine files, tracked `README/.md/.txt=0`. Исторический reconciliation predecessor: `aa087b59f0c8b44ee6ebe93ccbd9f996eca49ce9`. Ни один source commit не является текущим immutable production release.
+
+Вся human/agent-readable документация N8NAgents канонична только в Obsidian vault. Source repository используется как источник machine-consumed code/config/tests/contracts; Markdown в source, если еще существует, — только historical provenance и не второй канон.
 
 Obsidian production acceptance commit: `b037cd23690b35ded8e2a0c5c9e2473a53f4fbba` на `origin/agent/codex/n8nagents-prod-acceptance`. Текущий handoff является его successor на отдельной ветке.
 
@@ -42,10 +45,12 @@ Obsidian production acceptance commit: `b037cd23690b35ded8e2a0c5c9e2473a53f4fbba
 2. `05_Система\Старт_Агента.md` и обязательные linked регламенты: работа агента, GitHub, Git isolation, orchestrator, subagent.
 3. `05_Система\Карты_MOC\N8NAgents\MOC_N8NAgents.md`.
 4. `02_Знания\Пакеты_контекста\N8NAgents\CURRENT_STATE_N8NAgents_2026-08-29.md`.
-5. `02_Знания\Доказательства\N8NAgents\Доказательство_Production_Acceptance_N8NAgents_20260829.md`.
-6. `05_Система\Схемы\N8NAgents\Participants_and_Flows_N8NAgents.md`, `Runtime_Flows_N8NAgents.md`, `Change_History_N8NAgents.md`.
-7. `01_Работа\Задачи\N8NAgents\Открытые_Задачи_N8NAgents_2026-08-29.md` и `03_Агенты\N8NAgents\Агент_Production_Handoff_N8NAgents.md`.
-8. В code commit `aa087b59...`: `N8NAgents/docs/architecture.md`, `N8NAgents/workflows/README.md`, specs `00`–`04`, `N8NAgents/workflows/templates/trusted-session-memory.contract.json`, migration/test changes из commit diff.
+5. `05_Система\Схемы\N8NAgents\Архитектура_AS_IS_и_API_Tools_N8NAgents.md` — полный canonical AS-IS, каталог workflows, current limits и отдельно размеченный TARGET API-tools.
+6. `02_Знания\Доказательства\N8NAgents\Доказательство_Production_Acceptance_N8NAgents_20260829.md`.
+7. `05_Система\Схемы\N8NAgents\Participants_and_Flows_N8NAgents.md`, `Runtime_Flows_N8NAgents.md`, `Change_History_N8NAgents.md`.
+8. `01_Работа\Задачи\N8NAgents\Открытые_Задачи_N8NAgents_2026-08-29.md` и `03_Агенты\N8NAgents\Агент_Production_Handoff_N8NAgents.md`.
+
+Source successor `d163606a...` проверяй только как machine-consumed code/config/tests/contracts. Source Markdown в нем отсутствует; не ищи и не восстанавливай human-readable docs в repository вместо Obsidian notes.
 
 ### 3. Финальные verified production facts
 
@@ -56,8 +61,11 @@ Obsidian production acceptance commit: `b037cd23690b35ded8e2a0c5c9e2473a53f4fbba
 - TLS strict IP verification PASS с SNI и без SNI. Public webhook: exact `POST https://154.59.110.121/webhook/telegram-assistant`.
 - Effective immutable Caddy override SHA-256: `a8af5429ad7b5be6b8e26c6c51f3f5b8baccd0e51ec2d4f0a0214d9a82f2dc79`; Compose override SHA-256: `974a11063d30bc7b5c5a0770e1c41a7ac572176ce75f31b82d29889785086b93`.
 - Всего 8 workflows; ровно 1 active и published. Webhook queue `pending=0`, error отсутствует, running executions отсутствуют.
+- Пять tool workflows импортированы, но selected native path имеет `ai_languageModel` и `ai_memory`, а `ai_tool` edges отсутствуют. Notes/reminders сейчас не являются model-facing функцией.
 - Исторический retry incident породил до 7 running executions; он contained. После DB и node-contract fix выполнена новая чистая A/B acceptance: один input → один completed execution → один outbound, continuity памяти в одной сессии. Duplicate loop сейчас отсутствует.
 - Memory acceptance доказала только single-session recall. Persistence после controlled restart и two-session isolation `NOT TESTED`; не называй их `PASS`.
+- Acceptance checkpoint завершился на 2/20 outbound attempts; более поздний redacted cumulative snapshot показал 4/20. Это mutable counter: перед новым traffic получай fresh evidence и отдельное разрешение.
+- Production image digests имеют статус `UNKNOWN`: наблюдались runtime tags, но не fresh production `docker inspect` digest evidence. Exact digests в local/parity manifests не повышай до production facts.
 - Runtime memory-role имеет `CREATE` только на schema `memory`. Trusted Session Memory использует `sessionIdType=customKey`, явный trusted session key и обязательный `ai_memory` edge.
 - Success execution persistence отключена (`save-on-success=none`), поэтому отсутствие сохраненной success row ожидаемо.
 - Старый release и runtime evidence сохранены. Не удалять их.
@@ -78,33 +86,33 @@ Obsidian production acceptance commit: `b037cd23690b35ded8e2a0c5c9e2473a53f4fbba
 
 ### 6. Незавершенная работа
 
-- Сформировать новый reviewed release, который воспроизводимо интегрирует `aa087b59...` и Caddy no-contact/default-SNI fix; текущий production остается `36e149...` с verified runtime drift.
-- Сверить secret-free inventory всех 8 production workflows; не активировать семь inactive.
+- Сформировать новый reviewed release из source hygiene successor `d163606a...`, который воспроизводимо включает Caddy no-contact/default-SNI fix; текущий production остается `36e149...` с verified runtime drift.
+- Не активировать семь inactive workflows автоматически. Custom API-tools TARGET, contracts, policy, idempotency/error model, tests и promotion описаны только как planned в [[Архитектура_AS_IS_и_API_Tools_N8NAgents]] и требуют отдельного rollout/PASS.
 - Добавить regression gates против retry fan-out, stateless memory и no-SNI TLS regression.
 - Отдельно проверить memory persistence после controlled restart и изоляцию двух session keys.
-- В отдельной чистой code-ветке обновить stale repo docs, все еще утверждающие `deployment not started`.
 - Backup automation, remote immutability, replication и formal lifecycle остаются отдельным scope и не закрыты MVP acceptance.
 
 ### 7. Первые verification steps
 
 1. Выполни `git status`, `git branch --show-current`, `git log -1` отдельно в code repo и vault; не трогай чужие dirty/untracked files. При необходимости создай отдельный worktree.
-2. Подтверди существование commit objects `aa087b59...` и `b037cd236...`; проверь, что code repo не имеет `origin`, прежде чем предлагать push.
-3. Проверь frontmatter и wikilinks новых CURRENT_STATE/diagram/task/agent/prompt notes и отсутствие secret-like material.
-4. Сопоставь матрицу Git ↔ Obsidian ↔ production: deployed `36e149...`, reconciled source `aa087b59...`, acceptance `b037cd236...`, successor handoff commit.
+2. Подтверди source hygiene successor `d163606a...`/tree `3cab9ff5...`, его parent/import base `09824a6e...`/tree `5eb0df96...`, historical `aa087b59...`, а также Obsidian acceptance `b037cd236...`; не предполагай remote/push state без свежей проверки.
+3. Проверь frontmatter и wikilinks CURRENT_STATE, четырех mandatory architecture artifacts, task/agent/prompt notes и отсутствие secret-like material.
+4. Сопоставь матрицу Git ↔ Obsidian ↔ production: deployed `36e149...`, import/final functional source `09824a6e...`, machine-only successor `d163606a...`/tree `3cab9ff5...`, acceptance `b037cd236...`, текущий vault commit.
 5. Если пользователь просит production work, сначала planner должен определить read-only gate, rollback и stop conditions. Первый server check — только current release/mode, container health/restart/OOM, listeners, redacted workflow counts и webhook status. Не выводить environments/log payloads.
 6. До любой mutation сообщи выявленный drift и получи authority в пределах новой задачи. Не assume, что прежний acceptance разрешает новый rollout.
 
 ### 8. Knowledge governance invariant
 
-`Participants-and-Flows`, `Runtime-Flows` и `Change-History` — обязательные поддерживаемые KB artifacts. Для каждой принятой production change соблюдай порядок:
+[[Participants_and_Flows_N8NAgents]], [[Runtime_Flows_N8NAgents]], [[Change_History_N8NAgents]] и [[Архитектура_AS_IS_и_API_Tools_N8NAgents]] — четыре обязательных поддерживаемых KB artifacts. Для каждой принятой production change соблюдай порядок:
 
 `change → tests → rollout → production PASS → AS-IS diagrams/descriptions → frontmatter/wikilink/secret checks → Obsidian acceptance`.
 
-Future-state документируй отдельно. Никогда не обновляй AS-IS по плану до production PASS.
+Все четыре artifacts обновляй только после production verification `PASS`. Future-state документируй отдельно. Failed rollout или rollback сохраняет last verified AS-IS до нового подтвержденного `PASS`.
 
 ## Связанные заметки
 
 - [[CURRENT_STATE_N8NAgents_2026-08-29]]
+- [[Архитектура_AS_IS_и_API_Tools_N8NAgents]]
 - [[Агент_Production_Handoff_N8NAgents]]
 - [[MOC_N8NAgents]]
 - [[Открытые_Задачи_N8NAgents_2026-08-29]]
