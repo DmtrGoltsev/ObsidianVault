@@ -11,6 +11,7 @@ id: "ctx-n8nagents-current-state-20260829"
   - "Git N8NAgents commit 36e149374802263d644cc98e510f6113e1095dae"
   - "Git N8NAgents commit 09824a6e16e479d2283ddbd4fb5125a50bda5113; tree 5eb0df96c8ab908ba45cdd18c8286ce683528135"
   - "Git N8NAgents source-hygiene commit d163606a532529ab18cc6064a69d1fc7305b27cf; tree 3cab9ff5d5a6f2e1bf656766dcde9bdb8918463a"
+  - "Git N8NAgents final local review commit dd9e10a9b9b51e33761971e517a61a6bd9fa899c; tree 1d9dc11150e87846937b622748c95877f4823128; parent d163606a532529ab18cc6064a69d1fc7305b27cf"
   - "Obsidian commit b037cd23690b35ded8e2a0c5c9e2473a53f4fbba"
   - "[[Доказательство_Production_Acceptance_N8NAgents_20260829]]"
   - "[[Архитектура_AS_IS_и_API_Tools_N8NAgents]]"
@@ -118,11 +119,14 @@ Production inventory подтверждает ровно 8 workflow records и �
 | Runtime config | Caddyfile `a8af5429...`, Compose override `974a1106...` | no-contact + default no-SNI certificate | Активно поверх S2; вне release manifest, но hash/mode/owner проверены |
 | n8n/PostgreSQL runtime | Финальные UI/DB corrections | Trusted memory contract и минимальный grant | Доказаны A/B, но runtime state не равен чистому checkout `36e149` |
 | Git, final source GO | `09824a6e16e479d2283ddbd4fb5125a50bda5113`; tree `5eb0df96c8ab908ba45cdd18c8286ce683528135` | Machine-consumed code/config/tests/contracts reconciled с принятым состоянием | Successor source candidate; не объявлять уже развернутым release |
-| Git, source hygiene successor | `d163606a532529ab18cc6064a69d1fc7305b27cf`; tree `3cab9ff5d5a6f2e1bf656766dcde9bdb8918463a`; parent `09824a6e...` | 63 tracked machine files; tracked `README/.md/.txt=0`; human docs перенесены в Obsidian; machine contracts заменили prose dependencies | `SOURCE_HYGIENE_STATUS=PASS`; static/package/governance/remote/schema/migration, Docker shellcheck, secret/LF gates `PASS`; **локальный exact commit**, source repository не имеет `origin`, commit не upstream-published; production не менялся |
+| Git, source hygiene predecessor | `d163606a532529ab18cc6064a69d1fc7305b27cf`; tree `3cab9ff5d5a6f2e1bf656766dcde9bdb8918463a`; parent `09824a6e...` | 63 tracked machine files; tracked `README/.md/.txt=0`; human docs перенесены в Obsidian; machine contracts заменили prose dependencies | `SOURCE_HYGIENE_STATUS=PASS`; локальный predecessor финального review commit; не deployed и не upstream-published |
+| Git, final local reviewed source | `dd9e10a9b9b51e33761971e517a61a6bd9fa899c`; tree `1d9dc11150e87846937b622748c95877f4823128`; parent `d163606a...` | Exact-tree K4R release-gate corrections поверх source hygiene; два независимых `GO` — source hygiene и security; `P0=0`, `P1=0` | **LOCAL_ONLY / NOT_DEPLOYED**; source repository не имеет `origin`; commit не upstream-published; production/VPS не менялись и fresh VPS revalidation не выполнялась |
 | Obsidian acceptance | `b037cd23690b35ded8e2a0c5c9e2473a53f4fbba` | Production acceptance A/B | Утвержденный predecessor этой CURRENT_STATE-сводки |
 | Obsidian handoff | ветка `agent/codex/n8nagents-prod-handoff-20260829` | Полная AS-IS документация и recovery prompt | Commit фиксируется в отчете исполнителя |
 
-Source hygiene successor `d163606a...` (parent `09824a6e...`) — локальный exact commit и не является текущим production release: deployed immutable release остается `36e149...` с verified runtime corrections. Source repository не имеет настроенного `origin`; `d163606a...` не upstream-published, и документация не должна утверждать обратное. Human/agent-readable documentation канонична только в Obsidian; source repository теперь содержит только tracked machine-consumed code/config/tests/contracts. В vault `b037cd236...` присутствует в `origin/agent/codex/n8nagents-prod-acceptance`.
+Final reviewed source `dd9e10a...` (parent `d163606a...`, source hygiene parent-chain от `09824a6e...`) — локальный exact commit и не является текущим production release: deployed immutable release остается строго `36e149...` с verified runtime corrections. Source repository не имеет настроенного `origin`; `dd9e10a...` имеет статус `LOCAL_ONLY / NOT_DEPLOYED`, не upstream-published, и документация не должна утверждать обратное. Human/agent-readable documentation канонична только в Obsidian; source repository содержит tracked machine-consumed code/config/tests/contracts. В vault `b037cd236...` присутствует в `origin/agent/codex/n8nagents-prod-acceptance`.
+
+Residual `P2`: fresh VPS revalidation после `dd9e10a...` не выполнялась. Leader-only signal delivery полностью протестирована. Для `dash` process-group delivery допустимо отсутствие текстового `SIGNAL` label, но fail-closed поведение доказано через `RC79`, rollback и cleanup. Это ограничение source/test evidence, а не изменение production AS-IS.
 
 ## Операционные правила
 
@@ -137,7 +141,7 @@ Source hygiene successor `d163606a...` (parent `09824a6e...`) — локальн
 
 Канонический список: [[Открытые_Задачи_N8NAgents_2026-08-29]]. Критично не путать их с уже закрытым MVP acceptance:
 
-1. Подготовить отдельный reviewed release из source hygiene successor `d163606a...`, который воспроизводимо включает Caddy no-contact/default-SNI fix, вместо постоянной зависимости от runtime drift.
+1. Подготовить отдельный reviewed release из final local reviewed source `dd9e10a...`, который воспроизводимо включает Caddy no-contact/default-SNI fix, вместо постоянной зависимости от runtime drift.
 2. Не активировать семь inactive workflow автоматически; отдельное добавление model-facing `ai_tool` edges проходит самостоятельный TARGET rollout.
 3. Backup automation, remote immutability, replication и formal restore lifecycle держать в отдельном scope; MVP acceptance их не закрывает.
 4. Сохранить regression gate против retry fan-out, stateless memory edge и no-SNI TLS regression.

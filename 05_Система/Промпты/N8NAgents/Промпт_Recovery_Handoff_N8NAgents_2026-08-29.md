@@ -33,9 +33,11 @@ id: "prompt-n8nagents-recovery-handoff-20260829"
 - Handoff documentation worktree/branch at creation time: `C:\Users\style\Documents\ObsidianVault-n8nagents-handoff`, `agent/codex/n8nagents-prod-handoff-20260829`
 - Production host: `154.59.110.121`, SSH port `22`; strict host-key checking обязателен. Не искать и не читать private key material.
 
-Final functional source GO/import base: `09824a6e16e479d2283ddbd4fb5125a50bda5113`, tree `5eb0df96c8ab908ba45cdd18c8286ce683528135`. Machine-only source hygiene successor: `d163606a532529ab18cc6064a69d1fc7305b27cf`, tree `3cab9ff5d5a6f2e1bf656766dcde9bdb8918463a`, parent `09824a6e...`; `SOURCE_HYGIENE_STATUS=PASS`, 63 tracked machine files, tracked `README/.md/.txt=0`. Исторический reconciliation predecessor: `aa087b59f0c8b44ee6ebe93ccbd9f996eca49ce9`. Ни один source commit не является текущим immutable production release.
+Final functional source GO/import base: `09824a6e16e479d2283ddbd4fb5125a50bda5113`, tree `5eb0df96c8ab908ba45cdd18c8286ce683528135`. Machine-only source hygiene predecessor: `d163606a532529ab18cc6064a69d1fc7305b27cf`, tree `3cab9ff5d5a6f2e1bf656766dcde9bdb8918463a`, parent `09824a6e...`. Final local reviewed source: `dd9e10a9b9b51e33761971e517a61a6bd9fa899c`, tree `1d9dc11150e87846937b622748c95877f4823128`, parent `d163606a...`; два независимых `GO` — source hygiene и security; `P0=0`, `P1=0`. Исторический reconciliation predecessor: `aa087b59f0c8b44ee6ebe93ccbd9f996eca49ce9`. Ни один source commit не является текущим immutable production release.
 
-Source repository не имеет настроенного `origin`. `d163606a...` — локальный exact commit, **не upstream-published**. Не заявляй source push/publication без нового фактического remote evidence. Vault имеет отдельный `origin` и публикационный статус, который нельзя переносить на source repository.
+Source repository не имеет настроенного `origin`. `dd9e10a...` — локальный exact commit со статусом **LOCAL_ONLY / NOT_DEPLOYED**, не upstream-published. Не заявляй source push/publication без нового фактического remote evidence. Vault имеет отдельный `origin` и публикационный статус, который нельзя переносить на source repository.
+
+Residual `P2`: fresh VPS revalidation после `dd9e10a...` не выполнялась. Leader-only signal delivery полностью протестирована; при `dash` process-group delivery текстовый `SIGNAL` label может отсутствовать, но fail-closed результат доказан через `RC79`, rollback и cleanup. Не повышай это до fresh production verification.
 
 Вся human/agent-readable документация N8NAgents канонична только в Obsidian vault. Source repository используется как источник machine-consumed code/config/tests/contracts; Markdown в source, если еще существует, — только historical provenance и не второй канон.
 
@@ -52,7 +54,7 @@ Obsidian production acceptance commit: `b037cd23690b35ded8e2a0c5c9e2473a53f4fbba
 7. `05_Система\Схемы\N8NAgents\Participants_and_Flows_N8NAgents.md`, `Runtime_Flows_N8NAgents.md`, `Change_History_N8NAgents.md`.
 8. `01_Работа\Задачи\N8NAgents\Открытые_Задачи_N8NAgents_2026-08-29.md` и `03_Агенты\N8NAgents\Агент_Production_Handoff_N8NAgents.md`.
 
-Source successor `d163606a...` проверяй только как machine-consumed code/config/tests/contracts. Source Markdown в нем отсутствует; не ищи и не восстанавливай human-readable docs в repository вместо Obsidian notes.
+Source successor `dd9e10a...` проверяй только как machine-consumed code/config/tests/contracts. Source Markdown отсутствует; не ищи и не восстанавливай human-readable docs в repository вместо Obsidian notes.
 
 ### 3. Финальные verified production facts
 
@@ -88,7 +90,7 @@ Source successor `d163606a...` проверяй только как machine-cons
 
 ### 6. Незавершенная работа
 
-- Сформировать новый reviewed release из source hygiene successor `d163606a...`, который воспроизводимо включает Caddy no-contact/default-SNI fix; текущий production остается `36e149...` с verified runtime drift.
+- Сформировать новый reviewed release из final local reviewed source `dd9e10a...`, который воспроизводимо включает Caddy no-contact/default-SNI fix; текущий production остается `36e149...` с verified runtime drift.
 - Не активировать семь inactive workflows автоматически. Custom API-tools TARGET, contracts, policy, idempotency/error model, tests и promotion описаны только как planned в [[Архитектура_AS_IS_и_API_Tools_N8NAgents]] и требуют отдельного rollout/PASS.
 - Добавить regression gates против retry fan-out, stateless memory и no-SNI TLS regression.
 - Отдельно проверить memory persistence после controlled restart и изоляцию двух session keys.
@@ -97,9 +99,9 @@ Source successor `d163606a...` проверяй только как machine-cons
 ### 7. Первые verification steps
 
 1. Выполни `git status`, `git branch --show-current`, `git log -1` отдельно в code repo и vault; не трогай чужие dirty/untracked files. При необходимости создай отдельный worktree.
-2. Подтверди локальный source hygiene successor `d163606a...`/tree `3cab9ff5...`, его parent/import base `09824a6e...`/tree `5eb0df96...`, historical `aa087b59...`, отсутствие source `origin`, а также Obsidian acceptance `b037cd236...`; не называй source commit upstream-published.
+2. Подтверди локальный final reviewed source `dd9e10a...`/tree `1d9dc111...`, parent `d163606a...`/tree `3cab9ff5...`, import base `09824a6e...`/tree `5eb0df96...`, historical `aa087b59...`, отсутствие source `origin`, а также Obsidian acceptance `b037cd236...`; не называй source commit upstream-published или deployed.
 3. Проверь frontmatter и wikilinks CURRENT_STATE, четырех mandatory architecture artifacts, task/agent/prompt notes и отсутствие secret-like material.
-4. Сопоставь матрицу Git ↔ Obsidian ↔ production: deployed `36e149...`, import/final functional source `09824a6e...`, machine-only successor `d163606a...`/tree `3cab9ff5...`, acceptance `b037cd236...`, текущий vault commit.
+4. Сопоставь матрицу Git ↔ Obsidian ↔ production: deployed `36e149...`, import/final functional source `09824a6e...`, hygiene predecessor `d163606a...`, final local reviewed source `dd9e10a...`/tree `1d9dc111...`, acceptance `b037cd236...`, текущий vault commit.
 5. Если пользователь просит production work, сначала planner должен определить read-only gate, rollback и stop conditions. Первый server check — только current release/mode, container health/restart/OOM, listeners, redacted workflow counts и webhook status. Не выводить environments/log payloads.
 6. До любой mutation сообщи выявленный drift и получи authority в пределах новой задачи. Не assume, что прежний acceptance разрешает новый rollout.
 

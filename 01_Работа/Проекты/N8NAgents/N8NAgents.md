@@ -46,7 +46,7 @@ Production MVP принят после containment первого retry incident
 
 ## Окружения
 
-- Code workspace: local repository `C:\Users\style\Documents\ChatGPT\Агенты`, project `N8NAgents`; machine-only source hygiene successor `d163606a532529ab18cc6064a69d1fc7305b27cf`, tree `3cab9ff5d5a6f2e1bf656766dcde9bdb8918463a`, parent/import base `09824a6e...`. Source repository не имеет `origin`; successor локален и не upstream-published. Human/agent-readable документация канонична только в Obsidian; source содержит 63 tracked machine files и zero tracked `README/.md/.txt`.
+- Code workspace: local repository `C:\Users\style\Documents\ChatGPT\Агенты`, project `N8NAgents`; final local reviewed source `dd9e10a9b9b51e33761971e517a61a6bd9fa899c`, tree `1d9dc11150e87846937b622748c95877f4823128`, parent `d163606a...`. Source repository не имеет `origin`; commit `LOCAL_ONLY / NOT_DEPLOYED`, не upstream-published. Human/agent-readable документация канонична только в Obsidian; source содержит machine-consumed code/config/tests/contracts и zero tracked human-readable docs.
 - Obsidian: production acceptance predecessor `b037cd23690b35ded8e2a0c5c9e2473a53f4fbba`; текущая AS-IS документация ведется в отдельной handoff branch.
 - Production: основной Telegram/memory E2E принят; current S2 и runtime override hashes приведены в [[CURRENT_STATE_N8NAgents_2026-08-29]].
 
@@ -60,7 +60,7 @@ Production MVP принят после containment первого retry incident
 
 ## Известные риски
 
-- Deployed release `36e149...` имеет verified runtime drift: Caddy override и production memory/grant corrections; source hygiene successor `d163606a...` еще не новый deployed release.
+- Deployed release `36e149...` имеет verified runtime drift: Caddy override и production memory/grant corrections; final local reviewed source `dd9e10a...` не deployed. Fresh VPS revalidation после source review не выполнялась; residual `P2` по `dash` signal label остается fail-closed через `RC79`/rollback/cleanup.
 - Полное соответствие семи inactive production objects каноническому workflow catalogue не доказано secret-free export.
 - Ресурсный запас небольшого VPS требует наблюдения; любые tuning/resource changes — отдельная задача.
 - Provider firewall/IPv6 и independent SSH host-key provenance остаются отдельными operational risks, а не основанием переписывать прошедший acceptance.

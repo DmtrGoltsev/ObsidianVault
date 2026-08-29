@@ -42,7 +42,7 @@ id: "moc-n8nagents-001"
 
 ## Импортированная source documentation
 
-Полный human/agent-readable inventory из source final GO `09824a6e...` перенесён в canonical vault. `source_path`, commit/tree, дата импорта, point-in-time status и redaction review закреплены во frontmatter каждой заметки. Machine-only source hygiene successor `d163606a532529ab18cc6064a69d1fc7305b27cf`, tree `3cab9ff5d5a6f2e1bf656766dcde9bdb8918463a`, parent `09824a6e...`, прошёл все gates и содержит zero tracked `README/.md/.txt`. Это локальный exact commit: source repository не имеет `origin`, поэтому он не upstream-published. Source paths — только provenance; current runtime facts определяют [[CURRENT_STATE_N8NAgents_2026-08-29]] и [[Архитектура_AS_IS_и_API_Tools_N8NAgents]].
+Полный human/agent-readable inventory из source final GO `09824a6e...` перенесён в canonical vault. `source_path`, commit/tree, дата импорта, point-in-time status и redaction review закреплены во frontmatter каждой заметки. Source hygiene predecessor `d163606a...` завершён финальным local review commit `dd9e10a9b9b51e33761971e517a61a6bd9fa899c`, tree `1d9dc11150e87846937b622748c95877f4823128`, parent `d163606a...`; два независимых `GO`, `P0=0`, `P1=0`. Source repository не имеет `origin`: `dd9e10a...` имеет статус `LOCAL_ONLY / NOT_DEPLOYED`, не upstream-published. Source paths — только provenance; current runtime facts определяют [[CURRENT_STATE_N8NAgents_2026-08-29]] и [[Архитектура_AS_IS_и_API_Tools_N8NAgents]].
 
 ### Repository и архитектурные snapshots
 
