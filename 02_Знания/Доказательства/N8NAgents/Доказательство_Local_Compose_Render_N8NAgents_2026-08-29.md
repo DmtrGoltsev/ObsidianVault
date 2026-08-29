@@ -17,6 +17,13 @@ source_path: "local/evidence/compose-render.txt"
 source_repository_head_at_import: "dd9e10a9b9b51e33761971e517a61a6bd9fa899c"
 source_repository_status: "LOCAL_ONLY / NO_ORIGIN / NOT_DEPLOYED"
 source_tracking_status: "ignored local evidence; bytes are not part of the commit tree"
+source_original_status: "deleted_after_verified_transfer"
+source_original_git_recoverability: "not recoverable from Git because the source file was ignored"
+canonical_payload_status: "redacted Markdown payload is canonical"
+raw_sha_status: "provenance identifier only; raw bytes are not retained in Vault"
+source_cleanup_verification_date: "2026-08-29"
+source_cleanup_text_audit: "recursive README/.md/.txt/.tsv = 0"
+source_cleanup_preserved_evidence: ".gitkeep, runtime-marker.sha256, two binary dumps"
 source_file_sha256: "9d27c8c5b09f21fab60da5d2c588982c37d20cb6757acb208d2ea6390a5c663a"
 source_hash_semantics: "SHA-256 of exact 14922 raw source bytes; UTF-8 without BOM; 491 CRLF-terminated logical lines"
 redaction_manifest_version: "n8nagents-evidence-redaction-v1"
@@ -29,13 +36,14 @@ redacted_payload_hash_semantics: "SHA-256 of UTF-8 bytes of LF-normalized fenced
 
 Безопасное Markdown-представление локального docker compose config render. Оно сохраняет весь несекретный текст и порядок строк, но не доказывает current production digests/runtime.
 
-Исходный ignored-файл оставлен без изменений вне Vault. Raw-копия не хранится в Vault из-за локальных путей, secret-bearing rendered fields и тестовых user/chat identifiers.
+Исходный ignored-файл удалён только после проверенного переноса и больше не восстанавливается из Git. Канонической human/agent-readable копией является redacted Markdown payload ниже; raw-копия и raw secrets в Vault не сохраняются. Raw SHA-256 остаётся только provenance identifier точных bytes, существовавших до redaction.
 
 ## Provenance и hash semantics
 
 - source_file_sha256 — exact raw source bytes до преобразований.
 - redacted_payload_sha256 — LF-normalized безопасный payload ниже.
 - source repository HEAD фиксирует лишь контекст: ignored-файл не входит в commit tree.
+- Post-transfer deletion verification: оба raw evidence originals отсутствуют; recursive source text audit по README/.md/.txt/.tsv равен 0. Сохранены .gitkeep, runtime-marker.sha256 и два binary dumps.
 - Преобразование одностороннее; raw redacted values не восстанавливаются.
 
 ## Redaction manifest v1
