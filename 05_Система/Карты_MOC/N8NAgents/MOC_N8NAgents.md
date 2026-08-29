@@ -12,6 +12,7 @@ id: "moc-n8nagents-001"
   - "[[Источник_Мастер_Промпт_N8NAgents]]"
   - "[[CURRENT_STATE_N8NAgents_2026-08-29]]"
   - "[[Архитектура_AS_IS_и_API_Tools_N8NAgents]]"
+  - "[[TARGET_Задачи_и_Напоминания_N8NAgents]]"
 доказательства:
   - "[[Доказательство_Production_Acceptance_N8NAgents_20260829]]"
   - "[[Доказательство_Local_Compose_Render_N8NAgents_2026-08-29]]"
@@ -26,6 +27,7 @@ id: "moc-n8nagents-001"
 - [[N8NAgents]] — цель, стек, статус и активные гейты.
 - [[CURRENT_STATE_N8NAgents_2026-08-29]] — каноническая полная AS-IS сводка production, архитектуры, workflows, operations, incidents, scope и commit matrix.
 - [[Архитектура_AS_IS_и_API_Tools_N8NAgents]] — полный canonical human/agent-readable документ: verified production topology, каталог 8 workflows, runtime/data/memory flows, текущие ограничения и отдельно размеченная TARGET API-tools архитектура.
+- [[TARGET_Задачи_и_Напоминания_N8NAgents]] — единый **TARGET / PLANNED / NOT_DEPLOYED** дизайн задач и напоминаний: расписания, UX/contracts, Task→Occurrence→Delivery, trust/policy, rollout и acceptance. Не является AS-IS.
 
 ## Работа
 
@@ -95,6 +97,8 @@ Production acceptance source полностью merged в [[Доказатель
 - [[Архитектура_AS_IS_и_API_Tools_N8NAgents]] — полный AS-IS catalogue/capabilities/limits и отдельный TARGET API-tools contract.
 
 Все четыре artifacts обновлять только по цепочке `change → tests → rollout → production PASS → diagrams/descriptions → link/secret checks → Obsidian acceptance`. Planned state держать отдельно; failed rollout или rollback сохраняет last verified AS-IS до нового production verification `PASS`.
+
+TARGET-схемы, включая [[TARGET_Задачи_и_Напоминания_N8NAgents]], не переносятся в обязательные AS-IS artifacts до production verification `PASS`. После PASS участники, потоки и их описания обновляются во всех четырёх обязательных artifacts одной согласованной KB-транзакцией.
 
 Вся human/agent-readable документация N8NAgents канонична только в этом vault. Source repository предназначен для machine-consumed code/config/tests/contracts и не является запасным каноном документации.
 

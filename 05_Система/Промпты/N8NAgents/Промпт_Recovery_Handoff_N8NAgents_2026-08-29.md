@@ -10,6 +10,7 @@ id: "prompt-n8nagents-recovery-handoff-20260829"
 источники:
   - "[[CURRENT_STATE_N8NAgents_2026-08-29]]"
   - "[[Архитектура_AS_IS_и_API_Tools_N8NAgents]]"
+  - "[[TARGET_Задачи_и_Напоминания_N8NAgents]]"
   - "[[Агент_Production_Handoff_N8NAgents]]"
   - "[[Доказательство_Production_Acceptance_N8NAgents_20260829]]"
 доказательства:
@@ -53,6 +54,7 @@ Obsidian production acceptance commit: `b037cd23690b35ded8e2a0c5c9e2473a53f4fbba
 6. `02_Знания\Доказательства\N8NAgents\Доказательство_Production_Acceptance_N8NAgents_20260829.md`.
 7. `05_Система\Схемы\N8NAgents\Participants_and_Flows_N8NAgents.md`, `Runtime_Flows_N8NAgents.md`, `Change_History_N8NAgents.md`.
 8. `01_Работа\Задачи\N8NAgents\Открытые_Задачи_N8NAgents_2026-08-29.md` и `03_Агенты\N8NAgents\Агент_Production_Handoff_N8NAgents.md`.
+9. Если задача касается задач/напоминаний: `05_Система\Схемы\N8NAgents\TARGET_Задачи_и_Напоминания_N8NAgents.md`. Это **TARGET / PLANNED / NOT_DEPLOYED**, а не production AS-IS.
 
 Source successor `dd9e10a...` проверяй только как machine-consumed code/config/tests/contracts. Source Markdown отсутствует; не ищи и не восстанавливай human-readable docs в repository вместо Obsidian notes.
 
@@ -113,10 +115,13 @@ Source successor `dd9e10a...` проверяй только как machine-consu
 
 Все четыре artifacts обновляй только после production verification `PASS`. Future-state документируй отдельно. Failed rollout или rollback сохраняет last verified AS-IS до нового подтвержденного `PASS`.
 
+Схема участников, trust boundaries, runtime/data flows и их описания должна регулярно актуализироваться после каждой принятой production change, но строго после fresh production verification `PASS`. TARGET-схемы, в том числе [[TARGET_Задачи_и_Напоминания_N8NAgents]], до этого остаются отдельными и никогда не выдаются за AS-IS. После PASS обнови согласованно [[Participants_and_Flows_N8NAgents]], [[Runtime_Flows_N8NAgents]], [[Change_History_N8NAgents]] и [[Архитектура_AS_IS_и_API_Tools_N8NAgents]].
+
 ## Связанные заметки
 
 - [[CURRENT_STATE_N8NAgents_2026-08-29]]
 - [[Архитектура_AS_IS_и_API_Tools_N8NAgents]]
+- [[TARGET_Задачи_и_Напоминания_N8NAgents]]
 - [[Агент_Production_Handoff_N8NAgents]]
 - [[MOC_N8NAgents]]
 - [[Открытые_Задачи_N8NAgents_2026-08-29]]
