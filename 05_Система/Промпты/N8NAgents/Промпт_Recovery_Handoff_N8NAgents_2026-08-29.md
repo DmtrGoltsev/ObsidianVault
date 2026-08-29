@@ -54,7 +54,7 @@ Obsidian production acceptance commit: `b037cd23690b35ded8e2a0c5c9e2473a53f4fbba
 6. `02_Знания\Доказательства\N8NAgents\Доказательство_Production_Acceptance_N8NAgents_20260829.md`.
 7. `05_Система\Схемы\N8NAgents\Participants_and_Flows_N8NAgents.md`, `Runtime_Flows_N8NAgents.md`, `Change_History_N8NAgents.md`.
 8. `01_Работа\Задачи\N8NAgents\Открытые_Задачи_N8NAgents_2026-08-29.md` и `03_Агенты\N8NAgents\Агент_Production_Handoff_N8NAgents.md`.
-9. Если задача касается задач/напоминаний: `05_Система\Схемы\N8NAgents\TARGET_Задачи_и_Напоминания_N8NAgents.md`. Это **TARGET / PLANNED / NOT_DEPLOYED**, а не production AS-IS.
+9. Если задача касается задач/напоминаний: `05_Система\Схемы\N8NAgents\TARGET_Задачи_и_Напоминания_N8NAgents.md`. Дизайн имеет статус **DESIGN_APPROVED / TARGET / NOT_DEPLOYED**, а не production AS-IS. Обязательные approved policy: `Europe/Moscow`; current allowlisted chat only; quiet `00:00–06:00` с defer+bounded digest; перенос срока требует exact bound confirmation, до него old due authoritative, а пользователь выбирает `confirm_reminder_every` (default 30m, 5m..24h, initial TTL 24h, hard max 7d/50) и cadence атомарно останавливается при confirm/cancel/supersede/expiry/completion.
 
 Source successor `dd9e10a...` проверяй только как machine-consumed code/config/tests/contracts. Source Markdown отсутствует; не ищи и не восстанавливай human-readable docs в repository вместо Obsidian notes.
 
@@ -93,7 +93,7 @@ Source successor `dd9e10a...` проверяй только как machine-consu
 ### 6. Незавершенная работа
 
 - Сформировать новый reviewed release из final local reviewed source `dd9e10a...`, который воспроизводимо включает Caddy no-contact/default-SNI fix; текущий production остается `36e149...` с verified runtime drift.
-- Не активировать семь inactive workflows автоматически. Custom API-tools TARGET, contracts, policy, idempotency/error model, tests и promotion описаны только как planned в [[Архитектура_AS_IS_и_API_Tools_N8NAgents]] и требуют отдельного rollout/PASS.
+- Не активировать семь inactive workflows автоматически. Для задач/напоминаний владелец утвердил [[TARGET_Задачи_и_Напоминания_N8NAgents]], но это только разрешение начать implementation: contracts, policy, idempotency/error model, tests и promotion требуют отдельного rollout и fresh production `PASS`.
 - Добавить regression gates против retry fan-out, stateless memory и no-SNI TLS regression.
 - Отдельно проверить memory persistence после controlled restart и изоляцию двух session keys.
 - Backup automation, remote immutability, replication и formal lifecycle остаются отдельным scope и не закрыты MVP acceptance.
