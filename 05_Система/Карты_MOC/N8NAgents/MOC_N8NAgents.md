@@ -14,6 +14,8 @@ id: "moc-n8nagents-001"
   - "[[Архитектура_AS_IS_и_API_Tools_N8NAgents]]"
 доказательства:
   - "[[Доказательство_Production_Acceptance_N8NAgents_20260829]]"
+  - "[[Доказательство_Local_Compose_Render_N8NAgents_2026-08-29]]"
+  - "[[Доказательство_MVP_Backup_Restore_Receipt_N8NAgents_2026-08-29]]"
 теги: ["MOC", "n8n", "навигация"]
 ---
 
@@ -56,6 +58,8 @@ id: "moc-n8nagents-001"
 
 ### Evidence, history и operations
 
+- [[Доказательство_Local_Compose_Render_N8NAgents_2026-08-29]] — redacted loss-preserving local/parity Compose render; raw bytes bound by SHA-256.
+- [[Доказательство_MVP_Backup_Restore_Receipt_N8NAgents_2026-08-29]] — redacted field-complete backup/isolated-restore receipt; raw bytes bound by SHA-256.
 - [[Исторический_Манифест_Phase_A_Deploy_Rollback_N8NAgents]]
 - [[Исторический_Full_Delivery_Scope_v1_N8NAgents]]
 - [[Доказательство_Local_Verification_2026-08-27_N8NAgents]]
