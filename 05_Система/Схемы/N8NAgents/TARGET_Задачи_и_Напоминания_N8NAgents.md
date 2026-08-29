@@ -1,7 +1,7 @@
 ---
 id: "schema-n8nagents-target-tasks-reminders-20260829"
 тип: "схема"
-статус: "на_ревью"
+статус: "утверждено"
 проект: "N8NAgents"
 владелец: "style"
 создано: "2026-08-29"
@@ -11,15 +11,15 @@ id: "schema-n8nagents-target-tasks-reminders-20260829"
   - "[[CURRENT_STATE_N8NAgents_2026-08-29]]"
   - "[[Архитектура_AS_IS_и_API_Tools_N8NAgents]]"
   - "[[Открытые_Задачи_N8NAgents_2026-08-29]]"
-  - "Решения пользователя: все варианты; Europe/Moscow; только текущий allowlisted Telegram chat"
+  - "Решение владельца DESIGN_APPROVED: все варианты; Europe/Moscow; только текущий allowlisted Telegram chat; quiet 00:00–06:00; подтверждаемый перенос с настраиваемой частотой напоминаний"
 доказательства: []
-теги: ["n8n", "target", "planned", "not-deployed", "задачи", "напоминания", "telegram"]
+теги: ["n8n", "target", "planned", "design-approved", "not-deployed", "задачи", "напоминания", "telegram"]
 ---
 
 # TARGET / PLANNED — задачи и напоминания N8NAgents
 
 > [!danger] Статус документа
-> Это **TARGET / PLANNED / NOT_DEPLOYED**. Документ не описывает текущую production-функцию и не является доказательством rollout. Канонический AS-IS остаётся в [[CURRENT_STATE_N8NAgents_2026-08-29]] и [[Архитектура_AS_IS_и_API_Tools_N8NAgents]]. Перенос этой схемы в AS-IS допустим только после `tests → rollout → production verification PASS`.
+> Дизайн **DESIGN_APPROVED**, но реализация остаётся **TARGET / PLANNED / NOT_DEPLOYED**. Документ не описывает текущую production-функцию и не является доказательством rollout. Канонический AS-IS остаётся в [[CURRENT_STATE_N8NAgents_2026-08-29]] и [[Архитектура_AS_IS_и_API_Tools_N8NAgents]]. Перенос этой схемы в AS-IS допустим только после `tests → rollout → production verification PASS`.
 
 ## 1. Решения владельца и цель
 
@@ -28,6 +28,8 @@ id: "schema-n8nagents-target-tasks-reminders-20260829"
 1. Архитектура должна предусматривать **все перечисленные варианты** расписаний и операций, даже если часть policy modes не включается в первом rollout.
 2. Единственная timezone первого релиза — `Europe/Moscow`.
 3. Единственный recipient первого релиза — текущий allowlisted Telegram chat; его идентификатор не хранится в документации и не выбирается моделью.
+4. Тихие часы первого релиза — `00:00–06:00 Europe/Moscow`; уведомления откладываются до 06:00 и объединяются в bounded digest.
+5. При запросе переноса срока пользователь может указать, как часто напоминать о необходимости подтвердить перенос. До точного подтверждения новый срок не действует, а прежний срок остаётся authoritative.
 
 Цель: пользователь ставит задачу естественным языком в Telegram, получает детерминированное предложение, подтверждает mutation, а система надёжно сохраняет задачу, материализует будущие occurrence и отправляет bounded reminders. Пользователь может просматривать, изменять, приостанавливать, возобновлять, откладывать, завершать и отменять задачи и серии.
 
@@ -40,6 +42,7 @@ id: "schema-n8nagents-target-tasks-reminders-20260829"
 - pause/resume/edit/cancel/snooze/complete/list/show-missed/catch-up;
 - quiet hours и digest;
 - repeat-until-done;
+- pending reschedule: server-sealed предложение нового срока и bounded cadence напоминаний до exact confirmation;
 - durable PostgreSQL state, idempotency, leases, fencing и audit;
 - strict model-facing parser и server-sealed mutation/delivery paths;
 - bounded catch-up после простоя;
@@ -87,6 +90,9 @@ flowchart LR
   PA -->|preview| U
   U -->|exact confirmation| CONFIRM[Confirmation gateway]
   CONFIRM --> APPLY[Server-sealed command API]
+  APPLY -->|reschedule proposal| PR[(PendingReschedule\nold due authoritative\nconfirm cadence)]
+  PR -->|bounded prompt| POLICY
+  U -->|exact bound confirmation| CONFIRM
 
   READ --> DB[(PostgreSQL app schema)]
   APPLY --> DB
@@ -115,6 +121,7 @@ flowchart LR
 erDiagram
   TASK ||--o{ SCHEDULE_VERSION : has
   TASK ||--o{ PENDING_ACTION : proposed_by
+  TASK ||--o{ PENDING_RESCHEDULE : awaits_confirmation
   SCHEDULE_VERSION ||--|| MATERIALIZATION_CURSOR : advances
   SCHEDULE_VERSION ||--o{ OFFSET : configures
   SCHEDULE_VERSION ||--o{ OCCURRENCE : materializes
@@ -159,6 +166,16 @@ erDiagram
     timestamptz expires_at
     text state
   }
+  PENDING_RESCHEDULE {
+    uuid id
+    uuid task_id
+    int expected_version
+    timestamptz proposed_due_at
+    interval confirm_reminder_every
+    timestamptz expires_at
+    int reminders_sent
+    text state
+  }
 ```
 
 ### 5.1 Task
@@ -188,6 +205,17 @@ Delivery — очередь уведомлений occurrence: `due`, `offset`, 
 ### 5.5 PendingAction
 
 Server-sealed предложение mutation: actor/chat scope, canonical payload hash, revision, one-use token hash, TTL, состояние `pending/applied/expired/rejected/conflict`. Модель не может создать или подписать его сама.
+
+### 5.6 PendingReschedule
+
+Отдельное server-sealed ожидание подтверждения переноса срока. Оно содержит task/occurrence scope, `expected_version`, hash предлагаемого нового срока, `confirm_reminder_every`, следующий момент напоминания, expiry и счётчик отправок; recipient наследуется из trusted task scope.
+
+- **DEFAULT cadence:** 30 минут; пользователь выбирает от 5 минут до 24 часов.
+- Initial TTL — 24 часа; по явному выбору пользователя допускается продление, но hard max — 7 дней и 50 confirmation reminders.
+- Новый срок не становится schedule truth до exact bound confirmation. Старый due/schedule остаётся authoritative и выполняется штатно, включая случай, когда старый due наступил во время ожидания.
+- Confirmation атомарно проверяет actor/chat, task/occurrence, expected version, proposal hash, token, expiry и переводит `pending → applied`; затем cadence прекращается в той же transaction.
+- `cancel`, `supersede`, expiry, task/occurrence completion и успешное confirmation атомарно прекращают cadence и делают старый token непригодным.
+- Одновременно разрешён только один active pending reschedule на одну task/occurrence; новый proposal supersedes предыдущий после explicit preview.
 
 ## 6. Полный schedule DSL
 
@@ -260,11 +288,24 @@ Dispatcher остаётся paused до dry-run/manual decision, если: due >
 
 ### 6.7 Quiet hours
 
-- **DEFAULT:** `22:00–08:00 Europe/Moscow`;
-- действие: defer до 08:00 и объединить в bounded plain-text digest;
+- **APPROVED DEFAULT:** `00:00–06:00 Europe/Moscow`;
+- действие: defer до 06:00 и объединить в bounded plain-text digest;
 - per-task overnight override возможен только после отдельного explicit preview/confirmation;
 - режимы `drop`, `deliver_immediately`, custom interval заложены как configurable policy, но disabled в MVP;
 - quiet hours не превращают систему в emergency alarm.
+
+### 6.8 Подтверждаемый перенос срока
+
+Перенос — двухфазная mutation, а не немедленная запись нового срока:
+
+1. Пользователь задаёт новый срок и может сказать cadence: «перенеси на пятницу и напоминай подтвердить каждые 20 минут».
+2. Parser возвращает proposal с `proposed_schedule` и `confirm_reminder_every`; если cadence отсутствует, compiler применяет 30 минут.
+3. Бот показывает старый authoritative срок, предлагаемый срок, cadence, expiry и exact confirmation token.
+4. Пока exact confirmation не получено, новый срок имеет статус `pending`; deterministic dispatcher напоминает подтвердить не чаще выбранного cadence с учётом quiet hours/rate caps.
+5. Если прежний срок наступает до confirmation, его due/repeat/catch-up поведение не меняется.
+6. Exact confirmation атомарно активирует новую ScheduleVersion и останавливает cadence. Cancel, supersede, expiry или completion только останавливают cadence; неподтверждённый срок никогда не становится active молча.
+
+Диапазон `confirm_reminder_every`: 5 минут–24 часа; default 30 минут. Initial TTL 24 часа, hard max 7 дней и 50 reminders. Quiet-hours defer не порождает backlog: к 06:00 допускается один bounded reminder/digest, затем cadence продолжается от фактической отправки.
 
 ## 7. Intents и UX
 
@@ -274,6 +315,7 @@ Dispatcher остаётся paused до dry-run/manual decision, если: due >
 - `REMINDER_CREATE`, `REMINDER_EDIT`, `REMINDER_LIST`;
 - `PAUSE`, `RESUME`, `SNOOZE`, `COMPLETE_OCCURRENCE`, `COMPLETE_SERIES`, `CANCEL_OCCURRENCE`, `CANCEL_SERIES`;
 - `SHOW_MISSED`, `CATCH_UP`, `SHOW_DETAILS`;
+- `RESCHEDULE_PROPOSE`, `RESCHEDULE_CONFIRM`, `RESCHEDULE_CANCEL`;
 - `CLARIFY`, `HELP`, `DRAFT_DISCARD`, `CONFIRM`.
 
 Read-only list/show не требует confirmation. Любая model-derived mutation требует confirmation.
@@ -302,6 +344,17 @@ Read-only list/show не требует confirmation. Любая model-derived m
 
 Deterministic exact-handle `done/cancel/snooze` fast-path можно включить позже без LLM, но model-derived и bulk операции остаются подтверждаемыми.
 
+### 7.5 UX переноса
+
+Пример:
+
+1. Пользователь: «Перенеси отчёт на завтра 12:00 и напоминай подтвердить каждые 15 минут».
+2. Бот: «Сейчас действует: сегодня 18:00. Предлагается: завтра 12:00. Пока перенос не подтверждён, старый срок действует. Напоминать подтвердить каждые 15 минут, не позже 24 часов. Для применения: `ПОДТВЕРЖДАЮ R-<token>`».
+3. До confirmation приходят bounded prompts с тем же public handle/token; в `00:00–06:00` они откладываются и coalesce.
+4. После exact confirmation: «Перенос подтверждён: завтра 12:00. Напоминания подтвердить остановлены».
+
+Если пользователь говорит только «перенеси», бот обязан уточнить новый срок. Если новый срок назван, но cadence нет, preview явно показывает default 30 минут. Команды «не переноси»/«отмени перенос» отменяют только pending proposal и не меняют старый authoritative schedule.
+
 ## 8. Contracts
 
 ### 8.1 Model-facing `reminders.parse@2`
@@ -313,7 +366,9 @@ schema_version, intent, title, description,
 schedule(kind + typed fields), end_condition,
 pre_reminders, quiet_policy_request,
 missed_policy_request, repeat_until_done,
-snooze_duration, target_hint, clarification
+snooze_duration, proposed_schedule,
+confirm_reminder_every, reschedule_ttl,
+target_hint, clarification
 ```
 
 Запрещено: `chat_id`, `user_id`, recipient, timezone override, DB UUID, token, nonce, idempotency key, cron/RRULE, SQL, URL, credential/workflow/node ID, HTTP method/headers. Один schema-repair допустим; затем fail-closed static error. Parser не имеет tools и общей conversation memory.
@@ -325,6 +380,8 @@ snooze_duration, target_hint, clarification
 ### 8.3 Server-sealed `reminders.apply@2`
 
 Вызывается только confirmation gateway. Требует trusted actor/chat, plan ID, token hash match, payload hash, expected revision и server-generated idempotency key. Выполняет одну atomic command procedure. Unknown mutation outcome возвращает `MUTATION_OUTCOME_UNCERTAIN`; blind replay запрещён до DB lookup.
+
+Для `RESCHEDULE_CONFIRM` дополнительно fences на current task/occurrence version и active pending-reschedule ID. В одной transaction создаёт новую ScheduleVersion, supersedes будущие old-version deliveries, переводит proposal в `applied` и исключает следующие confirmation reminders. Для stale/expired/superseded proposal возвращает stable conflict без изменения старого schedule.
 
 ### 8.4 Read contracts
 
@@ -357,7 +414,8 @@ Actor/chat-scoped list/get возвращают bounded projection, Moscow times
 - `app.reminder_deliveries`;
 - `app.reminder_delivery_attempts`;
 - `app.reminder_task_events`;
-- `app.reminder_pending_actions`.
+- `app.reminder_pending_actions`;
+- `app.reminder_pending_reschedules`.
 
 Runtime roles не получают direct table DML. Все transitions — narrow `SECURITY DEFINER` functions с fixed `search_path=pg_catalog,app`, ownership checks, typed inputs и sanitized outputs.
 
@@ -365,6 +423,7 @@ Runtime roles не получают direct table DML. Все transitions — nar
 
 - draft: create/get/expire/reject pending action;
 - commands: create/edit/pause/resume/cancel/complete/snooze;
+- reschedule: propose, claim-confirm-prompt, exact confirm, cancel/supersede/expire pending proposal;
 - reads: scoped list/get/missed;
 - scheduler: materialize bounded batch, advance cursor;
 - dispatcher: claim, `pre_send_authorize`, finalize sent/retry/uncertain/dead-letter;
@@ -432,6 +491,8 @@ Manual resolution одного exact item: `mark_received`, `cancel_without_retr
 | Inbound | burst 10/min, 60/hour, 300/day |
 | Outbound | 3/5min, 20/hour, 50/day/chat |
 | Repeat-until-done | 15min minimum, 8 repeats, 24h |
+| Reschedule confirmation cadence | default 30min; 5min–24h |
+| Pending reschedule lifetime | initial 24h; hard max 7d / 50 prompts |
 | Batch create | 10 tasks, atomic + preview |
 | List page | 50 |
 
@@ -510,7 +571,11 @@ Rollback: deactivate new tool/parser/dispatcher edges, stop v2 claims/materializ
 - midnight/month/year boundaries, leap day, 29/30/31, fifth/last weekday;
 - forever/until/count;
 - offsets uniqueness and mandatory due;
-- quiet boundaries 21:59/22:00/07:59/08:00;
+- quiet boundaries 23:59/00:00/05:59/06:00;
+- pending reschedule cadence 5min/default30min/24h, TTL 24h/7d and cap 50;
+- old due remains authoritative before confirmation and fires normally if reached;
+- confirm/cancel/supersede/expiry/completion atomically stop confirmation cadence;
+- quiet-window coalescing creates at most one 06:00 prompt/digest and no backlog storm;
 - repeat caps/acknowledgement;
 - Moscow → UTC correctness and server timezone independence;
 - rolling materialization uniqueness/restart.
@@ -558,6 +623,8 @@ Rollback: deactivate new tool/parser/dispatcher edges, stop v2 claims/materializ
 | Напоминание вовремя | Materializer + due queue + dispatcher | schedule-to-send canary and queue metrics |
 | Нет duplicate mutation | Update/mutation/confirmation idempotency | Replay/concurrent confirmation tests |
 | Не спамить | quiet/digest/caps/repeat/catch-up gates | storm/fault tests |
+| Перенос требует подтверждения | PendingReschedule + version/hash/token binding | Old due remains active; cadence and all terminal stop races PASS |
+| Частоту напоминаний выбирает пользователь | Bounded `confirm_reminder_every` 5m..24h, default 30m | Boundary/default/quiet/TTL/cap tests |
 | Безопасно менять | version/fencing/future-only edit | old claim and race tests |
 | Честно об uncertain | explicit state, no blind retry | timeout/crash fault injection |
 | Агент может управлять | parser → preview → sealed apply | exact graph + dialogue acceptance |
@@ -567,7 +634,7 @@ Rollback: deactivate new tool/parser/dispatcher edges, stop v2 claims/materializ
 
 | Phase | Результат | Gate |
 |---|---|---|
-| D0 | Владелец принимает safe defaults и implementation scope | `DESIGN_APPROVED` |
+| D0 | Владелец принимает safe defaults и implementation scope | `DESIGN_APPROVED` — **PASS 2026-08-29** |
 | D1 | Versioned JSON Schemas, SQL model, state tables, threat model | independent architecture/security review GO |
 | L1 | Local migration/functions/unit/property/concurrency tests | all local gates PASS |
 | L2 | Local n8n inactive import, exact graph, Telegram/DeepSeek mocks | no tools in parser, no LLM in dispatcher |
@@ -577,12 +644,12 @@ Rollback: deactivate new tool/parser/dispatcher edges, stop v2 claims/materializ
 | P3 | Full reminder acceptance + fault/race tests | production verification PASS |
 | KB | Promote verified facts to AS-IS diagrams/history | links/frontmatter/secret checks PASS |
 
-## 18. Proposed defaults awaiting design approval
+## 18. Утверждённые defaults — DESIGN_APPROVED
 
-Следующие defaults безопасно разрешают расхождения дизайнеров и **не являются deployed facts**:
+Следующие defaults приняты владельцем, но **не являются deployed facts** до production verification `PASS`:
 
 1. Все model-derived mutations подтверждаются; exact-handle fast-path позже.
-2. Quiet `22:00–08:00`, defer+digest; overnight only per-task confirmed override.
+2. Quiet `00:00–06:00 Europe/Moscow`, defer+bounded digest; overnight only per-task confirmed override.
 3. Uncertain Telegram outcome не повторяется автоматически.
 4. Snooze occurrence-only; edit future-only.
 5. «Готово» завершает occurrence; series completion — отдельная explicit команда.
@@ -592,8 +659,9 @@ Rollback: deactivate new tool/parser/dispatcher edges, stop v2 claims/materializ
 9. Repeat-until-done: single open occurrence, 15min/8 repeats/24h.
 10. Current allowlisted chat only; no arbitrary cron/RRULE; no LLM in background paths.
 11. Caps и retention из разделов 12–13 configurable, изменение только reviewed policy rollout.
+12. Перенос срока двухфазный: old due authoritative до exact bound confirmation; cadence пользовательский, default 30m, range 5m..24h, initial TTL 24h, hard max 7d/50; cadence атомарно останавливается при confirm/cancel/supersede/expiry/completion.
 
-Эти defaults можно принять одним `DESIGN_APPROVED`; дополнительных блокирующих продуктовых вопросов для начала реализации нет. Любое отклонение оформляется как явное policy decision до кода/rollout.
+Статус решения: `DESIGN_APPROVED / NOT_DEPLOYED`. Дополнительных блокирующих продуктовых вопросов для начала реализации нет. Любое отклонение оформляется как явное policy decision до кода/rollout.
 
 ## Связанные заметки
 
