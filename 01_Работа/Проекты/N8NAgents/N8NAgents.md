@@ -5,7 +5,7 @@ id: "proj-n8nagents-001"
 проект: "N8NAgents"
 владелец: "style"
 создано: "2026-08-25"
-обновлено: "2026-08-27"
+обновлено: "2026-08-29"
 уверенность: "высокая"
 источники:
   - "[[Источник_Мастер_Промпт_N8NAgents]]"
@@ -16,6 +16,7 @@ id: "proj-n8nagents-001"
   - "[[Доказательство_H7_Full_Delivery_Plan_Approval_N8NAgents_20260826]]"
   - "[[Доказательство_R7_K4_Recovery_Stop_N8NAgents_20260826]]"
   - "[[Доказательство_R8_K4R_Offline_v2_Blocked_N8NAgents_20260827]]"
+  - "[[Доказательство_Production_Acceptance_N8NAgents_20260829]]"
 теги: ["n8n", "ai-ассистент", "self-hosted", "vps", "безопасность"]
 ---
 
@@ -38,20 +39,19 @@ id: "proj-n8nagents-001"
 
 ## Текущий статус
 
-SSH discovery завершён с `PASS` после reboot VPS: минимальная проверка и полный read-only discovery завершились clean. K4R-OFFLINE-v2 сейчас **`BLOCKED`** на локальной Linux boundary (`B2R_NETWORK_BOUNDARY`, `RC=45`) до запуска валидатора. H7 остаётся историческим plan-level authority, но для remote execution нет авторизованного exact commit. Локальная foundation имеет `GO-LOCAL`; каждый server/runtime gate требует собственного evidence и независимого `GO`: [[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]], [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]], [[Доказательство_R7_K4_Recovery_Stop_N8NAgents_20260826]], [[Доказательство_R8_K4R_Offline_v2_Blocked_N8NAgents_20260827]].
+Production A/B E2E завершён с `PASS`: текущее фактическое состояние — `S2`, health clean, `1/8` workflow active, одна опубликованная версия active, webhook queue `pending=0` без ошибки, лимит `2/20`. Подтверждены «один update — один execution — один outbound» и continuity памяти в одной сессии: [[Доказательство_Production_Acceptance_N8NAgents_20260829]]. Reconciliation канонического источника истины продолжается; backup и replication заморожены и не входят в этот acceptance.
 
 ## Окружения
 
 - Локальное: SSH-preflight `PASS`; совместимость/локальная реализация в работе.
 - VPS: A2 read-only discovery `PASS`; подтверждены свободные порты и отсутствие целевого стека. RAM ниже предпочтительных 4 GiB, swap отсутствует; firewall/provider firewall и IPv6 policy требуют решения.
-- Production: не начат.
+- Production: основной Telegram/memory E2E принят; состояние `S2`, health и webhook clean.
 
 ## Активные гейты
 
-1. K4R-OFFLINE-v2 `BLOCKED`: владелец должен выбрать Windows Sandbox либо точечно разрешить локальную HTTPS-загрузку hash-pinned Linux/v86 inputs; remote gate до этого не предлагать.
-2. Firewall/provider firewall, IPv6, DNS/provider UI, secrets и owner/2FA сохраняют свои ручные/security gates.
-3. Каждый результат deployment, runtime, backup/restore и hardening требует evidence; approval не равен `PASS`.
-4. Секреты не создаются и не сохраняются в vault, Git или отчетах.
+1. Завершить reconciliation канонического источника истины с фактическим production state; старые blockers сохранять как историю, а не как текущий статус.
+2. Backup/restore и replication остаются замороженными и требуют отдельного scope, evidence и gate.
+3. Секреты не создаются и не сохраняются в vault, Git или отчетах.
 
 ## Известные риски
 
@@ -75,4 +75,5 @@ SSH discovery завершён с `PASS` после reboot VPS: минималь
 - [[Доказательство_H7_Full_Delivery_Plan_Approval_N8NAgents_20260826]]
 - [[Доказательство_R7_K4_Recovery_Stop_N8NAgents_20260826]]
 - [[Доказательство_R8_K4R_Offline_v2_Blocked_N8NAgents_20260827]]
+- [[Доказательство_Production_Acceptance_N8NAgents_20260829]]
 - [[MOC_Все_Проекты]]
