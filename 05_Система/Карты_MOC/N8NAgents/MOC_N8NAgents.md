@@ -10,7 +10,9 @@ id: "moc-n8nagents-001"
 источники:
   - "[[N8NAgents]]"
   - "[[Источник_Мастер_Промпт_N8NAgents]]"
-доказательства: []
+  - "[[CURRENT_STATE_N8NAgents_2026-08-29]]"
+доказательства:
+  - "[[Доказательство_Production_Acceptance_N8NAgents_20260829]]"
 теги: ["MOC", "n8n", "навигация"]
 ---
 
@@ -19,34 +21,41 @@ id: "moc-n8nagents-001"
 ## Проект
 
 - [[N8NAgents]] — цель, стек, статус и активные гейты.
+- [[CURRENT_STATE_N8NAgents_2026-08-29]] — каноническая полная AS-IS сводка production, архитектуры, workflows, operations, incidents, scope и commit matrix.
 
 ## Работа
 
-- [[Доказательство_Production_Acceptance_N8NAgents_20260829]] — production A/B E2E `PASS`; redacted evidence, текущий `S2` и границы acceptance.
-- [[Задача_Развертывание_N8NAgents]] — активная задача: безопасный старт развертывания.
-- [[Журнал_Автономной_Работы_N8NAgents]] — статус этапов, evidence, риски и rollback ночной работы.
-- [[Очередь_Ручных_Действий_N8NAgents]] — действия владельца и внешние блокеры без секретов.
-- [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]] — независимое `GO-LOCAL` для foundation и отдельный `NO-GO` server deployment.
-- [[Доказательство_H7_Full_Delivery_Plan_Approval_N8NAgents_20260826]] — plan-level authority Full Delivery v1; K4 outcome заменён R7 STOP.
-- [[Доказательство_R7_K4_Recovery_Stop_N8NAgents_20260826]] — K4 STOP: retry cap исчерпан; новый recovery cycle ожидает отдельной авторизации.
-- [[Доказательство_R8_K4R_Offline_v2_Blocked_N8NAgents_20260827]] — K4R-OFFLINE-v2 `BLOCKED` до validator start; нужен ручной выбор локального Linux sandbox path.
+- [[Доказательство_Production_Acceptance_N8NAgents_20260829]] — final post-containment production A/B `PASS` без secrets/message content.
+- [[Открытые_Задачи_N8NAgents_2026-08-29]] — актуальный backlog после принятого MVP.
+- [[Задача_Развертывание_N8NAgents]] — историческая задача развертывания; superseded current state.
+- [[Журнал_Автономной_Работы_N8NAgents]] — исторический pre-production execution journal.
+- [[Очередь_Ручных_Действий_N8NAgents]] — историческая очередь pre-production blockers.
 
 ## Источники и промпты
 
 - [[Источник_Мастер_Промпт_N8NAgents]] — происхождение и контрольная сумма исходного мастер-промпта.
 - [[Промпт_N8NAgents_v1_2026-08-25]] — зафиксированная версия операционных ограничений.
+- [[Промпт_Recovery_Handoff_N8NAgents_2026-08-29]] — standalone prompt для нового Codex chat.
 - [[Матрица_Совместимости_N8NAgents_2026-08-26]] — baseline версий, runtime, proxy, node targets и гейтов совместимости.
 
 ## Контекст
 
-- [[Пакет_N8NAgents_Стартовый]] — минимальный пакет для следующего агента.
+- [[Пакет_N8NAgents_Стартовый]] — актуальная точка входа следующего агента.
+- [[Агент_Production_Handoff_N8NAgents]] — роль, стоп-условия и knowledge governance.
+
+## Обязательные AS-IS artifacts
+
+- [[Participants_and_Flows_N8NAgents]] — участники, trust boundaries и data flow.
+- [[Runtime_Flows_N8NAgents]] — production topology, execution и containment flows.
+- [[Change_History_N8NAgents]] — redacted change history и status deployed/source-only.
+
+Обновлять их только по цепочке `change → tests → rollout → production PASS → diagrams/descriptions → link/secret checks → Obsidian acceptance`.
 
 ## Текущее доказательство
 
-- [[Доказательство_Production_Acceptance_N8NAgents_20260829]] — актуальное production evidence: A/B `PASS`, health/webhook clean; source reconciliation остаётся follow-up.
-- [[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]] — исторический A1 session-channel blocker до reboot VPS.
-- [[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]] — A2 read-only discovery `PASS`; server mutations не начаты.
-- [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]] — статическое локальное evidence и незакрытые runtime/deployment гейты.
+- [[Доказательство_Production_Acceptance_N8NAgents_20260829]] — актуальное production evidence: final A/B `PASS`, health/TLS/webhook clean, duplicate loop отсутствует.
+- [[CURRENT_STATE_N8NAgents_2026-08-29]] — commit/runtime hashes и verified current facts.
+- [[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]], [[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]], [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]], [[Доказательство_H7_Full_Delivery_Plan_Approval_N8NAgents_20260826]], [[Доказательство_R7_K4_Recovery_Stop_N8NAgents_20260826]], [[Доказательство_R8_K4R_Offline_v2_Blocked_N8NAgents_20260827]] — историческая цепочка до production acceptance.
 
 ## Проектные разделы
 
