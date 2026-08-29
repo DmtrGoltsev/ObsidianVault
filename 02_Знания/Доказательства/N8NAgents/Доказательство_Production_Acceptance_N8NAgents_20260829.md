@@ -10,6 +10,7 @@ id: "evidence-n8nagents-production-acceptance-20260829"
 источники:
   - "production gate evidence 2026-08-29 (redacted)"
   - "user acceptance confirmation 2026-08-29"
+  - "Git N8NAgents aa087b59f0c8b44ee6ebe93ccbd9f996eca49ce9"
 доказательства: []
 теги: ["n8n", "production", "acceptance", "e2e", "telegram", "memory"]
 ---
@@ -18,16 +19,18 @@ id: "evidence-n8nagents-production-acceptance-20260829"
 
 ## Что доказано
 
-Основной production-сценарий Telegram → n8n → memory → LLM → Telegram прошёл двухшаговую приёмку A/B. Состояние production на момент проверки: `S2`, health clean, один из восьми workflow активен, одна опубликованная версия активна, webhook queue `pending=0` без ошибки, расход лимита `2/20`.
+Основной production-сценарий Telegram → n8n → memory → LLM → Telegram прошёл новую двухшаговую приёмку A/B после containment первого retry incident. Финальное состояние production: exact S2 release `36e149374802263d644cc98e510f6113e1095dae`, mode `public`; Caddy/n8n/PostgreSQL healthy без restart/OOM; один из восьми workflow active и одна published active version; webhook queue `pending=0` без ошибки; running executions отсутствуют; расход лимита `2/20`.
+
+External edge доказан для strict IP TLS с SNI и без SNI. Единственный публичный application listener — `443` (management SSH `:22` остается отдельным), n8n доступен только на loopback `5678`, PostgreSQL host-port отсутствует. Полная redacted AS-IS сводка: [[CURRENT_STATE_N8NAgents_2026-08-29]].
 
 ## Инциденты, причины и исправления
 
 | Этап | Причина | Исправление | Результат |
 |---|---|---|---|
-| TLS | В ACME был указан фиктивный email; запросы без SNI попадали на неподходящий сертификат. | Исправлена ACME-конфигурация и задан `default_sni` для production hostname. | TLS/health clean. |
+| TLS | В ACME был указан фиктивный email; запросы без SNI не получали подходящий сертификат. | Фиктивный contact удален; задан `default_sni` для production IP. | Strict IP TLS с SNI и без SNI `PASS`. |
 | PostgreSQL memory | Runtime-роли не хватало права создания объектов в целевой схеме. | Выдано минимальное право `CREATE` только на схему `memory`; широкие права не выдавались. | Запись memory проходит. |
 | Контракт memory node | Параметры `sessionIdType` и `customKey` не соответствовали контракту узла. | Контракт приведён к `sessionIdType=customKey` с явным ключом сессии. | Одна и та же сессия сохраняется между сообщениями. |
-| Повторные попытки | Автоматические повторы могли умножать execution и outbound. | Retry loops остановлены и ограничены; A/B выполнялись по одному контролируемому входу. | Дубликатов и лишних outbound не обнаружено. |
+| Повторные попытки | Первый live run породил до 7 concurrent/running executions и memory errors. | Workflow/webhook contained; DB и node contract исправлены; новая A/B выполнялась по одному контролируемому входу. | Исторический incident закрыт; текущих running executions, duplicate loop и лишних outbound нет. |
 
 ## Redacted evidence
 
@@ -51,6 +54,14 @@ id: "evidence-n8nagents-production-acceptance-20260829"
 - Update/execution/outbound соответствуют модели «один вход — одно выполнение — один ответ».
 - Memory continuity подтверждена отдельным вторым сообщением и пользовательской проверкой результата.
 - Token, chat id, содержимое сообщений, контрольное значение и прочие секреты/персональные данные в evidence отсутствуют.
+- Success execution persistence настроена `none`; отсутствие сохраненной успешной строки после проверки ожидаемо и не отменяет bounded gate evidence.
+
+## Source и runtime reconciliation
+
+- Deployed immutable release остается `36e149374802263d644cc98e510f6113e1095dae`.
+- Effective Caddy no-contact/default-SNI runtime override хранится отдельно от release manifest и связан exact hashes в [[CURRENT_STATE_N8NAgents_2026-08-29]].
+- Production memory/grant correction reconciled в local source commit `aa087b59f0c8b44ee6ebe93ccbd9f996eca49ce9`; этот commit не объявляется уже развернутым release.
+- Первичная Obsidian acceptance зафиксирована commit `b037cd23690b35ded8e2a0c5c9e2473a53f4fbba`; эта заметка уточнена final post-containment state в successor handoff branch.
 
 ## Rollback
 
@@ -61,10 +72,15 @@ id: "evidence-n8nagents-production-acceptance-20260829"
 - Reconciliation канонического источника истины продолжается и не входит в этот acceptance; до завершения не считать старые статусные заметки эквивалентными фактическому production state.
 - Backup и replication заморожены и не входят в эту приёмку; restore/replication gate здесь не заявлен и не закрыт.
 - Detailed execution `17` pruned; его идентификатор имеет уровень inferred, остальные перечисленные метрики подтверждены прямым gate evidence.
+- Memory continuity доказана только для одной trusted session. Persistence после controlled restart и изоляция двух session keys в этом gate не тестировались и остаются follow-up.
 
 ## Связанные заметки
 
 - [[N8NAgents]]
 - [[MOC_N8NAgents]]
 - [[Пакет_N8NAgents_Стартовый]]
+- [[CURRENT_STATE_N8NAgents_2026-08-29]]
+- [[Participants_and_Flows_N8NAgents]]
+- [[Runtime_Flows_N8NAgents]]
+- [[Change_History_N8NAgents]]
 
