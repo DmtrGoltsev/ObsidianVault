@@ -35,6 +35,8 @@ id: "prompt-n8nagents-recovery-handoff-20260829"
 
 Final functional source GO/import base: `09824a6e16e479d2283ddbd4fb5125a50bda5113`, tree `5eb0df96c8ab908ba45cdd18c8286ce683528135`. Machine-only source hygiene successor: `d163606a532529ab18cc6064a69d1fc7305b27cf`, tree `3cab9ff5d5a6f2e1bf656766dcde9bdb8918463a`, parent `09824a6e...`; `SOURCE_HYGIENE_STATUS=PASS`, 63 tracked machine files, tracked `README/.md/.txt=0`. Исторический reconciliation predecessor: `aa087b59f0c8b44ee6ebe93ccbd9f996eca49ce9`. Ни один source commit не является текущим immutable production release.
 
+Source repository не имеет настроенного `origin`. `d163606a...` — локальный exact commit, **не upstream-published**. Не заявляй source push/publication без нового фактического remote evidence. Vault имеет отдельный `origin` и публикационный статус, который нельзя переносить на source repository.
+
 Вся human/agent-readable документация N8NAgents канонична только в Obsidian vault. Source repository используется как источник machine-consumed code/config/tests/contracts; Markdown в source, если еще существует, — только historical provenance и не второй канон.
 
 Obsidian production acceptance commit: `b037cd23690b35ded8e2a0c5c9e2473a53f4fbba` на `origin/agent/codex/n8nagents-prod-acceptance`. Текущий handoff является его successor на отдельной ветке.
@@ -95,7 +97,7 @@ Source successor `d163606a...` проверяй только как machine-cons
 ### 7. Первые verification steps
 
 1. Выполни `git status`, `git branch --show-current`, `git log -1` отдельно в code repo и vault; не трогай чужие dirty/untracked files. При необходимости создай отдельный worktree.
-2. Подтверди source hygiene successor `d163606a...`/tree `3cab9ff5...`, его parent/import base `09824a6e...`/tree `5eb0df96...`, historical `aa087b59...`, а также Obsidian acceptance `b037cd236...`; не предполагай remote/push state без свежей проверки.
+2. Подтверди локальный source hygiene successor `d163606a...`/tree `3cab9ff5...`, его parent/import base `09824a6e...`/tree `5eb0df96...`, historical `aa087b59...`, отсутствие source `origin`, а также Obsidian acceptance `b037cd236...`; не называй source commit upstream-published.
 3. Проверь frontmatter и wikilinks CURRENT_STATE, четырех mandatory architecture artifacts, task/agent/prompt notes и отсутствие secret-like material.
 4. Сопоставь матрицу Git ↔ Obsidian ↔ production: deployed `36e149...`, import/final functional source `09824a6e...`, machine-only successor `d163606a...`/tree `3cab9ff5...`, acceptance `b037cd236...`, текущий vault commit.
 5. Если пользователь просит production work, сначала planner должен определить read-only gate, rollback и stop conditions. Первый server check — только current release/mode, container health/restart/OOM, listeners, redacted workflow counts и webhook status. Не выводить environments/log payloads.

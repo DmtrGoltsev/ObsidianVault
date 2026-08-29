@@ -46,7 +46,7 @@ Production MVP принят после containment первого retry incident
 
 ## Окружения
 
-- Code workspace: local repository `C:\Users\style\Documents\ChatGPT\Агенты`, project `N8NAgents`; machine-only source hygiene successor `d163606a532529ab18cc6064a69d1fc7305b27cf`, tree `3cab9ff5d5a6f2e1bf656766dcde9bdb8918463a`, parent/import base `09824a6e...`. Human/agent-readable документация канонична только в Obsidian; source содержит 63 tracked machine files и zero tracked `README/.md/.txt`.
+- Code workspace: local repository `C:\Users\style\Documents\ChatGPT\Агенты`, project `N8NAgents`; machine-only source hygiene successor `d163606a532529ab18cc6064a69d1fc7305b27cf`, tree `3cab9ff5d5a6f2e1bf656766dcde9bdb8918463a`, parent/import base `09824a6e...`. Source repository не имеет `origin`; successor локален и не upstream-published. Human/agent-readable документация канонична только в Obsidian; source содержит 63 tracked machine files и zero tracked `README/.md/.txt`.
 - Obsidian: production acceptance predecessor `b037cd23690b35ded8e2a0c5c9e2473a53f4fbba`; текущая AS-IS документация ведется в отдельной handoff branch.
 - Production: основной Telegram/memory E2E принят; current S2 и runtime override hashes приведены в [[CURRENT_STATE_N8NAgents_2026-08-29]].
 

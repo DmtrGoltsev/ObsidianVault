@@ -13,8 +13,13 @@ id: "task-n8nagents-historical-phase-a-manifest"
 source_path: "docs/deploy-rollback-manifest.md"
 source_base: "09824a6e16e479d2283ddbd4fb5125a50bda5113"
 source_tree: "5eb0df96c8ab908ba45cdd18c8286ce683528135"
+source_repository_publication: "LOCAL_ONLY — source repository has no origin; source_base and successor are not upstream-published"
 source_snapshot: "working tree at import; includes 24 added lines beyond source_base"
 source_file_sha256: "e8a484571ec3b9c7700935b601929719081a2c82f52643c3bb44b734d7a4126b"
+source_hash_semantics: "SHA-256 of exact raw source bytes: UTF-8 without BOM, LF line endings, one terminal LF"
+transform_manifest_version: "n8nagents-source-import-v1"
+transformed_payload_sha256: "a6f311c294c635b681cf0daa54ecef5ff39a87603a5fa62bc22cdfd706230b8d"
+transformed_payload_semantics: "SHA-256 of UTF-8/LF bytes between SOURCE_PAYLOAD markers, excluding marker-adjacent LF delimiters"
 imported_date: "2026-08-29"
 source_status: "plan-only Phase A manifest; not current production procedure"
 проверка_редакции: "PASS — secret/PII values absent; identifiers are placeholders or redacted source facts"
@@ -26,6 +31,7 @@ source_status: "plan-only Phase A manifest; not current production procedure"
 > Полный human-readable source document перенесён в canonical Obsidian vault. Source path указан только как provenance и может быть удалён из repository. Current verified runtime state: [[CURRENT_STATE_N8NAgents_2026-08-29]].
 >
 
+<!-- SOURCE_PAYLOAD_BEGIN n8nagents-source-import-v1 -->
 # Phase A internal foundation deployment and rollback manifest
 
 Status: **plan only; not executed**. A2 discovery is `PASS`; facts are in [[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826|server-discovery.md]]. Phase A ends with PostgreSQL+n8n healthy, no workflows/credentials/traffic, Caddy off, and n8n reachable only through `127.0.0.1:5678` plus an SSH tunnel. It is not production success.
@@ -695,3 +701,13 @@ Retain `/swapfile` and the immutable state directory until separate deletion app
 ## Later public-edge prerequisites
 
 The `public-edge` profile remains off until domains/DNS, ACME email, provider IPv4+IPv6 firewall policy, owner+2FA, Caddy digest/validation, exact webhook trust tests, workflow import/spikes and backup/restore gates pass. That is a separate GO and is outside Phase A.
+<!-- SOURCE_PAYLOAD_END n8nagents-source-import-v1 -->
+
+## Transform-aware provenance manifest
+
+- Source snapshot: `docs/deploy-rollback-manifest.md`, uncommitted working-tree state imported against base `09824a6e...`.
+- Raw source hash: `e8a484571ec3b9c7700935b601929719081a2c82f52643c3bb44b734d7a4126b`; semantics are the exact UTF-8 bytes without BOM, LF line endings, with exactly one terminal LF.
+- Embedded transformed payload hash: `a6f311c294c635b681cf0daa54ecef5ff39a87603a5fa62bc22cdfd706230b8d`; extract bytes after the LF ending `SOURCE_PAYLOAD_BEGIN` through the byte before the LF preceding `SOURCE_PAYLOAD_END`.
+- Forward transform contains exactly one content substitution and no redaction: `[server-discovery.md](server-discovery.md)` → `[[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826|server-discovery.md]]`. Frontmatter, canonical-placement callout, payload markers and this manifest are wrappers outside the payload.
+- Independent raw reconstruction: extract the transformed payload by the rule above; replace that exact wikilink with `[server-discovery.md](server-discovery.md)`; append exactly one LF; hash the resulting UTF-8 bytes. Expected SHA-256 is the raw source hash above.
+- Redaction result: none required; secret/PII scan `PASS`. No absolute local source path is stored.

@@ -10,7 +10,7 @@ id: "schema-n8nagents-as-is-api-tools-20260829"
 источники:
   - "Git N8NAgents docs/as-is-and-api-tools.md @ 09824a6e16e479d2283ddbd4fb5125a50bda5113; tree 5eb0df96c8ab908ba45cdd18c8286ce683528135"
   - "historical source commit a6869561338427b79bc27b0019a6ea48d13165ef"
-  - "Git N8NAgents source-hygiene successor d163606a532529ab18cc6064a69d1fc7305b27cf; tree 3cab9ff5d5a6f2e1bf656766dcde9bdb8918463a"
+  - "Local Git N8NAgents source-hygiene successor d163606a532529ab18cc6064a69d1fc7305b27cf; tree 3cab9ff5d5a6f2e1bf656766dcde9bdb8918463a; source origin absent; not upstream-published"
   - "[[CURRENT_STATE_N8NAgents_2026-08-29]]"
 доказательства:
   - "[[Доказательство_Production_Acceptance_N8NAgents_20260829]]"
@@ -21,7 +21,7 @@ id: "schema-n8nagents-as-is-api-tools-20260829"
 
 Последняя production verification: **2026-08-29, PASS**. Документ не содержит secret values, credential IDs, Telegram identifiers, public address или message bodies. Runtime-факты приведены redacted; repository-only и planned утверждения помечены отдельно.
 
-Эта заметка в canonical Obsidian vault — единственный human/agent-readable канонический архитектурный документ. Путь в source repository ниже служит только provenance адаптации; source hygiene successor `d163606a...` уже удалил tracked human-readable docs и оставил machine-consumed code/config/tests/contracts.
+Эта заметка в canonical Obsidian vault — единственный human/agent-readable канонический архитектурный документ. Путь в source repository ниже служит только provenance адаптации; локальный source hygiene successor `d163606a...` уже удалил tracked human-readable docs и оставил machine-consumed code/config/tests/contracts. Source repository не имеет `origin`, поэтому successor не upstream-published.
 
 Источник адаптации: `N8NAgents/docs/as-is-and-api-tools.md`, исторический commit `a6869561338427b79bc27b0019a6ea48d13165ef`, финальный source GO `09824a6e16e479d2283ddbd4fb5125a50bda5113`, tree `5eb0df96c8ab908ba45cdd18c8286ce683528135`.
 
