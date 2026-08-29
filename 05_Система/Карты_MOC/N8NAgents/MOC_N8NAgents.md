@@ -5,7 +5,7 @@ id: "moc-n8nagents-001"
 проект: "N8NAgents"
 владелец: "style"
 создано: "2026-08-25"
-обновлено: "2026-08-27"
+обновлено: "2026-08-29"
 уверенность: "высокая"
 источники:
   - "[[N8NAgents]]"
@@ -22,6 +22,7 @@ id: "moc-n8nagents-001"
 
 ## Работа
 
+- [[Доказательство_Production_Acceptance_N8NAgents_20260829]] — production A/B E2E `PASS`; redacted evidence, текущий `S2` и границы acceptance.
 - [[Задача_Развертывание_N8NAgents]] — активная задача: безопасный старт развертывания.
 - [[Журнал_Автономной_Работы_N8NAgents]] — статус этапов, evidence, риски и rollback ночной работы.
 - [[Очередь_Ручных_Действий_N8NAgents]] — действия владельца и внешние блокеры без секретов.
@@ -42,6 +43,7 @@ id: "moc-n8nagents-001"
 
 ## Текущее доказательство
 
+- [[Доказательство_Production_Acceptance_N8NAgents_20260829]] — актуальное production evidence: A/B `PASS`, health/webhook clean; source reconciliation остаётся follow-up.
 - [[Доказательство_A1_SSH_Сеансный_Канал_N8NAgents]] — исторический A1 session-channel blocker до reboot VPS.
 - [[Доказательство_A2_ReadOnly_Discovery_N8NAgents_20260826]] — A2 read-only discovery `PASS`; server mutations не начаты.
 - [[Доказательство_E1_Local_Foundation_Review_N8NAgents_20260826]] — статическое локальное evidence и незакрытые runtime/deployment гейты.
