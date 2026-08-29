@@ -1,11 +1,11 @@
 ---
 id: "manualqueue-n8nagents-20260826"
 тип: "задача"
-статус: "заблокировано"
+статус: "заменено"
 проект: "N8NAgents"
 владелец: "style"
 создано: "2026-08-26"
-обновлено: "2026-08-27"
+обновлено: "2026-08-29"
 уверенность: "высокая"
 источники:
   - "[[Источник_Мастер_Промпт_N8NAgents]]"
@@ -26,6 +26,8 @@ id: "manualqueue-n8nagents-20260826"
 ---
 
 # Очередь ручных действий N8NAgents
+
+> Историческая pre-production очередь. Многие пункты ниже уже superseded фактическим rollout/acceptance и не должны исполняться как current backlog. Актуальная очередь: [[Открытые_Задачи_N8NAgents_2026-08-29]]; verified state: [[CURRENT_STATE_N8NAgents_2026-08-29]].
 
 Записывать здесь только non-secret решения, статусы и подтверждения. Не помещать токены, API keys, passwords, private keys, encryption keys, chat IDs или другие персональные identifiers.
 

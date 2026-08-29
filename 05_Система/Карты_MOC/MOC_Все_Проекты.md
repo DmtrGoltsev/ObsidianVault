@@ -5,7 +5,7 @@ id: "moc-all-projects"
 проект: ""
 владелец: "rocketflow-team"
 создано: "2026-06-01"
-обновлено: "2026-08-25"
+обновлено: "2026-08-29"
 уверенность: "высокая"
 источники: ["README.md"]
 доказательства: []
@@ -39,7 +39,7 @@ id: "moc-all-projects"
 ### [[N8NAgents]]
 - **Тип:** self-hosted персональный AI-помощник
 - **Стек:** n8n Community Edition + Docker Compose + Caddy + PostgreSQL + Telegram + DeepSeek
-- **Стадия:** Инициализация; разрешён только local SSH-preflight
+- **Стадия:** Production MVP accepted; S2 public IP-TLS, 1/8 workflow active; актуальный AS-IS — [[CURRENT_STATE_N8NAgents_2026-08-29]]
 - **Под-MOC:** [[MOC_N8NAgents]]
 
 ### Новые проекты
