@@ -17,6 +17,13 @@ source_path: "local/evidence/20260829T064145Z-mvp-direct-backup-restore.receipt.
 source_repository_head_at_import: "dd9e10a9b9b51e33761971e517a61a6bd9fa899c"
 source_repository_status: "LOCAL_ONLY / NO_ORIGIN / NOT_DEPLOYED"
 source_tracking_status: "ignored local evidence; bytes are not part of the commit tree"
+source_original_status: "deleted_after_verified_transfer"
+source_original_git_recoverability: "not recoverable from Git because the source file was ignored"
+canonical_payload_status: "redacted Markdown payload is canonical"
+raw_sha_status: "provenance identifier only; raw bytes are not retained in Vault"
+source_cleanup_verification_date: "2026-08-29"
+source_cleanup_text_audit: "recursive README/.md/.txt/.tsv = 0"
+source_cleanup_preserved_evidence: ".gitkeep, runtime-marker.sha256, two binary dumps"
 source_file_sha256: "72ec3a639832d1b37a8bbe848a0ae2039fc1fe676a698d48a418ff1cde0ac949"
 source_hash_semantics: "SHA-256 of exact 3729 raw source bytes; UTF-8 without BOM; 71 LF-terminated logical lines"
 redaction_manifest_version: "n8nagents-evidence-redaction-v1"
@@ -29,11 +36,14 @@ redacted_payload_hash_semantics: "SHA-256 of UTF-8 bytes of LF-normalized fenced
 
 Безопасная field-complete копия receipt о verified backup и isolated restore. Несекретные поля, statuses, counts, versions and hashes сохранены; absolute paths, host IP and credential values исключены.
 
+Исходный ignored receipt удалён только после проверенного переноса и не восстанавливается из Git. Каноном является redacted Markdown payload ниже; raw receipt и raw secrets в Vault не сохраняются. Raw SHA-256 остаётся только provenance identifier точных pre-redaction bytes.
+
 ## Provenance и hash semantics
 
 - source_file_sha256 — exact raw TSV bytes до преобразований.
 - redacted_payload_sha256 — LF-normalized безопасный TSV payload.
 - source repository HEAD — только context; ignored receipt не входит в tree.
+- Post-transfer deletion verification: оба raw evidence originals отсутствуют; recursive source text audit по README/.md/.txt/.tsv равен 0. Сохранены .gitkeep, runtime-marker.sha256 и два binary dumps.
 - Redaction односторонняя; удалённые values не восстанавливаются.
 
 ## Redaction manifest v1
