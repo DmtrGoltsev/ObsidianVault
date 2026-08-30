@@ -5,66 +5,56 @@ id: "schema-n8nagents-participants-flows-20260829"
 проект: "N8NAgents"
 владелец: "style"
 создано: "2026-08-29"
-обновлено: "2026-08-29"
+обновлено: "2026-08-30"
 уверенность: "высокая"
-источники:
-  - "[[CURRENT_STATE_N8NAgents_2026-08-29]]"
-  - "Git N8NAgents aa087b59f0c8b44ee6ebe93ccbd9f996eca49ce9: N8NAgents/docs/architecture.md"
-доказательства:
-  - "[[Доказательство_Production_Acceptance_N8NAgents_20260829]]"
-теги: ["n8n", "схема", "participants", "flows", "as-is"]
+источники: ["[[CURRENT_STATE_N8NAgents_2026-08-29]]"]
+доказательства: ["[[Доказательство_Production_Acceptance_N8NAgents_20260829]]"]
+теги: ["n8n", "схема", "участники", "потоки", "фактическое-состояние"]
 ---
 
-# Participants and Flows — N8NAgents AS-IS
+# Участники и потоки N8NAgents
 
-Схема отражает только production state, прошедший проверку 2026-08-29. Планируемые tools/reminders не показаны как активные.
+Документ отражает последнее подтверждённое состояние рабочего сервера. OpenClaw будет добавлен в фактическую схему только после успешной проверки его установки.
 
-## Участники и доверие
+## Участники
 
-| Участник | Роль | Доверенные данные | Запрещено делегировать модели |
-|---|---|---|---|
-| Владелец | Единственный разрешенный пользователь MVP | Allowlisted identity и исходный reply destination, хранящиеся только в runtime | Выбор нового recipient, credentials, admin actions |
-| Telegram Bot API | Доставка update и outbound | Update проходит server-side secret header и numeric allowlist | Считать payload доверенным до gate |
-| Caddy | Public TLS edge | Exact IP certificate, exact POST path, source/body/header gates | Editor exposure, произвольные routes, upstream admin |
-| n8n main workflow | Детерминированная orchestration | Normalized trusted context и session key | Arbitrary SQL/HTTP/shell/filesystem/workflow selection |
-| DeepSeek | Формирование ответа | Только bounded prompt/context после authorization | Recipient, credential, URL, SQL, admin или trusted identity |
-| PostgreSQL | Metadata и memory persistence | Разделенные roles/schemas; memory runtime `CREATE` только в `memory` | Public host access, broad DDL, superuser |
-| Production operator | Rollout, health, containment | Redacted facts и exact artifacts/hashes | Secret output, destructive cleanup без approval |
-| Knowledge owner | Git/Obsidian reconciliation | Только verified AS-IS и redacted evidence | Повышать plan до production fact без PASS |
+| Участник | За что отвечает | Чего ему делать нельзя |
+|---|---|---|
+| Владелец | Единственный разрешённый пользователь MVP | Передавать секреты в сообщения и давать доступ неизвестным получателям |
+| Telegram Bot API | Получает и доставляет сообщения бота | Считаться доверенным источником до проверки отправителя |
+| Caddy | Принимает защищённые соединения из интернета и пропускает только разрешённые адреса | Публиковать редактор n8n и внутренние служебные адреса |
+| n8n | Выполняет строгие сценарии, проверяет правила, защищает операции от повторов и ведёт журнал | Давать модели произвольный доступ к SQL, сети, файлам или командной строке |
+| DeepSeek | Понимает текст и формирует ответ | Выбирать получателя, учётные данные, адрес запроса или права доступа |
+| PostgreSQL | Хранит состояние приложения, задачи, историю и служебные данные | Принимать соединения напрямую из интернета |
+| Оператор | Развёртывает изменения и проверяет работу системы | Выводить секреты или выполнять необратимые действия без отдельного разрешения |
+| Obsidian | Хранит понятную человеку и агентам документацию | Хранить токены, пароли и расшифрованные учётные данные |
 
-## Поток данных
+## Подтверждённый поток сообщений до внедрения OpenClaw
 
 ```mermaid
 flowchart LR
-    Owner[Allowlisted owner] -->|Telegram text| Telegram[Telegram Bot API]
-    Telegram -->|HTTPS POST + secret header| Caddy[Caddy public edge :443]
-    Caddy -->|Exact route only| Main[n8n 01_telegram_assistant]
-    Main --> Gate[Normalize + authorize + deduplicate]
-    Gate --> Memory[Postgres trusted session memory]
-    Gate --> LLM[DeepSeek approved model]
-    Memory --> LLM
-    LLM --> Reply[Bounded reply]
-    Reply -->|Original trusted destination only| Telegram
-    Telegram --> Owner
-    Main --> Meta[(n8n metadata DB)]
+    U[Владелец] -->|сообщение| T[Telegram]
+    T -->|защищённый запрос| C[Caddy]
+    C -->|только разрешённый адрес| N[n8n]
+    N --> V[Проверка отправителя и повтора]
+    V --> P[(PostgreSQL)]
+    V --> D[DeepSeek]
+    P --> D
+    D --> N
+    N -->|ответ только исходному владельцу| T
+    T --> U
 ```
 
-## Контрольные границы
+## Границы доверия
 
-1. До Caddy все внешние данные недоверенные.
-2. Missing/wrong secret, неверный method/path и неразрешенный source должны завершиться до n8n execution.
-3. Identity, session key и reply destination формируются детерминированно до LLM.
-4. LLM не выбирает recipient, credential, workflow ID, URL, SQL или admin action.
-5. PostgreSQL не публикует host-port; n8n публикуется только loopback.
-6. Success payload persistence отключена; evidence использует bounded counts и state transitions, не message content.
+1. Внешнее сообщение считается недоверенным, пока система не проверила секрет входящего запроса и отправителя.
+2. Личность пользователя, адрес ответа и ключ истории формируются программой, а не языковой моделью.
+3. DeepSeek получает только ограниченный контекст после проверки пользователя.
+4. PostgreSQL и редактор n8n не публикуются в интернет.
+5. Успешные выполнения не сохраняют полное содержимое сообщений в технических журналах.
 
-## Правило поддержки
+## Правило обновления
 
-Обновлять эту AS-IS схему только после `production verification PASS`. Любой future-state держать в отдельной заметке. Последовательность: `change → tests → rollout → prod PASS → схема → link/secret checks → Obsidian acceptance`.
+Менять эту схему можно только после успешной проверки нового состояния на рабочем сервере. Планируемые связи описываются отдельно и не выдаются за действующие.
 
-## Связанные заметки
-
-- [[CURRENT_STATE_N8NAgents_2026-08-29]]
-- [[Runtime_Flows_N8NAgents]]
-- [[Change_History_N8NAgents]]
-- [[Агент_Production_Handoff_N8NAgents]]
+Связанные документы: [[Runtime_Flows_N8NAgents]], [[Change_History_N8NAgents]], [[Архитектура_AS_IS_и_API_Tools_N8NAgents]].
