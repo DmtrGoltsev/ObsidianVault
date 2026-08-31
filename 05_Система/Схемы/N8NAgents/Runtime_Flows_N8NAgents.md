@@ -97,7 +97,33 @@ sequenceDiagram
 | Материализация напоминаний | `SchedMatFresh001` | `2347cf7a-5880-496e-a4c1-3243d641d47c` | `/internal/schedulers/fresh/materializer/v1` | `n8nagents-scheduler@materializer.timer` |
 | Подтверждения и служебная доставка | `SchedConfFresh01` | `d0634147-5bf7-49c8-84cc-cd6c910b64f7` | `/internal/schedulers/fresh/confirmation/v1` | `n8nagents-scheduler@confirmation.timer` |
 
-Оба таймера активны. Контрольное уведомление доставлено ровно один раз (`message_id=56`), а две существующие пользовательские задачи остались без изменений.
+Оба таймера активны. Ранняя контрольная отправка доставлена ровно один раз (`message_id=56`), а две существующие пользовательские задачи остались без изменений.
+
+## Реальный E2E с подтверждением
+
+```mermaid
+sequenceDiagram
+    participant U as Владелец
+    participant O as OpenClaw 0.1.3
+    participant A as Action API n8n
+    participant P as PostgreSQL
+    participant S as Свежий планировщик
+    participant T as Telegram
+    U->>O: Команда создать напоминание
+    O->>A: reminder_create
+    A->>P: Ожидающее предложение
+    O->>T: Кнопки «Подтвердить» и «Отменить»
+    U->>T: Нажатие «Подтвердить»
+    T->>O: callback_query
+    O->>A: reminder_confirm
+    A->>P: Однократное применение
+    O->>T: Удалить клавиатуру и показать итог
+    S->>P: Получить одну готовую доставку
+    S->>T: Отправка attempt 1
+    S->>P: TELEGRAM_SENT
+```
+
+Фактический результат: предложение `7644fe60…` применено один раз к задаче `121347b3…`; создано по одному событию и доставке; Telegram `message_id=62`, попытка `1`, итог `TELEGRAM_SENT` в 13:17 по Москве. Все проверенные счётчики дубликатов равны нулю, а кратность операции и отправки — единице.
 
 ## Сбой и остановка
 
