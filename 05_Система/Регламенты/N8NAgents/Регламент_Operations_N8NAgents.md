@@ -1,47 +1,80 @@
 ---
 id: "regulation-n8nagents-operations"
 тип: "регламент"
-статус: "историческое"
+статус: "активно"
 проект: "N8NAgents"
 владелец: "style"
 создано: "2026-08-29"
-обновлено: "2026-08-29"
+обновлено: "2026-08-31"
 уверенность: "высокая"
-источники:
-  - "Git N8NAgents docs/runbook-operations.md @ 09824a6e16e479d2283ddbd4fb5125a50bda5113; tree 5eb0df96c8ab908ba45cdd18c8286ce683528135"
-доказательства: []
-source_path: "docs/runbook-operations.md"
-source_base: "09824a6e16e479d2283ddbd4fb5125a50bda5113"
-source_tree: "5eb0df96c8ab908ba45cdd18c8286ce683528135"
-imported_date: "2026-08-29"
-source_status: "source operations runbook snapshot; CURRENT_STATE wins for runtime facts"
-проверка_редакции: "PASS — secret/PII values absent; identifiers are placeholders or redacted source facts"
-каноничность: "canonical vault location for this imported human-readable source document; CURRENT_STATE and the full architecture note win for runtime facts"
-теги: ["n8n", "source-import", "obsidian-only-docs"]
+источники: ["[[CURRENT_STATE_N8NAgents_2026-08-29]]", "[[Runtime_Flows_N8NAgents]]"]
+доказательства: ["[[Доказательство_OpenClaw_n8n_Production_PASS_20260831]]"]
+теги: ["n8n", "openclaw", "эксплуатация", "production", "obsidian-only-docs"]
 ---
 
-> [!important] Canonical placement and source status
-> Полный human-readable source document перенесён в canonical Obsidian vault. Source path указан только как provenance и может быть удалён из repository. Current verified runtime state: [[CURRENT_STATE_N8NAgents_2026-08-29]].
->
+# Регламент эксплуатации N8NAgents
 
-# Operations runbook
+## Нормальное состояние
 
-## Daily checks
+- OpenClaw — единственный получатель обновлений Telegram через долгий опрос.
+- n8n принимает от OpenClaw только HMAC-подписанные команды на `/internal/actions/v1`.
+- Два systemd-таймера вызывают отдельные внутренние сценарии планировщика.
+- PostgreSQL хранит задачи, напоминания, подтверждения и аудит.
+- Caddy возвращает `404` для всех внутренних путей Action API и планировщиков.
+- Прежний основной Telegram workflow и старые планировщики неактивны.
 
-Use redacted commands: Compose service/health state, filesystem/volume capacity, certificate renewal status, PostgreSQL readiness, failed/dead-letter update/reminder counts and backup upload/checksum outcome. Avoid dumping environment, raw executions, message text or provider responses.
+## Ежедневная проверка
 
-Both successful and failed execution payload persistence are configured `none`. Before activation, prove with success, validation failure, provider timeout and malformed-provider fixtures that stored execution records/logs contain no headers, bodies, prompts, tool arguments, provider bodies or tokens. Alerts carry only UTC time, service/workflow identifier, stable error code, bounded counts and correlation ID; external alert delivery remains manually gated.
+1. Проверить, что OpenClaw, n8n, PostgreSQL и Caddy работают без циклических перезапусков и нехватки памяти.
+2. Проверить активность `n8nagents-scheduler@materializer.timer` и `n8nagents-scheduler@confirmation.timer`, время последнего и следующего запуска.
+3. Проверить последние результаты `n8nagents-scheduler@materializer.service` и `n8nagents-scheduler@confirmation.service` без вывода содержимого сообщений и секретов.
+4. Проверить ограниченные счётчики ожидающих, повторяемых и окончательно ошибочных заданий.
+5. Убедиться, что публичные `/internal/actions/v1`, `/internal/schedulers/fresh/materializer/v1` и `/internal/schedulers/fresh/confirmation/v1` отвечают `404`.
+6. Проверить свободное место и готовность PostgreSQL.
 
-For an incident, first stop new ingress by stopping only Caddy if needed; preserve n8n/PostgreSQL state. Capture UTC time, service states, stable error codes, counts and correlation IDs. Do not collect tokens, headers, prompt bodies, credentials or complete environment. Restore service in dependency order PostgreSQL → n8n → Caddy.
+Не выводить полное окружение, токены, заголовки, тела запросов, содержимое сообщений, идентификаторы владельца или ответы провайдера.
 
-## Telegram webhook
+## Точные рабочие объекты
 
-Register only production HTTPS exact path, a separately generated `secret_token`, and `allowed_updates=["message"]`. The production bot token is entered in n8n Credentials/UI and must not be shared with test. Negative-test missing/wrong header and unknown user/chat before activation. Rotating a bot token or webhook secret is a coordinated downtime event: stop Caddy, update server-side credential/header secret, set webhook, negative/positive test, resume.
+| Назначение | Объект |
+|---|---|
+| Плагин OpenClaw | `n8nagents-actions` `0.1.2` |
+| Action API | workflow `ActionAPI0000001`, версия `83bd9d8b-278c-4dd1-ad7a-3e7cac9edb69` |
+| Материализатор | workflow `SchedMatFresh001`, версия `2347cf7a-5880-496e-a4c1-3243d641d47c` |
+| Подтверждения | workflow `SchedConfFresh01`, версия `d0634147-5bf7-49c8-84cc-cd6c910b64f7` |
+| Шаблон службы | `/etc/systemd/system/n8nagents-scheduler@.service` |
+| Шаблон таймера | `/etc/systemd/system/n8nagents-scheduler@.timer` |
 
-## DeepSeek
+## Реакция на сбои
 
-No model is activated until compatibility spike PASS. Record model name and thinking setting without API key. On timeout/malformed/tool-call regression, disable the main workflow or route to a safe static error; do not expose a generic HTTP tool or invent a model alias.
+### OpenClaw не отвечает
 
-## Database maintenance
+1. Убедиться, что проблема не в Telegram или DeepSeek.
+2. Проверить состояние и последние обезличенные ошибки OpenClaw.
+3. Перезапустить только OpenClaw и проверить сохранение памяти.
+4. Если требуется откат входа Telegram, сначала остановить OpenClaw. Второй получатель обновлений одновременно запрещён.
 
-Migrations run only through reviewed files with a pre-migration encrypted backup and rollback/restore plan. Runtime credentials do not receive DDL. Memory retention is a separate approved cleanup operation; context window length is not retention. Vacuum/analyze and storage monitoring use database administration outside LLM reach.
+### Action API не выполняет действие
+
+1. Не обходить API прямой записью в PostgreSQL.
+2. Проверить стабильный код ошибки, подпись, время запроса, схему и ключ идемпотентности без раскрытия значений секретов.
+3. Остановить только проблемный инструмент или вход Action API, сохранив данные.
+
+### Планировщик не отправляет или дублирует
+
+1. Отключить только соответствующий таймер.
+2. Сохранить PostgreSQL и состояние очереди.
+3. Проверить атомарное получение задания и запись результата.
+4. После исправления выполнить одну ограниченную контрольную отправку и убедиться, что она доставлена ровно один раз.
+
+## Восстановление служб
+
+Зависимости поднимаются в порядке: PostgreSQL → n8n → OpenClaw. Caddy можно проверять независимо, поскольку OpenClaw получает Telegram через исходящий долгий опрос. Таймеры включаются после готовности n8n и PostgreSQL.
+
+## Изменения и документация
+
+Порядок принятия: `изменение → тест → рабочий сервер → PASS → обновление AS-IS в Obsidian`.
+
+В репозитории проекта хранится только машинно исполняемый код, конфигурация, схемы контрактов и тесты. Вся понятная человеку и агентам документация ведётся только в Obsidian.
+
+Связанные документы: [[CURRENT_STATE_N8NAgents_2026-08-29]], [[Participants_and_Flows_N8NAgents]], [[Runtime_Flows_N8NAgents]], [[Change_History_N8NAgents]].
