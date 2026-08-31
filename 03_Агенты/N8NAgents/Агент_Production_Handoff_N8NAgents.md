@@ -5,54 +5,63 @@ id: "agent-n8nagents-production-handoff"
 проект: "N8NAgents"
 владелец: "style"
 создано: "2026-08-29"
-обновлено: "2026-08-29"
+обновлено: "2026-08-31"
 уверенность: "высокая"
-источники:
-  - "[[CURRENT_STATE_N8NAgents_2026-08-29]]"
-  - "[[Регламент_Оркестратора]]"
-  - "[[Регламент_Субагента]]"
-доказательства:
-  - "[[Доказательство_Production_Acceptance_N8NAgents_20260829]]"
-теги: ["n8n", "агент", "production", "handoff", "governance"]
+источники: ["[[CURRENT_STATE_N8NAgents_2026-08-29]]", "[[Регламент работы агента]]"]
+доказательства: ["[[Доказательство_OpenClaw_n8n_Production_PASS_20260831]]"]
+теги: ["n8n", "openclaw", "агент", "production", "handoff", "governance"]
 ---
 
-# Агент Production Handoff — N8NAgents
+# Агент передачи production — N8NAgents
 
 ## Роль
 
-Восстановить канонический контекст N8NAgents, организовать отдельное планирование любой новой задачи, назначить ограниченных исполнителей и не допустить расхождения между Git, Obsidian и production.
+Восстановить канонический контекст N8NAgents, продолжить пользовательскую задачу минимально достаточным способом и не допустить расхождения между кодом, Obsidian и рабочим сервером.
 
 ## Обязательный старт
 
-1. Полностью прочитать `README.md`, [[Старт_Агента]], [[Регламент работы агента]], [[Регламент_GitHub_для_Агентов]], [[Регламент Git-изоляции агентов]], [[Регламент_Оркестратора]] и [[Регламент_Субагента]].
-2. Открыть [[CURRENT_STATE_N8NAgents_2026-08-29]], [[Доказательство_Production_Acceptance_N8NAgents_20260829]], [[Participants_and_Flows_N8NAgents]], [[Runtime_Flows_N8NAgents]], [[Change_History_N8NAgents]] и [[Открытые_Задачи_N8NAgents_2026-08-29]].
-3. Проверить Git branch/status в code repo и vault. Работать только в отдельной ветке/worktree; чужие изменения не трогать.
-4. Любую исходную пользовательскую задачу сначала передать отдельному planner subagent. Main chat — orchestrator, не исполнитель.
+1. Полностью прочитать `README.md`, [[Старт_Агента]] и обязательные связанные регламенты.
+2. Открыть [[MOC_N8NAgents]], [[CURRENT_STATE_N8NAgents_2026-08-29]], [[Доказательство_OpenClaw_n8n_Production_PASS_20260831]], [[Participants_and_Flows_N8NAgents]], [[Runtime_Flows_N8NAgents]], [[Change_History_N8NAgents]] и [[Регламент_Operations_N8NAgents]].
+3. Проверить ветку и статус Git в репозитории кода и Obsidian. Чужие изменения не трогать.
+4. Следовать актуальному `AGENTS.md`: ясные задачи выполнять напрямую; субагентов подключать только при конкретной пользе или явной просьбе.
 
-## Права и стоп-условия
+## Текущие инварианты
 
-- Read-only сверка разрешена только в рамках полученной задачи; production mutation, external traffic и paid calls требуют явного scope и approved plan.
-- Нельзя читать/печатать credential values, `.env`, private keys, tokens, chat IDs, headers или message content.
-- Нельзя активировать семь inactive workflows, добавлять recipients/tools/reminders, менять firewall/SSH/provider settings, backup/replication или выполнять destructive cleanup по умолчанию.
-- Любой retry fan-out, неизвестный listener, TLS regression, unhealthy/restart/OOM, потеря memory continuity или mismatch current release — release blocker.
-- При incident сначала containment минимальной поверхностью: main workflow/webhook либо только Caddy; data plane сохранять.
+- OpenClaw — единственный вход Telegram и диалоговый контур.
+- n8n — единственный контур правил, HMAC-проверки, идемпотентности и аудита.
+- PostgreSQL — источник истины для напоминаний и подтверждений.
+- Плановые отправки выполняют только два свежих workflow через два активных systemd-таймера.
+- Прежний основной Telegram workflow и старые планировщики неактивны.
+- Внутренние пути через публичный Caddy возвращают `404`.
+- OpenClaw ограничен пятью инструментами напоминаний и не имеет общих опасных возможностей.
 
-## Knowledge governance invariant
+## Документация
 
-[[Participants_and_Flows_N8NAgents]], [[Runtime_Flows_N8NAgents]] и [[Change_History_N8NAgents]] обязательны для каждой принятой production change.
+Вся документация ведётся только в Obsidian на русском языке. Точные имена технологий и программных объектов можно оставлять по-английски с русским пояснением при первом употреблении. В репозитории проекта разрешены только код, исполняемая конфигурация, машинные контракты и тесты.
 
-Порядок:
+После каждой принятой production-правки порядок обязателен:
 
-`change → tests → rollout → production PASS → AS-IS diagrams/descriptions → frontmatter/wikilink/secret checks → Obsidian acceptance`.
+`изменение → проверка → production PASS → обновление AS-IS в Obsidian → проверка frontmatter, wikilinks и отсутствия секретов`.
 
-Планируемое состояние хранить отдельно. AS-IS нельзя менять до production PASS.
+Обновляются как единый комплект: [[CURRENT_STATE_N8NAgents_2026-08-29]], [[Архитектура_AS_IS_и_API_Tools_N8NAgents]], [[Participants_and_Flows_N8NAgents]], [[Runtime_Flows_N8NAgents]], [[Change_History_N8NAgents]].
 
-## Формат handoff
+## Стоп-условия
 
-Вернуть outcome, exact branches/commits, измененные paths, проверки и результаты, доказанные production facts, assumptions, blockers, risks, rollback и remaining work. Секреты и персональные identifiers редактировать полностью.
+- второй получатель обновлений Telegram;
+- повторная отправка одного задания;
+- неизвестный публичный путь или открытый служебный порт;
+- нездоровое состояние, циклические перезапуски или нехватка памяти;
+- потеря подтверждённой памяти после перезапуска;
+- попытка вывести или сохранить секреты, идентификаторы владельца/чата или содержимое сообщений.
+
+При инциденте остановить только проблемный вход или таймер и сохранить PostgreSQL, задачи и аудит.
+
+## Формат передачи
+
+Сообщить результат, точные ветки и фиксации Git, изменённые пути, пройденные проверки, доказанные production-факты, ограничения и оставшиеся блокеры. Секреты и персональные идентификаторы полностью исключить.
 
 ## Связанные заметки
 
 - [[Промпт_Recovery_Handoff_N8NAgents_2026-08-29]]
 - [[MOC_N8NAgents]]
-- [[N8NAgents]]
+- [[Регламент_Operations_N8NAgents]]
