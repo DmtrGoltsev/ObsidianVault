@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "record_kind": "N8NAGENTS_REJECTED_R2_SNAPSHOT_INDEX",
+  "state": "REJECTED_R2",
+  "authority_state": "NOT_ACTIVE",
+  "snapshot_root": "C:/Users/style/Documents/ObsidianVault",
+  "inclusion_policy": {
+    "included": [
+      "N8NAgents/02_Агентам/Задачи/План_Лаборатория_Docker_Desktop_N8NAgents_v2_2026-08-27.md",
+      "N8NAgents/02_Агентам/Ревью/PlanV2_Work_a64a14c3/**"
+    ],
+    "excluded": [
+      "N8NAgents/02_Агентам/Ревью/PlanV2_Work_a64a14c3/CorrectionR3/**"
+    ],
+    "path_normalization": "Vault-relative NFC slash paths, ordinal case-sensitive ordering",
+    "file_hash": "SHA-256 of exact file bytes"
+  },
+  "aggregate_algorithm": "SHA256(UTF8(domain + NUL) || each sorted UTF8('FILE' + NUL + utf8_path_byte_length_decimal + NUL + path + NUL + file_bytes_decimal + NUL + lowercase_sha256 + LF))",
+  "components": {
+    "canonical_plan": {
+      "domain": "N8NAGENTS-R2-SNAPSHOT-CANONICAL_PLAN-V1",
+      "files": 1,
+      "bytes": 69598,
+      "aggregate_sha256": "7cc8d3ffd8f952c524cba10145de9be843363875f21221e104dc745e834816f0"
+    },
+    "work_top_level": {
+      "domain": "N8NAGENTS-R2-SNAPSHOT-WORK_TOP_LEVEL-V1",
+      "files": 13,
+      "bytes": 893583,
+      "aggregate_sha256": "8ba19e4972fa694fde4111e2025cbe24248c2621385b3a42dc840f04c34da4e2"
+    },
+    "correction_r2": {
+      "domain": "N8NAGENTS-R2-SNAPSHOT-CORRECTION_R2-V1",
+      "files": 11,
+      "bytes": 143587,
+      "aggregate_sha256": "abc1ef9a4ef07e335b22eab673394f7c065e34be1abe347ca7ac10cf8f4050a0"
+    },
+    "integrated_draft_r2": {
+      "domain": "N8NAGENTS-R2-SNAPSHOT-INTEGRATED_DRAFT_R2-V1",
+      "files": 85,
+      "bytes": 4945072,
+      "aggregate_sha256": "88cf00a42675d90a25a62ede02ae86765ffef8f40e924c183d5a749b5a3738a9"
+    }
+  },
+  "overall": {
+    "domain": "N8NAGENTS-R2-REJECTED-SNAPSHOT-V1",
+    "files": 110,
+    "bytes": 6051840,
+    "aggregate_sha256": "a49434084b80cbb59d7109e5b7ce115050df58375a2291dcf5dba667af118a7a"
+  },
+  "critical_artifacts": {
+    "manifest": "34327/50f38214d559d3e9f1f4ecbc7000fb6122defa2489345d693d7ce0bf49bb8295",
+    "historical_19_in_rejected_r2": "4925/a1743625911fc7299adab1714d1c71d1e595c17dc01c025950113042ef3d817d",
+    "custody_node": "10525/a3325d7c2f8cc47d62615fc8251eb560304bd30eb6d8df77ae317c1845886eec",
+    "custody_python": "10706/93032b896ff777f93b31ecdd2195f7573806d27c93912a1744a9823cb2a9a887",
+    "checker_run_record": "14316/9f5bb7def4c578b669a601a47a07d20664955ef79d1eefa518fbb1bec7983632",
+    "prospective_audit_r2": "16585/3efe9472c03e5a6294c32d45416784881bbd09420f8393d350b0d4539d44834e",
+    "raw_batch_node": "12977/2c6c18e24056dd57b7019494f9bef8450356e977be8af2da36a15d997a21003a",
+    "raw_batch_python": "11440/21cb99bdef2bd16d70508bab668e88ec28b6fc58f99e94cd2346d30376e06897",
+    "custody_run_record": "3967/043a7e23259cbdf3cba8f8d3e21d5c3d013f84bbdb9477b635cd3cb5429a2ed4",
+    "decision_set_inside_rejected_core": "5209/a99d5644e34e41dcd3205ec797373cfdab8950a6232c9cb6231e8ece7480ac42",
+    "owner_request": "1560/fe8f5c03292687689f19881a6c6edb25d6ce88b553505d23b53a68de768dd1ec",
+    "pending_anchor": "1102/648444dc2bc36444df090fa5ba8a3279d27747fee6da01a432b2cbfb577a8151"
+  },
+  "preservation_rule": "This index records the exact rejected R2 state. R3 must be built in a separate tree; these bytes do not gain authority through inclusion here."
+}

@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "record_kind": "N8NAGENTS_CORRECTIVE_R3_SCOPE_GUARD",
+  "state": "ACTIVE_FOR_DOCUMENTATION_AND_REVIEW_ONLY",
+  "plan_policy": "A_ONLY_DOCKER_DESKTOP_WSL2_BACKEND",
+  "plan_b_authorized": false,
+  "allowed": [
+    "write new R3 documentation under the Obsidian Vault",
+    "write schemas and local offline validation sources under the Obsidian Vault",
+    "run read-only inventory and hash checks",
+    "run isolated local document/schema mutation tests against disposable copies",
+    "obtain independent detached reviews and ratifications"
+  ],
+  "forbidden": [
+    "Docker install, pull, build, start or configuration",
+    "Windows feature, policy, registry, service or system-component changes",
+    "VPS, provider UI or SSH access",
+    "internet or external network access",
+    "secret, token, credential or provider access",
+    "N8NAgents project repository reads or writes for R3 execution",
+    "freeze or read-only transition before successful independent audit",
+    "editing the rejected R2 IntegratedDraft or CorrectionR2 trees",
+    "editing the current canonical plan during R3-00",
+    "representing fixtures or synthetic records as real independent reviews",
+    "self-granting owner authority"
+  ],
+  "r3_00_write_allowlist": [
+    "CorrectionR3/00_R2_REJECTION_REGISTER.json",
+    "CorrectionR3/01_SCOPE_GUARD_R3.json",
+    "CorrectionR3/02_R2_SNAPSHOT_INDEX.json"
+  ],
+  "author_owned_inputs": [
+    "CorrectionR3/Inputs/R2_REJECT_1_RAW.md",
+    "CorrectionR3/Inputs/R2_REJECT_1_ATTESTATION.json",
+    "CorrectionR3/Inputs/R2_REJECT_2_RAW.md",
+    "CorrectionR3/Inputs/R2_REJECT_2_ATTESTATION.json",
+    "CorrectionR3/Inputs/R2_REJECT_3_RAW.md",
+    "CorrectionR3/Inputs/R2_REJECT_3_ATTESTATION.json"
+  ],
+  "authority_state": "NOT_ACTIVE",
+  "runtime_state": "NOT_RUN",
+  "freeze": false,
+  "commit": false
+}

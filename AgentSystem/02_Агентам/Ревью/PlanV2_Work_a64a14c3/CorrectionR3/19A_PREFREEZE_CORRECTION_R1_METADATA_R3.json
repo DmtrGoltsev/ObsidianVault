@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "record_kind": "N8NAGENTS_HISTORICAL_CORRECTION_19_DETACHED_METADATA_R3",
+  "state": "DETACHED_NONAUTHORITATIVE_METADATA",
+  "authority_state": "NOT_ACTIVE",
+  "runtime_state": "NOT_RUN",
+  "historical_artifact": {
+    "path": "19_PREFREEZE_CORRECTION_R1.json",
+    "bytes": 4583,
+    "sha256": "e62873c3be5a887e7dabfcb531cff1fca5dd5d8f52c5a5efd1a39e1a887a5591",
+    "encoding": "UTF-8_NO_BOM",
+    "line_endings": "LF",
+    "final_lf_count": 1,
+    "identity_status": "RESTORED_EXACT"
+  },
+  "observed_metadata_bearing_copy": {
+    "path": "../IntegratedDraft/19_PREFREEZE_CORRECTION_R1.json",
+    "bytes": 4925,
+    "sha256": "a1743625911fc7299adab1714d1c71d1e595c17dc01c025950113042ef3d817d",
+    "changed_by_r3_provenance_task": false
+  },
+  "deterministic_recovery": {
+    "method": "TAKE_EXACT_SHARED_PREFIX_THEN_RESTORE_ORIGINAL_JSON_CLOSURE",
+    "shared_prefix": {
+      "bytes": 4577,
+      "sha256": "e3d5aa9c0ca893ce5d55d04c856bc58baa0e6c4c7e35a0346f29176ba23b7664"
+    },
+    "restored_closure": {
+      "escaped_utf8": "  ]\\n}\\n",
+      "bytes": 6,
+      "sha256": "e7f6996e3b15dfb43863001c72d3a539de70e38e2a9ed20de591104a82864f66"
+    },
+    "removed_metadata_bearing_tail": {
+      "offset": 4577,
+      "bytes": 348,
+      "sha256": "3b044af3b36514c6441f4faddcd95ba8c27c6ca01f6468e0cb90ba1160151f71"
+    },
+    "target_identity_matched_before_acceptance": true,
+    "semantic_synthesis_used": false,
+    "byte_transform_used": true
+  },
+  "relocated_metadata": {
+    "authority": "NONAUTHORITATIVE_REMEDIATION_SUMMARY",
+    "provenance_warning": "Must not supply original/prospective audit claims, evidence or hashes.",
+    "legacy_source_incident": "C1-LEGACY-SOURCE-LOSS",
+    "prospective_supersession": {
+      "state": "PENDING_OWNER_SUPERSESSION",
+      "historical_baseline_name": "24_PROSPECTIVE_AUDIT_R2_BASELINE.json",
+      "r3_successor_baseline": "24_PROSPECTIVE_AUDIT_R3_BASELINE.json"
+    }
+  },
+  "c2_provenance_boundary": {
+    "historical_19_is_source": false,
+    "this_wrapper_is_source": false,
+    "only_claim_source": "../CorrectionR2/C2_PREFREEZE_AUDIT_R2_RAW.md",
+    "successor_baseline": {
+      "path": "24_PROSPECTIVE_AUDIT_R3_BASELINE.json",
+      "bytes": 17870,
+      "sha256": "374b803d3ccb06a590c2664f86b4cc72ef14e09616060effd539c73bf9526ec0"
+    },
+    "mutation_evidence": {
+      "path": "ProvenanceTests/R3_PROVENANCE_MUTATION_RESULTS.json",
+      "bytes": 2764,
+      "sha256": "1e569b3e85cb968cfe6f3507e185cc875424409f67b4886826789e0942d7c501",
+      "result": "PASS"
+    }
+  },
+  "scope_attestation": {
+    "rejected_r2_changed": false,
+    "integrated_draft_changed": false,
+    "canonical_changed": false,
+    "runtime_accessed_or_changed": false,
+    "project_repo_changed": false
+  }
+}

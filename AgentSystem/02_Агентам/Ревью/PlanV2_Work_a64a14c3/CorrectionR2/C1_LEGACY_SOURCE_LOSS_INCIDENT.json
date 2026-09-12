@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "incident_id": "C1-LEGACY-SOURCE-LOSS",
+  "status": "STOP_LEGACY_SOURCE_MISSING",
+  "requested_source": "first pre-freeze audit final before corrective R1",
+  "author_task_id": "/root/v2_prefreeze_audit",
+  "reason": "The exact original prior response bytes are unavailable in the current task history; only a compacted summary remains.",
+  "absent_files": [
+    "N8NAgents/02_Агентам/Ревью/PlanV2_Work_a64a14c3/CorrectionR2/C_ORIGINAL_PREFREEZE_AUDIT_R1_RAW.md",
+    "N8NAgents/02_Агентам/Ревью/PlanV2_Work_a64a14c3/CorrectionR2/C_ORIGINAL_PREFREEZE_AUDIT_R1_ATTESTATION.json"
+  ],
+  "reconstruction_performed": false,
+  "remediation_summary_19_used_as_source": false,
+  "exact_verbatim_claim_possible": false,
+  "proposed_supersession": {
+    "candidate": "C2_PREFREEZE_AUDIT_R2_RAW.md",
+    "automatic": false,
+    "condition": "Only after an independent quorum explicitly accepts the second pre-freeze audit as the provenance successor; until then the legacy source remains missing."
+  },
+  "scope_attestation": {
+    "scope": "changes performed by this provenance task only",
+    "canonical_changed": false,
+    "integrated_draft_changed": false,
+    "manifest_changed": false,
+    "project_repo_changed": false,
+    "runtime_accessed_or_changed": false
+  }
+}

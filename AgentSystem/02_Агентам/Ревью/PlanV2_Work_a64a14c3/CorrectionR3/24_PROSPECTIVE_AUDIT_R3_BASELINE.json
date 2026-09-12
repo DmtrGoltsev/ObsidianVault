@@ -1,0 +1,292 @@
+{
+  "schema_version": 3,
+  "record_kind": "N8NAGENTS_C2_PROSPECTIVE_PREFREEZE_AUDIT_BASELINE_R3",
+  "state": "PROSPECTIVE_SOURCE_LOCKED_NOT_AUTHORITY",
+  "authority_state": "NOT_ACTIVE",
+  "runtime_state": "NOT_RUN",
+  "source": {
+    "raw": {
+      "path": "N8NAgents/02_Агентам/Ревью/PlanV2_Work_a64a14c3/CorrectionR2/C2_PREFREEZE_AUDIT_R2_RAW.md",
+      "bytes": 7957,
+      "sha256": "2c6f25a2ab02e7d9995df0ecbc4456f69dfadd0c044f403c0420ea23e13295ae",
+      "encoding": "UTF-8_NO_BOM",
+      "line_endings": "LF",
+      "final_lf_count": 1,
+      "exact_verbatim": true,
+      "reconstruction_used": false
+    },
+    "attestation": {
+      "path": "N8NAgents/02_Агентам/Ревью/PlanV2_Work_a64a14c3/CorrectionR2/C2_PREFREEZE_AUDIT_R2_ATTESTATION.json",
+      "bytes": 1124,
+      "sha256": "3a5d8d3bcb49a613c39a8695f1b94e5f4e61d45bfc77bae31526ec42c1b4b101"
+    },
+    "prohibited_as_source": [
+      "19_PREFREEZE_CORRECTION_R1.json",
+      "19A_PREFREEZE_CORRECTION_R1_METADATA_R3.json"
+    ],
+    "prohibited_source_rule": "Neither historical correction #19 nor its detached metadata wrapper may supply any C2 claim, span, item hash, aggregate, or raw identity."
+  },
+  "hash_contract": {
+    "text_normalization": "NFC_REQUIRED; no CR or NUL",
+    "frame": "U32BE(byte_length)||UTF8(text)",
+    "integer": "U64BE for offset and length; U32BE for item count",
+    "item_domain": "N8NAGENTS-C2-PROSPECTIVE-AUDIT-ITEM-R3\\0",
+    "item_fields_in_order": [
+      "FRAME(audit_id)",
+      "FRAME(severity)",
+      "FRAME(original_assessment)",
+      "FRAME(claim)",
+      "U64BE(source_span.offset)",
+      "U64BE(source_span.bytes)",
+      "SHA256_RAW(source_span)",
+      "SHA256_RAW(UTF8(claim))",
+      "SHA256_RAW(exact_raw_source)"
+    ],
+    "set_domain": "N8NAGENTS-C2-PROSPECTIVE-AUDIT-SET-R3\\0",
+    "set_fields_in_order": [
+      "U32BE(required_ids.length)",
+      "for each exact required_ids order: FRAME(audit_id)||SHA256_RAW(source_item_sha256)"
+    ]
+  },
+  "required_ids": [
+    "P1-01",
+    "P1-02",
+    "P1-03",
+    "P1-04",
+    "P1-05",
+    "P1-06",
+    "P1-07",
+    "P1-08",
+    "P2-01",
+    "NEW-P1-01",
+    "NEW-P1-02",
+    "NEW-P1-03",
+    "NEW-P1-04"
+  ],
+  "item_count": 13,
+  "items": {
+    "P1-01": {
+      "audit_id": "P1-01",
+      "severity": "P1",
+      "original_assessment": "INADEQUATE",
+      "title": "Prospective audit assessment P1-01",
+      "claim": "Exact-set формально присутствует, но семантика остаётся шаблонной: `114/129` AT используют один общий четырёхшаговый procedure, `71/129` NC используют значения `VALID:<field> → INVALID:<id>`, evidence почти полностью boilerplate. Нормативный `EV-V3-ACL` из domain draft ошибочно помечен `REJECTED_TEMPLATE_PLACEHOLDER` в `12_CANONICAL_ALIAS_MAP_V2.json` (`alias_id EV-V3-ACL`).",
+      "claim_utf8_sha256": "99ac431a97775fcd7637fba38cd3f36bb7af6c3fc0b6a2479d2d2b63da6f2a54",
+      "required_resolution": "4. Заменить placeholder AT/NC fixtures реальными typed fixtures; исправить `EV-V3-ACL`; добавить canaries для client HTTP policy, exact bridge binary/real-lock contamination, полной input/manifest/checker custody и verifier identity/key isolation.",
+      "source_span": {
+        "line": 9,
+        "offset": 407,
+        "bytes": 522,
+        "sha256": "99ac431a97775fcd7637fba38cd3f36bb7af6c3fc0b6a2479d2d2b63da6f2a54",
+        "decoded_utf8_exact_claim": true
+      },
+      "source_item_sha256": "e61a28b1e0e1a141a5cb20b6e71b0fdbc603b1077ad2f57fa74594ef141aca42"
+    },
+    "P1-02": {
+      "audit_id": "P1-02",
+      "severity": "P1",
+      "original_assessment": "INADEQUATE",
+      "title": "Prospective audit assessment P1-02",
+      "claim": "`23_QUORUM_SCHEMA_V2.json` не обеспечивает cross-record invariants: uniqueness/equality/count rules находятся только в `x-quorum-validator-rules`. Реальный schema engine принял duplicate review ID, duplicate record hash, несовпадающие manifest/subject hashes и противоречивый STOP при заявленном `10 GO / 0 STOP`. Checkers проверяют только встроенный synthetic sample, а не произвольный batch.",
+      "claim_utf8_sha256": "48d345021ad3ab0dc6ac667f2e43d9939fced028478750bf9dc85100f6273e36",
+      "required_resolution": "1. Добавить standalone hash-bound quorum validator для фактического batch: schema-validation каждого record, recomputed record hashes, exact roles, unique IDs/hashes, subject/manifest equality, пересчитанные counters и GO semantics. Прогнать invalid batches через него, не через synthetic sample.",
+      "source_span": {
+        "line": 10,
+        "offset": 955,
+        "bytes": 518,
+        "sha256": "48d345021ad3ab0dc6ac667f2e43d9939fced028478750bf9dc85100f6273e36",
+        "decoded_utf8_exact_claim": true
+      },
+      "source_item_sha256": "2f9a73dd2d21887c5f024145b8dd482eea3e22b4fe15b74d9b894f85ed5b600f"
+    },
+    "P1-03": {
+      "audit_id": "P1-03",
+      "severity": "P1",
+      "original_assessment": "ADEQUATE",
+      "title": "Prospective audit assessment P1-03",
+      "claim": "`V06-C05`, `V05-C03`, `V07-C02`, `V10-C01/C02`: durable reserve-before-request, request/USD caps, concurrency, retry reuse, `AMBIGUOUS_CONSUMED`, reconciliation, отдельный DeepSeek key consumer и owner CLI определены. Runtime остаётся `NOT_RUN`.",
+      "claim_utf8_sha256": "751819fa425a7244ff2caaa8a6f316355d5daf698a495618d2011bb38b59bc0a",
+      "required_resolution": "Preserve the adequate design unchanged and prove no regression in the R2 subject.",
+      "source_span": {
+        "line": 11,
+        "offset": 1497,
+        "bytes": 273,
+        "sha256": "751819fa425a7244ff2caaa8a6f316355d5daf698a495618d2011bb38b59bc0a",
+        "decoded_utf8_exact_claim": true
+      },
+      "source_item_sha256": "e11105716ec611a344ac8d21d7066389fa2cb2aadb07d5b031f398605bd313cb"
+    },
+    "P1-04": {
+      "audit_id": "P1-04",
+      "severity": "P1",
+      "original_assessment": "INADEQUATE",
+      "title": "Prospective audit assessment P1-04",
+      "claim": "Разделение ответственности broker/client в `V04-C05` сформулировано корректно, но связанный `NC-XD-08` мутирует только `egress.destination_sni`. В каталоге нет ни одного отдельного canary для client-side HTTP method/path/body/redirect, хотя план требует именно split acceptance.",
+      "claim_utf8_sha256": "01b0b5a43e4c717b2a9344d762601926bb6a70b41e1263526d87d8d8a4a3bb53",
+      "required_resolution": "4. Заменить placeholder AT/NC fixtures реальными typed fixtures; исправить `EV-V3-ACL`; добавить canaries для client HTTP policy, exact bridge binary/real-lock contamination, полной input/manifest/checker custody и verifier identity/key isolation.",
+      "source_span": {
+        "line": 12,
+        "offset": 1796,
+        "bytes": 406,
+        "sha256": "01b0b5a43e4c717b2a9344d762601926bb6a70b41e1263526d87d8d8a4a3bb53",
+        "decoded_utf8_exact_claim": true
+      },
+      "source_item_sha256": "7de21ed323fe7a11ef451dc5221478a1335a42cd71169b8e24ed1edd8f5e12a0"
+    },
+    "P1-05": {
+      "audit_id": "P1-05",
+      "severity": "P1",
+      "original_assessment": "INADEQUATE",
+      "title": "Prospective audit assessment P1-05",
+      "claim": "Невыполнимая MOCK-топология: `V04-C04` разрешает в `mock_tg` только `n8n` и `mock-telegram`, тогда как `V04-C06` требует, чтобы тот же `telegram-bridge` обращался к `mock-telegram` через эту сеть. `telegram-bridge` в `mock_tg` не допускается. `NC-F-R5-F14` также не проверяет identity exact bridge binary/entrypoint и contamination real lock.",
+      "claim_utf8_sha256": "2deb8e2fcfb28029b028ae06a752c520058c7752dbad98ae2e3cb3ab07369289",
+      "required_resolution": "3. Добавить `telegram-bridge` в exact MOCK route/membership и `backup-verifier` в canonical one-shot services; проверить rendered topology exact-set tests.",
+      "source_span": {
+        "line": 13,
+        "offset": 2228,
+        "bytes": 458,
+        "sha256": "2deb8e2fcfb28029b028ae06a752c520058c7752dbad98ae2e3cb3ab07369289",
+        "decoded_utf8_exact_claim": true
+      },
+      "source_item_sha256": "15687208b83fadec0ddc071a32c4787570e895cc8a8680651c229cb206b929ba"
+    },
+    "P1-06": {
+      "audit_id": "P1-06",
+      "severity": "P1",
+      "original_assessment": "INADEQUATE",
+      "title": "Prospective audit assessment P1-06",
+      "claim": "`18_CHILD_STATUS_MAPPING_V2.json` содержит прямой false GO: `V04:V4_STOP_UNVERIFIED → PASS / G_PASS_EXACT_REQUESTED_SCOPES / RC0`, хотя источник требует nonzero и запрещает утверждать остановку egress. Другие ошибки: `V07:INCIDENT_CLOSED → G_INCIDENT_OPEN/54`; `V08_FAIL_AUTH/BACKUP/PLAINTEXT/RESTORE → BLOCKED_UNKNOWN/30`; read-only PASS получает `mutation_started=true`.",
+      "claim_utf8_sha256": "fbc98ac31810c85fd5cff3ded0e880b5acc426bd77c525cde7f085f790172ada",
+      "required_resolution": "2. Пересобрать все 306 status mappings по семантике источников; отдельно исправить перечисленные false mappings и ввести phase-aware `mutation_started`, если status сам по себе недостаточен.",
+      "source_span": {
+        "line": 14,
+        "offset": 2712,
+        "bytes": 460,
+        "sha256": "fbc98ac31810c85fd5cff3ded0e880b5acc426bd77c525cde7f085f790172ada",
+        "decoded_utf8_exact_claim": true
+      },
+      "source_item_sha256": "a8be78b9bf4ddd7363fea73751ebb77211441abd6098239b9d871050ad07b62e"
+    },
+    "P1-07": {
+      "audit_id": "P1-07",
+      "severity": "P1",
+      "original_assessment": "INADEQUATE",
+      "title": "Prospective audit assessment P1-07",
+      "claim": "Текущая цепочка из 39 inputs и её hashes верны, но оба validator source не загружают и не проверяют `13_PRIMARY_SOURCE_LOCK.md`, `17_INTEGRATION_DRAFT_MANIFEST.json` или `22_CHECKER_RUN_RECORD.json`; не пересчитывают content set/envelope и фактический plan SHA. Они могут PASS при изменении непроверяемых байтов/manifest/input chain.",
+      "claim_utf8_sha256": "dcc54c96f6fd91bffd209548b5f1f56c9d8d77213b417fb616249647398c931c",
+      "required_resolution": "5. Обязать оба checker пересчитывать plan/input/manifest/content/envelope hashes, encoding и transcript binding.",
+      "source_span": {
+        "line": 15,
+        "offset": 3198,
+        "bytes": 454,
+        "sha256": "dcc54c96f6fd91bffd209548b5f1f56c9d8d77213b417fb616249647398c931c",
+        "decoded_utf8_exact_claim": true
+      },
+      "source_item_sha256": "02fe83b4f1fb828d3cac53341abfcc49031bff2488e0a5fd1bcb464802f0a282"
+    },
+    "P1-08": {
+      "audit_id": "P1-08",
+      "severity": "P1",
+      "original_assessment": "ADEQUATE",
+      "title": "Prospective audit assessment P1-08",
+      "claim": "`V10-C01/C02/C04` содержит стабильный launcher, masked stdin, secret set/status/rotate/revoke, dev/prod fingerprint binding, tuple/webhook ceremonies, Telegram two-phase arm, DeepSeek key/arm/reconcile и black-box handoff.",
+      "claim_utf8_sha256": "45d8eb73ce6d4784af89997208b85b6fa3264ceaed22fd7c38bbbec8be3b1125",
+      "required_resolution": "Preserve the adequate design unchanged and prove no regression in the R2 subject.",
+      "source_span": {
+        "line": 16,
+        "offset": 3676,
+        "bytes": 241,
+        "sha256": "45d8eb73ce6d4784af89997208b85b6fa3264ceaed22fd7c38bbbec8be3b1125",
+        "decoded_utf8_exact_claim": true
+      },
+      "source_item_sha256": "a062e6a15b301d979cc240cd4f1ab31b2ff50a50113e0655f49291522b94bc50"
+    },
+    "P2-01": {
+      "audit_id": "P2-01",
+      "severity": "P2",
+      "original_assessment": "INADEQUATE",
+      "title": "Prospective audit assessment P2-01",
+      "claim": "`V08-C04` хорошо определяет verifier/key isolation, но `backup-verifier` отсутствует в закрытом canonical service list `V04-C03`, где undeclared service запрещён. Следовательно, verifier нельзя легально включить в exact Compose topology.",
+      "claim_utf8_sha256": "c21db4ec17ed331e4979990ea8aa5d2b4d8c2ffd16b377c3111af09e9e34f2d0",
+      "required_resolution": "3. Добавить `telegram-bridge` в exact MOCK route/membership и `backup-verifier` в canonical one-shot services; проверить rendered topology exact-set tests.",
+      "source_span": {
+        "line": 17,
+        "offset": 3943,
+        "bytes": 322,
+        "sha256": "c21db4ec17ed331e4979990ea8aa5d2b4d8c2ffd16b377c3111af09e9e34f2d0",
+        "decoded_utf8_exact_claim": true
+      },
+      "source_item_sha256": "8ac76f5d4844a56ae3f39b73062e30234d9fb7c37032f8d6fbb163b6fbd8d6c9"
+    },
+    "NEW-P1-01": {
+      "audit_id": "NEW-P1-01",
+      "severity": "P1",
+      "original_assessment": "INADEQUATE",
+      "title": "false-GO quorum",
+      "claim": "опубликованная schema принимает пять проверенных противоречивых quorum-вариантов.",
+      "claim_utf8_sha256": "d98268197383217c0419ba1fcd75827409d3db7feea785606cffb53e25899177",
+      "required_resolution": "1. Добавить standalone hash-bound quorum validator для фактического batch: schema-validation каждого record, recomputed record hashes, exact roles, unique IDs/hashes, subject/manifest equality, пересчитанные counters и GO semantics. Прогнать invalid batches через него, не через synthetic sample.",
+      "source_span": {
+        "line": 21,
+        "offset": 4349,
+        "bytes": 142,
+        "sha256": "d98268197383217c0419ba1fcd75827409d3db7feea785606cffb53e25899177",
+        "decoded_utf8_exact_claim": true
+      },
+      "source_item_sha256": "f12bf73e044a8865fc3a3bfb04bdc7ca68f585b7587e8dc1866bbed64f26e215"
+    },
+    "NEW-P1-02": {
+      "audit_id": "NEW-P1-02",
+      "severity": "P1",
+      "original_assessment": "INADEQUATE",
+      "title": "unsafe normalization",
+      "claim": "`V4_STOP_UNVERIFIED` нормализуется в RC `0`, что может скрыть продолжающийся внешний трафик.",
+      "claim_utf8_sha256": "21754db0454f17761b4524b15306f0623aa4d984663345e677acbc398543654f",
+      "required_resolution": "2. Пересобрать все 306 status mappings по семантике источников; отдельно исправить перечисленные false mappings и ввести phase-aware `mutation_started`, если status сам по себе недостаточен.",
+      "source_span": {
+        "line": 22,
+        "offset": 4532,
+        "bytes": 147,
+        "sha256": "21754db0454f17761b4524b15306f0623aa4d984663345e677acbc398543654f",
+        "decoded_utf8_exact_claim": true
+      },
+      "source_item_sha256": "6ff00aabdbe40f8c03caad2b8b923a31c504cf1025f8c945158df50de1034e2d"
+    },
+    "NEW-P1-03": {
+      "audit_id": "NEW-P1-03",
+      "severity": "P1",
+      "original_assessment": "INADEQUATE",
+      "title": "impossible exact topology",
+      "claim": "MOCK bridge и backup verifier противоречат закрытым membership/service manifests.",
+      "claim_utf8_sha256": "65464d680afddc63906074e64cdc4da23294ed9b337cf0c973b73b95a79a123c",
+      "required_resolution": "3. Добавить `telegram-bridge` в exact MOCK route/membership и `backup-verifier` в canonical one-shot services; проверить rendered topology exact-set tests.",
+      "source_span": {
+        "line": 23,
+        "offset": 4725,
+        "bytes": 102,
+        "sha256": "65464d680afddc63906074e64cdc4da23294ed9b337cf0c973b73b95a79a123c",
+        "decoded_utf8_exact_claim": true
+      },
+      "source_item_sha256": "ed4962a7f37fd894a6e11d37fd222019a1ef9edbc83d87feebbfe2ddb4b5eaa9"
+    },
+    "NEW-P1-04": {
+      "audit_id": "NEW-P1-04",
+      "severity": "P1",
+      "original_assessment": "INADEQUATE",
+      "title": "validators not subject-bound",
+      "claim": "два заявленных hash-bound checker фактически не проверяют manifest/input/content/envelope chain.",
+      "claim_utf8_sha256": "4e44c5bc0c94b932509e576190f78ae67f97e5272d4b1a295b7ec9c77ed0c0e5",
+      "required_resolution": "5. Обязать оба checker пересчитывать plan/input/manifest/content/envelope hashes, encoding и transcript binding.",
+      "source_span": {
+        "line": 24,
+        "offset": 4876,
+        "bytes": 130,
+        "sha256": "4e44c5bc0c94b932509e576190f78ae67f97e5272d4b1a295b7ec9c77ed0c0e5",
+        "decoded_utf8_exact_claim": true
+      },
+      "source_item_sha256": "3473191ef3fa9d3a3f2e24bb57ed415b0ec38d228977918c2b97ca70c386de5f"
+    }
+  },
+  "items_aggregate_sha256": "8d62343fc0ed7dc319bb5b0f97b0f863e959c3a77e1068c9607c6e1ce8aa2214",
+  "verification_claim": "Every item is derived only from the exact C2 raw bytes and is rejected unless offset, length, span hash, strict UTF-8 decoded span equality to claim, claim UTF-8 hash, domain-framed item hash, exact order, and ordered aggregate all recompute."
+}

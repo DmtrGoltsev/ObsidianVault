@@ -1,0 +1,468 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:n8nagents:docker-desktop-plan-quorum:v2-correction-r2",
+  "title": "N8NAgents collector-derived exact ten-review quorum R2",
+  "type": "object",
+  "additionalProperties": false,
+  "x-authority": "Schema constrains aggregate output shape only. Independent batch validators recompute raw hashes, record validity, exact sets, counters, semantic_go and verdict; caller assertions are nonauthoritative.",
+  "x-go-rule": "valid_review_count=10 && go_count>=8 && stop_count=0 && blocked_count=0 && validated_p0_count=0 && consensus_p1_count=0 && contradictory_go_count=0 && every subject/manifest binding exact",
+  "x-exact-set-counts": {
+    "findings": 114,
+    "clusters": 11,
+    "xd": 15,
+    "audit": 13,
+    "reviewers": 10
+  },
+  "required": [
+    "subject_envelope_sha256",
+    "manifest_sha256",
+    "validation_index_sha256",
+    "reviews",
+    "valid_review_count",
+    "go_count",
+    "stop_count",
+    "blocked_count",
+    "changes_required_count",
+    "validated_p0_count",
+    "consensus_p1_count",
+    "contradictory_go_count",
+    "verdict"
+  ],
+  "properties": {
+    "subject_envelope_sha256": {
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "manifest_sha256": {
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "validation_index_sha256": {
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "reviews": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10"
+      ],
+      "properties": {
+        "R1": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "review_id",
+            "reviewer_role",
+            "record_sha256",
+            "verdict",
+            "semantic_go"
+          ],
+          "properties": {
+            "review_id": {
+              "pattern": "^N8N-V2-R1-[0-9a-f]{16}$"
+            },
+            "reviewer_role": {
+              "const": "R1"
+            },
+            "record_sha256": {
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "verdict": {
+              "enum": [
+                "GO",
+                "CHANGES_REQUIRED",
+                "STOP",
+                "BLOCKED"
+              ]
+            },
+            "semantic_go": {
+              "type": "boolean"
+            }
+          }
+        },
+        "R2": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "review_id",
+            "reviewer_role",
+            "record_sha256",
+            "verdict",
+            "semantic_go"
+          ],
+          "properties": {
+            "review_id": {
+              "pattern": "^N8N-V2-R2-[0-9a-f]{16}$"
+            },
+            "reviewer_role": {
+              "const": "R2"
+            },
+            "record_sha256": {
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "verdict": {
+              "enum": [
+                "GO",
+                "CHANGES_REQUIRED",
+                "STOP",
+                "BLOCKED"
+              ]
+            },
+            "semantic_go": {
+              "type": "boolean"
+            }
+          }
+        },
+        "R3": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "review_id",
+            "reviewer_role",
+            "record_sha256",
+            "verdict",
+            "semantic_go"
+          ],
+          "properties": {
+            "review_id": {
+              "pattern": "^N8N-V2-R3-[0-9a-f]{16}$"
+            },
+            "reviewer_role": {
+              "const": "R3"
+            },
+            "record_sha256": {
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "verdict": {
+              "enum": [
+                "GO",
+                "CHANGES_REQUIRED",
+                "STOP",
+                "BLOCKED"
+              ]
+            },
+            "semantic_go": {
+              "type": "boolean"
+            }
+          }
+        },
+        "R4": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "review_id",
+            "reviewer_role",
+            "record_sha256",
+            "verdict",
+            "semantic_go"
+          ],
+          "properties": {
+            "review_id": {
+              "pattern": "^N8N-V2-R4-[0-9a-f]{16}$"
+            },
+            "reviewer_role": {
+              "const": "R4"
+            },
+            "record_sha256": {
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "verdict": {
+              "enum": [
+                "GO",
+                "CHANGES_REQUIRED",
+                "STOP",
+                "BLOCKED"
+              ]
+            },
+            "semantic_go": {
+              "type": "boolean"
+            }
+          }
+        },
+        "R5": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "review_id",
+            "reviewer_role",
+            "record_sha256",
+            "verdict",
+            "semantic_go"
+          ],
+          "properties": {
+            "review_id": {
+              "pattern": "^N8N-V2-R5-[0-9a-f]{16}$"
+            },
+            "reviewer_role": {
+              "const": "R5"
+            },
+            "record_sha256": {
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "verdict": {
+              "enum": [
+                "GO",
+                "CHANGES_REQUIRED",
+                "STOP",
+                "BLOCKED"
+              ]
+            },
+            "semantic_go": {
+              "type": "boolean"
+            }
+          }
+        },
+        "R6": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "review_id",
+            "reviewer_role",
+            "record_sha256",
+            "verdict",
+            "semantic_go"
+          ],
+          "properties": {
+            "review_id": {
+              "pattern": "^N8N-V2-R6-[0-9a-f]{16}$"
+            },
+            "reviewer_role": {
+              "const": "R6"
+            },
+            "record_sha256": {
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "verdict": {
+              "enum": [
+                "GO",
+                "CHANGES_REQUIRED",
+                "STOP",
+                "BLOCKED"
+              ]
+            },
+            "semantic_go": {
+              "type": "boolean"
+            }
+          }
+        },
+        "R7": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "review_id",
+            "reviewer_role",
+            "record_sha256",
+            "verdict",
+            "semantic_go"
+          ],
+          "properties": {
+            "review_id": {
+              "pattern": "^N8N-V2-R7-[0-9a-f]{16}$"
+            },
+            "reviewer_role": {
+              "const": "R7"
+            },
+            "record_sha256": {
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "verdict": {
+              "enum": [
+                "GO",
+                "CHANGES_REQUIRED",
+                "STOP",
+                "BLOCKED"
+              ]
+            },
+            "semantic_go": {
+              "type": "boolean"
+            }
+          }
+        },
+        "R8": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "review_id",
+            "reviewer_role",
+            "record_sha256",
+            "verdict",
+            "semantic_go"
+          ],
+          "properties": {
+            "review_id": {
+              "pattern": "^N8N-V2-R8-[0-9a-f]{16}$"
+            },
+            "reviewer_role": {
+              "const": "R8"
+            },
+            "record_sha256": {
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "verdict": {
+              "enum": [
+                "GO",
+                "CHANGES_REQUIRED",
+                "STOP",
+                "BLOCKED"
+              ]
+            },
+            "semantic_go": {
+              "type": "boolean"
+            }
+          }
+        },
+        "R9": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "review_id",
+            "reviewer_role",
+            "record_sha256",
+            "verdict",
+            "semantic_go"
+          ],
+          "properties": {
+            "review_id": {
+              "pattern": "^N8N-V2-R9-[0-9a-f]{16}$"
+            },
+            "reviewer_role": {
+              "const": "R9"
+            },
+            "record_sha256": {
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "verdict": {
+              "enum": [
+                "GO",
+                "CHANGES_REQUIRED",
+                "STOP",
+                "BLOCKED"
+              ]
+            },
+            "semantic_go": {
+              "type": "boolean"
+            }
+          }
+        },
+        "R10": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "review_id",
+            "reviewer_role",
+            "record_sha256",
+            "verdict",
+            "semantic_go"
+          ],
+          "properties": {
+            "review_id": {
+              "pattern": "^N8N-V2-R10-[0-9a-f]{16}$"
+            },
+            "reviewer_role": {
+              "const": "R10"
+            },
+            "record_sha256": {
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "verdict": {
+              "enum": [
+                "GO",
+                "CHANGES_REQUIRED",
+                "STOP",
+                "BLOCKED"
+              ]
+            },
+            "semantic_go": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "valid_review_count": {
+      "const": 10
+    },
+    "go_count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 10
+    },
+    "stop_count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 10
+    },
+    "blocked_count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 10
+    },
+    "changes_required_count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 10
+    },
+    "validated_p0_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "consensus_p1_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "contradictory_go_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "verdict": {
+      "enum": [
+        "GO",
+        "CHANGES_REQUIRED",
+        "STOP"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "verdict": {
+            "const": "GO"
+          }
+        },
+        "required": [
+          "verdict"
+        ]
+      },
+      "then": {
+        "properties": {
+          "go_count": {
+            "minimum": 8
+          },
+          "stop_count": {
+            "const": 0
+          },
+          "blocked_count": {
+            "const": 0
+          },
+          "validated_p0_count": {
+            "const": 0
+          },
+          "consensus_p1_count": {
+            "const": 0
+          },
+          "contradictory_go_count": {
+            "const": 0
+          }
+        }
+      }
+    }
+  ]
+}

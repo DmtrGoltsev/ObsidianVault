@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "attestation_type": "exact_assistant_final_payload_provenance",
+  "artifact": {
+    "path": "N8NAgents/02_Агентам/Ревью/PlanV2_Work_a64a14c3/CorrectionR2/D1_SUPERSESSION_REVIEW_R1_RAW.md",
+    "bytes": 6245,
+    "sha256": "0ff2ea1f45890420eafbb280bd072c2552a43db38fbc09c9ed140d6c29d7a3f4",
+    "encoding": "UTF-8 without BOM",
+    "line_endings": "LF",
+    "final_lf_count": 1
+  },
+  "provenance": {
+    "reviewer_task_id": "/root/legacy_supersession_r1",
+    "original_prior_turn": "immediately preceding completed supersession review final response",
+    "payload_channel": "final",
+    "payload_starts_with": "APPROVE_SUPERSESSION",
+    "exact_verbatim": true,
+    "reconstruction_used": false
+  },
+  "scope_attestation": {
+    "scope": "two requested D1 supersession review provenance files only",
+    "other_files_changed": false,
+    "runtime_accessed_or_changed": false,
+    "network_accessed": false
+  }
+}

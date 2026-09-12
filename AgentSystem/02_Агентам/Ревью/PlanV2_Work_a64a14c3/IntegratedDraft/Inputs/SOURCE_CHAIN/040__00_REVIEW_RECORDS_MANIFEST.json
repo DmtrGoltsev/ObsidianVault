@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "review_result_id": "N8NAgents-Docker-Desktop-Plan-v1-Quorum-20260827",
+  "plan_sha256": "a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79",
+  "plan_bytes": 46234,
+  "bundle_sha256": "ac97cdacc140c7bcb186672aa63d002acc1658c767775a3d0718b406f17728e2",
+  "manifest_sha256": "7fbec135d522a5a79a50f7568c5d53a371f2c1b17b26664f3652e67e09f320d5",
+  "schema_path": "../ReviewBundle_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/09_REVIEW_SCHEMA.json",
+  "validation": {
+    "records": 10,
+    "schema_valid": 10,
+    "identity_bound": 10,
+    "unique_review_ids": 10,
+    "unique_finding_ids": 114,
+    "utf8_no_bom_lf_one_final_lf": 10
+  },
+  "totals": {
+    "verdicts": {"GO": 0, "CHANGES_REQUIRED": 9, "STOP": 1, "BLOCKED": 0},
+    "severity": {"P0": 1, "P1": 83, "P2": 28, "P3": 2},
+    "blocking_true": 84,
+    "blocking_false": 30
+  },
+  "records": [
+    {"path": "R01.json", "bytes": 26209, "sha256": "df9c80bc7eb5067f0c293f1373221722ef64e983d520fa9c2ce5999f05449571", "role": "R1", "verdict": "STOP", "findings": 12, "P0": 1, "P1": 7, "P2": 3, "P3": 1},
+    {"path": "R02.json", "bytes": 30224, "sha256": "6e1956b5506f80cd0e803474556804d98023f569c96c60fac974f09e6cf4f397", "role": "R2", "verdict": "CHANGES_REQUIRED", "findings": 12, "P0": 0, "P1": 7, "P2": 5, "P3": 0},
+    {"path": "R03.json", "bytes": 18954, "sha256": "6406e4e72c6b09f677dc444ecad75f54caba4aae0bf2ea5785fc559f77e0d6ee", "role": "R3", "verdict": "CHANGES_REQUIRED", "findings": 8, "P0": 0, "P1": 6, "P2": 2, "P3": 0},
+    {"path": "R04.json", "bytes": 19401, "sha256": "0742637f353d0faa830fa7d36e76322a3eeabff32d50cb0c00cf7bec37f4060b", "role": "R4", "verdict": "CHANGES_REQUIRED", "findings": 10, "P0": 0, "P1": 5, "P2": 4, "P3": 1},
+    {"path": "R05.json", "bytes": 35904, "sha256": "cb994f31ad9b93d4c5be24760bb8be6f489178047e46160d30b339a770269c6d", "role": "R5", "verdict": "CHANGES_REQUIRED", "findings": 16, "P0": 0, "P1": 13, "P2": 3, "P3": 0},
+    {"path": "R06.json", "bytes": 30341, "sha256": "622d437cf758c43690f7390dc48484762c27166a319189bd797b90c4d4fc217d", "role": "R6", "verdict": "CHANGES_REQUIRED", "findings": 11, "P0": 0, "P1": 10, "P2": 1, "P3": 0},
+    {"path": "R07.json", "bytes": 27919, "sha256": "888d23387d76aa3e44d6f30fb88cd76fa1819614eeae5e6ed02c1754ce2d11e1", "role": "R7", "verdict": "CHANGES_REQUIRED", "findings": 12, "P0": 0, "P1": 11, "P2": 1, "P3": 0},
+    {"path": "R08.json", "bytes": 26877, "sha256": "3a67acc0a50b798bde557225898e4edb8566081528428a61a9844d7509b47a70", "role": "R8", "verdict": "CHANGES_REQUIRED", "findings": 12, "P0": 0, "P1": 10, "P2": 2, "P3": 0},
+    {"path": "R09.json", "bytes": 22738, "sha256": "b803a6e096e70cc807e417b7d679364b7e178c7c950958877694dc953cf7e234", "role": "R9", "verdict": "CHANGES_REQUIRED", "findings": 10, "P0": 0, "P1": 8, "P2": 2, "P3": 0},
+    {"path": "R10.json", "bytes": 28751, "sha256": "ce11263b855c4c0d40b6a6e14634b0cac5a720042fcb1cc231afe08996071373", "role": "R10", "verdict": "CHANGES_REQUIRED", "findings": 11, "P0": 0, "P1": 6, "P2": 5, "P3": 0}
+  ]
+}

@@ -1,0 +1,683 @@
+{
+  "validator": "PREFREEZE-CUSTODY-NODE-A",
+  "result": "PASS",
+  "rc": 0,
+  "canary_count": 45,
+  "canaries": [
+    {
+      "canary_id": "CU-PLAN-HASH",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "plan_hash",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_PLAN_MISMATCH",
+      "expected_rc": 21,
+      "actual_status": "STOP_PLAN_MISMATCH",
+      "actual_rc": 21,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "CU-PLAN-BYTES",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "plan_bytes",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_PLAN_MISMATCH",
+      "expected_rc": 21,
+      "actual_status": "STOP_PLAN_MISMATCH",
+      "actual_rc": 21,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "CU-INPUT-HASH",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "input_hash",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_INPUT_MISMATCH",
+      "expected_rc": 21,
+      "actual_status": "STOP_INPUT_MISMATCH",
+      "actual_rc": 21,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "CU-INPUT-COUNT",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "input_count",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_INPUT_MISMATCH",
+      "expected_rc": 21,
+      "actual_status": "STOP_INPUT_MISMATCH",
+      "actual_rc": 21,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "CU-CONTENT",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "content",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_CONTENT_MISMATCH",
+      "expected_rc": 21,
+      "actual_status": "STOP_CONTENT_MISMATCH",
+      "actual_rc": 21,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "CU-SUBJECT",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "subject",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_SUBJECT_MISMATCH",
+      "expected_rc": 22,
+      "actual_status": "STOP_SUBJECT_MISMATCH",
+      "actual_rc": 22,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "CU-MANIFEST-HASH",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "manifest_hash",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_MANIFEST_ENTRY_MISMATCH",
+      "expected_rc": 21,
+      "actual_status": "STOP_MANIFEST_ENTRY_MISMATCH",
+      "actual_rc": 21,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "CU-MANIFEST-MISSING",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "manifest_missing",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_MANIFEST_ENTRY_MISMATCH",
+      "expected_rc": 21,
+      "actual_status": "STOP_MANIFEST_ENTRY_MISMATCH",
+      "actual_rc": 21,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "CU-TRANSCRIPT",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "transcript",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_TRANSCRIPT_MISMATCH",
+      "expected_rc": 22,
+      "actual_status": "STOP_TRANSCRIPT_MISMATCH",
+      "actual_rc": 22,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "CU-ENCODING",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "encoding",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_ENCODING",
+      "expected_rc": 20,
+      "actual_status": "STOP_ENCODING",
+      "actual_rc": 20,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "CU-SOURCE-HASH",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "source_hash",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_SOURCE_BINDING",
+      "expected_rc": 21,
+      "actual_status": "STOP_SOURCE_BINDING",
+      "actual_rc": 21,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "CU-SEVERITY",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "severity",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_DISPOSITION_MISMATCH",
+      "expected_rc": 24,
+      "actual_status": "STOP_DISPOSITION_MISMATCH",
+      "actual_rc": 24,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "CU-BLOCKING",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "blocking",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_DISPOSITION_MISMATCH",
+      "expected_rc": 24,
+      "actual_status": "STOP_DISPOSITION_MISMATCH",
+      "actual_rc": 24,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "CU-SECTION",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "section",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_SECTION_BINDING",
+      "expected_rc": 24,
+      "actual_status": "STOP_SECTION_BINDING",
+      "actual_rc": 24,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "CU-AT",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "at",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_TEST_BINDING",
+      "expected_rc": 24,
+      "actual_status": "STOP_TEST_BINDING",
+      "actual_rc": 24,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "CU-NC",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "nc",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_CANARY_BINDING",
+      "expected_rc": 24,
+      "actual_status": "STOP_CANARY_BINDING",
+      "actual_rc": 24,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "CU-EV",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "ev",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_EVIDENCE_BINDING",
+      "expected_rc": 24,
+      "actual_status": "STOP_EVIDENCE_BINDING",
+      "actual_rc": 24,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "CU-CLUSTER",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "cluster",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_CLUSTER_EXACTSET",
+      "expected_rc": 24,
+      "actual_status": "STOP_CLUSTER_EXACTSET",
+      "actual_rc": 24,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "CU-BOILERPLATE",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "boilerplate",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_SEMANTIC_CONTRACT",
+      "expected_rc": 24,
+      "actual_status": "STOP_SEMANTIC_CONTRACT",
+      "actual_rc": 24,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "CU-ACL",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "acl",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_ALIAS_BINDING",
+      "expected_rc": 24,
+      "actual_status": "STOP_ALIAS_BINDING",
+      "actual_rc": 24,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "CU-HTTP-METHOD",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "http_method",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_HTTP_POLICY",
+      "expected_rc": 51,
+      "actual_status": "STOP_HTTP_POLICY",
+      "actual_rc": 51,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "CU-HTTP-PATH",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "http_path",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_HTTP_POLICY",
+      "expected_rc": 51,
+      "actual_status": "STOP_HTTP_POLICY",
+      "actual_rc": 51,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "CU-HTTP-BODY",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "http_body",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_HTTP_POLICY",
+      "expected_rc": 51,
+      "actual_status": "STOP_HTTP_POLICY",
+      "actual_rc": 51,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "CU-HTTP-REDIRECT",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "http_redirect",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_HTTP_REDIRECT",
+      "expected_rc": 42,
+      "actual_status": "STOP_HTTP_REDIRECT",
+      "actual_rc": 42,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "CU-SAME-BRIDGE",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "same_bridge",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_BRIDGE_IDENTITY",
+      "expected_rc": 43,
+      "actual_status": "STOP_BRIDGE_IDENTITY",
+      "actual_rc": 43,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "CU-MOCK-SECRET",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "mock_secret",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_MOCK_CONTAMINATION",
+      "expected_rc": 51,
+      "actual_status": "STOP_MOCK_CONTAMINATION",
+      "actual_rc": 51,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "CU-TOPOLOGY",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "topology",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_TOPOLOGY_EXACTSET",
+      "expected_rc": 42,
+      "actual_status": "STOP_TOPOLOGY_EXACTSET",
+      "actual_rc": 42,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "CU-BACKUP-VERIFIER",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "backup_verifier",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_BACKUP_VERIFIER",
+      "expected_rc": 42,
+      "actual_status": "STOP_BACKUP_VERIFIER",
+      "actual_rc": 42,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "CU-BACKUP-KEY",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "backup_key",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_SECRET_BOUNDARY",
+      "expected_rc": 51,
+      "actual_status": "STOP_SECRET_BOUNDARY",
+      "actual_rc": 51,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "CU-STATUS-TUPLE",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "status_tuple",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_STATUS_MAPPING",
+      "expected_rc": 52,
+      "actual_status": "STOP_STATUS_MAPPING",
+      "actual_rc": 52,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "CU-MUTATION-STARTED",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "mutation_started",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_STATUS_MAPPING",
+      "expected_rc": 52,
+      "actual_status": "STOP_STATUS_MAPPING",
+      "actual_rc": 52,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "CU-STATUS-SOURCE",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "status_source",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_STATUS_MAPPING",
+      "expected_rc": 52,
+      "actual_status": "STOP_STATUS_MAPPING",
+      "actual_rc": 52,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "CU-STATUS-DUPLICATE",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "status_duplicate",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_STATUS_EXACTSET",
+      "expected_rc": 52,
+      "actual_status": "STOP_STATUS_EXACTSET",
+      "actual_rc": 52,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "CU-RAW-SET",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "raw_set",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_INVALID_REVIEW_SET",
+      "expected_rc": 24,
+      "actual_status": "STOP_INVALID_REVIEW_SET",
+      "actual_rc": 24,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "FG-BLOCKED-GO",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "blocked_go",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_QUORUM_BLOCKED_PRESENT",
+      "expected_rc": 27,
+      "actual_status": "STOP_QUORUM_BLOCKED_PRESENT",
+      "actual_rc": 27,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "FG-DUP-ID",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "duplicate_id",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_DUPLICATE_REVIEW_ID",
+      "expected_rc": 25,
+      "actual_status": "STOP_DUPLICATE_REVIEW_ID",
+      "actual_rc": 25,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "FG-DUP-HASH",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "duplicate_hash",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_DUPLICATE_REVIEW_HASH",
+      "expected_rc": 25,
+      "actual_status": "STOP_DUPLICATE_REVIEW_HASH",
+      "actual_rc": 25,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "FG-FOREIGN-SUBJECT",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "foreign_subject",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_SUBJECT_MISMATCH",
+      "expected_rc": 22,
+      "actual_status": "STOP_SUBJECT_MISMATCH",
+      "actual_rc": 22,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "FG-AUDIT-OPEN",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "audit_open",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_CONTRADICTORY_GO",
+      "expected_rc": 27,
+      "actual_status": "STOP_CONTRADICTORY_GO",
+      "actual_rc": 27,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "CU-UNSAFE-PATH",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "unsafe_path",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_UNSAFE_PATH",
+      "expected_rc": 20,
+      "actual_status": "STOP_UNSAFE_PATH",
+      "actual_rc": 20,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "CU-PATH-COLLISION",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "path_collision",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_PATH_COLLISION",
+      "expected_rc": 20,
+      "actual_status": "STOP_PATH_COLLISION",
+      "actual_rc": 20,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "CU-ADS",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "ads",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_ADS",
+      "expected_rc": 20,
+      "actual_status": "STOP_ADS",
+      "actual_rc": 20,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "CU-REPARSE",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "reparse",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_REPARSE_POINT",
+      "expected_rc": 20,
+      "actual_status": "STOP_REPARSE_POINT",
+      "actual_rc": 20,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "CU-HARDLINK",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "hardlink",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_HARDLINK",
+      "expected_rc": 20,
+      "actual_status": "STOP_HARDLINK",
+      "actual_rc": 20,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "CU-UNEXPECTED",
+      "fixture": "CUSTODY_BASELINE_V3",
+      "mutation": {
+        "field": "unexpected",
+        "count": 1
+      },
+      "mutation_observed": true,
+      "expected_status": "STOP_UNEXPECTED_FILE",
+      "expected_rc": 20,
+      "actual_status": "STOP_UNEXPECTED_FILE",
+      "actual_rc": 20,
+      "forbidden_effects_observed": [],
+      "result": "REJECTED"
+    }
+  ]
+}

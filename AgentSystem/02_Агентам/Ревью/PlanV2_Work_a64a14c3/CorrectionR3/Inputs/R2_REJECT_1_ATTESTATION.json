@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "attestation_type": "exact_assistant_final_payload_provenance",
+  "artifact": {
+    "path": "N8NAgents/02_Агентам/Ревью/PlanV2_Work_a64a14c3/CorrectionR3/Inputs/R2_REJECT_1_RAW.md",
+    "bytes": 3772,
+    "sha256": "883f14143d5153a84ddd63085cb08991c708b66725c47deae1c4bc66406075ce",
+    "encoding": "UTF-8 without BOM",
+    "line_endings": "LF",
+    "final_lf_count": 1
+  },
+  "provenance": {
+    "reviewer_task_id": "/root/legacy_supersession_r1",
+    "original_prior_turn": "immediately preceding completed exact-core ratification review final response",
+    "payload_channel": "final",
+    "payload_starts_with": "REJECT",
+    "exact_verbatim": true,
+    "reconstruction_used": false
+  },
+  "scope_attestation": {
+    "scope": "two requested R2 reject provenance files only",
+    "other_files_changed": false,
+    "runtime_accessed_or_changed": false,
+    "network_accessed": false
+  }
+}

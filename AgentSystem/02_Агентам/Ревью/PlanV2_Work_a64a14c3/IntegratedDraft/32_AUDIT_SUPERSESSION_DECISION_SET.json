@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "record_kind": "N8NAGENTS_AUDIT_SUPERSESSION_DECISION_SET_R2",
+  "state": "DRAFT_PREFREEZE",
+  "authority_state": "PENDING_OWNER_SUPERSESSION",
+  "original_r1_recovered": false,
+  "permanent_incident": {
+    "path": "Inputs/C1_LEGACY_SOURCE_LOSS_INCIDENT.json",
+    "bytes": 1312,
+    "sha256": "52765124ad0e60f6142b24521228b4562bfca3c30bba52a488a0ade43d473f06",
+    "status": "STOP_LEGACY_SOURCE_MISSING",
+    "retention": "PERMANENT"
+  },
+  "prospective_successor": {
+    "record_kind": "SUPERSEDING_PREFREEZE_BASELINE_R2",
+    "source_kind": "SECOND_PREFREEZE_AUDIT_R2",
+    "source_mode": "PENDING_OWNER_SUPERSESSION",
+    "raw": {
+      "path": "Inputs/C2_PREFREEZE_AUDIT_R2_RAW.md",
+      "bytes": 7957,
+      "sha256": "2c6f25a2ab02e7d9995df0ecbc4456f69dfadd0c044f403c0420ea23e13295ae"
+    },
+    "attestation": {
+      "path": "Inputs/C2_PREFREEZE_AUDIT_R2_ATTESTATION.json",
+      "bytes": 1124,
+      "sha256": "3a5d8d3bcb49a613c39a8695f1b94e5f4e61d45bfc77bae31526ec42c1b4b101"
+    },
+    "baseline_path": "24_PROSPECTIVE_AUDIT_R2_BASELINE.json",
+    "baseline_item_count": 13,
+    "baseline_items_aggregate_sha256": "4cad6dc20a8d56f49370f2d56da69b2e439cd60588988af256f1da57220323f6",
+    "audited_subject_replay_state": "SOURCE_ASSERTED_NOT_REPLAYED"
+  },
+  "integration_inputs": {
+    "corrected_A": {
+      "path": "Inputs/A_SEMANTICS_TOPOLOGY_STATUS.md",
+      "bytes": 78791,
+      "sha256": "5a8fa7877b1d3bfca3c6200cf092e3790d14412179f80abb49fe650701414e0a",
+      "status_key_set_sha256": "afd05d828c22c9132b7e00612781c776ddc922ea089c2a61cf14f1921e589c06"
+    },
+    "B_spec": {
+      "path": "Inputs/B_REVIEW_QUORUM_CUSTODY.md",
+      "bytes": 33080,
+      "sha256": "350171ffb6727330cb2d218d256f51a5fb568dfa95b605a922411f0478bba2e7",
+      "interpretation": "SOURCE_SPEC_WITH_EXPLICIT_R2_SUCCESSOR_OVERRIDES"
+    },
+    "master_prompt": {
+      "path": "Inputs/N8N_AGENT_MASTER_PROMPT.md",
+      "bytes": 27410,
+      "sha256": "7b271daf6c3952aff905d2358e2e1a3c36ca789e5be784968311e133d1758da3"
+    }
+  },
+  "decisions": {
+    "R1": {
+      "raw": "D1_SUPERSESSION_REVIEW_R1_RAW.md",
+      "attestation": "D1_SUPERSESSION_REVIEW_R1_ATTESTATION.json",
+      "reviewer_task_id": "/root/legacy_supersession_r1",
+      "raw_bytes": 6245,
+      "raw_sha256": "0ff2ea1f45890420eafbb280bd072c2552a43db38fbc09c9ed140d6c29d7a3f4",
+      "attestation_bytes": 951,
+      "attestation_sha256": "f9efbe5bf7e0e56f2dd764d74caac78674e2e28e5f3935bdc3d7d01b6ae7245d",
+      "decision": "APPROVE_SUPERSESSION",
+      "activation_effect": "CONDITIONAL_PROTOCOL_APPROVAL_ONLY"
+    },
+    "R2": {
+      "raw": "D2_SUPERSESSION_REVIEW_R2_RAW.md",
+      "attestation": "D2_SUPERSESSION_REVIEW_R2_ATTESTATION.json",
+      "reviewer_task_id": "/root/legacy_supersession_r2",
+      "raw_bytes": 7340,
+      "raw_sha256": "390f5230998425c465f7e4f881d821e260fff3f72e4d437205a73aa219b172f1",
+      "attestation_bytes": 1103,
+      "attestation_sha256": "555790f4fd4c736d1b3daba1c69e5008fa959ab879d9afc0796300b18e8f4c3b",
+      "decision": "APPROVE_SUPERSESSION",
+      "activation_effect": "CONDITIONAL_PROTOCOL_APPROVAL_ONLY"
+    },
+    "R3": {
+      "raw": "D3_SUPERSESSION_REVIEW_R3_RAW.md",
+      "attestation": "D3_SUPERSESSION_REVIEW_R3_ATTESTATION.json",
+      "reviewer_task_id": "/root/legacy_supersession_r3",
+      "raw_bytes": 4541,
+      "raw_sha256": "ddba2a195d3b7f7d4aa4fe113af033966ee98d7b70eb30802ffb26e74e73bb4f",
+      "attestation_bytes": 1143,
+      "attestation_sha256": "2df74c332d4ea473ca2c78a4801121b38a79d047070f945d5a34385e04f658e5",
+      "decision": "APPROVE_SUPERSESSION",
+      "activation_effect": "CONDITIONAL_PROTOCOL_APPROVAL_ONLY"
+    }
+  },
+  "quorum": {
+    "required_decisions": 3,
+    "valid_decisions": 3,
+    "approve_count": 3,
+    "reject_count": 0,
+    "unique_reviewer_task_ids": true,
+    "unique_raw_sha256": true,
+    "verdict": "CONDITIONAL_APPROVE_PENDING_OWNER"
+  },
+  "explicit_successor_overrides": [
+    "B original-audit hard stop is replaced prospectively only by C1 permanent loss incident plus C2 exact 13-item successor after owner activation.",
+    "All review, schema, validator and GO exact sets use 13 audit IDs; the unavailable historical 9-item source is never reconstructed.",
+    "19_PREFREEZE_CORRECTION_R1.json is NONAUTHORITATIVE_REMEDIATION_SUMMARY/CROSS_REFERENCE_ONLY.",
+    "A corrected identity is 78791 bytes / 5a8fa7877b1d3bfca3c6200cf092e3790d14412179f80abb49fe650701414e0a; prior A identity is not authoritative."
+  ],
+  "owner_activation_gate": {
+    "required": true,
+    "status": "NOT_GRANTED",
+    "exact_candidate_identities_required": [
+      "canonical_plan",
+      "primary_input_set",
+      "content_set",
+      "subject_envelope",
+      "integration_manifest",
+      "decision_set"
+    ],
+    "authorized_effect": [
+      "set C2 audit-authority pointer to ACTIVE_SUCCESSOR_BASELINE"
+    ],
+    "forbidden_effects": [
+      "freeze",
+      "read_only",
+      "commit",
+      "runtime",
+      "Docker",
+      "VPS",
+      "provider_UI",
+      "secret_access",
+      "delete_C1",
+      "rewrite_C2",
+      "claim_original_recovered",
+      "claim_runtime_PASS"
+    ]
+  },
+  "runtime_state": "NOT_RUN"
+}

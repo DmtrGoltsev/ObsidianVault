@@ -1,0 +1,3916 @@
+{
+  "schema_version": 2,
+  "state": "DRAFT_PREFREEZE",
+  "plan": {
+    "path": "N8NAgents/02_Агентам/Задачи/План_Лаборатория_Docker_Desktop_N8NAgents_v2_2026-08-27.md",
+    "bytes": 69598,
+    "sha256": "573ceb10ecda2af47b3bbe258c71cb43e5d8fdb7e92898ce7b78cb983bad8432"
+  },
+  "baseline": {
+    "path": "N8NAgents/02_Агентам/Ревью/PlanV2_Work_a64a14c3/00_FINDINGS_BASELINE.json",
+    "bytes": 213739,
+    "sha256": "934c449aa75ad157b1702afefcbaac4eab80b750801f172226d065b5a528c4aa",
+    "entries": 114
+  },
+  "counts": {
+    "entries": 114,
+    "blocking": 84,
+    "nonblocking": 30,
+    "severity": {
+      "P0": 1,
+      "P1": 83,
+      "P2": 28,
+      "P3": 2
+    },
+    "design_resolved": 114,
+    "owner_deferred": 0
+  },
+  "disposition_rule": "DESIGN_RESOLVED means the required design contract is present; it does not assert runtime PASS.",
+  "findings": [
+    {
+      "finding_id": "R1-WIN-001",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R01.json",
+        "raw_record_sha256": "df9c80bc7eb5067f0c293f1373221722ef64e983d520fa9c2ce5999f05449571",
+        "canonical_finding_sha256": "231e0951f7f6551550e947996e0a3942ba3b09ac4a090b9c4bd9262eb5b3efc3",
+        "severity": "P0",
+        "blocking": true,
+        "source_verdict": "STOP"
+      },
+      "v1_cluster": "C01 endpoint/control plane",
+      "v1_disposition": "BLOCK_P0",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Make endpoint identity a mandatory invariant of every lab command. Record an approved local Docker Desktop context and endpoint class during post-install qualification; reject DOCKER_HOST, DOCKER_CONTEXT, TLS/SSH/TCP endpoints, unknown contexts, and daemon identity drift. Invoke Docker and Compose with an explicit approved context without changing the user's global context. Before every mutation, assert the local endpoint, Server OS=linux, expected Desktop daemon identity, and approved Compose project name; add non-local context or override presence to automatic stop conditions.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V01-C01",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R1-WIN-001"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R1-WIN-001"
+      ],
+      "evidence_ids": [
+        "EV-F-R1-WIN-001"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R1-Windows-WSL-control-plane",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R1-WIN-002",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R01.json",
+        "raw_record_sha256": "df9c80bc7eb5067f0c293f1373221722ef64e983d520fa9c2ce5999f05449571",
+        "canonical_finding_sha256": "14742c1355f2cb047548945995720d3c0529b8669531259b3736b22987f02052",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "STOP"
+      },
+      "v1_cluster": "C02 Windows qualification/install transaction",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Define a versioned, machine-readable Windows eligibility record and decision table. It must bind redacted OS edition/build/architecture and servicing state, CPU architecture, hardware and firmware virtualization state, required optional-feature state, WSL state, resource thresholds, device-management policy, and license disposition to a dated authoritative Docker/Microsoft requirements snapshot. Unknown, unreadable, conflicting, or below-threshold fields must produce BLOCKED before download.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V01-C02",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R1-WIN-002"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R1-WIN-002"
+      ],
+      "evidence_ids": [
+        "EV-F-R1-WIN-002"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R1-Windows-WSL-control-plane",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R1-WIN-003",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R01.json",
+        "raw_record_sha256": "df9c80bc7eb5067f0c293f1373221722ef64e983d520fa9c2ce5999f05449571",
+        "canonical_finding_sha256": "9064f58591d47ed1571aa1bf4f916aac3b605a7a8afd16c6253985b8e1878281",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "STOP"
+      },
+      "v1_cluster": "C02 Windows qualification/install transaction",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Replace the single step with an explicit state machine: capture immutable before-state; derive an exact proposed delta; separately authorize every feature/package/update and elevation action; record official provenance; detect pending reboot; never promise a fixed reboot count; stop before each reboot; and resume only from a plan-hash-bound checkpoint after revalidating OS, WSL, features, update status, user identity, and Docker endpoint. If policy, Store/update availability, firmware, or an extra unapproved change is required, return BLOCKED-MANUAL.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V01-C03",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R1-WIN-003"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R1-WIN-003"
+      ],
+      "evidence_ids": [
+        "EV-F-R1-WIN-003"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R1-Windows-WSL-control-plane",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R1-WIN-004",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R01.json",
+        "raw_record_sha256": "df9c80bc7eb5067f0c293f1373221722ef64e983d520fa9c2ce5999f05449571",
+        "canonical_finding_sha256": "1f3ef4d0115cdfa32034e827334a63dbf4674e93ca49dbc04546b6c9b5b8529c",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "STOP"
+      },
+      "v1_cluster": "C02 Windows qualification/install transaction",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Define separate roles for intended daily owner, elevation credential, service/system components, and authorized Docker control-plane users. Resolve exact identities locally while storing only redacted identifiers in evidence. Run only the narrowly elevated installer action under UAC; do not run the full orchestration elevated. Specify ownership, group membership, ACL inheritance, required sign-out/restart, first launch, and per-user config/data locations. Stop if the intended ownership model cannot be achieved without broader access.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V01-C03",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R1-WIN-004"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R1-WIN-004"
+      ],
+      "evidence_ids": [
+        "EV-F-R1-WIN-004"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R1-Windows-WSL-control-plane",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R1-WIN-005",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R01.json",
+        "raw_record_sha256": "df9c80bc7eb5067f0c293f1373221722ef64e983d520fa9c2ce5999f05449571",
+        "canonical_finding_sha256": "8f0f36a4a668857d6638b5c4d792172cc50eee8b08d61454a3a6698c032e302c",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "STOP"
+      },
+      "v1_cluster": "C02 Windows qualification/install transaction",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Define a non-mutating discovery inventory covering installed application records, executable provenance/version, services/startup entries, Docker contexts and environment overrides, WSL distributions/state, configured data locations, settings/policies, and ownership. Add mutually exclusive fresh-install, approved-upgrade, and BLOCKED-existing-state branches. Default to BLOCKED when any ownership, data, version, or migration fact is unresolved.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V01-C02",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R1-WIN-005"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R1-WIN-005"
+      ],
+      "evidence_ids": [
+        "EV-F-R1-WIN-005"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R1-Windows-WSL-control-plane",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R1-WIN-006",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R01.json",
+        "raw_record_sha256": "df9c80bc7eb5067f0c293f1373221722ef64e983d520fa9c2ce5999f05449571",
+        "canonical_finding_sha256": "7850b7593b4a1dec2708c4e36f8ce509b383d0122b102888284bb529f8363047",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "STOP"
+      },
+      "v1_cluster": "C02 Windows qualification/install transaction",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Rename and split application rollback, feature rollback, and data recovery. Before installation, capture the exact approved baseline and vendor-documented install/uninstall effects for the selected version. Permit the fresh-install branch only after proving no pre-existing owned data is at risk; otherwise require an owner-approved backup/migration plan. Define what remains intentionally, what can be reverted safely, and what makes rollback BLOCKED. Never describe uninstall as non-destructive without a verified post-uninstall diff.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V01-C04",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R1-WIN-006"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R1-WIN-006"
+      ],
+      "evidence_ids": [
+        "EV-F-R1-WIN-006"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R1-Windows-WSL-control-plane",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R1-WIN-007",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R01.json",
+        "raw_record_sha256": "df9c80bc7eb5067f0c293f1373221722ef64e983d520fa9c2ce5999f05449571",
+        "canonical_finding_sha256": "acefd7f25a251e01866e70af2b4c1cb8e6080f5ed15d515ba17ce2210c4e3e4a",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "STOP"
+      },
+      "v1_cluster": "C03 resource enforcement",
+      "v1_disposition": "BLOCK_CONSENSUS_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Replace the thresholds with a budget equation covering existing Docker state, application and managed-disk overhead, steady-state images/volumes/cache, worst-case pull/build temporary space, backup staging plus encrypted output, isolated restore duplication, logs, and a non-consumable host reserve. Select exact volumes/data roots during preflight, enforce hard high-water marks before every growth operation, and define alert, stop, cleanup-approval, and VHDX growth/reclamation procedures.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V03-C03",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R1-WIN-007"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R1-WIN-007"
+      ],
+      "evidence_ids": [
+        "EV-F-R1-WIN-007"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R1-Windows-WSL-control-plane",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R1-WIN-008",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R01.json",
+        "raw_record_sha256": "df9c80bc7eb5067f0c293f1373221722ef64e983d520fa9c2ce5999f05449571",
+        "canonical_finding_sha256": "3a8dcb141ccb0bb1c3640a4fd4369046464f0a7a52f31d9023d8be6a591e75e4",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "STOP"
+      },
+      "v1_cluster": "C04 storage roots/at-rest",
+      "v1_disposition": "BLOCK_CONSENSUS_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Before installation, resolve and approve every application, managed-data, secret, evidence, backup, and temporary-staging root. Verify ownership/ACLs, reparse points, synchronization status, drive type, filesystem capability, free-space policy, and applicable at-rest protection. Explicitly reject Vault/repository/cloud-sync/shared/removable/network locations unless separately approved. Define an encrypted no-plaintext-staging backup flow and treat later data-root relocation as a destructive migration gate.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V03-C01",
+        "V03-C02",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R1-WIN-008"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R1-WIN-008"
+      ],
+      "evidence_ids": [
+        "EV-F-R1-WIN-008"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R1-Windows-WSL-control-plane",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R1-WIN-009",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R01.json",
+        "raw_record_sha256": "df9c80bc7eb5067f0c293f1373221722ef64e983d520fa9c2ce5999f05449571",
+        "canonical_finding_sha256": "576fd4544dbbce3fc37f46e91a805d4efe6f6fdf928fea650dec032074b1b582",
+        "severity": "P2",
+        "blocking": false,
+        "source_verdict": "STOP"
+      },
+      "v1_cluster": "C06 drift/update",
+      "v1_disposition": "MITIGATE_V2",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Define the permitted update setting and drift policy for the selected channel. Persist the qualified Desktop/Engine/Compose/WSL/settings inventory; make lab start and verification fail closed on unapproved drift. Add a controlled update workflow requiring current official acquisition evidence, backup/restore readiness, capability and exposure regression tests, owner approval, and an explicit rollback or BLOCKED outcome.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V02-C04",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R1-WIN-009"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R1-WIN-009"
+      ],
+      "evidence_ids": [
+        "EV-F-R1-WIN-009"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R1-Windows-WSL-control-plane",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R1-WIN-010",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R01.json",
+        "raw_record_sha256": "df9c80bc7eb5067f0c293f1373221722ef64e983d520fa9c2ce5999f05449571",
+        "canonical_finding_sha256": "7a2d28a1c3c1608375592cefabf20338a9451a9feba47801ab7ade1b9ce23850",
+        "severity": "P2",
+        "blocking": false,
+        "source_verdict": "STOP"
+      },
+      "v1_cluster": "C02 Windows policy/operator safety",
+      "v1_disposition": "MITIGATE_V2",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Define acceptable policy evidence and explicit UNKNOWN/BLOCKED outcomes. Never disable protection or add exclusions as automatic remediation. Capture only redacted relevant block/quarantine events; stop after a policy-caused failure; require separately documented organizational authorization for any exception; then rerun acquisition and integrity checks from clean official bytes.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V01-C02",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R1-WIN-010"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R1-WIN-010"
+      ],
+      "evidence_ids": [
+        "EV-F-R1-WIN-010"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R1-Windows-WSL-control-plane",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R1-WIN-011",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R01.json",
+        "raw_record_sha256": "df9c80bc7eb5067f0c293f1373221722ef64e983d520fa9c2ce5999f05449571",
+        "canonical_finding_sha256": "d6cc7193e831766dadb24a4515bb3466d4ae7e8d01ecb22953c5f5105ac14958",
+        "severity": "P2",
+        "blocking": false,
+        "source_verdict": "STOP"
+      },
+      "v1_cluster": "C02 Windows policy/operator safety",
+      "v1_disposition": "MITIGATE_V2",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Make elevation and reboot interactive stop points. Show exact command, affected components, expected interruption, and rollback limits immediately before UAC. Prohibit automatic reboot. Require explicit owner confirmation after saving work, write a non-secret plan-hash-bound resume checkpoint, and after reboot rerun identity, OS/feature, WSL, policy, Docker endpoint, and pending-reboot checks before requesting authorization to continue.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V01-C03",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R1-WIN-011"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R1-WIN-011"
+      ],
+      "evidence_ids": [
+        "EV-F-R1-WIN-011"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R1-Windows-WSL-control-plane",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R1-WIN-012",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R01.json",
+        "raw_record_sha256": "df9c80bc7eb5067f0c293f1373221722ef64e983d520fa9c2ce5999f05449571",
+        "canonical_finding_sha256": "1fdc076c9aafd9cbaa7d1b16d090c36bacc205538fc5d208b1927d6079b4cf4c",
+        "severity": "P3",
+        "blocking": false,
+        "source_verdict": "STOP"
+      },
+      "v1_cluster": "C08 exposure",
+      "v1_disposition": "ACCEPT_CLARITY_TEST",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Revalidate IPv4 and IPv6 ownership immediately before start, distinguish this lab's existing listener from an unrelated process, and return a specific BLOCKED-PORT result. Do not auto-select another port or broaden the bind; any port change must be an explicit reviewed configuration change.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V04-C05",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R1-WIN-012"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R1-WIN-012"
+      ],
+      "evidence_ids": [
+        "EV-F-R1-WIN-012"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R1-Windows-WSL-control-plane",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R10-F01",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R10.json",
+        "raw_record_sha256": "ce11263b855c4c0d40b6a6e14634b0cac5a720042fcb1cc231afe08996071373",
+        "canonical_finding_sha256": "3b07b52755ea7b9c6ea14f8698c3f4f02731d5e1f3807a364d791896833161fe",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C10 Telegram arming",
+      "v1_disposition": "BLOCK_CONSENSUS_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Добавить отдельную fail-closed церемонию `lab arm telegram`: сначала read-only `getMe`/webhook/allowlist preflight, затем показ redacted bot fingerprint, recipient fingerprint, data class, message ceiling, monetary ceiling, TTL и планируемого webhook action, после чего требуется явное интерактивное подтверждение. Сохранить несекретный arm record с TTL и точными hashes; `start --mode real-dev` обязан отклоняться до любого Telegram API вызова при отсутствии или расхождении record. Disarm выполнять при stop, reboot/session boundary, исчерпании лимита и любом identity/config drift.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V06-C01",
+        "V10-C02",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R10-F01"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R10-F01"
+      ],
+      "evidence_ids": [
+        "EV-F-R10-F01"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R10-owner-operability-recovery",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R10-F02",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R10.json",
+        "raw_record_sha256": "ce11263b855c4c0d40b6a6e14634b0cac5a720042fcb1cc231afe08996071373",
+        "canonical_finding_sha256": "765f9557951f700a097679303da29865c2e275501660cd838e8c39e0924aaf34",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C15 emergency stop",
+      "v1_disposition": "BLOCK_CONSENSUS_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Специфицировать `lab emergency-stop telegram` и короткую печатную процедуру: атомарно снять arm state, остановить/заблокировать real-dev bridge, проверить отсутствие процесса/polling/outbound activity, сохранить данные и redacted diagnostics. Задать bounded timeout и ручную лестницу при недоступном Engine, включая точное безопасное действие владельца по остановке Docker Desktop и отдельную инструкцию revoke/rotate через BotFather. Команда не должна удалять volumes или secrets и не должна сообщать успех без подтверждения.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V10-C03",
+        "V07-C04",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R10-F02"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R10-F02"
+      ],
+      "evidence_ids": [
+        "EV-F-R10-F02"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R10-owner-operability-recovery",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R10-F03",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R10.json",
+        "raw_record_sha256": "ce11263b855c4c0d40b6a6e14634b0cac5a720042fcb1cc231afe08996071373",
+        "canonical_finding_sha256": "1ab48d81e15094010e8c9c2748aa3bcad8be08e17d040f5bd72814bbe9eb9d2d",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C14 independent cold restore",
+      "v1_disposition": "BLOCK_CONSENSUS_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "До D10 утвердить destination, retention и независимую owner custody для N8N_ENCRYPTION_KEY и backup decryption material. Restore обязан проверять authenticated encryption, BOM/hashes, совместимость версий и требуемое свободное место до записи. Cold-drill должен запрещать доступ к исходным volumes и текущему secret root, получать ключ интерактивно из отдельной custody, работать без real egress и иметь документированный путь восстановления на чистом Docker Desktop после потери managed data.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V08-C03",
+        "V10-C04",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R10-F03"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R10-F03"
+      ],
+      "evidence_ids": [
+        "EV-F-R10-F03"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R10-owner-operability-recovery",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R10-F04",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R10.json",
+        "raw_record_sha256": "ce11263b855c4c0d40b6a6e14634b0cac5a720042fcb1cc231afe08996071373",
+        "canonical_finding_sha256": "35f0bf82c5d7704096e83b9960db496bc21e4811af40fa3d96465ca1e195a7db",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C03 resource enforcement",
+      "v1_disposition": "BLOCK_CONSENSUS_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Задать утверждаемые owner thresholds: минимальный host reserve, warning и hard-stop levels, per-service memory/CPU limits, container log rotation, n8n execution retention, backup count/bytes policy и оценки места перед pull/build/backup/restore. `status` должен показывать host free space, Docker data usage, laboratory-labelled usage, backup usage и тренд; start/backup/restore/gate обязаны fail closed до нарушения резерва. Cleanup остаётся отдельной exact-target командой с dry-run.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V03-C03",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R10-F04"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R10-F04"
+      ],
+      "evidence_ids": [
+        "EV-F-R10-F04"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R10-owner-operability-recovery",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R10-F05",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R10.json",
+        "raw_record_sha256": "ce11263b855c4c0d40b6a6e14634b0cac5a720042fcb1cc231afe08996071373",
+        "canonical_finding_sha256": "b0b77eb50daa6d54747b95e519bded294d4e972f3d76b2f681f505e1fdf51ac1",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C06 update/drift",
+      "v1_disposition": "BLOCK_CONSENSUS_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Добавить versioned drift inventory и явные состояния `CURRENT`, `DRIFTED`, `UPDATE_PENDING`, `ROLLBACK_REQUIRED`. Daily start должен сравнивать runtime с approved lock и блокировать security/capability-sensitive drift. Update должен быть отдельной owner-approved процедурой: release/source/license check, backup, disk preflight, exact change preview, compatibility/gate rerun, evidence update и поддерживаемый rollback. Не предполагать возможность отключения auto-update без проверки exact версии Docker Desktop.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V02-C04",
+        "V05-C05",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R10-F05"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R10-F05"
+      ],
+      "evidence_ids": [
+        "EV-F-R10-F05"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R10-owner-operability-recovery",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R10-F06",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R10.json",
+        "raw_record_sha256": "ce11263b855c4c0d40b6a6e14634b0cac5a720042fcb1cc231afe08996071373",
+        "canonical_finding_sha256": "eb59595d492eb2f3ece03d46575ce808fd0750514d0d36754ba7e12be1a48dac",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C19 black-box handoff",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Создать exact owner acceptance script с prerequisites, единой bootstrap-командой, ожидаемым выводом и критериями PASS/FAIL для каждой операции. Финальный handoff проводить из чистого пользовательского сеанса только по versioned runbook, без командных подсказок агента. Включить mock start/UI/login/message, persistence restart, explicit Telegram arm/real message/disarm, emergency stop, status/doctor при одной injected fault, backup и cold restore drill.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V10-C04",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R10-F06"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R10-F06"
+      ],
+      "evidence_ids": [
+        "EV-F-R10-F06"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R10-owner-operability-recovery",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R10-F07",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R10.json",
+        "raw_record_sha256": "ce11263b855c4c0d40b6a6e14634b0cac5a720042fcb1cc231afe08996071373",
+        "canonical_finding_sha256": "c8b9dc7b7699acdc3fc0db4dab154f4cf9c372c7e733d54b9875d22be1ad19e5",
+        "severity": "P2",
+        "blocking": false,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C19 onboarding/diagnostics/daily operations",
+      "v1_disposition": "MITIGATE_V2",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Для exact n8n version описать readiness check, loopback URL, owner bootstrap, 2FA enrollment и owner-controlled custody recovery material без screenshots/evidence. Добавить поддерживаемую upstream процедуру account recovery с предварительным backup, предупреждением о последствиях, exact-version verification и запретом прямого редактирования metadata DB.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V05-C05",
+        "V10-C02",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R10-F07"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R10-F07"
+      ],
+      "evidence_ids": [
+        "EV-F-R10-F07"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R10-owner-operability-recovery",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R10-F08",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R10.json",
+        "raw_record_sha256": "ce11263b855c4c0d40b6a6e14634b0cac5a720042fcb1cc231afe08996071373",
+        "canonical_finding_sha256": "68280fe9d2d234497de202cd244412b62345e41d4c41ef697620a33f21f1bf54",
+        "severity": "P2",
+        "blocking": false,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C19 onboarding/diagnostics/daily operations",
+      "v1_disposition": "MITIGATE_V2",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Определить стабильную human-readable и JSON schema: overall state плюс независимые platform/runtime/mode/arming/health/resources/drift/backup states, evidence timestamp и exact next safe action. `doctor` по умолчанию должен быть read-only; любые fixes — отдельные именованные операции с dry-run/manual gate. Unknown должен оставаться `UNKNOWN/BLOCKED`, не PASS.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V10-C01",
+        "XD-C04",
+        "XD-C05",
+        "R2-C01",
+        "R2-C05"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R10-F08"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R10-F08"
+      ],
+      "evidence_ids": [
+        "EV-F-R10-F08"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R10-owner-operability-recovery",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R10-F09",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R10.json",
+        "raw_record_sha256": "ce11263b855c4c0d40b6a6e14634b0cac5a720042fcb1cc231afe08996071373",
+        "canonical_finding_sha256": "ad11292151250b8f30f24480c349f02bd0375f04deb5e555d8533e0c8b07d442",
+        "severity": "P2",
+        "blocking": false,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C02 owner change/reboot ceremony",
+      "v1_disposition": "MITIGATE_V2",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Добавить отдельные owner cards для license, feature changes, UAC и reboot: authoritative text/date, выбранная eligibility category, exact commands/UI actions, причина elevation, ожидаемые изменения, data impact, rollback и abort. Перед reboot записывать secret-free stage checkpoint; после входа единственная resume-команда повторяет read-only inventory и не повторяет install. Повседневный CLI должен работать без elevation или явно останавливаться.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V01-C03",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R10-F09"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R10-F09"
+      ],
+      "evidence_ids": [
+        "EV-F-R10-F09"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R10-owner-operability-recovery",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R10-F10",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R10.json",
+        "raw_record_sha256": "ce11263b855c4c0d40b6a6e14634b0cac5a720042fcb1cc231afe08996071373",
+        "canonical_finding_sha256": "94d15480e3cf798e03497cdfbf9f64563d653931abb85ef9249b26738a0a5047",
+        "severity": "P2",
+        "blocking": false,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C13 screenshot/support-bundle safety",
+      "v1_disposition": "MITIGATE_V2",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Добавить screenshot/evidence runbook: список запрещённых экранов и полей, предпочтение структурированного status вместо UI capture, локальное crop/redact до помещения в evidence, повторная проверка OCR/metadata, очистка clipboard и ограниченный retention. Support bundle считать потенциально secret-bearing: не прикладывать и не передавать автоматически; требовать отдельного owner review/gate.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V07-C03",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R10-F10"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R10-F10"
+      ],
+      "evidence_ids": [
+        "EV-F-R10-F10"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R10-owner-operability-recovery",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R10-F11",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R10.json",
+        "raw_record_sha256": "ce11263b855c4c0d40b6a6e14634b0cac5a720042fcb1cc231afe08996071373",
+        "canonical_finding_sha256": "98c42f7f704d25dc6f016eaae2b896f866ce2cee56013c97cd18d239e3c40c7d",
+        "severity": "P2",
+        "blocking": false,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C19 onboarding/diagnostics/daily operations",
+      "v1_disposition": "MITIGATE_V2",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Выбрать одну поддерживаемую bootstrap-команду, не зависящую от cwd и постоянного изменения PowerShell policy/PATH; она должна показывать CLI version и repository/config root. Добавить одностраничный daily checklist: start Docker, status, start mock по умолчанию, arm real-dev только при необходимости, logs/doctor, backup cadence, stop/disarm, sleep/reboot recovery и escalation. Все длинные команды скрыть за versioned wrapper.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V10-C02",
+        "V10-C04",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R10-F11"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R10-F11"
+      ],
+      "evidence_ids": [
+        "EV-F-R10-F11"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R10-owner-operability-recovery",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R2-001",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R02.json",
+        "raw_record_sha256": "6e1956b5506f80cd0e803474556804d98023f569c96c60fac974f09e6cf4f397",
+        "canonical_finding_sha256": "849f1a52da5a3eb7c120d66bd2ead23921e4144a92fc6364652a6dae619bba43",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C05 supply chain/license",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Ввести до download/pull отдельный immutable SupplyChainLock: canonical fully qualified refs, Docker Desktop build/channel/effective URL/expected SHA-256/signer policy, OCI index и linux/amd64 child digests, source revisions, license-record IDs, lockfiles, SBOM/scan policy и tool versions. Зафиксировать bytes+SHA-256, дать владельцу и независимому reviewer на явное одобрение, привязать authorization к hash lock. Любое изменение поля требует нового lock и повторного disposition до исполнения.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V02-C01",
+        "V02-C02",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R2-001"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R2-001"
+      ],
+      "evidence_ids": [
+        "EV-F-R2-001"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R2-supply-chain-license-drift",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R2-002",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R02.json",
+        "raw_record_sha256": "6e1956b5506f80cd0e803474556804d98023f569c96c60fac974f09e6cf4f397",
+        "canonical_finding_sha256": "3f480e831ae7ac81267471f9471a6e3d50c573b734aa1c06c9fd4dd5d4c412f3",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C05 supply chain/license",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Определить verifier contract: expected SHA-256 берётся из отдельно аутентифицированного official vendor metadata/source и никогда из downloaded file; canonical vendor origin и signer identity подтверждаются official source. Проверять embedded signatures, Code Signing EKU, полную доверенную цепочку, trusted timestamp/signing time, revocation status на дату acquisition и отсутствие неожиданного signer. Зафиксировать structured chain/source evidence без PII. Если vendor не публикует independent digest либо chain/revocation нельзя проверить, остановиться и вынести альтернативный acquisition method на отдельное review, а не ослаблять gate.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V02-C01",
+        "V02-C02",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R2-002"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R2-002"
+      ],
+      "evidence_ids": [
+        "EV-F-R2-002"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R2-supply-chain-license-drift",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R2-003",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R02.json",
+        "raw_record_sha256": "6e1956b5506f80cd0e803474556804d98023f569c96c60fac974f09e6cf4f397",
+        "canonical_finding_sha256": "ac2c5e575794a929963c24ab436a25a2c7918b07812a3a27b9a273b3a38e4e2f",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C05 supply chain/license",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Скачивать в новый user-only staging directory с проверенным owner/ACL и без reparse ancestors; создавать уникальный файл без перезаписи, фиксировать canonical final path, volume/file ID, size и timestamps. Перед запуском заново проверить identity, SHA-256 и Authenticode, затем исполнять только абсолютный verified path без shell resolution. Mismatch artifact удалять или изолировать только после повторной проверки containment/identity; при изменении identity ничего не запускать и не удалять вне staging, сохранить только безопасные metadata/hash evidence.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V02-C01",
+        "V02-C02",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R2-003"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R2-003"
+      ],
+      "evidence_ids": [
+        "EV-F-R2-003"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R2-supply-chain-license-drift",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R2-004",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R02.json",
+        "raw_record_sha256": "6e1956b5506f80cd0e803474556804d98023f569c96c60fac974f09e6cf4f397",
+        "canonical_finding_sha256": "6c93554647515e3fbd6747bc148707ce1108a910744485a0884aa1ecefd7f29b",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C05 supply chain/license",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Для каждого vendor/base/local image записать canonical FQIN, official-source proof namespace, registry endpoint/mirror state, tag, OCI index digest, linux/amd64 child-manifest digest, config digest, size и UTC. Compose должен содержать approved digest plus explicit platform; pull/import должен сверять resolved child/config and runtime OS/architecture. Проверять vendor signature/provenance attestation, если vendor её публикует; если нет — явно зафиксировать отсутствие и residual approval. SBOM, vulnerability disposition и runtime evidence привязать к child manifest. Local builds также адресовать output digest, не mutable tag.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V02-C01",
+        "V02-C02",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R2-004"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R2-004"
+      ],
+      "evidence_ids": [
+        "EV-F-R2-004"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R2-supply-chain-license-drift",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R2-005",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R02.json",
+        "raw_record_sha256": "6e1956b5506f80cd0e803474556804d98023f569c96c60fac974f09e6cf4f397",
+        "canonical_finding_sha256": "76ce382d3bfed1ad1c36f845843b5cb2dc97d1a6576ebf18840a075cf5591281",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C05 supply chain/license",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Утвердить hermetic build policy. Если package manager не нужен — gate должен доказать отсутствие package fetch/remote ADD. Иначе все direct/transitive dependencies фиксируются lockfile с integrity; npm выполняется только через reproducible frozen-lock operation с явно рассмотренными scripts, apt — через approved immutable snapshot/exact versions/signature keys, любые Git/URL artifacts — по digest. Pin builder/frontend/tool versions, hash build context, запретить secrets в context/layers, ограничить build network утверждённым material-fetch stage, создать provenance/materials attestation и зафиксировать final image digest.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V02-C01",
+        "V02-C02",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R2-005"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R2-005"
+      ],
+      "evidence_ids": [
+        "EV-F-R2-005"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R2-supply-chain-license-drift",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R2-006",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R02.json",
+        "raw_record_sha256": "6e1956b5506f80cd0e803474556804d98023f569c96c60fac974f09e6cf4f397",
+        "canonical_finding_sha256": "5ae068f8095b9486c8b1def3b27f12d4b103eec28a670ee15a8581dbe5387b35",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C06 drift/update/migration",
+      "v1_disposition": "BLOCK_CONSENSUS_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Задать owner-approved update policy: управляемое отключение auto-update либо обязательное обнаружение drift и блокировка start; desired runtime version/channel; cadence security checks; fresh acquisition/license/SBOM review; backup/quiesce; compatibility and data-migration test; повтор D3/D5/exposure/backup gates; retention last-known-good installer/images/config/evidence. Описать vendor-supported rollback/downgrade границы и restore-first recovery, не обещая in-place downgrade, если он не подтверждён official docs.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V02-C04",
+        "V05-C05",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R2-006"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R2-006"
+      ],
+      "evidence_ids": [
+        "EV-F-R2-006"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R2-supply-chain-license-drift",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R2-007",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R02.json",
+        "raw_record_sha256": "6e1956b5506f80cd0e803474556804d98023f569c96c60fac974f09e6cf4f397",
+        "canonical_finding_sha256": "1fb50a0be9a8b8619985640730abb665692053512ad3a801e7e0c3228620ebdd",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C05 supply chain/license",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "До download/install owner или уполномоченный представитель вручную рассматривает exact current official Docker terms, фиксирует revision/effective date, применимую eligibility basis и subscription evidence при необходимости, затем явно принимает условия; automation не кликает и не передаёт accept-license flag. Отдельно проверить exact n8n license for pinned release и third-party license inventory/obligations из SBOM; неизвестность или изменённые terms дают BLOCKED-MANUAL и новый approval.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V02-C03",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R2-007"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R2-007"
+      ],
+      "evidence_ids": [
+        "EV-F-R2-007"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R2-supply-chain-license-drift",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R2-008",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R02.json",
+        "raw_record_sha256": "6e1956b5506f80cd0e803474556804d98023f569c96c60fac974f09e6cf4f397",
+        "canonical_finding_sha256": "b40738260e17cc3bbc7fbfdc7d4adeb004a945345527d32f21b92a82f07f77ed",
+        "severity": "P2",
+        "blocking": false,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C05 SBOM/installed identity/source evidence",
+      "v1_disposition": "MITIGATE_V2",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Определить schema и policy: SPDX/CycloneDX format, pinned generator/scanner and DB snapshot/time, final linux/amd64 image scope, digest/lock binding, severity thresholds, unknown/unfixed handling, license policy, signed exception with owner/rationale/expiry, retention/redaction. Tool/database/network failure должен давать BLOCKED, не пустой PASS.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V02-C03",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R2-008"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R2-008"
+      ],
+      "evidence_ids": [
+        "EV-F-R2-008"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R2-supply-chain-license-drift",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R2-009",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R02.json",
+        "raw_record_sha256": "6e1956b5506f80cd0e803474556804d98023f569c96c60fac974f09e6cf4f397",
+        "canonical_finding_sha256": "c66b54696af83b02772201ad47e9a65332dc3edac5d9f46fdd481c39e89f7432",
+        "severity": "P2",
+        "blocking": false,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C06 last-known-good rollback set",
+      "v1_disposition": "MITIGATE_V2",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Утвердить retention set и квоту минимум для current и last-known-good: verified installers, exact OCI archives/manifest metadata, Compose/lockfiles, SBOM/scan/license/acquisition records и checksums. Проверять archive import and digest before relying on it; удаление запрещать, пока новая версия не прошла restore/update drill и owner не подтвердил сокращение rollback window.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V02-C04",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R2-009"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R2-009"
+      ],
+      "evidence_ids": [
+        "EV-F-R2-009"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R2-supply-chain-license-drift",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R2-010",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R02.json",
+        "raw_record_sha256": "6e1956b5506f80cd0e803474556804d98023f569c96c60fac974f09e6cf4f397",
+        "canonical_finding_sha256": "9a2f8c6e80e7e2112b2f1054e39d77e003562425a4a6929c29b42e6523d41597",
+        "severity": "P2",
+        "blocking": false,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C09 n8n runtime extensions",
+      "v1_disposition": "MITIGATE_V2",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "По умолчанию запретить и runtime-проверкой подтвердить community/custom package installation и external modules. Если они обязательны, включать exact package+integrity в reviewed build/lock, final image SBOM/digest и отдельный approval; UI/runtime install в persistent volume не использовать.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V02-C02",
+        "V05-C04",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R2-010"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R2-010"
+      ],
+      "evidence_ids": [
+        "EV-F-R2-010"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R2-supply-chain-license-drift",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R2-011",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R02.json",
+        "raw_record_sha256": "6e1956b5506f80cd0e803474556804d98023f569c96c60fac974f09e6cf4f397",
+        "canonical_finding_sha256": "1351bc4b733f25692d618e5723f89bf3bbe7b6769d5d4290854c9bfd05b8639a",
+        "severity": "P2",
+        "blocking": false,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C05 SBOM/installed identity/source evidence",
+      "v1_disposition": "MITIGATE_V2",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "После install и до container/pull зафиксировать installed product/package identity, Desktop build/channel, Engine/CLI/Compose/BuildKit/WSL component versions и relevant update settings; проверить vendor signature установленного launcher и exact equality expected build. Любой дополнительный payload download должен иметь такой же acquisition lock либо блокироваться. Version drift до первого D3 run даёт STOP.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V02-C03",
+        "XD-C02",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R2-011"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R2-011"
+      ],
+      "evidence_ids": [
+        "EV-F-R2-011"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R2-supply-chain-license-drift",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R2-012",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R02.json",
+        "raw_record_sha256": "6e1956b5506f80cd0e803474556804d98023f569c96c60fac974f09e6cf4f397",
+        "canonical_finding_sha256": "c3d7f6ce8b65c55bd10294684c698d88a0274de33bb8165ff303540b0f34abca",
+        "severity": "P2",
+        "blocking": false,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C05 SBOM/installed identity/source evidence",
+      "v1_disposition": "MITIGATE_V2",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Определить canonical SourceEvidence record: original/final official URI, UTC, HTTP status and redirect chain, content/metadata hash, ETag/Last-Modified when present, document/release/license revision, extracted claim and acquisition-lock hash. Для signed registry/vendor metadata сохранять подпись и verifier result; для юридических текстов — stable official revision/reference и owner attestation. Не сохранять credentials or PII.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V02-C03",
+        "XD-C02",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R2-012"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R2-012"
+      ],
+      "evidence_ids": [
+        "EV-F-R2-012"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R2-supply-chain-license-drift",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R3-CLEAN-007",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R03.json",
+        "raw_record_sha256": "6406e4e72c6b09f677dc444ecad75f54caba4aae0bf2ea5785fc559f77e0d6ee",
+        "canonical_finding_sha256": "c8f6ce7ec6b88348911ac77b2cfcc68e9cbf0d714f3a10e13a114a975483f5da",
+        "severity": "P2",
+        "blocking": false,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C18 cleanup custody",
+      "v1_disposition": "MITIGATE_V2",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Использовать unique run nonce, preflight zero-collision, immutable local custody record с exact IDs и creation facts. Cleanup должен удалять только совпадающие tuples; foreign/changed object — STOP. Добавить idempotent recovery command и post-reboot residual scan.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V03-C04",
+        "R2-C01",
+        "R2-C03"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R3-CLEAN-007"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R3-CLEAN-007"
+      ],
+      "evidence_ids": [
+        "EV-F-R3-CLEAN-007"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R3-isolation-network-privileged",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R3-CTRL-005",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R03.json",
+        "raw_record_sha256": "6406e4e72c6b09f677dc444ecad75f54caba4aae0bf2ea5785fc559f77e0d6ee",
+        "canonical_finding_sha256": "0b58eb4476fe8f4272f58b5eda87d846f01fc04aa6147efc1de8fca7dcdd2119",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C01 endpoint/control plane",
+      "v1_disposition": "BLOCK_CONSENSUS_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Определить один approved local Docker Desktop context по canonical endpoint и engine identity. Все scripts должны запускать Docker с очищенными redirect variables и явным context, повторно проверяя endpoint/engine identity непосредственно перед mutation. TCP/SSH endpoints и context drift — STOP.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V01-C01",
+        "R2-C01",
+        "R2-C03"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R3-CTRL-005"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R3-CTRL-005"
+      ],
+      "evidence_ids": [
+        "EV-F-R3-CTRL-005"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R3-isolation-network-privileged",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R3-MOUNT-006",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R03.json",
+        "raw_record_sha256": "6406e4e72c6b09f677dc444ecad75f54caba4aae0bf2ea5785fc559f77e0d6ee",
+        "canonical_finding_sha256": "7131ac3e7a7b7dc348921fb4f2f7dea149baf62609320f083beb54db3cca6221",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C07 mount/write containment",
+      "v1_disposition": "BLOCK_CONSENSUS_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Зафиксировать per-service mount manifest с canonical Windows и Linux paths, type, mode, propagation, owner и purpose. Валидировать каждый parent/leaf против symlink/reparse escape до запуска; запретить все implicit/integration mounts. Secret projection должна быть file-scoped и только нужным service, а gate не должен получать local secret root.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V04-C01",
+        "V03-C01",
+        "R2-C01",
+        "R2-C03"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R3-MOUNT-006"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R3-MOUNT-006"
+      ],
+      "evidence_ids": [
+        "EV-F-R3-MOUNT-006"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R3-isolation-network-privileged",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R3-NET-002",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R03.json",
+        "raw_record_sha256": "6406e4e72c6b09f677dc444ecad75f54caba4aae0bf2ea5785fc559f77e0d6ee",
+        "canonical_finding_sha256": "17767b1ab4a02b8be381598b7292f5182cd93f183d78ecf9392b17c3eba041d3",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C08 network isolation/destinations",
+      "v1_disposition": "BLOCK_CONSENSUS_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Зафиксировать exact Compose topology: internal=true для всех mock data networks, отсутствие implicit default/external attachment, network none для автономных gates. Перед container creation очищать proxy-related environment и явно фиксировать DNS/network options. Добавить destination matrix для DNS name, literal IPv4, IPv6, gateway, host aliases, link-local и host-side listeners с ожидаемым результатом для каждого режима.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V04-C04",
+        "V04-C05",
+        "R2-C01",
+        "R2-C03"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R3-NET-002"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R3-NET-002"
+      ],
+      "evidence_ids": [
+        "EV-F-R3-NET-002"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R3-isolation-network-privileged",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R3-NET-003",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R03.json",
+        "raw_record_sha256": "6406e4e72c6b09f677dc444ecad75f54caba4aae0bf2ea5785fc559f77e0d6ee",
+        "canonical_finding_sha256": "449560634e90022c4c0341bed8ee897e7f164b65903949084385303c41117971",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C08 network isolation/destinations",
+      "v1_disposition": "BLOCK_CONSENSUS_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "В plan v2 отделить internal application networks от controlled outbound path. Внешний трафик должен проходить через reviewable egress control с явной policy для Telegram и отдельно DeepSeek; direct default route из application containers запрещается. Зафиксировать TLS hostname/SNI, методы и redirection policy либо честно признать broad Internet egress как residual risk и потребовать отдельный owner gate.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V04-C05",
+        "R2-C01",
+        "R2-C03"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R3-NET-003"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R3-NET-003"
+      ],
+      "evidence_ids": [
+        "EV-F-R3-NET-003"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R3-isolation-network-privileged",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R3-PORT-004",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R03.json",
+        "raw_record_sha256": "6406e4e72c6b09f677dc444ecad75f54caba4aae0bf2ea5785fc559f77e0d6ee",
+        "canonical_finding_sha256": "106aec22cee29e51e479df26f7d7e1221ebfb790e7111d56dc9698bf47bdb55f",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C08 loopback exposure",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Добавить точную host-side port qualification до и после каждого start: authoritative listener inventory, Docker-published bindings, IPv4/IPv6 route/interface inventory, portproxy/firewall delta и удалённый LAN canary. Запретить diagnostic port по умолчанию; его разрешение должно содержать exact address, process, lifetime и cleanup.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V04-C05",
+        "R2-C01",
+        "R2-C03"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R3-PORT-004"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R3-PORT-004"
+      ],
+      "evidence_ids": [
+        "EV-F-R3-PORT-004"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R3-isolation-network-privileged",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R3-PRIV-001",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R03.json",
+        "raw_record_sha256": "6406e4e72c6b09f677dc444ecad75f54caba4aae0bf2ea5785fc559f77e0d6ee",
+        "canonical_finding_sha256": "552052d3d48378d08d715dac5afe8e8b39e8c9c1b1f1d9915f77a8ee77135a47",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C07 privileged blast radius",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "В plan v2 запретить HostConfig.Privileged в общем persistent backend. Зафиксировать минимальный capability envelope для каждой строки теста с CapDrop=ALL, точечными CapAdd, пустыми devices, private PID/IPC, no-new-privileges, exact mounts и network mode. Тесты, требующие эквивалента privileged/CAP_SYS_ADMIN с широким доступом, должны идти только в доказанно disposable backend без существующих данных и секретов; если plan A не может дать такую boundary, соответствующий gate обязан остаться BLOCKED-CAPABILITY.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V04-C01",
+        "XD-C05",
+        "R2-C01",
+        "R2-C03"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R3-PRIV-001"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R3-PRIV-001"
+      ],
+      "evidence_ids": [
+        "EV-F-R3-PRIV-001"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R3-isolation-network-privileged",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R3-PROFILE-008",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R03.json",
+        "raw_record_sha256": "6406e4e72c6b09f677dc444ecad75f54caba4aae0bf2ea5785fc559f77e0d6ee",
+        "canonical_finding_sha256": "dbd8c997c180680fee1145bd0216ed250eb2f7f76bbd5058d9b34620ccffe54e",
+        "severity": "P2",
+        "blocking": false,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C09 mode convergence",
+      "v1_disposition": "MITIGATE_V2",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Определить desired-state manifest для каждого режима и fail-closed reconciliation: exact service set, replicas, networks, ports, secrets и allowed transitions. Mode switch сначала останавливает forbidden services и проверяет отсутствие background activity, затем запускает target set.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V04-C02",
+        "V04-C03",
+        "V04-C04",
+        "R2-C01",
+        "R2-C03"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R3-PROFILE-008"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R3-PROFILE-008"
+      ],
+      "evidence_ids": [
+        "EV-F-R3-PROFILE-008"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R3-isolation-network-privileged",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R4-F01",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R04.json",
+        "raw_record_sha256": "0742637f353d0faa830fa7d36e76322a3eeabff32d50cb0c00cf7bec37f4060b",
+        "canonical_finding_sha256": "6a40750d0e01cd2b14f5401089ebad086cf8054b7a88308e105a37173e9c0715",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C09 Compose/service/data lifecycle",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Define one canonical Compose invocation per command with fixed project name, ordered files, profiles and env sources. Publish the exact expected service/network/volume set for each mode. Make the wrapper converge from any prior mode by explicitly detecting and stopping incompatible services, reject simultaneous modes, and verify the rendered configuration before mutation. The supported interface must not start a profiled real service by directly targeting its service name without the real-dev gate.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V05-C01",
+        "V05-C02",
+        "R2-C01",
+        "R2-C03"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R4-F01"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R4-F01"
+      ],
+      "evidence_ids": [
+        "EV-F-R4-F01"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R4-compose-n8n-postgresql",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R4-F02",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R04.json",
+        "raw_record_sha256": "0742637f353d0faa830fa7d36e76322a3eeabff32d50cb0c00cf7bec37f4060b",
+        "canonical_finding_sha256": "0f60883c934f40d644b20875585785a50b12109c9b8fa85e4c7c977e136d1d56",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C09 Compose/service/data lifecycle",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Specify PostgreSQL health, a versioned one-shot migration service that must exit successfully, n8n application readiness, and bridge/mock dependencies. Define restart policies, stop grace periods, bounded readiness timeouts and wrapper exit behavior. One-shot migration and backup jobs must not restart indefinitely. Application components must tolerate or fail closed on dependency restart.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V05-C01",
+        "V05-C02",
+        "R2-C01",
+        "R2-C03"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R4-F02"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R4-F02"
+      ],
+      "evidence_ids": [
+        "EV-F-R4-F02"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R4-compose-n8n-postgresql",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R4-F03",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R04.json",
+        "raw_record_sha256": "0742637f353d0faa830fa7d36e76322a3eeabff32d50cb0c00cf7bec37f4060b",
+        "canonical_finding_sha256": "2b70b11a9fa44abf3e542dbe964e6c9332d2376fdaa5d024aa3e0a677af32ade",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C09 Compose/service/data lifecycle",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Define a least-privilege matrix for n8n metadata, application state, memory/dedup state, bootstrap and migrations. Specify database/schema owners, CONNECT/USAGE/DML/DDL grants, default privileges, search_path, credential separation and prohibited attributes such as SUPERUSER, CREATEDB and CREATEROLE. Separate first-volume bootstrap from checksummed, ordered, transactional migrations that run on existing volumes.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V05-C03",
+        "R2-C01",
+        "R2-C03"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R4-F03"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R4-F03"
+      ],
+      "evidence_ids": [
+        "EV-F-R4-F03"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R4-compose-n8n-postgresql",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R4-F04",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R04.json",
+        "raw_record_sha256": "0742637f353d0faa830fa7d36e76322a3eeabff32d50cb0c00cf7bec37f4060b",
+        "canonical_finding_sha256": "e1ed3998d0be5252a1a59e82683423fcea1087cb5bf57aa2e3a931ef161445c3",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C09 Compose/service/data lifecycle",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Define an allowlisted n8n configuration for the pinned version. Explicitly select single-process regular execution for this lab, or fully specify pinned Redis and worker services if queue mode is required. Require PostgreSQL explicitly and reject SQLite artifacts. Generate and bind one persistent encryption key before first boot, fail closed when it is absent or changed, and define supported secret injection, container identity, writable paths and ownership. Verify all variable names and defaults against the exact pinned n8n release before image acceptance.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V05-C04",
+        "V07-C02",
+        "R2-C01",
+        "R2-C03"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R4-F04"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R4-F04"
+      ],
+      "evidence_ids": [
+        "EV-F-R4-F04"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R4-compose-n8n-postgresql",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R4-F05",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R04.json",
+        "raw_record_sha256": "0742637f353d0faa830fa7d36e76322a3eeabff32d50cb0c00cf7bec37f4060b",
+        "canonical_finding_sha256": "0c30f72ff8855eea4ed5408e319b0d88454d8028062da8694398580a226a5e22",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C06 update/migration",
+      "v1_disposition": "BLOCK_CONSENSUS_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Define separate n8n patch/minor and PostgreSQL major upgrade state machines with from/to digest compatibility evidence. Before mutation, produce and restore-test the DB, n8n data and encryption-key pair. Stage upgrades against cloned/restored volumes, record migrations, and promote only after acceptance. Rollback must restore the pre-upgrade database/volumes and matching key; never run an older n8n against migrated state. PostgreSQL major upgrades must use an explicitly supported logical restore or pg_upgrade procedure rather than reusing the data directory blindly.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V05-C05",
+        "V02-C04",
+        "R2-C01",
+        "R2-C03"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R4-F05"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R4-F05"
+      ],
+      "evidence_ids": [
+        "EV-F-R4-F05"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R4-compose-n8n-postgresql",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R4-F06",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R04.json",
+        "raw_record_sha256": "0742637f353d0faa830fa7d36e76322a3eeabff32d50cb0c00cf7bec37f4060b",
+        "canonical_finding_sha256": "45dc7b90f1a906087f15e709cc3a88d4f5ca40e926b3a197fec1f2d9c64ea9ca",
+        "severity": "P2",
+        "blocking": false,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C14 backup boundary",
+      "v1_disposition": "MITIGATE_V2",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Choose one durable offset authority and document ownership, atomic update semantics and its relationship to PostgreSQL dedup commits. Include that state in the persistence and backup model. Backup must quiesce every writer, including bridge and migrations, and record a non-secret consistency marker linking DB, n8n files, offset state, image lock and encryption-key identifier.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V08-C01",
+        "R2-C01",
+        "R2-C03"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R4-F06"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R4-F06"
+      ],
+      "evidence_ids": [
+        "EV-F-R4-F06"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R4-compose-n8n-postgresql",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R4-F07",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R04.json",
+        "raw_record_sha256": "0742637f353d0faa830fa7d36e76322a3eeabff32d50cb0c00cf7bec37f4060b",
+        "canonical_finding_sha256": "d44c3985ccf5d6bde6ce0aa65d78a2d992f1f3d145678ca8bb599419b434496f",
+        "severity": "P2",
+        "blocking": false,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C09 lifecycle/project ownership",
+      "v1_disposition": "MITIGATE_V2",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Define first-run, owner-pending and initialized states. Import a checksummed exact-version export into isolated mock mode as inactive, validate node types and credential references, reconcile against an expected workflow inventory, and reject duplicates or drift. Bind local credentials separately and activate real triggers only after the manual gate. Make reruns no-op or explicit reconciliation.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V05-C04",
+        "R2-C01",
+        "R2-C03"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R4-F07"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R4-F07"
+      ],
+      "evidence_ids": [
+        "EV-F-R4-F07"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R4-compose-n8n-postgresql",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R4-F08",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R04.json",
+        "raw_record_sha256": "0742637f353d0faa830fa7d36e76322a3eeabff32d50cb0c00cf7bec37f4060b",
+        "canonical_finding_sha256": "1c1cfcc31ff8b7281a380e9b3b7481b3ec31e2ccfe94cae01c7810dd2ae940b6",
+        "severity": "P2",
+        "blocking": false,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C05 OCI/image identity",
+      "v1_disposition": "MITIGATE_V2",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Create one canonical image lock covering every Compose service, one-shot tool and Dockerfile stage. Record registry/repository, tag as metadata, OCI index digest when present, selected linux/amd64 child digest, config digest, size and provenance. Render every runtime reference as digest plus explicit platform and verify the locally loaded image against the lock before use.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V02-C02",
+        "R2-C01",
+        "R2-C03"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R4-F08"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R4-F08"
+      ],
+      "evidence_ids": [
+        "EV-F-R4-F08"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R4-compose-n8n-postgresql",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R4-F09",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R04.json",
+        "raw_record_sha256": "0742637f353d0faa830fa7d36e76322a3eeabff32d50cb0c00cf7bec37f4060b",
+        "canonical_finding_sha256": "59307b273d55d2c291ccd2b2c605fa468dbcb17b27293fc48118c13ea9af8615",
+        "severity": "P2",
+        "blocking": false,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C09 lifecycle/project ownership",
+      "v1_disposition": "MITIGATE_V2",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Use project-scoped volumes or names parameterized by a validated project identifier, apply ownership labels, and refuse unknown pre-existing volumes. Specify mount destinations, driver assumptions, UID/GID/mode initialization and restore ownership behavior for every volume. Restore cleanup must select only verified project labels.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V05-C01",
+        "V05-C02",
+        "R2-C01",
+        "R2-C03"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R4-F09"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R4-F09"
+      ],
+      "evidence_ids": [
+        "EV-F-R4-F09"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R4-compose-n8n-postgresql",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R4-F10",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R04.json",
+        "raw_record_sha256": "0742637f353d0faa830fa7d36e76322a3eeabff32d50cb0c00cf7bec37f4060b",
+        "canonical_finding_sha256": "d6c0413861743473f98d38a4ff8fe43121f2349533293105cdd07e6ada6f8ae8",
+        "severity": "P3",
+        "blocking": false,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C19 diagnostics",
+      "v1_disposition": "ACCEPT_CLARITY_TEST",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Define a versioned machine-readable status schema plus concise human summary. Include intended mode, exact service health, migration state, owner-bootstrap state, image-lock status, persistent-volume identity and permitted next actions without exposing secrets.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V10-C01",
+        "XD-C04",
+        "R2-C01",
+        "R2-C03"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R4-F10"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R4-F10"
+      ],
+      "evidence_ids": [
+        "EV-F-R4-F10"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R4-compose-n8n-postgresql",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R5-F01",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R05.json",
+        "raw_record_sha256": "cb994f31ad9b93d4c5be24760bb8be6f489178047e46160d30b339a770269c6d",
+        "canonical_finding_sha256": "0c8449c6b52f8164b5f71b6ec255feeb851ea14023959198b5417ead71992e37",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C10 Telegram arming/identity/caps",
+      "v1_disposition": "BLOCK_CONSENSUS_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "До любых webhook/getUpdates/sendMessage операций ввести owner-approved защищённую запись authorization: точный expected dev bot_id, назначение, допустимые chat/user tuples, срок и budget. После getMe сравнивать фактический id с записью; отдельно проверять production bot denylist. Missing, mismatch, ambiguity или смена token должны давать fail-closed без изменения webhook. В evidence использовать только keyed pseudonym.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V06-C01",
+        "V10-C02",
+        "R2-C01",
+        "R2-C02"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R5-F01"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R5-F01"
+      ],
+      "evidence_ids": [
+        "EV-F-R5-F01"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R5-telegram-correctness",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R5-F02",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R05.json",
+        "raw_record_sha256": "cb994f31ad9b93d4c5be24760bb8be6f489178047e46160d30b339a770269c6d",
+        "canonical_finding_sha256": "969ea9d1c21bd2c204d339c9749e2d844c1e82c0b505c35be49742f83e0c04f1",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C11 Telegram polling/idempotency/errors",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Задать state machine: identity-verified → getWebhookInfo snapshot → owner decision fail/keep-backlog/drop-backlog → deleteWebhook с явным параметром → повторный getWebhookInfo с требуемым postcondition → polling. До gate зафиксировать, является ли bot эксклюзивным для лаборатории и требуется ли восстановление webhook; неизвестное прежнее состояние должно блокировать.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V06-C02",
+        "R2-C01",
+        "R2-C02"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R5-F02"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R5-F02"
+      ],
+      "evidence_ids": [
+        "EV-F-R5-F02"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R5-telegram-correctness",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R5-F03",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R05.json",
+        "raw_record_sha256": "cb994f31ad9b93d4c5be24760bb8be6f489178047e46160d30b339a770269c6d",
+        "canonical_finding_sha256": "b4cef572991d29c2154f5f455a2c2a264e6467193ae17ed69104ebe69360dcc6",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C11 Telegram polling/idempotency/errors",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Добавить process-external lease, привязанный к bot identity, с fencing token и fail-closed renewal; запретить второй project/poller. Перед запуском проверять активные локальные projects/workflows и запрещать Telegram Trigger для этого credential. Polling conflict должен немедленно разоружать real-dev и требовать owner reconciliation.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V06-C02",
+        "R2-C01",
+        "R2-C02"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R5-F03"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R5-F03"
+      ],
+      "evidence_ids": [
+        "EV-F-R5-F03"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R5-telegram-correctness",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R5-F04",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R05.json",
+        "raw_record_sha256": "cb994f31ad9b93d4c5be24760bb8be6f489178047e46160d30b339a770269c6d",
+        "canonical_finding_sha256": "21ddfb55de21c0cbcbb2cace4e930cb61de403312cd5fc181ad25163fca3df76",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C12 Telegram auth/envelope/routing",
+      "v1_disposition": "BLOCK_CONSENSUS_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Использовать точный allowlist Update types и отдельный строгий content/schema gate: наличие ожидаемого message.text, допустимый chat type, from, ограничения размера и кодировки. Явно определить terminal-drop состояния для service/non-text/edited/channel/callback/sender_chat updates; terminal drop должен безопасно участвовать в contiguous checkpoint без сохранения содержимого.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V06-C03",
+        "R2-C01",
+        "R2-C02"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R5-F04"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R5-F04"
+      ],
+      "evidence_ids": [
+        "EV-F-R5-F04"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R5-telegram-correctness",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R5-F05",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R05.json",
+        "raw_record_sha256": "cb994f31ad9b93d4c5be24760bb8be6f489178047e46160d30b339a770269c6d",
+        "canonical_finding_sha256": "bc0d6ed29ffce4e6efa6dcb4705826d20528c12cd6ccd51b66f448e9dbba7583",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C11 Telegram polling/idempotency/errors",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Определить монотонный state machine: сортировка по update_id, последовательная обработка либо durable queue, terminal state для каждого update и CAS checkpoint только до максимального непрерывного префикса. Сначала durable state, затем следующий getUpdates с новым offset; повреждение/разрыв состояния блокирует polling.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V06-C04",
+        "R2-C01",
+        "R2-C02"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R5-F05"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R5-F05"
+      ],
+      "evidence_ids": [
+        "EV-F-R5-F05"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R5-telegram-correctness",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R5-F06",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R05.json",
+        "raw_record_sha256": "cb994f31ad9b93d4c5be24760bb8be6f489178047e46160d30b339a770269c6d",
+        "canonical_finding_sha256": "be86e8197810b9f35f71fb8b1836b903cc15abfb177b3461a065b8bdf2cbe4a0",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C11 Telegram polling/idempotency/errors",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Создать защищённое persistent state, ключуемое environment + verified bot_id + authorization_id, с schema version, checksum, monotonic CAS, atomic replace/fsync и owner-visible recovery. Первый запуск, backlog, token rotation, state corruption и ручной reset должны иметь разные fail-closed gates.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V06-C04",
+        "R2-C01",
+        "R2-C02"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R5-F06"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R5-F06"
+      ],
+      "evidence_ids": [
+        "EV-F-R5-F06"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R5-telegram-correctness",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R5-F07",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R05.json",
+        "raw_record_sha256": "cb994f31ad9b93d4c5be24760bb8be6f489178047e46160d30b339a770269c6d",
+        "canonical_finding_sha256": "e8727f8f8ad190c9bdc9dd2faba1a39e0a22050fb5cd99e0b6d54730481b206e",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C11 Telegram polling/idempotency/errors",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Возвращать structured ACK, связанный с authenticated bot principal и update_id, только после durable transaction. Ввести idempotency state machine и transactional outbox/reservation для downstream work. Не обещать exactly-once для sendMessage: ambiguous outcome должен иметь отдельное состояние, консервативный budget accounting и manual/детерминированную reconciliation policy.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V06-C04",
+        "R2-C01",
+        "R2-C02"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R5-F07"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R5-F07"
+      ],
+      "evidence_ids": [
+        "EV-F-R5-F07"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R5-telegram-correctness",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R5-F08",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R05.json",
+        "raw_record_sha256": "cb994f31ad9b93d4c5be24760bb8be6f489178047e46160d30b339a770269c6d",
+        "canonical_finding_sha256": "18dbd061ec911d8e0f16c8029078ebeedd25960a18109663cfaf5f85d0ef07b0",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C12 Telegram auth/envelope/routing",
+      "v1_disposition": "BLOCK_CONSENSUS_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Хранить owner-approved tuples как минимум verified bot_id + chat_id + from.user_id + chat_type, а для forum group — message_thread_id. Проверять компоненты конъюнктивно. Missing from, sender_chat/anonymous/channel и forwarded origin отклонять, если они отдельно не утверждены. Chat migration или смена topic требуют нового manual binding.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V06-C03",
+        "R2-C01",
+        "R2-C02"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R5-F08"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R5-F08"
+      ],
+      "evidence_ids": [
+        "EV-F-R5-F08"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R5-telegram-correctness",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R5-F09",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R05.json",
+        "raw_record_sha256": "cb994f31ad9b93d4c5be24760bb8be6f489178047e46160d30b339a770269c6d",
+        "canonical_finding_sha256": "2f6c796ef9c5367e35ca7b3f83593ec0b08b176f1f71a905e6d038c855588613",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C12 Telegram auth/envelope/routing",
+      "v1_disposition": "BLOCK_CONSENSUS_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Задать узкий versioned ingress schema и authenticated envelope: body integrity, key id, timestamp/nonce или эквивалентная replay defence, body-size/content-type limits и server-side binding credential к verified bot principal. Secret доступен только bridge и verifier; mocks/другие services сегментированы. Auth проверяется раньше body persistence, dedup, allowlist, LLM и tools.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V06-C03",
+        "R2-C01",
+        "R2-C02"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R5-F09"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R5-F09"
+      ],
+      "evidence_ids": [
+        "EV-F-R5-F09"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R5-telegram-correctness",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R5-F10",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R05.json",
+        "raw_record_sha256": "cb994f31ad9b93d4c5be24760bb8be6f489178047e46160d30b339a770269c6d",
+        "canonical_finding_sha256": "571b2f3688dbf4ea910bc9bb65ff9d3047cd443f23491a33e435b22fcccbd658",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C12 Telegram auth/envelope/routing",
+      "v1_disposition": "BLOCK_CONSENSUS_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "После allowlist создавать immutable server-side reply_route, связанный с update/auth tuple; LLM и tool output не содержат и не переопределяют chat_id/thread_id. Оба outbound paths используют один validator и ledger. Каждый chunk получает ordinal/state и отдельную budget reservation. Любая migration требует manual re-allowlist.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V06-C04",
+        "R2-C01",
+        "R2-C02"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R5-F10"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R5-F10"
+      ],
+      "evidence_ids": [
+        "EV-F-R5-F10"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R5-telegram-correctness",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R5-F11",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R05.json",
+        "raw_record_sha256": "cb994f31ad9b93d4c5be24760bb8be6f489178047e46160d30b339a770269c6d",
+        "canonical_finding_sha256": "ae8b740416149a27e3b85f1a2ecf4f7a60a19de104219359b4ce48dc3c239505",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C10 Telegram arming/identity/caps",
+      "v1_disposition": "BLOCK_CONSENSUS_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Закрепить в authorization exact global cap 20 и точное определение того, что считается. Все реальные outbound send attempts, включая chunks, retries и ambiguous outcomes обоих paths, должны проходить через один durable atomic reserve-before-send ledger. Если входящие обработанные messages входят в cap, определить отдельную атомарную операцию. Restart не сбрасывает budget; exhausted/unknown state разоружает real-dev.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V06-C04",
+        "R2-C01",
+        "R2-C02"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R5-F11"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R5-F11"
+      ],
+      "evidence_ids": [
+        "EV-F-R5-F11"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R5-telegram-correctness",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R5-F12",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R05.json",
+        "raw_record_sha256": "cb994f31ad9b93d4c5be24760bb8be6f489178047e46160d30b339a770269c6d",
+        "canonical_finding_sha256": "4f5ad868f1ffb0d86c1aa85453ea56d95a64e55cddaa4d65d6c336bf3920a179",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C11 Telegram polling/idempotency/errors",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Закрепить проверку HTTP status, parse validity и Bot API ok/error fields. Определить terminal auth/forbidden/conflict classes, rate-limit scheduling по retry_after в пределах deadline/budget, bounded transient retries и запрет автоматической migration. Ambiguous send учитывается как израсходованная reservation и не ретраится вслепую.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V06-C04",
+        "R2-C01",
+        "R2-C02"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R5-F12"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R5-F12"
+      ],
+      "evidence_ids": [
+        "EV-F-R5-F12"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R5-telegram-correctness",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R5-F13",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R05.json",
+        "raw_record_sha256": "cb994f31ad9b93d4c5be24760bb8be6f489178047e46160d30b339a770269c6d",
+        "canonical_finding_sha256": "68019e27b2be6f6946bfac60d6012443af243a91c829f700ac95a222f062991f",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C10 Telegram arming/identity/caps",
+      "v1_disposition": "BLOCK_CONSENSUS_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Manual authorization должен фиксировать currency/amount, request cap, exact model/base URL, verified pricing version/time, max input/output tokens, timeout и retry policy. Перед каждым запросом атомарно резервировать conservative worst-case cost, после валидного usage выполнять reconcile; unknown pricing/usage блокирует. Коррелировать pseudonymous bot/update, n8n execution, provider attempt и Telegram send ledger без message contents. Canonical v2 adds durable atomic worst-case reserve-before-request, model/price/currency locks, concurrency/retry/ambiguous-consumed reconciliation, dedicated DeepSeek key transport and owner CLI. Canonical v2 adds durable atomic worst-case reserve-before-request, model/price/currency locks, concurrency/retry/ambiguous-consumed reconciliation, dedicated DeepSeek key transport and owner CLI.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V06-C05",
+        "V05-C03",
+        "V07-C02",
+        "V10-C01",
+        "V10-C02",
+        "XD-C06",
+        "XD-C07",
+        "R2-C01",
+        "R2-C02"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R5-F13"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R5-F13"
+      ],
+      "evidence_ids": [
+        "EV-F-R5-F13"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R5-telegram-correctness",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R5-F14",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R05.json",
+        "raw_record_sha256": "cb994f31ad9b93d4c5be24760bb8be6f489178047e46160d30b339a770269c6d",
+        "canonical_finding_sha256": "c634c03d05cd4ec03476b3a02d7c357a99d6187b564074fa234d1a71012b7885",
+        "severity": "P2",
+        "blocking": false,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C09 mode/dry-run convergence",
+      "v1_disposition": "MITIGATE_V2",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Определить dry-run как zero-mutation и zero-external-API режим; online read-only probe сделать отдельной явно подтверждаемой командой. Ввести transition state machine MOCK/ARMED/REAL_ACTIVE/DRAINING, взаимное исключение profiles, secret mounts только в armed real-dev и post-stop proof отсутствия poller/egress.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V04-C02",
+        "V10-C02",
+        "R2-C01",
+        "R2-C02"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R5-F14"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R5-F14"
+      ],
+      "evidence_ids": [
+        "EV-F-R5-F14"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R5-telegram-correctness",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R5-F15",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R05.json",
+        "raw_record_sha256": "cb994f31ad9b93d4c5be24760bb8be6f489178047e46160d30b339a770269c6d",
+        "canonical_finding_sha256": "397f5fdebe5d80084e6c1eace78442b13d68057e840f117d673bd1b2559f2472",
+        "severity": "P2",
+        "blocking": false,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C13 PII/retention",
+      "v1_disposition": "MITIGATE_V2",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Зафиксировать field-level data inventory, разрешённые stores, exact n8n persistence settings, ACL/encryption, retention и deletion verification. Запретить URL/header/body tracing token-bearing HTTP client. Для evidence применять keyed pseudonyms, а не обратимые/перебираемые простые hashes.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V06-C06",
+        "V07-C03",
+        "R2-C01",
+        "R2-C02"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R5-F15"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R5-F15"
+      ],
+      "evidence_ids": [
+        "EV-F-R5-F15"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R5-telegram-correctness",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R5-F16",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R05.json",
+        "raw_record_sha256": "cb994f31ad9b93d4c5be24760bb8be6f489178047e46160d30b339a770269c6d",
+        "canonical_finding_sha256": "8c2cf431a153e6141af68f92594f47ca05cb401b99a850a4cb0bf9333f24cf0b",
+        "severity": "P2",
+        "blocking": false,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C10 owner Telegram ceremony",
+      "v1_disposition": "MITIGATE_V2",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Добавить пошаговый owner runbook и безопасные интерактивные команды identity-bind, webhook-preflight, backlog-choice, allowlist tuple review, arm/disarm, budget-status, offset-status/reconcile, token revoke/rotate и emergency-stop. Каждая команда показывает redacted target, последствия и fail-closed stop conditions.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V06-C01",
+        "V10-C02",
+        "R2-C01",
+        "R2-C02"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R5-F16"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R5-F16"
+      ],
+      "evidence_ids": [
+        "EV-F-R5-F16"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R5-telegram-correctness",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R6-P1-001",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R06.json",
+        "raw_record_sha256": "622d437cf758c43690f7390dc48484762c27166a319189bd797b90c4d4fc217d",
+        "canonical_finding_sha256": "3fc77c73782f64e0cbdc36962c7c1752d38ee0af9fa4bd330a82b658512f61f0",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C01 control-plane boundary",
+      "v1_disposition": "BLOCK_CONSENSUS_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "До первого secret write зафиксировать threat model реальных Windows principals: operator SID, SYSTEM, administrators, docker-users, service identities и Engine named-pipe access. Создавать secret root на локальном ACL-capable NTFS с protected DACL до записи значений; проверять owner, exact SID ACE, inheritance, ancestors и отсутствие reparse/sync path. Любой неутверждённый principal с Docker control-plane access должен блокировать secret-bearing stages. Явно документировать, что ACL не защищает от approved administrators/SYSTEM и что их compromise остаётся residual risk.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V07-C01",
+        "V01-C01",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R6-P1-001"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R6-P1-001"
+      ],
+      "evidence_ids": [
+        "EV-F-R6-P1-001"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R6-secrets-privacy-incident",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R6-P1-002",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R06.json",
+        "raw_record_sha256": "622d437cf758c43690f7390dc48484762c27166a319189bd797b90c4d4fc217d",
+        "canonical_finding_sha256": "f2fa9fc8f89301ea75e86f0ff52add5b6e93593fa9fb1239f48ddb3db742b2b1",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C13 secret transport/PII/redaction",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Добавить version-specific matrix для каждого секрета: issuer, consumer, source file, transport, lifetime, rotation owner и запрещённые sinks. Использовать один файл на секрет, read-only mount только в нужный consumer и никогда не bind-mount общего secret root. До выбора _FILE или эквивалента подтвердить поддержку exact n8n/PostgreSQL/bridge versions официальной документацией и runtime canary; любое env fallback оформить как отдельный accepted risk. Создавать restricted directory и файл атомарно до записи, проверять path/ACL/mode/UID и не использовать CLI arguments, PowerShell history либо reusable temp files.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V07-C02",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R6-P1-002"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R6-P1-002"
+      ],
+      "evidence_ids": [
+        "EV-F-R6-P1-002"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R6-secrets-privacy-incident",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R6-P1-003",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R06.json",
+        "raw_record_sha256": "622d437cf758c43690f7390dc48484762c27166a319189bd797b90c4d4fc217d",
+        "canonical_finding_sha256": "d363dd14ebcae620bd864512aa5505ed4faed1f428acf688822860d57897d75c",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C14 key/encryption/plaintext staging",
+      "v1_disposition": "BLOCK_CONSENSUS_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Определить генерацию CSPRNG с утверждённой энтропией, отдельный restricted file transport, стабильный key identifier через keyed fingerprint без раскрытия ключа, pre-start gate и отдельную recoverable custody copy. Backup manifest должен связывать DB snapshot с key identifier. Missing/mismatched key обязан останавливать startup/restore до serving. Ротация разрешается только поддерживаемой exact-version процедурой; иначе credentials отзываются и пересоздаются вручную.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V07-C02",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R6-P1-003"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R6-P1-003"
+      ],
+      "evidence_ids": [
+        "EV-F-R6-P1-003"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R6-secrets-privacy-incident",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R6-P1-004",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R06.json",
+        "raw_record_sha256": "622d437cf758c43690f7390dc48484762c27166a319189bd797b90c4d4fc217d",
+        "canonical_finding_sha256": "a717cff8711ec75a17dc5d099f51e8103e75d5ac7219522a871a9a4e2a7d4954",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C12 pre-storage Telegram rejection",
+      "v1_disposition": "BLOCK_CONSENSUS_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Проверять bot identity и local allowlist в bridge до передачи raw payload в n8n. Для unauthorized update определить terminal discard/advance-offset outcome после минимального keyed-pseudonymous counter, без body/username/chat ID. Если авторизация остаётся в n8n, ingress обязан быть отдельным неперсистентным pre-auth path с доказанным отсутствием execution records и однозначным 2xx rejection contract.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V06-C03",
+        "V06-C06",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R6-P1-004"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R6-P1-004"
+      ],
+      "evidence_ids": [
+        "EV-F-R6-P1-004"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R6-secrets-privacy-incident",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R6-P1-005",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R06.json",
+        "raw_record_sha256": "622d437cf758c43690f7390dc48484762c27166a319189bd797b90c4d4fc217d",
+        "canonical_finding_sha256": "b07c4e4e7fb4527f733da7fcf244d7fe3e9b728634554577f333590645c1dcc8",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C13 secret transport/PII/redaction",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Зафиксировать exact-version n8n persistence/diagnostics/telemetry settings, запрет pin/manual sample data с PII, data classification, synthetic-data default, approved fields, TTL/pruning и owner-triggered deletion scope. Retention должна охватывать DB, binary volume, logs, browser exports и все backup generations. Error paths должны сохранять только allowlisted metadata.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V07-C03",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R6-P1-005"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R6-P1-005"
+      ],
+      "evidence_ids": [
+        "EV-F-R6-P1-005"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R6-secrets-privacy-incident",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R6-P1-006",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R06.json",
+        "raw_record_sha256": "622d437cf758c43690f7390dc48484762c27166a319189bd797b90c4d4fc217d",
+        "canonical_finding_sha256": "2d10cce3e2d54f146f3ac979d7f91c2322937708ac0d2770d777d28c15853b69",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C13 secret transport/PII/redaction",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Собирать evidence source-side через явный allowlist безопасных полей; неизвестное поле должно блокировать публикацию. Не выполнять secret-revealing inspect/config commands после загрузки real secrets, если можно запросить точные безопасные поля. Raw support bundles/dumps запретить в evidence; их сбор — отдельный manual incident gate в encrypted quarantine. Для pseudonyms применять run-scoped keyed HMAC либо полностью исключать identity. Определить sink inventory и layered scanner для nested structured data, URL paths, encodings, archives и binaries; scanner error или unsupported artifact означает FAIL/BLOCKED.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V07-C03",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R6-P1-006"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R6-P1-006"
+      ],
+      "evidence_ids": [
+        "EV-F-R6-P1-006"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R6-secrets-privacy-incident",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R6-P1-007",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R06.json",
+        "raw_record_sha256": "622d437cf758c43690f7390dc48484762c27166a319189bd797b90c4d4fc217d",
+        "canonical_finding_sha256": "9ff5624fbfc4065fa3c1232f6a75ff199e1da109de6c327385617ceb5ec901ca",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C04 at-rest remnants",
+      "v1_disposition": "BLOCK_CONSENSUS_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "До real-dev определить at-rest adversaries и residual risk. Проверять, что secret/data roots находятся на локальных ACL-capable несинхронизируемых volumes с включённой device/full-volume encryption, либо получать отдельное informed owner acceptance и блокировать real secrets. Зафиксировать dump/telemetry/support-bundle policy, запретить автоматическую загрузку diagnostics, ограничить индексирование и описать retirement/incident handling без обещания secure erase SSD/VHDX/pagefile.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V03-C02",
+        "V07-C03",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R6-P1-007"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R6-P1-007"
+      ],
+      "evidence_ids": [
+        "EV-F-R6-P1-007"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R6-secrets-privacy-incident",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R6-P1-008",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R06.json",
+        "raw_record_sha256": "622d437cf758c43690f7390dc48484762c27166a319189bd797b90c4d4fc217d",
+        "canonical_finding_sha256": "43e01e123e610080a0c1dd92948ec370860720260c12d39c70d4afbe3d9c4207",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C14 key/encryption/plaintext staging",
+      "v1_disposition": "BLOCK_CONSENSUS_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Классифицировать каждый n8n/PostgreSQL backup как sensitive и всегда шифровать authenticated streaming pipeline до persistent storage, не записывая plaintext artifact. Утвердить format/algorithm/KDF, random salt/nonce, atomic publish, restrictive ACL, independent key custody, retention и fail quarantine. BOM должен связывать ciphertext, DB snapshot и n8n key identifier, не раскрывая secret metadata.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V08-C02",
+        "V07-C02",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R6-P1-008"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R6-P1-008"
+      ],
+      "evidence_ids": [
+        "EV-F-R6-P1-008"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R6-secrets-privacy-incident",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R6-P1-009",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R06.json",
+        "raw_record_sha256": "622d437cf758c43690f7390dc48484762c27166a319189bd797b90c4d4fc217d",
+        "canonical_finding_sha256": "59c179b3d734c0858883628b8388646b17efeb473f97b1ec6a1f961f89010301",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C15 incident/revocation",
+      "v1_disposition": "BLOCK_CONSENSUS_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Создать per-secret lifecycle и emergency procedure: issuer, custodian, creation, activation, rotation, revocation, validation, rollback и downstream copies. Incident flow должен сначала остановить real egress/polling, затем отозвать provider credentials, заменить internal secrets/passwords, обработать DB/backups/evidence/quarantine и документировать residual copies. N8N_ENCRYPTION_KEY меняется только поддерживаемой migration или через controlled recreation credentials.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V07-C04",
+        "V10-C03",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R6-P1-009"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R6-P1-009"
+      ],
+      "evidence_ids": [
+        "EV-F-R6-P1-009"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R6-secrets-privacy-incident",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R6-P1-010",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R06.json",
+        "raw_record_sha256": "622d437cf758c43690f7390dc48484762c27166a319189bd797b90c4d4fc217d",
+        "canonical_finding_sha256": "6023dcb4a4e362255a602ad66a7da4e07292851b2caadc5dd7ed261d39e3df9f",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C08 destination allowlisting",
+      "v1_disposition": "BLOCK_CONSENSUS_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Определить secret-to-egress matrix и обеспечить deny-by-default outbound policy через reviewed narrow adapters/proxy либо эквивалентный runtime-enforced control. Bridge должен иметь только необходимый Telegram contract; DeepSeek path — только утверждённый endpoint/model. Запретить unreviewed community/custom nodes и unrestricted HTTP/Code/shell paths в real-dev; DNS и redirect handling должны fail closed.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V04-C05",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R6-P1-010"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R6-P1-010"
+      ],
+      "evidence_ids": [
+        "EV-F-R6-P1-010"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R6-secrets-privacy-incident",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R6-P2-011",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R06.json",
+        "raw_record_sha256": "622d437cf758c43690f7390dc48484762c27166a319189bd797b90c4d4fc217d",
+        "canonical_finding_sha256": "fe39aef9e96b697e81e9af21adc7eafc4472b152e8e09d97ce3d6eb2afc56744",
+        "severity": "P2",
+        "blocking": false,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C13 manual secret entry hygiene",
+      "v1_disposition": "MITIGATE_V2",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Добавить короткую owner-only ceremony для каждого secret: precheck recording/transcription, non-echo input или masked credential UI, запрет CLI/clipboard/screenshots, restricted file creation до write, confirmation только present/fingerprint/age, abort cleanup и немедленная provider revocation при ошибке. Не показывать raw allowlist IDs в runbook/evidence.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V07-C02",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R6-P2-011"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R6-P2-011"
+      ],
+      "evidence_ids": [
+        "EV-F-R6-P2-011"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R6-secrets-privacy-incident",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R7-F01",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R07.json",
+        "raw_record_sha256": "888d23387d76aa3e44d6f30fb88cd76fa1819614eeae5e6ed02c1754ce2d11e1",
+        "canonical_finding_sha256": "1dde869d49b12d89198abf2ba00e32fc07fabd8a9adb95afc5cb59d3c6fad7a3",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C14 backup scope/atomicity/target/faults",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Определить backup state machine: exclusive lock; исчерпывающий writer inventory; остановку bridge, n8n main/workers/task runners и mutation jobs; запрет UI/API mutations; подтверждение отсутствия активных DB sessions кроме backup; единый generation ID; порядок dump/archive/BOM; fail-safe resume. Либо документированно доказать другой механизм согласованного snapshot.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V08-C01",
+        "R2-C01",
+        "R2-C04"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R7-F01"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R7-F01"
+      ],
+      "evidence_ids": [
+        "EV-F-R7-F01"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R7-backup-cold-restore",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R7-F02",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R07.json",
+        "raw_record_sha256": "888d23387d76aa3e44d6f30fb88cd76fa1819614eeae5e6ed02c1754ce2d11e1",
+        "canonical_finding_sha256": "8390b27d1d07833d184b20fec6abc568c2b9dbe71f3a203465bd89b9de24d3da",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C14 backup scope/atomicity/target/faults",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Зафиксировать data inventory и authoritative storage mode каждого класса: PostgreSQL databases, n8n user directory, binary-data backend, files, custom/community nodes, bridge offset, configuration inventory и явно исключённый cache/evidence. BOM должен перечислять каждый обязательный component и запрещать COMPLETE при его отсутствии.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V08-C01",
+        "R2-C01",
+        "R2-C04"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R7-F02"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R7-F02"
+      ],
+      "evidence_ids": [
+        "EV-F-R7-F02"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R7-backup-cold-restore",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R7-F03",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R07.json",
+        "raw_record_sha256": "888d23387d76aa3e44d6f30fb88cd76fa1819614eeae5e6ed02c1754ce2d11e1",
+        "canonical_finding_sha256": "7b6a394614b9239cffe88fcbeeb48ba993db4fb71415743591b137a7300cbb60",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C14 backup scope/atomicity/target/faults",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Определить полный PostgreSQL backup contract: точный список databases; согласованность между ними; client/server major compatibility; custom/directory format и flags; large objects; encodings/collations; extension inventory/version availability; роли, memberships, grants и ownership. Global secrets следует либо сохранять только внутри зашифрованного artifact, либо пересоздавать из declarative templates с ротацией паролей.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V08-C01",
+        "R2-C01",
+        "R2-C04"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R7-F03"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R7-F03"
+      ],
+      "evidence_ids": [
+        "EV-F-R7-F03"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R7-backup-cold-restore",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R7-F04",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R07.json",
+        "raw_record_sha256": "888d23387d76aa3e44d6f30fb88cd76fa1819614eeae5e6ed02c1754ce2d11e1",
+        "canonical_finding_sha256": "7f85fef8ed5c0d0fea1fa3e0626e757147e24dec45d30b14a3bf8725d3481879",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C14 key/encryption/isolated cold restore",
+      "v1_disposition": "BLOCK_CONSENSUS_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Разделить два типа ключей, задать генерацию с достаточной энтропией, versioned key IDs без раскрытия материала, привязать IDs к BOM, определить независимую custody/escrow и recovery процедуру, запретить COMPLETE без подтверждённой recoverability. Restore обязан fail closed до запуска n8n при отсутствующем или неверном instance key.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V08-C02",
+        "R2-C01",
+        "R2-C04"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R7-F04"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R7-F04"
+      ],
+      "evidence_ids": [
+        "EV-F-R7-F04"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R7-backup-cold-restore",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R7-F05",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R07.json",
+        "raw_record_sha256": "888d23387d76aa3e44d6f30fb88cd76fa1819614eeae5e6ed02c1754ce2d11e1",
+        "canonical_finding_sha256": "e967438e2a9cf38c3b075f6bea4dbd78bf9fac260da014530b172ddbbcdf3780",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C14 key/encryption/isolated cold restore",
+      "v1_disposition": "BLOCK_CONSENSUS_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Сделать шифрование обязательным для полного backup, выбрать pinned и проверенный AEAD-capable формат/tool, описать key generation/KDF, nonce/salt, encrypted metadata boundary, ACL, streaming или безопасный staging, аутентификацию до extraction и ротацию ключей. Незашифрованные промежуточные файлы не должны попадать в persistent root.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V08-C02",
+        "R2-C01",
+        "R2-C04"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R7-F05"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R7-F05"
+      ],
+      "evidence_ids": [
+        "EV-F-R7-F05"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R7-backup-cold-restore",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R7-F06",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R07.json",
+        "raw_record_sha256": "888d23387d76aa3e44d6f30fb88cd76fa1819614eeae5e6ed02c1754ce2d11e1",
+        "canonical_finding_sha256": "302149453a53b05141f667024d1270ab3e56779423bdc934740b061b7dbbe83f",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C14 backup scope/atomicity/target/faults",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Ввести immutable backup ID, single-writer lock, preflight свободного места, staging на том же filesystem, закрытие и проверку всех потоков, authenticated manifest, атомарный переход в COMPLETE и отдельный каталог/quarantine failures. Retention должна учитывать только COMPLETE+restore-verified generations и никогда не удалять последнюю проверенную копию без manual destructive gate.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V08-C02",
+        "R2-C01",
+        "R2-C04"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R7-F06"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R7-F06"
+      ],
+      "evidence_ids": [
+        "EV-F-R7-F06"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R7-backup-cold-restore",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R7-F07",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R07.json",
+        "raw_record_sha256": "888d23387d76aa3e44d6f30fb88cd76fa1819614eeae5e6ed02c1754ce2d11e1",
+        "canonical_finding_sha256": "050bb7ee8d97dab0e6fb1a4d57e4bebab325bb9e760152d5f5ada5ca371fa44a",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C14 key/encryption/isolated cold restore",
+      "v1_disposition": "BLOCK_CONSENSUS_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Создать отдельный restore Compose contract: internal-only DB network без default external egress, ноль host-published ports, отсутствие real credentials кроме строго необходимого instance key, запрет activation/triggers/task runners и provider/community/update traffic. Сначала выполнять offline structural validation; любой opt-in network smoke — только отдельным manual gate после проверки.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V08-C02",
+        "R2-C01",
+        "R2-C04"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R7-F07"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R7-F07"
+      ],
+      "evidence_ids": [
+        "EV-F-R7-F07"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R7-backup-cold-restore",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R7-F08",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R07.json",
+        "raw_record_sha256": "888d23387d76aa3e44d6f30fb88cd76fa1819614eeae5e6ed02c1754ce2d11e1",
+        "canonical_finding_sha256": "a456a03977f9dd49a49816fd13ee5d130e47ccb76b8f9f8f6283ac44f0929b07",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C14 backup scope/atomicity/target/faults",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Требовать уникальный nonce project ID, allowlisted backup ID, canonical path validation, отказ при любом существующем/non-empty target, проверку Docker Compose labels и creation provenance до записи. Archive extractor обязан отвергать absolute/parent traversal и escaping symlink/hardlink entries, восстанавливать ожидаемые UID/GID/modes. Любое удаление volume остаётся отдельным destructive gate.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V08-C02",
+        "R2-C01",
+        "R2-C04"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R7-F08"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R7-F08"
+      ],
+      "evidence_ids": [
+        "EV-F-R7-F08"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R7-backup-cold-restore",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R7-F09",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R07.json",
+        "raw_record_sha256": "888d23387d76aa3e44d6f30fb88cd76fa1819614eeae5e6ed02c1754ce2d11e1",
+        "canonical_finding_sha256": "c6d13c8a87ef1f80d8a50a588a23df721ff414060f9a29071dfd2cfe6761e98a",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C06 update/migration recovery",
+      "v1_disposition": "BLOCK_CONSENSUS_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Определить version compatibility policy: restore по умолчанию только на recorded exact versions; official compatibility verification; pre-upgrade COMPLETE+restore-verified backup; upgrade на cloned volumes; schema checks; явный запрет in-place downgrade. Rollback после migration выполняется восстановлением pre-upgrade generation в новых volumes, а не заменой image поверх изменённых данных.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V08-C03",
+        "V05-C05",
+        "R2-C01",
+        "R2-C04"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R7-F09"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R7-F09"
+      ],
+      "evidence_ids": [
+        "EV-F-R7-F09"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R7-backup-cold-restore",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R7-F10",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R07.json",
+        "raw_record_sha256": "888d23387d76aa3e44d6f30fb88cd76fa1819614eeae5e6ed02c1754ce2d11e1",
+        "canonical_finding_sha256": "248d19bfa93b461068c98df60912d5263dcebc73c120ace95af62f72f6b78d93",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C14 key/encryption/isolated cold restore",
+      "v1_disposition": "BLOCK_CONSENSUS_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Определить покрываемые failure scenarios и независимые fault domains для artifact и key custody. Добавить документированный clean-rebuild path: verified Docker reinstall/recovery, recreation Compose/config from versioned sources, restore без доступа к исходным volumes/VHD. Если host-loss DR не входит, это должно быть явным residual risk и не называться полной disaster recovery.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V08-C03",
+        "V05-C05",
+        "R2-C01",
+        "R2-C04"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R7-F10"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R7-F10"
+      ],
+      "evidence_ids": [
+        "EV-F-R7-F10"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R7-backup-cold-restore",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R7-F11",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R07.json",
+        "raw_record_sha256": "888d23387d76aa3e44d6f30fb88cd76fa1819614eeae5e6ed02c1754ce2d11e1",
+        "canonical_finding_sha256": "345c27e7e1fcbe371fc23bac3f039c233925b7915aa748c546ce121b89eaa8a7",
+        "severity": "P2",
+        "blocking": false,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C14 RPO/RTO",
+      "v1_disposition": "MITIGATE_V2",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "До D10 утвердить RPO/RTO отдельно для DB, files и bridge state, manual/automatic cadence, last-success indicator, stale-backup alert/stop rule и ответственного владельца. Зафиксировать, какие аварии не покрываются.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V08-C03",
+        "XD-C06",
+        "R2-C01",
+        "R2-C04"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R7-F11"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R7-F11"
+      ],
+      "evidence_ids": [
+        "EV-F-R7-F11"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R7-backup-cold-restore",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R7-F12",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R07.json",
+        "raw_record_sha256": "888d23387d76aa3e44d6f30fb88cd76fa1819614eeae5e6ed02c1754ce2d11e1",
+        "canonical_finding_sha256": "20269d789488979eb8ada77c82a968448f496dc64a6b00b9e18d64f576d95aac",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C14 backup scope/atomicity/target/faults",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Добавить обязательную fault matrix для backup и restore с fail-closed expectations, неизменностью source, quarantine incomplete outputs, target cleanup только после gate и schema/semantic validation. Evidence должно связывать каждый case с artifact hash, image digest, exit code и assertions, без secret-bearing logs.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V08-C03",
+        "R2-C01",
+        "R2-C04"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R7-F12"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R7-F12"
+      ],
+      "evidence_ids": [
+        "EV-F-R7-F12"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R7-backup-cold-restore",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R8-P1-001",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R08.json",
+        "raw_record_sha256": "3a67acc0a50b798bde557225898e4edb8566081528428a61a9844d7509b47a70",
+        "canonical_finding_sha256": "cbb807e3a94174d5d64df60a87cd1e8f893bd4fe92e974e1a45660fa212b7b68",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C16 B2r/O5 executable truth",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "До D9 заморозить отдельный contract manifest для всех трёх наборов: ожидаемые cardinalities 66/34/8, уникальные стабильные row IDs, назначение строки, input/fixture hash, ожидаемый terminal status и применимый validator. Привязать hash manifest к authority и требовать точного равенства множеств expected/observed, запрещая missing, extra и duplicate IDs.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V09-C02",
+        "V09-C03",
+        "V09-C04",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R8-P1-001"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R8-P1-001"
+      ],
+      "evidence_ids": [
+        "EV-F-R8-P1-001"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R8-b2r-o5-evidence",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R8-P1-002",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R08.json",
+        "raw_record_sha256": "3a67acc0a50b798bde557225898e4edb8566081528428a61a9844d7509b47a70",
+        "canonical_finding_sha256": "6c1b9d6a595ca2fa5d715d84911cd078432a686acb2e37edf066427d2311a104",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C16 B2r/O5 executable truth",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Определить validator A и B как раздельно закреплённые реализации с собственными source/build/image hashes и командами. Каждый должен самостоятельно читать immutable candidate и contract manifest, вычислять binding и row results, не потребляя output другого. Любое расхождение, missing validator или совпадение запрещённой общей implementation identity должно блокировать gate.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V09-C02",
+        "V09-C03",
+        "V09-C04",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R8-P1-002"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R8-P1-002"
+      ],
+      "evidence_ids": [
+        "EV-F-R8-P1-002"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R8-b2r-o5-evidence",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R8-P1-003",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R08.json",
+        "raw_record_sha256": "3a67acc0a50b798bde557225898e4edb8566081528428a61a9844d7509b47a70",
+        "canonical_finding_sha256": "0d9eb90b122aa911893883b777569fe4e985e7dd5b2be781ea5f54629b945fc6",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C17 candidate/evidence custody",
+      "v1_disposition": "BLOCK_CONSENSUS_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Перед запуском создать immutable candidate artifact и отдельный immutable runner/tooling bundle. Зафиксировать SHA-256, Git HEAD, полный dirty/untracked content manifest, modes, symlinks и line-ending-sensitive hashes. Запускать из проверенного snapshot, а не mutable host bind. Independent review и package/commit gate должны принимать те же digests и доказать tree/byte equality.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V09-C02",
+        "V09-C03",
+        "V09-C04",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R8-P1-003"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R8-P1-003"
+      ],
+      "evidence_ids": [
+        "EV-F-R8-P1-003"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R8-b2r-o5-evidence",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R8-P1-004",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R08.json",
+        "raw_record_sha256": "3a67acc0a50b798bde557225898e4edb8566081528428a61a9844d7509b47a70",
+        "canonical_finding_sha256": "a1192b8810701ad2a163d862a1967625f160206912a7c25ce85f59beaafb9707",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C16 B2r/O5 executable truth",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Определить clean-room run contract: новый непредсказуемый run ID, заведомо пустые output volumes, отказ при существующих result files, pinned environment/toolchain, явные locale/timezone/umask/user/workdir/seeds и content-addressed cache policy. Обязать два независимо provisioned последовательных прогона одного candidate и сравнение нормализованных semantic outputs.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V09-C02",
+        "V09-C03",
+        "V09-C04",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R8-P1-004"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R8-P1-004"
+      ],
+      "evidence_ids": [
+        "EV-F-R8-P1-004"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R8-b2r-o5-evidence",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R8-P1-005",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R08.json",
+        "raw_record_sha256": "3a67acc0a50b798bde557225898e4edb8566081528428a61a9844d7509b47a70",
+        "canonical_finding_sha256": "1831eee63cce201d96dd706787461d66925901aedfa9231d846e34fe75708452",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C16 B2r/O5 executable truth",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Для каждого fault case задать target, trigger, shim hash, однозначный trigger receipt, ожидаемое intermediate failure, recovery invariant и paired non-injected control. Collector, независимый от candidate, должен подтверждать trigger до принятия recovery PASS; candidate не должен иметь права писать итоговый receipt/result.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V09-C02",
+        "V09-C03",
+        "V09-C04",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R8-P1-005"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R8-P1-005"
+      ],
+      "evidence_ids": [
+        "EV-F-R8-P1-005"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R8-b2r-o5-evidence",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R8-P1-006",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R08.json",
+        "raw_record_sha256": "3a67acc0a50b798bde557225898e4edb8566081528428a61a9844d7509b47a70",
+        "canonical_finding_sha256": "a586f4370185571a6adcc651da8d694a1e2f55eaafa663aa8e9cc0a2966e627d",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C16 B2r/O5 executable truth",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Ввести versioned result schema и явную state machine по scope LAB/LOCAL/OFFLINE/REMOTE. Задать исчерпывающие statuses PASS, FAIL, BLOCKED, MANUAL-PASS, NOT-RUN, stable RC mapping, допустимые переходы и fail-closed aggregation. RC 0 разрешить только при полном PASS данного exact scope; BLOCKED-CAPABILITY может сосуществовать с LAB_READY, но не превращаться в общий SUCCESS/OFFLINE PASS.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V09-C02",
+        "V09-C03",
+        "V09-C04",
+        "R2-C01",
+        "R2-C05"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R8-P1-006"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R8-P1-006"
+      ],
+      "evidence_ids": [
+        "EV-F-R8-P1-006"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R8-b2r-o5-evidence",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R8-P1-007",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R08.json",
+        "raw_record_sha256": "3a67acc0a50b798bde557225898e4edb8566081528428a61a9844d7509b47a70",
+        "canonical_finding_sha256": "7178c5de606f2340a1ceab994f2beb6a455eb8a15a6106d17154280a42245301",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C16 B2r/O5 executable truth",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Определить append-only attempt ledger с ключом scope, gate ID, authority ID, candidate digest и attempt ID. Отдельно учитывать LAB/LOCAL/OFFLINE/REMOTE budgets и terminal states. Local Docker evidence не должно изменять REMOTE counter/status и никогда не должно создавать remote authority.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V09-C02",
+        "V09-C03",
+        "V09-C04",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R8-P1-007"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R8-P1-007"
+      ],
+      "evidence_ids": [
+        "EV-F-R8-P1-007"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R8-b2r-o5-evidence",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R8-P1-008",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R08.json",
+        "raw_record_sha256": "3a67acc0a50b798bde557225898e4edb8566081528428a61a9844d7509b47a70",
+        "canonical_finding_sha256": "593b219ceff111841570cfe6051f4c9650bd1a89624180704d5545fa6deadd18",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C08 no-network evidence",
+      "v1_disposition": "BLOCK_CONSENSUS_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Заменить «без NIC» точным invariant «нет non-loopback network interface/default route». Trusted collector должен независимо фиксировать network mode, namespace, interfaces, routes и resolver. Добавить direct-IP IPv4/IPv6 TCP/UDP probes к нескольким классам destinations, включая host-gateway/metadata-like paths, и тот же probe в network-enabled positive-control container. Для internal-only режима определить и проверить разрешённые peers и запрет всех остальных путей.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V09-C02",
+        "V09-C03",
+        "V09-C04",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R8-P1-008"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R8-P1-008"
+      ],
+      "evidence_ids": [
+        "EV-F-R8-P1-008"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R8-b2r-o5-evidence",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R8-P1-009",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R08.json",
+        "raw_record_sha256": "3a67acc0a50b798bde557225898e4edb8566081528428a61a9844d7509b47a70",
+        "canonical_finding_sha256": "56648dae7f61e6eef5e215494e562a7e8b677ee3075c853262d126d469a028de",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C16 B2r/O5 executable truth",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Закрепить environment fingerprint: architecture, uname/kernel build, релевантные capability/config facts, Docker Desktop/Engine/Compose builds, storage driver/backing fs, cgroup/security modes, filesystem types/options и mount propagation. Каждая capability claim действует только для exact fingerprint. Любое продвижение в REMOTE требует отдельного exact-candidate rerun/compatibility evidence.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V09-C02",
+        "V09-C03",
+        "V09-C04",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R8-P1-009"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R8-P1-009"
+      ],
+      "evidence_ids": [
+        "EV-F-R8-P1-009"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R8-b2r-o5-evidence",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R8-P1-010",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R08.json",
+        "raw_record_sha256": "3a67acc0a50b798bde557225898e4edb8566081528428a61a9844d7509b47a70",
+        "canonical_finding_sha256": "67def0679661504a8ad89c0f06c2aee8b3d9216d34959d8c244eb413b5a8f5d0",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C17 candidate/evidence custody",
+      "v1_disposition": "BLOCK_CONSENSUS_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Создать versioned evidence envelope, формируемый trusted collector: immutable run/scope/attempt IDs; manifest path-bytes-hash; aggregate anchor; candidate, runner, validators, contract и tool hashes; image/container/environment identities; canonical commands, start/end, RC, stdout/stderr hashes и per-row results. Candidate не должен писать финальный manifest/status. Evidence следует генерировать secret-minimal; redaction обязана иметь детерминированный audit record и не менять semantic fields.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V09-C02",
+        "V09-C03",
+        "V09-C04",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R8-P1-010"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R8-P1-010"
+      ],
+      "evidence_ids": [
+        "EV-F-R8-P1-010"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R8-b2r-o5-evidence",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R8-P2-011",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R08.json",
+        "raw_record_sha256": "3a67acc0a50b798bde557225898e4edb8566081528428a61a9844d7509b47a70",
+        "canonical_finding_sha256": "9a187dbc91af823ad7be4a667b17f6c9ddc82a476950132c7f1e8400c67cf7d1",
+        "severity": "P2",
+        "blocking": false,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C16 tool BOM/availability",
+      "v1_disposition": "MITIGATE_V2",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Закрепить QA image digest и tool BOM с executable path, implementation, version/hash и required feature probes. Preflight должен завершаться BLOCKED-TOOL до validators при любом отсутствии/несовместимости; fallback utility и skip запрещены без нового reviewed contract.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V09-C02",
+        "V09-C03",
+        "V09-C04",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R8-P2-011"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R8-P2-011"
+      ],
+      "evidence_ids": [
+        "EV-F-R8-P2-011"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R8-b2r-o5-evidence",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R8-P2-012",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R08.json",
+        "raw_record_sha256": "3a67acc0a50b798bde557225898e4edb8566081528428a61a9844d7509b47a70",
+        "canonical_finding_sha256": "5cd15428a12af44035346b4af85eecc1991cdb20be97143f52c680f357282ebf",
+        "severity": "P2",
+        "blocking": false,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C18 cleanup labels",
+      "v1_disposition": "MITIGATE_V2",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Определить label schema с scope, run ID, authority ID, candidate digest и resource class. Перед cleanup trusted wrapper должен разрешить точный набор IDs, показать dry-run inventory, проверить все labels и доказать отсутствие persistent-lab resources. Missing, extra или conflicting labels блокируют cleanup.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V09-C02",
+        "V09-C03",
+        "V09-C04",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R8-P2-012"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R8-P2-012"
+      ],
+      "evidence_ids": [
+        "EV-F-R8-P2-012"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R8-b2r-o5-evidence",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R9-F01",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R09.json",
+        "raw_record_sha256": "b803a6e096e70cc807e417b7d679364b7e178c7c950958877694dc953cf7e234",
+        "canonical_finding_sha256": "91bc230faf6fcc338258a3dd9009101932a5a6d05eb084815f0747ae7cf80ebe",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C17 candidate/evidence custody",
+      "v1_disposition": "BLOCK_CONSENSUS_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "В plan v2 определить canonical custody manifest: exact repo identity/root, branch/ref и HEAD; hash самого index; по каждому tracked path — status, base blob OID, mode, bytes и working SHA-256; по каждому untracked объекту — полностью раскрытый список файлов, path type, bytes и SHA-256. Определить encoding, separators, Unicode/case normalization, ordering и aggregate algorithm. Сохранить manifest вне изменяемого worktree и повторно сверять его на каждом gate.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V09-C01",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R9-F01"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R9-F01"
+      ],
+      "evidence_ids": [
+        "EV-F-R9-F01"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R9-git-candidate-custody",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R9-F02",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R09.json",
+        "raw_record_sha256": "b803a6e096e70cc807e417b7d679364b7e178c7c950958877694dc953cf7e234",
+        "canonical_finding_sha256": "5f23a9054d420403a2cac0f89531d343776b4a0a9046cc51c9e9bea8d5a034f7",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C17 dirty tree governance",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "До repo-write authority заморозить exact touchset manifest. Для каждого path указать операцию, ожидаемый pre-state, допустимый post-state, owner, preimage hash для modify и требование отсутствия для create. Проверять все ancestors и exact leaf. Любое имя вне manifest или collision должно останавливать этап и требовать нового review/authority.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V09-C01",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R9-F02"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R9-F02"
+      ],
+      "evidence_ids": [
+        "EV-F-R9-F02"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R9-git-candidate-custody",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R9-F03",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R09.json",
+        "raw_record_sha256": "b803a6e096e70cc807e417b7d679364b7e178c7c950958877694dc953cf7e234",
+        "canonical_finding_sha256": "45dc9c1bebe66f7108b597c8a2ce7fc89e76b385ebc032187d23027512e24818",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C07 Windows mount/write containment",
+      "v1_disposition": "BLOCK_CONSENSUS_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Ввести Windows-safe path policy до каждого open/write: canonical absolute roots с volume identity; lstat каждого ancestor и leaf; запрет reparse points/symlinks/junctions; case-exact и Unicode-exact сравнение; запрет ADS и неожиданного hardlink count; повторная проверка identity после открытия и после atomic replace. Предпочесть изолированный заранее созданный root, недоступный конкурентным writers.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V09-C01",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R9-F03"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R9-F03"
+      ],
+      "evidence_ids": [
+        "EV-F-R9-F03"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R9-git-candidate-custody",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R9-F04",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R09.json",
+        "raw_record_sha256": "b803a6e096e70cc807e417b7d679364b7e178c7c950958877694dc953cf7e234",
+        "canonical_finding_sha256": "16e9d84690bb93541be7c4d31786da9538c5d292a21442ecb47dd2c12a921427",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C17 dirty tree governance",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Определить orchestration lease и guard tuple: repo/root identity, branch/ref target, HEAD OID, index byte hash, custody aggregate и outside-touchset state. Проверять tuple перед каждой записью, перед тестом, перед staging, до и после commit/package. При drift — немедленный stop без auto-merge. Авторинг выполнять в изолированной worktree/clone или immutable overlay, не в пользовательском dirty worktree.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V09-C01",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R9-F04"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R9-F04"
+      ],
+      "evidence_ids": [
+        "EV-F-R9-F04"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R9-git-candidate-custody",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R9-F05",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R09.json",
+        "raw_record_sha256": "b803a6e096e70cc807e417b7d679364b7e178c7c950958877694dc953cf7e234",
+        "canonical_finding_sha256": "2d36d78da6928d8eda4b9f38a61cb93971b06cb767c4e41a5948da59de9161f3",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C17 candidate/evidence custody",
+      "v1_disposition": "BLOCK_CONSENSUS_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "До K4R определить immutable test-candidate artifact независимо от release package: base HEAD, полный manifest входных 21 paths и новых local artifacts, modes/types/bytes/hashes, tool version и aggregate. Все engines читают один read-only artifact. Independent review, commit tree и release package обязаны быть доказуемо производными от того же aggregate без пересборки из mutable worktree.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V09-C02",
+        "V09-C04",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R9-F05"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R9-F05"
+      ],
+      "evidence_ids": [
+        "EV-F-R9-F05"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R9-git-candidate-custody",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R9-F06",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R09.json",
+        "raw_record_sha256": "b803a6e096e70cc807e417b7d679364b7e178c7c950958877694dc953cf7e234",
+        "canonical_finding_sha256": "210187a304797af217d761f07fe26e513946a9a52f3a0b96970206b63923d8dd",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C17 dirty tree governance",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Задать отдельный integration gate с explicit authority: expected parent/ref; isolated temporary index; hooks disabled or hash-pinned and reviewed; filters/attributes inventoried; exact allowlisted stage set; commit message/trailers с plan, custody, candidate и test hashes. До ref update проверить generated tree OID и manifest против candidate. После commit проверить parent, tree, changed-path set и неизменность пользовательского index; package строить из commit tree/object, не worktree.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V09-C01",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R9-F06"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R9-F06"
+      ],
+      "evidence_ids": [
+        "EV-F-R9-F06"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R9-git-candidate-custody",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R9-F07",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R09.json",
+        "raw_record_sha256": "b803a6e096e70cc807e417b7d679364b7e178c7c950958877694dc953cf7e234",
+        "canonical_finding_sha256": "ef2b17c4768d157787cad1b9b9bd88876d354bb8b309e6dc03e5eaf8aa887a02",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C17 dirty tree governance",
+      "v1_disposition": "PRESENT_SINGLE_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Определить transactional write journal вне repo: exact precondition и preimage bytes/metadata для modify, список uniquely created paths/directories, последовательность atomic replacements и completion markers. Rollback должен восстанавливать только записи конкретного run по verified identities, конфликтовать при concurrent edits и не использовать broad reset/checkout/clean. Изолированная worktree/clone предпочтительнее rollback в dirty tree.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V09-C01",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R9-F07"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R9-F07"
+      ],
+      "evidence_ids": [
+        "EV-F-R9-F07"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R9-git-candidate-custody",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R9-F08",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R09.json",
+        "raw_record_sha256": "b803a6e096e70cc807e417b7d679364b7e178c7c950958877694dc953cf7e234",
+        "canonical_finding_sha256": "60850187675a75fc4a2eaff9f123cf04784eca679df15cc508a31e5da484ee13",
+        "severity": "P1",
+        "blocking": true,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C17 candidate/evidence custody",
+      "v1_disposition": "BLOCK_CONSENSUS_P1",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "Разделить scopes: immutable Vault bundle; source worktree; Git metadata; external lab root. Для каждого зафиксировать resolved physical root/volume identity, разрешённые операции и before/after manifest. Использовать contained writer и full no-ignore inventory внутри контролируемых roots; отдельно инвентаризировать index/refs/objects/reflogs. Любую запись вне exact run manifest считать failure; Git metadata changes разрешать только на integration gate и связывать с commit provenance.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V09-C02",
+        "V09-C04",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R9-F08"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R9-F08"
+      ],
+      "evidence_ids": [
+        "EV-F-R9-F08"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R9-git-candidate-custody",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R9-F09",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R09.json",
+        "raw_record_sha256": "b803a6e096e70cc807e417b7d679364b7e178c7c950958877694dc953cf7e234",
+        "canonical_finding_sha256": "87765e8bcaf6e70cf5ea61a77c39250149cf4b78c657408c7427acf7c6b62494",
+        "severity": "P2",
+        "blocking": false,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C17 line endings/mode/attributes",
+      "v1_disposition": "MITIGATE_V2",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "В frozen touchset задать attributes/EOL/mode policy по типам файлов, инвентаризировать effective Git config/attributes и включить blob-level comparison candidate-to-index-to-commit. Для Linux scripts требовать LF и требуемый executable mode; не выполнять массовую normalization существующих 21 paths.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V09-C02",
+        "V09-C04",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R9-F09"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R9-F09"
+      ],
+      "evidence_ids": [
+        "EV-F-R9-F09"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R9-git-candidate-custody",
+        "RXD-cross-domain-integration"
+      ]
+    },
+    {
+      "finding_id": "R9-F10",
+      "source_binding": {
+        "raw_record_relpath": "N8NAgents/02_Агентам/Ревью/ReviewResult_a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79/R09.json",
+        "raw_record_sha256": "b803a6e096e70cc807e417b7d679364b7e178c7c950958877694dc953cf7e234",
+        "canonical_finding_sha256": "c70973bd87bb89b09abc5597e5497ebd9d023c4813cc0d715fb4d654bfc426d5",
+        "severity": "P2",
+        "blocking": false,
+        "source_verdict": "CHANGES_REQUIRED"
+      },
+      "v1_cluster": "C13 pre-secret safeguards",
+      "v1_disposition": "MITIGATE_V2",
+      "disposition": "DESIGN_RESOLVED",
+      "resolution": "До любых generators зафиксировать отдельные external temp/evidence roots с ACL и path-identity checks. Gitignore использовать только как дополнительную защиту, применяемую и проверяемую до nonsensitive generated files; secrets не должны зависеть от ignore. Secret/package gate должен сканировать полный candidate и repo scope с ignored/untracked content, streams и archives согласно policy.",
+      "residual_runtime_state": "DESIGN_RESOLVED_RUNTIME_NOT_RUN_OR_UNKNOWN",
+      "plan_section_ids": [
+        "V09-C01",
+        "V07-C01",
+        "R2-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R9-F10"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R9-F10"
+      ],
+      "evidence_ids": [
+        "EV-F-R9-F10"
+      ],
+      "responsible_semantic_reviewer_roles": [
+        "R9-git-candidate-custody",
+        "RXD-cross-domain-integration"
+      ]
+    }
+  ]
+}

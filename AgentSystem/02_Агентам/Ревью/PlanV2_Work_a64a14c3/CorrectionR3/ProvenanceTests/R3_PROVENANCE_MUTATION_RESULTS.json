@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "record_kind": "N8NAGENTS_R3_PROVENANCE_MUTATION_RUN",
+  "validator": "verify_r3_provenance.py",
+  "validator_bytes": 10580,
+  "validator_sha256": "f3a95dc2a610b0766f354d70059df81dc9fc5739c216859572f08ee056533426",
+  "command": "py -3 -X utf8 ProvenanceTests/verify_r3_provenance.py",
+  "cwd_contract": "CorrectionR3; validator also accepts any cwd because all paths derive from __file__",
+  "python": "3.14.5",
+  "baseline": {
+    "path": "24_PROSPECTIVE_AUDIT_R3_BASELINE.json",
+    "bytes": 17870,
+    "sha256": "374b803d3ccb06a590c2664f86b4cc72ef14e09616060effd539c73bf9526ec0"
+  },
+  "positive": {
+    "status": "PASS",
+    "rc": 0,
+    "raw_bytes": 7957,
+    "raw_sha256": "2c6f25a2ab02e7d9995df0ecbc4456f69dfadd0c044f403c0420ea23e13295ae",
+    "item_count": 13,
+    "items_aggregate_sha256": "8d62343fc0ed7dc319bb5b0f97b0f863e959c3a77e1068c9607c6e1ce8aa2214"
+  },
+  "mutation_count": 7,
+  "mutations": [
+    {
+      "case_id": "M01_SPAN_OFFSET_PLUS_ONE",
+      "mutation_applied": true,
+      "validator_invoked": true,
+      "expected_status": "STOP_SPAN_SHA256",
+      "actual_status": "STOP_SPAN_SHA256",
+      "result": "PASS"
+    },
+    {
+      "case_id": "M02_CLAIM_APPEND_ONE_CODEPOINT",
+      "mutation_applied": true,
+      "validator_invoked": true,
+      "expected_status": "STOP_SPAN_DECODED_CLAIM_MISMATCH",
+      "actual_status": "STOP_SPAN_DECODED_CLAIM_MISMATCH",
+      "result": "PASS"
+    },
+    {
+      "case_id": "M03_ITEM_HASH_ZEROED",
+      "mutation_applied": true,
+      "validator_invoked": true,
+      "expected_status": "STOP_ITEM_HASH",
+      "actual_status": "STOP_ITEM_HASH",
+      "result": "PASS"
+    },
+    {
+      "case_id": "M04_REQUIRED_ORDER_SWAP_FIRST_TWO",
+      "mutation_applied": true,
+      "validator_invoked": true,
+      "expected_status": "STOP_REQUIRED_IDS_EXACT_ORDER",
+      "actual_status": "STOP_REQUIRED_IDS_EXACT_ORDER",
+      "result": "PASS"
+    },
+    {
+      "case_id": "M05_AGGREGATE_HASH_ZEROED",
+      "mutation_applied": true,
+      "validator_invoked": true,
+      "expected_status": "STOP_AGGREGATE_HASH",
+      "actual_status": "STOP_AGGREGATE_HASH",
+      "result": "PASS"
+    },
+    {
+      "case_id": "M06_RAW_CLAIM_BYTE_FLIPPED",
+      "mutation_applied": true,
+      "validator_invoked": true,
+      "expected_status": "STOP_RAW_SHA256",
+      "actual_status": "STOP_RAW_SHA256",
+      "result": "PASS"
+    },
+    {
+      "case_id": "M07_HISTORICAL_19_AS_SOURCE",
+      "mutation_applied": true,
+      "validator_invoked": true,
+      "expected_status": "STOP_RAW_PATH",
+      "actual_status": "STOP_RAW_PATH",
+      "result": "PASS"
+    }
+  ],
+  "all_mutations_rejected_as_expected": true,
+  "result": "PASS",
+  "runtime_state": "LOCAL_READ_ONLY_TEST_ONLY"
+}
