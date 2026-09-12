@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "attestation_type": "exact_assistant_final_payload_provenance",
+  "artifact": {
+    "path": "N8NAgents/02_Агентам/Ревью/PlanV2_Work_a64a14c3/CorrectionR2/D2_SUPERSESSION_REVIEW_R2_RAW.md",
+    "bytes": 7340,
+    "sha256": "390f5230998425c465f7e4f881d821e260fff3f72e4d437205a73aa219b172f1",
+    "encoding": "UTF-8 without BOM",
+    "line_endings": "LF",
+    "final_lf_count": 1
+  },
+  "provenance": {
+    "reviewer_task_id": "/root/legacy_supersession_r2",
+    "original_prior_turn": "immediately preceding completed reviewer final response",
+    "payload_channel": "final",
+    "payload_starts_with": "APPROVE_SUPERSESSION",
+    "decision": "APPROVE_SUPERSESSION",
+    "exact_verbatim": true,
+    "reconstruction_used": false,
+    "summary_used_as_source": false
+  },
+  "scope_attestation": {
+    "scope": "this export task only",
+    "created_files": [
+      "D2_SUPERSESSION_REVIEW_R2_RAW.md",
+      "D2_SUPERSESSION_REVIEW_R2_ATTESTATION.json"
+    ],
+    "other_files_changed": false,
+    "runtime_accessed_or_changed": false,
+    "network_accessed": false
+  }
+}

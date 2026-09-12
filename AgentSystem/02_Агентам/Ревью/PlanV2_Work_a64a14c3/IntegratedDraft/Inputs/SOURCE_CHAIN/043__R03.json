@@ -1,0 +1,111 @@
+{
+  "review_id": "R3",
+  "reviewer_role": "R3",
+  "model": "OpenAI Codex GPT-5",
+  "reasoning_level": "xhigh",
+  "bundle_sha256": "ac97cdacc140c7bcb186672aa63d002acc1658c767775a3d0718b406f17728e2",
+  "plan_sha256": "a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79",
+  "plan_bytes": 46234,
+  "started_utc": "2026-08-27T05:42:00Z",
+  "completed_utc": "2026-08-27T05:56:11Z",
+  "verdict": "CHANGES_REQUIRED",
+  "findings": [
+    {
+      "finding_id": "R3-PRIV-001",
+      "severity": "P1",
+      "affected_section": "6.3, 10.2, D3, D9, Definition of Done",
+      "claim": "План разрешает unspecified privileged one-shot containers в общем Docker Desktop backend, но не задаёт приемлемую границу их blast radius.",
+      "evidence": "Раздел 6.3 допускает выдачу привилегий после capability review; D3 требует mount namespace, nested binds и immutable operations; D9 запускает actual runner и fault shims. При этом зафиксированы только отсутствие Docker socket/host-root mount, network none и ограничение одного запуска. Нет exact HostConfig: Privileged, CapAdd/CapDrop, devices, seccomp/AppArmor, PID/IPC/user namespace, mount propagation и read-only-rootfs. По последовательности D9 выполняется после создания persistent lab, Telegram и DeepSeek state.",
+      "impact": "Read-only repo bind и отсутствие NIC не доказывают containment root-кода с широкими Linux capabilities внутри общей managed VM. Ошибка или hostile fixture может изменить kernel/mount state либо соседние Docker data, volumes и последующие secret-bearing workloads. Поэтому безопасный B2r/O5 PASS недоказуем.",
+      "required_resolution": "В plan v2 запретить HostConfig.Privileged в общем persistent backend. Зафиксировать минимальный capability envelope для каждой строки теста с CapDrop=ALL, точечными CapAdd, пустыми devices, private PID/IPC, no-new-privileges, exact mounts и network mode. Тесты, требующие эквивалента privileged/CAP_SYS_ADMIN с широким доступом, должны идти только в доказанно disposable backend без существующих данных и секретов; если plan A не может дать такую boundary, соответствующий gate обязан остаться BLOCKED-CAPABILITY.",
+      "acceptance_test": "Для каждой test container сохранить redacted docker inspect и доказать: Privileged=false, Devices пуст, CapAdd равен утверждённому набору, CapDrop содержит ALL, нет host PID/IPC, socket/named-pipe/host-root mounts, unexpected devices и mounts. До и после запуска hashes/state независимых sentinel volumes и Docker objects совпадают; запрещённая mount/device/capability операция стабильно отвергается. Любая строка, требующая более широких прав, возвращает BLOCKED, не PASS.",
+      "blocking": true,
+      "confidence": "high"
+    },
+    {
+      "finding_id": "R3-NET-002",
+      "severity": "P1",
+      "affected_section": "6.1, 6.3, 9.2, 9.3, D3, D6, D9",
+      "claim": "Контракт отсутствия egress для mock/gate сформулирован как намерение, но не содержит закрытого перечня маршрутов и fail-closed runtime matrix.",
+      "evidence": "План требует internal networks, network none, отказ DNS/HTTPS и один внешний egress canary. Не заданы exact service-to-network attachments, запрет неявной default network, тесты literal IPv4/IPv6, Docker/WSL gateway, host.docker.internal, link-local/metadata destinations, inherited HTTP(S)_PROXY/ALL_PROXY/NO_PROXY и Docker Desktop proxy/VPN routes.",
+      "impact": "Один отрицательный DNS/HTTPS canary может пройти при сохранённом альтернативном канале наружу или к Windows host. Mock/gate способен незаметно отправить project/evidence data либо обратиться к неожиданному локальному сервису, а plan ошибочно выдаст no-egress PASS.",
+      "required_resolution": "Зафиксировать exact Compose topology: internal=true для всех mock data networks, отсутствие implicit default/external attachment, network none для автономных gates. Перед container creation очищать proxy-related environment и явно фиксировать DNS/network options. Добавить destination matrix для DNS name, literal IPv4, IPv6, gateway, host aliases, link-local и host-side listeners с ожидаемым результатом для каждого режима.",
+      "acceptance_test": "Сравнить canonical compose config и docker inspect всех containers/networks с allowlist. Из каждого mock/gate service выполнить canaries на DNS, TCP/HTTPS по имени, literal IPv4/IPv6, gateway, host.docker.internal и link-local; все внешние/host destinations обязаны завершиться ожидаемым отказом, а разрешённые внутренние peers — PASS. Любой skipped/unavailable route даёт BLOCKED, не общий PASS.",
+      "blocking": true,
+      "confidence": "high"
+    },
+    {
+      "finding_id": "R3-NET-003",
+      "severity": "P1",
+      "affected_section": "6.2, 7.3, 9.2, D7, D8",
+      "claim": "Фраза «egress только тем сервисам, которым нужны Telegram/DeepSeek» ограничивает services, но не destinations; real-dev остаётся с неограниченным outbound каналом.",
+      "evidence": "План разрешает bridge и n8n обращаться к Telegram, а DeepSeek — после отдельного profile. Не определены egress proxy, direct-route denial, destination/method/TLS policy, DNS resolution policy либо раздельные outbound networks. n8n Telegram node указан как предпочтительный sender, следовательно n8n также получает внешний маршрут.",
+      "impact": "Компрометация workflow/node/bridge или ошибочная конфигурация сможет обратиться к произвольному Internet endpoint и вывести credentials, prompts или test data, несмотря на заявленное «только Telegram/DeepSeek».",
+      "required_resolution": "В plan v2 отделить internal application networks от controlled outbound path. Внешний трафик должен проходить через reviewable egress control с явной policy для Telegram и отдельно DeepSeek; direct default route из application containers запрещается. Зафиксировать TLS hostname/SNI, методы и redirection policy либо честно признать broad Internet egress как residual risk и потребовать отдельный owner gate.",
+      "acceptance_test": "Для каждого real-dev container доказать разрешение только утверждённых provider operations и отказ control-domain, literal-IP, alternate-port, redirect-to-unapproved-host и DNS-rebinding canaries. Docker inspect подтверждает отсутствие прямого external-network path в обход control point. DeepSeek-disabled profile не имеет DeepSeek route или credential.",
+      "blocking": true,
+      "confidence": "high"
+    },
+    {
+      "finding_id": "R3-PORT-004",
+      "severity": "P1",
+      "affected_section": "5, 9.1, 9.3, D1, D3, Verification matrix",
+      "claim": "Loopback-only exposure является обязательным outcome, но acceptance contract недостаточно точен для Docker Desktop/Windows forwarding boundary.",
+      "evidence": "План задаёт 127.0.0.1:5678 и общие connect tests loopback/LAN/IPv4/IPv6. Не определены Windows-side listener inventory, Docker Desktop forwarding/proxy process, localhost IPv6 behavior, WSL virtual interfaces, existing netsh portproxy entries, firewall rules, VPN adapters и внешний LAN vantage point. Diagnostic port допускается по будущему review без схемы.",
+      "impact": "Compose binding может выглядеть корректно, тогда как Windows helper, portproxy, IPv6 listener или policy exposes editor за пределы loopback. Это создаёт доступ к локальному n8n с credentials и workflow data.",
+      "required_resolution": "Добавить точную host-side port qualification до и после каждого start: authoritative listener inventory, Docker-published bindings, IPv4/IPv6 route/interface inventory, portproxy/firewall delta и удалённый LAN canary. Запретить diagnostic port по умолчанию; его разрешение должно содержать exact address, process, lifetime и cleanup.",
+      "acceptance_test": "На Windows доказать единственные listeners для 5678 как loopback-only и отсутствие 0.0.0.0, ::, LAN/WSL/VPN-address bindings и portproxy forwarding. Успешно подключиться с host loopback по IPv4; IPv6 поведение должно соответствовать явной policy. Попытки с отдельного LAN vantage point и со всех non-loopback host addresses должны быть отвергнуты. Недоступность LAN/IPv6 проверки даёт BLOCKED.",
+      "blocking": true,
+      "confidence": "high"
+    },
+    {
+      "finding_id": "R3-CTRL-005",
+      "severity": "P1",
+      "affected_section": "D1, D2, D3, 13, Automatic stop conditions",
+      "claim": "План не закрепляет mutation-команды за exact local Docker context/endpoint и не устраняет environment-based daemon redirection.",
+      "evidence": "D1 проверяет Docker Desktop/Engine/CLI и conflicting daemons, D2 после reboot повторно проверяет context, но CLI contract не требует очищать DOCKER_HOST, DOCKER_CONTEXT, TLS/proxy variables или проверять endpoint перед каждой mutation. Published Docker API запрещён только как target configuration.",
+      "impact": "Inherited environment или изменённый context способен направить compose/build/remove команды на другой local или remote daemon. Это может вызвать unauthorized external action либо изменение чужих containers/volumes при корректном project name.",
+      "required_resolution": "Определить один approved local Docker Desktop context по canonical endpoint и engine identity. Все scripts должны запускать Docker с очищенными redirect variables и явным context, повторно проверяя endpoint/engine identity непосредственно перед mutation. TCP/SSH endpoints и context drift — STOP.",
+      "acceptance_test": "Canaries с подменёнными DOCKER_HOST, DOCKER_CONTEXT и TLS variables обязаны fail closed до daemon mutation. Command evidence показывает explicit approved context; before/after daemon identity совпадает. Fake second context не получает ни одного create/start/remove вызова.",
+      "blocking": true,
+      "confidence": "high"
+    },
+    {
+      "finding_id": "R3-MOUNT-006",
+      "severity": "P1",
+      "affected_section": "5, 8.2, 6.3, D3, D9",
+      "claim": "Запрет host-root mounts не заменяет exact mount allowlist; план не исключает чрезмерно широкие Windows shares и непреднамеренную передачу secret/data roots.",
+      "evidence": "Архитектура предусматривает Windows user-only secrets, evidence и backups; gate получает read-only repo и writable output volume. План не задаёт canonical source paths, parent-symlink/reparse-point checks, bind propagation, subpath boundaries, read-only root filesystem и отрицательный перечень Desktop integration mounts. Нет требования сравнить фактические Mounts с exact per-service allowlist.",
+      "impact": "Bind родительского каталога, reparse/symlink escape, Desktop integration mount или ошибочная Compose interpolation может раскрыть secrets, backups, Vault/workspace siblings либо дать тесту запись вне intended output.",
+      "required_resolution": "Зафиксировать per-service mount manifest с canonical Windows и Linux paths, type, mode, propagation, owner и purpose. Валидировать каждый parent/leaf против symlink/reparse escape до запуска; запретить все implicit/integration mounts. Secret projection должна быть file-scoped и только нужным service, а gate не должен получать local secret root.",
+      "acceptance_test": "Canonical compose config и docker inspect Mounts byte-for-byte соответствуют manifest. Canary с parent path, reparse/symlink, writable source, extra bind и broad workspace root отвергается до start. Gate видит только candidate read-only и invocation-owned output; outside sentinels, secret root, backups и соседние workspace paths остаются недоступны и неизменны.",
+      "blocking": true,
+      "confidence": "high"
+    },
+    {
+      "finding_id": "R3-CLEAN-007",
+      "severity": "P2",
+      "affected_section": "6.3, 10.2, 13, 15, D3, D9",
+      "claim": "Cleanup по run labels не имеет достаточной object-custody схемы и recovery после crash/reboot.",
+      "evidence": "План обещает удалять только run-labelled containers/networks/volumes и запрещает broad prune/down-v. Не заданы collision-resistant run identity, pre-existing-label collision check, captured Docker object IDs/creation tuples, ownership verification перед remove, cleanup journal и обработка kill-9/Docker Desktop crash/reboot с lingering mounts или privileged containers.",
+      "impact": "Label collision может удалить чужой object; crash может оставить privileged container, namespace, network или writable evidence mount активным. Повторный запуск способен смешать state разных runs.",
+      "required_resolution": "Использовать unique run nonce, preflight zero-collision, immutable local custody record с exact IDs и creation facts. Cleanup должен удалять только совпадающие tuples; foreign/changed object — STOP. Добавить idempotent recovery command и post-reboot residual scan.",
+      "acceptance_test": "Foreign same-label object и changed-tuple canaries не удаляются. Normal, failure, signal, Docker restart и host reboot cases завершаются нулём invocation-owned active containers/networks/temporary volumes/mounts/listeners; persistent lab objects не изменяются. Cleanup failure сохраняет nonzero status и custody record для ручного recovery.",
+      "blocking": false,
+      "confidence": "high"
+    },
+    {
+      "finding_id": "R3-PROFILE-008",
+      "severity": "P2",
+      "affected_section": "6, 9, 13, D6, D7, D8",
+      "claim": "Mode/profile isolation не имеет exact active-service and network delta, поэтому переход mock → real-dev → DeepSeek может сохранить лишние containers, routes и credentials.",
+      "evidence": "План описывает profiles и команды lab start --mode, но не определяет, останавливает ли mode switch ранее активные profile services, как проверяется single bridge replica и как удаляются obsolete network attachments. stop не удаляет volumes, что правильно, но runtime reconciliation contract отсутствует.",
+      "impact": "После смены режима могут продолжить polling старый bridge, mock и real services одновременно либо сохраниться external route/credential-bearing container, создавая duplicate traffic и неожиданный egress.",
+      "required_resolution": "Определить desired-state manifest для каждого режима и fail-closed reconciliation: exact service set, replicas, networks, ports, secrets и allowed transitions. Mode switch сначала останавливает forbidden services и проверяет отсутствие background activity, затем запускает target set.",
+      "acceptance_test": "Для fresh start и всех переходов mock↔real-dev↔DeepSeek compare docker ps/network inspect/Mounts/ports с exact desired-state manifest. После выхода из real-dev нет bridge process, polling, external attachment или Telegram/DeepSeek credential mount; duplicate bridge start отвергается.",
+      "blocking": false,
+      "confidence": "high"
+    }
+  ],
+  "independence_attestation": "R3 independently read only the frozen bundle files 00_MANIFEST.json, 01_ through 11_, and BUNDLE_ANCHOR.txt. I did not read other reviewer outputs, use internet access, inspect the project repository or Vault outside the bundle, or perform mutations. I independently recomputed all 11 file sizes and SHA-256 values, the 1063-byte canonical content record aggregate ac97cdacc140c7bcb186672aa63d002acc1658c767775a3d0718b406f17728e2, the 46234-byte plan hash a64a14c31b1c6ba87087102edc858d0ed5a336e6dd8f13f191d905207abe9a79, and the manifest hash 7fbec135d522a5a79a50f7568c5d53a371f2c1b17b26664f3652e67e09f320d5; all anchors matched."
+}

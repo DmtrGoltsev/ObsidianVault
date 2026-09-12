@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "attestation_type": "exact_assistant_final_payload_provenance",
+  "artifact": {
+    "path": "N8NAgents/02_Агентам/Ревью/PlanV2_Work_a64a14c3/CorrectionR2/D3_SUPERSESSION_REVIEW_R3_RAW.md",
+    "bytes": 4541,
+    "sha256": "ddba2a195d3b7f7d4aa4fe113af033966ee98d7b70eb30802ffb26e74e73bb4f",
+    "encoding": "UTF-8 without BOM",
+    "line_endings": "LF",
+    "final_lf_count": 1
+  },
+  "provenance": {
+    "reviewer_task_id": "/root/legacy_supersession_r3",
+    "original_prior_turn": "immediately preceding completed R3 supersession review final response",
+    "payload_channel": "final",
+    "payload_starts_with": "R3 DECISION: `APPROVE_SUPERSESSION`",
+    "exact_verbatim": true,
+    "reconstruction_used": false,
+    "summary_used_as_source": false
+  },
+  "scope_attestation": {
+    "scope": "D3 raw review capture and its attestation only",
+    "files_created": [
+      "CorrectionR2/D3_SUPERSESSION_REVIEW_R3_RAW.md",
+      "CorrectionR2/D3_SUPERSESSION_REVIEW_R3_ATTESTATION.json"
+    ],
+    "other_files_changed": false,
+    "runtime_accessed_or_changed": false,
+    "network_accessed": false
+  }
+}

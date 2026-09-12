@@ -1,0 +1,5702 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:n8nagents:docker-desktop-plan-review:v2-correction-r2",
+  "title": "N8NAgents Docker Desktop Plan V2 exact review R2",
+  "type": "object",
+  "additionalProperties": false,
+  "x-review-subject": {
+    "scheme": "N8NAgents-non-circular-subject-v3",
+    "state": "DRAFT_PREFREEZE",
+    "authority_state": "PENDING_OWNER_SUPERSESSION",
+    "plan": {
+      "bytes": 69598,
+      "sha256": "573ceb10ecda2af47b3bbe258c71cb43e5d8fdb7e92898ce7b78cb983bad8432"
+    },
+    "content_set_sha256": "b9a971c5800d8680d646912acf77d56802726c33e013d1ea9e7a1d13cb3449a5",
+    "content_entry_count": 69,
+    "subject_envelope_location": "trusted dispatch/manifest; deliberately not a schema const to prevent a self-hash loop",
+    "manifest_location": "trusted dispatch; raw reviewer value is compared by independent batch validators"
+  },
+  "x-exact-set-counts": {
+    "findings": 114,
+    "clusters": 11,
+    "xd": 15,
+    "audit": 13,
+    "reviewers": 10
+  },
+  "required": [
+    "review_id",
+    "reviewer_role",
+    "model",
+    "reasoning_level",
+    "plan_bytes",
+    "plan_sha256",
+    "content_set_sha256",
+    "subject_envelope_sha256",
+    "manifest_sha256",
+    "validation_index_sha256",
+    "started_utc",
+    "completed_utc",
+    "verdict",
+    "disposition_assessments",
+    "cluster_assessments",
+    "xd_assessments",
+    "audit_assessments",
+    "new_findings",
+    "unresolved_design_conflicts",
+    "independence_attestation",
+    "runtime_nonexecution_attestation"
+  ],
+  "properties": {
+    "review_id": {
+      "type": "string",
+      "pattern": "^N8N-V2-R(?:10|[1-9])-[0-9a-f]{16}$"
+    },
+    "reviewer_role": {
+      "enum": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10"
+      ]
+    },
+    "model": {
+      "type": "string",
+      "minLength": 1
+    },
+    "reasoning_level": {
+      "enum": [
+        "high",
+        "xhigh"
+      ]
+    },
+    "plan_bytes": {
+      "const": 69598
+    },
+    "plan_sha256": {
+      "const": "573ceb10ecda2af47b3bbe258c71cb43e5d8fdb7e92898ce7b78cb983bad8432"
+    },
+    "content_set_sha256": {
+      "const": "b9a971c5800d8680d646912acf77d56802726c33e013d1ea9e7a1d13cb3449a5"
+    },
+    "subject_envelope_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "manifest_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "validation_index_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "started_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "verdict": {
+      "enum": [
+        "GO",
+        "CHANGES_REQUIRED",
+        "STOP",
+        "BLOCKED"
+      ]
+    },
+    "disposition_assessments": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "R1-WIN-001",
+        "R1-WIN-002",
+        "R1-WIN-003",
+        "R1-WIN-004",
+        "R1-WIN-005",
+        "R1-WIN-006",
+        "R1-WIN-007",
+        "R1-WIN-008",
+        "R1-WIN-009",
+        "R1-WIN-010",
+        "R1-WIN-011",
+        "R1-WIN-012",
+        "R10-F01",
+        "R10-F02",
+        "R10-F03",
+        "R10-F04",
+        "R10-F05",
+        "R10-F06",
+        "R10-F07",
+        "R10-F08",
+        "R10-F09",
+        "R10-F10",
+        "R10-F11",
+        "R2-001",
+        "R2-002",
+        "R2-003",
+        "R2-004",
+        "R2-005",
+        "R2-006",
+        "R2-007",
+        "R2-008",
+        "R2-009",
+        "R2-010",
+        "R2-011",
+        "R2-012",
+        "R3-CLEAN-007",
+        "R3-CTRL-005",
+        "R3-MOUNT-006",
+        "R3-NET-002",
+        "R3-NET-003",
+        "R3-PORT-004",
+        "R3-PRIV-001",
+        "R3-PROFILE-008",
+        "R4-F01",
+        "R4-F02",
+        "R4-F03",
+        "R4-F04",
+        "R4-F05",
+        "R4-F06",
+        "R4-F07",
+        "R4-F08",
+        "R4-F09",
+        "R4-F10",
+        "R5-F01",
+        "R5-F02",
+        "R5-F03",
+        "R5-F04",
+        "R5-F05",
+        "R5-F06",
+        "R5-F07",
+        "R5-F08",
+        "R5-F09",
+        "R5-F10",
+        "R5-F11",
+        "R5-F12",
+        "R5-F13",
+        "R5-F14",
+        "R5-F15",
+        "R5-F16",
+        "R6-P1-001",
+        "R6-P1-002",
+        "R6-P1-003",
+        "R6-P1-004",
+        "R6-P1-005",
+        "R6-P1-006",
+        "R6-P1-007",
+        "R6-P1-008",
+        "R6-P1-009",
+        "R6-P1-010",
+        "R6-P2-011",
+        "R7-F01",
+        "R7-F02",
+        "R7-F03",
+        "R7-F04",
+        "R7-F05",
+        "R7-F06",
+        "R7-F07",
+        "R7-F08",
+        "R7-F09",
+        "R7-F10",
+        "R7-F11",
+        "R7-F12",
+        "R8-P1-001",
+        "R8-P1-002",
+        "R8-P1-003",
+        "R8-P1-004",
+        "R8-P1-005",
+        "R8-P1-006",
+        "R8-P1-007",
+        "R8-P1-008",
+        "R8-P1-009",
+        "R8-P1-010",
+        "R8-P2-011",
+        "R8-P2-012",
+        "R9-F01",
+        "R9-F02",
+        "R9-F03",
+        "R9-F04",
+        "R9-F05",
+        "R9-F06",
+        "R9-F07",
+        "R9-F08",
+        "R9-F09",
+        "R9-F10"
+      ],
+      "properties": {
+        "R1-WIN-001": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R1-WIN-001"
+            }
+          }
+        },
+        "R1-WIN-002": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R1-WIN-002"
+            }
+          }
+        },
+        "R1-WIN-003": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R1-WIN-003"
+            }
+          }
+        },
+        "R1-WIN-004": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R1-WIN-004"
+            }
+          }
+        },
+        "R1-WIN-005": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R1-WIN-005"
+            }
+          }
+        },
+        "R1-WIN-006": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R1-WIN-006"
+            }
+          }
+        },
+        "R1-WIN-007": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R1-WIN-007"
+            }
+          }
+        },
+        "R1-WIN-008": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R1-WIN-008"
+            }
+          }
+        },
+        "R1-WIN-009": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R1-WIN-009"
+            }
+          }
+        },
+        "R1-WIN-010": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R1-WIN-010"
+            }
+          }
+        },
+        "R1-WIN-011": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R1-WIN-011"
+            }
+          }
+        },
+        "R1-WIN-012": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R1-WIN-012"
+            }
+          }
+        },
+        "R10-F01": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R10-F01"
+            }
+          }
+        },
+        "R10-F02": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R10-F02"
+            }
+          }
+        },
+        "R10-F03": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R10-F03"
+            }
+          }
+        },
+        "R10-F04": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R10-F04"
+            }
+          }
+        },
+        "R10-F05": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R10-F05"
+            }
+          }
+        },
+        "R10-F06": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R10-F06"
+            }
+          }
+        },
+        "R10-F07": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R10-F07"
+            }
+          }
+        },
+        "R10-F08": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R10-F08"
+            }
+          }
+        },
+        "R10-F09": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R10-F09"
+            }
+          }
+        },
+        "R10-F10": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R10-F10"
+            }
+          }
+        },
+        "R10-F11": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R10-F11"
+            }
+          }
+        },
+        "R2-001": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R2-001"
+            }
+          }
+        },
+        "R2-002": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R2-002"
+            }
+          }
+        },
+        "R2-003": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R2-003"
+            }
+          }
+        },
+        "R2-004": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R2-004"
+            }
+          }
+        },
+        "R2-005": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R2-005"
+            }
+          }
+        },
+        "R2-006": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R2-006"
+            }
+          }
+        },
+        "R2-007": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R2-007"
+            }
+          }
+        },
+        "R2-008": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R2-008"
+            }
+          }
+        },
+        "R2-009": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R2-009"
+            }
+          }
+        },
+        "R2-010": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R2-010"
+            }
+          }
+        },
+        "R2-011": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R2-011"
+            }
+          }
+        },
+        "R2-012": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R2-012"
+            }
+          }
+        },
+        "R3-CLEAN-007": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R3-CLEAN-007"
+            }
+          }
+        },
+        "R3-CTRL-005": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R3-CTRL-005"
+            }
+          }
+        },
+        "R3-MOUNT-006": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R3-MOUNT-006"
+            }
+          }
+        },
+        "R3-NET-002": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R3-NET-002"
+            }
+          }
+        },
+        "R3-NET-003": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R3-NET-003"
+            }
+          }
+        },
+        "R3-PORT-004": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R3-PORT-004"
+            }
+          }
+        },
+        "R3-PRIV-001": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R3-PRIV-001"
+            }
+          }
+        },
+        "R3-PROFILE-008": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R3-PROFILE-008"
+            }
+          }
+        },
+        "R4-F01": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R4-F01"
+            }
+          }
+        },
+        "R4-F02": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R4-F02"
+            }
+          }
+        },
+        "R4-F03": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R4-F03"
+            }
+          }
+        },
+        "R4-F04": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R4-F04"
+            }
+          }
+        },
+        "R4-F05": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R4-F05"
+            }
+          }
+        },
+        "R4-F06": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R4-F06"
+            }
+          }
+        },
+        "R4-F07": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R4-F07"
+            }
+          }
+        },
+        "R4-F08": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R4-F08"
+            }
+          }
+        },
+        "R4-F09": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R4-F09"
+            }
+          }
+        },
+        "R4-F10": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R4-F10"
+            }
+          }
+        },
+        "R5-F01": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R5-F01"
+            }
+          }
+        },
+        "R5-F02": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R5-F02"
+            }
+          }
+        },
+        "R5-F03": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R5-F03"
+            }
+          }
+        },
+        "R5-F04": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R5-F04"
+            }
+          }
+        },
+        "R5-F05": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R5-F05"
+            }
+          }
+        },
+        "R5-F06": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R5-F06"
+            }
+          }
+        },
+        "R5-F07": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R5-F07"
+            }
+          }
+        },
+        "R5-F08": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R5-F08"
+            }
+          }
+        },
+        "R5-F09": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R5-F09"
+            }
+          }
+        },
+        "R5-F10": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R5-F10"
+            }
+          }
+        },
+        "R5-F11": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R5-F11"
+            }
+          }
+        },
+        "R5-F12": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R5-F12"
+            }
+          }
+        },
+        "R5-F13": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R5-F13"
+            }
+          }
+        },
+        "R5-F14": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R5-F14"
+            }
+          }
+        },
+        "R5-F15": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R5-F15"
+            }
+          }
+        },
+        "R5-F16": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R5-F16"
+            }
+          }
+        },
+        "R6-P1-001": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R6-P1-001"
+            }
+          }
+        },
+        "R6-P1-002": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R6-P1-002"
+            }
+          }
+        },
+        "R6-P1-003": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R6-P1-003"
+            }
+          }
+        },
+        "R6-P1-004": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R6-P1-004"
+            }
+          }
+        },
+        "R6-P1-005": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R6-P1-005"
+            }
+          }
+        },
+        "R6-P1-006": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R6-P1-006"
+            }
+          }
+        },
+        "R6-P1-007": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R6-P1-007"
+            }
+          }
+        },
+        "R6-P1-008": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R6-P1-008"
+            }
+          }
+        },
+        "R6-P1-009": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R6-P1-009"
+            }
+          }
+        },
+        "R6-P1-010": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R6-P1-010"
+            }
+          }
+        },
+        "R6-P2-011": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R6-P2-011"
+            }
+          }
+        },
+        "R7-F01": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R7-F01"
+            }
+          }
+        },
+        "R7-F02": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R7-F02"
+            }
+          }
+        },
+        "R7-F03": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R7-F03"
+            }
+          }
+        },
+        "R7-F04": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R7-F04"
+            }
+          }
+        },
+        "R7-F05": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R7-F05"
+            }
+          }
+        },
+        "R7-F06": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R7-F06"
+            }
+          }
+        },
+        "R7-F07": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R7-F07"
+            }
+          }
+        },
+        "R7-F08": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R7-F08"
+            }
+          }
+        },
+        "R7-F09": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R7-F09"
+            }
+          }
+        },
+        "R7-F10": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R7-F10"
+            }
+          }
+        },
+        "R7-F11": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R7-F11"
+            }
+          }
+        },
+        "R7-F12": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R7-F12"
+            }
+          }
+        },
+        "R8-P1-001": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R8-P1-001"
+            }
+          }
+        },
+        "R8-P1-002": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R8-P1-002"
+            }
+          }
+        },
+        "R8-P1-003": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R8-P1-003"
+            }
+          }
+        },
+        "R8-P1-004": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R8-P1-004"
+            }
+          }
+        },
+        "R8-P1-005": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R8-P1-005"
+            }
+          }
+        },
+        "R8-P1-006": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R8-P1-006"
+            }
+          }
+        },
+        "R8-P1-007": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R8-P1-007"
+            }
+          }
+        },
+        "R8-P1-008": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R8-P1-008"
+            }
+          }
+        },
+        "R8-P1-009": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R8-P1-009"
+            }
+          }
+        },
+        "R8-P1-010": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R8-P1-010"
+            }
+          }
+        },
+        "R8-P2-011": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R8-P2-011"
+            }
+          }
+        },
+        "R8-P2-012": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R8-P2-012"
+            }
+          }
+        },
+        "R9-F01": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R9-F01"
+            }
+          }
+        },
+        "R9-F02": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R9-F02"
+            }
+          }
+        },
+        "R9-F03": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R9-F03"
+            }
+          }
+        },
+        "R9-F04": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R9-F04"
+            }
+          }
+        },
+        "R9-F05": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R9-F05"
+            }
+          }
+        },
+        "R9-F06": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R9-F06"
+            }
+          }
+        },
+        "R9-F07": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R9-F07"
+            }
+          }
+        },
+        "R9-F08": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R9-F08"
+            }
+          }
+        },
+        "R9-F09": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R9-F09"
+            }
+          }
+        },
+        "R9-F10": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "R9-F10"
+            }
+          }
+        }
+      }
+    },
+    "cluster_assessments": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "C01",
+        "C03",
+        "C04",
+        "C06",
+        "C07",
+        "C08",
+        "C10",
+        "C12",
+        "C14",
+        "C15",
+        "C17"
+      ],
+      "properties": {
+        "C01": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "C01"
+            }
+          }
+        },
+        "C03": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "C03"
+            }
+          }
+        },
+        "C04": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "C04"
+            }
+          }
+        },
+        "C06": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "C06"
+            }
+          }
+        },
+        "C07": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "C07"
+            }
+          }
+        },
+        "C08": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "C08"
+            }
+          }
+        },
+        "C10": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "C10"
+            }
+          }
+        },
+        "C12": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "C12"
+            }
+          }
+        },
+        "C14": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "C14"
+            }
+          }
+        },
+        "C15": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "C15"
+            }
+          }
+        },
+        "C17": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "C17"
+            }
+          }
+        }
+      }
+    },
+    "xd_assessments": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "XD-01",
+        "XD-02",
+        "XD-03",
+        "XD-04",
+        "XD-05",
+        "XD-06",
+        "XD-07",
+        "XD-08",
+        "XD-09",
+        "XD-10",
+        "XD-11",
+        "XD-12",
+        "XD-13",
+        "XD-14",
+        "XD-15"
+      ],
+      "properties": {
+        "XD-01": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "XD-01"
+            }
+          }
+        },
+        "XD-02": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "XD-02"
+            }
+          }
+        },
+        "XD-03": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "XD-03"
+            }
+          }
+        },
+        "XD-04": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "XD-04"
+            }
+          }
+        },
+        "XD-05": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "XD-05"
+            }
+          }
+        },
+        "XD-06": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "XD-06"
+            }
+          }
+        },
+        "XD-07": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "XD-07"
+            }
+          }
+        },
+        "XD-08": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "XD-08"
+            }
+          }
+        },
+        "XD-09": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "XD-09"
+            }
+          }
+        },
+        "XD-10": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "XD-10"
+            }
+          }
+        },
+        "XD-11": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "XD-11"
+            }
+          }
+        },
+        "XD-12": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "XD-12"
+            }
+          }
+        },
+        "XD-13": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "XD-13"
+            }
+          }
+        },
+        "XD-14": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "XD-14"
+            }
+          }
+        },
+        "XD-15": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "reason"
+          ],
+          "properties": {
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "const": "XD-15"
+            }
+          }
+        }
+      }
+    },
+    "audit_assessments": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "P1-01",
+        "P1-02",
+        "P1-03",
+        "P1-04",
+        "P1-05",
+        "P1-06",
+        "P1-07",
+        "P1-08",
+        "P2-01",
+        "NEW-P1-01",
+        "NEW-P1-02",
+        "NEW-P1-03",
+        "NEW-P1-04"
+      ],
+      "properties": {
+        "P1-01": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "audit_id",
+            "source_item_sha256",
+            "closure",
+            "assessment",
+            "plan_section_ids",
+            "acceptance_test_ids",
+            "negative_canary_ids",
+            "evidence_ids",
+            "rationale"
+          ],
+          "properties": {
+            "audit_id": {
+              "const": "P1-01"
+            },
+            "source_item_sha256": {
+              "const": "f0236b39efc7d60abea4f5fa1c1b2485170b96f3c72c4e155259986e38c7428c"
+            },
+            "closure": {
+              "enum": [
+                "CLOSED",
+                "OPEN",
+                "BLOCKED"
+              ]
+            },
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "plan_section_ids": {
+              "const": [
+                "R2-C01"
+              ]
+            },
+            "acceptance_test_ids": {
+              "const": [
+                "AT-XD-02"
+              ]
+            },
+            "negative_canary_ids": {
+              "const": [
+                "NC-AUDIT-P1-01"
+              ]
+            },
+            "evidence_ids": {
+              "const": [
+                "EV-R2-P1-01"
+              ]
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "P1-02": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "audit_id",
+            "source_item_sha256",
+            "closure",
+            "assessment",
+            "plan_section_ids",
+            "acceptance_test_ids",
+            "negative_canary_ids",
+            "evidence_ids",
+            "rationale"
+          ],
+          "properties": {
+            "audit_id": {
+              "const": "P1-02"
+            },
+            "source_item_sha256": {
+              "const": "213a45e5b9b8f573bfb48ada12129b431997be5d314f62f49df09f83646577fe"
+            },
+            "closure": {
+              "enum": [
+                "CLOSED",
+                "OPEN",
+                "BLOCKED"
+              ]
+            },
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "plan_section_ids": {
+              "const": [
+                "R2-C06",
+                "R2-C07"
+              ]
+            },
+            "acceptance_test_ids": {
+              "const": [
+                "AT-XD-14"
+              ]
+            },
+            "negative_canary_ids": {
+              "const": [
+                "NC-AUDIT-P1-02"
+              ]
+            },
+            "evidence_ids": {
+              "const": [
+                "EV-R2-P1-02"
+              ]
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "P1-03": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "audit_id",
+            "source_item_sha256",
+            "closure",
+            "assessment",
+            "plan_section_ids",
+            "acceptance_test_ids",
+            "negative_canary_ids",
+            "evidence_ids",
+            "rationale"
+          ],
+          "properties": {
+            "audit_id": {
+              "const": "P1-03"
+            },
+            "source_item_sha256": {
+              "const": "d4dce9367f05abe3ddffee4743b5ba05627a10e081789193c188196822b5093b"
+            },
+            "closure": {
+              "enum": [
+                "CLOSED",
+                "OPEN",
+                "BLOCKED"
+              ]
+            },
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "plan_section_ids": {
+              "const": [
+                "V06-C05",
+                "V05-C03",
+                "V07-C02",
+                "V10-C01",
+                "V10-C02"
+              ]
+            },
+            "acceptance_test_ids": {
+              "const": [
+                "AT-F-R5-F13"
+              ]
+            },
+            "negative_canary_ids": {
+              "const": [
+                "NC-AUDIT-P1-03"
+              ]
+            },
+            "evidence_ids": {
+              "const": [
+                "EV-R2-P1-03"
+              ]
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "P1-04": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "audit_id",
+            "source_item_sha256",
+            "closure",
+            "assessment",
+            "plan_section_ids",
+            "acceptance_test_ids",
+            "negative_canary_ids",
+            "evidence_ids",
+            "rationale"
+          ],
+          "properties": {
+            "audit_id": {
+              "const": "P1-04"
+            },
+            "source_item_sha256": {
+              "const": "f2d1d47702f65bd41ec0dbbbf572603fca4a850a488eee3551d99f197fc6b7d8"
+            },
+            "closure": {
+              "enum": [
+                "CLOSED",
+                "OPEN",
+                "BLOCKED"
+              ]
+            },
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "plan_section_ids": {
+              "const": [
+                "R2-C02"
+              ]
+            },
+            "acceptance_test_ids": {
+              "const": [
+                "AT-F-R5-F10",
+                "AT-HTTP-DIRECT-01"
+              ]
+            },
+            "negative_canary_ids": {
+              "const": [
+                "NC-AUDIT-P1-04"
+              ]
+            },
+            "evidence_ids": {
+              "const": [
+                "EV-R2-P1-04"
+              ]
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "P1-05": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "audit_id",
+            "source_item_sha256",
+            "closure",
+            "assessment",
+            "plan_section_ids",
+            "acceptance_test_ids",
+            "negative_canary_ids",
+            "evidence_ids",
+            "rationale"
+          ],
+          "properties": {
+            "audit_id": {
+              "const": "P1-05"
+            },
+            "source_item_sha256": {
+              "const": "6415d9634b1bd6adbad0c6e319a37227510aab9315745d27dd66de069e9a9b75"
+            },
+            "closure": {
+              "enum": [
+                "CLOSED",
+                "OPEN",
+                "BLOCKED"
+              ]
+            },
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "plan_section_ids": {
+              "const": [
+                "R2-C02",
+                "R2-C03"
+              ]
+            },
+            "acceptance_test_ids": {
+              "const": [
+                "AT-F-R5-F14",
+                "RT-04",
+                "RT-05"
+              ]
+            },
+            "negative_canary_ids": {
+              "const": [
+                "NC-AUDIT-P1-05"
+              ]
+            },
+            "evidence_ids": {
+              "const": [
+                "EV-R2-P1-05"
+              ]
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "P1-06": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "audit_id",
+            "source_item_sha256",
+            "closure",
+            "assessment",
+            "plan_section_ids",
+            "acceptance_test_ids",
+            "negative_canary_ids",
+            "evidence_ids",
+            "rationale"
+          ],
+          "properties": {
+            "audit_id": {
+              "const": "P1-06"
+            },
+            "source_item_sha256": {
+              "const": "88ee97037b68032d5ee7ac0fcc2af5d61bf4f2a8ca9523f55cc2297002f6d9db"
+            },
+            "closure": {
+              "enum": [
+                "CLOSED",
+                "OPEN",
+                "BLOCKED"
+              ]
+            },
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "plan_section_ids": {
+              "const": [
+                "R2-C05"
+              ]
+            },
+            "acceptance_test_ids": {
+              "const": [
+                "AT-F-R8-P1-006"
+              ]
+            },
+            "negative_canary_ids": {
+              "const": [
+                "NC-AUDIT-P1-06"
+              ]
+            },
+            "evidence_ids": {
+              "const": [
+                "EV-R2-P1-06"
+              ]
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "P1-07": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "audit_id",
+            "source_item_sha256",
+            "closure",
+            "assessment",
+            "plan_section_ids",
+            "acceptance_test_ids",
+            "negative_canary_ids",
+            "evidence_ids",
+            "rationale"
+          ],
+          "properties": {
+            "audit_id": {
+              "const": "P1-07"
+            },
+            "source_item_sha256": {
+              "const": "d3e6e301be50d6db71ab8ee17e940814c80216d79f4502b7858482f53310bb05"
+            },
+            "closure": {
+              "enum": [
+                "CLOSED",
+                "OPEN",
+                "BLOCKED"
+              ]
+            },
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "plan_section_ids": {
+              "const": [
+                "R2-C06",
+                "R2-C07"
+              ]
+            },
+            "acceptance_test_ids": {
+              "const": [
+                "AT-XD-01",
+                "AT-XD-14"
+              ]
+            },
+            "negative_canary_ids": {
+              "const": [
+                "NC-AUDIT-P1-07"
+              ]
+            },
+            "evidence_ids": {
+              "const": [
+                "EV-R2-P1-07"
+              ]
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "P1-08": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "audit_id",
+            "source_item_sha256",
+            "closure",
+            "assessment",
+            "plan_section_ids",
+            "acceptance_test_ids",
+            "negative_canary_ids",
+            "evidence_ids",
+            "rationale"
+          ],
+          "properties": {
+            "audit_id": {
+              "const": "P1-08"
+            },
+            "source_item_sha256": {
+              "const": "18a411043ac239df925f01bebb718ac58f6edc1e412b7aebad23cf2684d9558a"
+            },
+            "closure": {
+              "enum": [
+                "CLOSED",
+                "OPEN",
+                "BLOCKED"
+              ]
+            },
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "plan_section_ids": {
+              "const": [
+                "V10-C01",
+                "V10-C02",
+                "V10-C04",
+                "XD-C06"
+              ]
+            },
+            "acceptance_test_ids": {
+              "const": [
+                "AT-F-R10-F06"
+              ]
+            },
+            "negative_canary_ids": {
+              "const": [
+                "NC-AUDIT-P1-08"
+              ]
+            },
+            "evidence_ids": {
+              "const": [
+                "EV-R2-P1-08"
+              ]
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "P2-01": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "audit_id",
+            "source_item_sha256",
+            "closure",
+            "assessment",
+            "plan_section_ids",
+            "acceptance_test_ids",
+            "negative_canary_ids",
+            "evidence_ids",
+            "rationale"
+          ],
+          "properties": {
+            "audit_id": {
+              "const": "P2-01"
+            },
+            "source_item_sha256": {
+              "const": "24f71114d4efc100767bfddcaaae02faa9c0b0f4d36b780e0a2b5c1a1eaa38e5"
+            },
+            "closure": {
+              "enum": [
+                "CLOSED",
+                "OPEN",
+                "BLOCKED"
+              ]
+            },
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "plan_section_ids": {
+              "const": [
+                "R2-C03",
+                "R2-C04"
+              ]
+            },
+            "acceptance_test_ids": {
+              "const": [
+                "AT-XD-12",
+                "RT-13"
+              ]
+            },
+            "negative_canary_ids": {
+              "const": [
+                "NC-AUDIT-P2-01"
+              ]
+            },
+            "evidence_ids": {
+              "const": [
+                "EV-R2-P2-01"
+              ]
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "NEW-P1-01": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "audit_id",
+            "source_item_sha256",
+            "closure",
+            "assessment",
+            "plan_section_ids",
+            "acceptance_test_ids",
+            "negative_canary_ids",
+            "evidence_ids",
+            "rationale"
+          ],
+          "properties": {
+            "audit_id": {
+              "const": "NEW-P1-01"
+            },
+            "source_item_sha256": {
+              "const": "4b6ab7851a06cc6281af4e4dcf4cc38e94cd91d62be475a52fa9b50ab9722db2"
+            },
+            "closure": {
+              "enum": [
+                "CLOSED",
+                "OPEN",
+                "BLOCKED"
+              ]
+            },
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "plan_section_ids": {
+              "const": [
+                "R2-C06"
+              ]
+            },
+            "acceptance_test_ids": {
+              "const": []
+            },
+            "negative_canary_ids": {
+              "const": [
+                "FG-001",
+                "FG-002",
+                "FG-003",
+                "FG-004",
+                "FG-005"
+              ]
+            },
+            "evidence_ids": {
+              "const": [
+                "EV-R2-NEW-P1-01"
+              ]
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "NEW-P1-02": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "audit_id",
+            "source_item_sha256",
+            "closure",
+            "assessment",
+            "plan_section_ids",
+            "acceptance_test_ids",
+            "negative_canary_ids",
+            "evidence_ids",
+            "rationale"
+          ],
+          "properties": {
+            "audit_id": {
+              "const": "NEW-P1-02"
+            },
+            "source_item_sha256": {
+              "const": "bb4b0e9c2bb5b51caa401f3679d650ac4927cc3ab4893dd4271a81675b5e4e9b"
+            },
+            "closure": {
+              "enum": [
+                "CLOSED",
+                "OPEN",
+                "BLOCKED"
+              ]
+            },
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "plan_section_ids": {
+              "const": [
+                "R2-C05"
+              ]
+            },
+            "acceptance_test_ids": {
+              "const": [
+                "AT-F-R8-P1-006"
+              ]
+            },
+            "negative_canary_ids": {
+              "const": [
+                "NC-AUDIT-NEW-P1-02"
+              ]
+            },
+            "evidence_ids": {
+              "const": [
+                "EV-R2-NEW-P1-02"
+              ]
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "NEW-P1-03": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "audit_id",
+            "source_item_sha256",
+            "closure",
+            "assessment",
+            "plan_section_ids",
+            "acceptance_test_ids",
+            "negative_canary_ids",
+            "evidence_ids",
+            "rationale"
+          ],
+          "properties": {
+            "audit_id": {
+              "const": "NEW-P1-03"
+            },
+            "source_item_sha256": {
+              "const": "c4746acdf713b94f3e2c5e56e73d36778b336a977ba54a3d0a4e0f5982336060"
+            },
+            "closure": {
+              "enum": [
+                "CLOSED",
+                "OPEN",
+                "BLOCKED"
+              ]
+            },
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "plan_section_ids": {
+              "const": [
+                "R2-C03",
+                "R2-C04"
+              ]
+            },
+            "acceptance_test_ids": {
+              "const": [
+                "RT-04",
+                "RT-13"
+              ]
+            },
+            "negative_canary_ids": {
+              "const": [
+                "NC-AUDIT-NEW-P1-03"
+              ]
+            },
+            "evidence_ids": {
+              "const": [
+                "EV-R2-NEW-P1-03"
+              ]
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "NEW-P1-04": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "audit_id",
+            "source_item_sha256",
+            "closure",
+            "assessment",
+            "plan_section_ids",
+            "acceptance_test_ids",
+            "negative_canary_ids",
+            "evidence_ids",
+            "rationale"
+          ],
+          "properties": {
+            "audit_id": {
+              "const": "NEW-P1-04"
+            },
+            "source_item_sha256": {
+              "const": "c4ecd31c1d6831e3d30486a76c9f4b3ae627893d1dccf5d7bfcdc665c8b4d841"
+            },
+            "closure": {
+              "enum": [
+                "CLOSED",
+                "OPEN",
+                "BLOCKED"
+              ]
+            },
+            "assessment": {
+              "enum": [
+                "ADEQUATE",
+                "INADEQUATE",
+                "UNVERIFIABLE"
+              ]
+            },
+            "plan_section_ids": {
+              "const": [
+                "R2-C07"
+              ]
+            },
+            "acceptance_test_ids": {
+              "const": []
+            },
+            "negative_canary_ids": {
+              "const": [
+                "CU-002",
+                "CU-003",
+                "CU-004",
+                "CU-012",
+                "CU-013",
+                "CU-014"
+              ]
+            },
+            "evidence_ids": {
+              "const": [
+                "EV-R2-NEW-P1-04"
+              ]
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    "new_findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "finding_id",
+          "severity",
+          "blocking",
+          "canonical_new_finding_sha256",
+          "reviewer_role",
+          "claim",
+          "required_resolution"
+        ],
+        "properties": {
+          "finding_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "severity": {
+            "enum": [
+              "P0",
+              "P1",
+              "P2",
+              "P3"
+            ]
+          },
+          "blocking": {
+            "type": "boolean"
+          },
+          "canonical_new_finding_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "reviewer_role": {
+            "enum": [
+              "R1",
+              "R2",
+              "R3",
+              "R4",
+              "R5",
+              "R6",
+              "R7",
+              "R8",
+              "R9",
+              "R10"
+            ]
+          },
+          "claim": {
+            "type": "string",
+            "minLength": 1
+          },
+          "required_resolution": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "unresolved_design_conflicts": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "independence_attestation": {
+      "type": "string",
+      "minLength": 1
+    },
+    "runtime_nonexecution_attestation": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "verdict": {
+            "const": "GO"
+          }
+        },
+        "required": [
+          "verdict"
+        ]
+      },
+      "then": {
+        "properties": {
+          "verdict": {
+            "const": "GO"
+          },
+          "disposition_assessments": {
+            "properties": {
+              "R1-WIN-001": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R1-WIN-002": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R1-WIN-003": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R1-WIN-004": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R1-WIN-005": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R1-WIN-006": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R1-WIN-007": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R1-WIN-008": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R1-WIN-009": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R1-WIN-010": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R1-WIN-011": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R1-WIN-012": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R10-F01": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R10-F02": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R10-F03": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R10-F04": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R10-F05": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R10-F06": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R10-F07": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R10-F08": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R10-F09": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R10-F10": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R10-F11": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R2-001": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R2-002": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R2-003": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R2-004": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R2-005": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R2-006": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R2-007": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R2-008": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R2-009": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R2-010": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R2-011": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R2-012": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R3-CLEAN-007": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R3-CTRL-005": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R3-MOUNT-006": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R3-NET-002": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R3-NET-003": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R3-PORT-004": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R3-PRIV-001": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R3-PROFILE-008": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R4-F01": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R4-F02": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R4-F03": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R4-F04": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R4-F05": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R4-F06": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R4-F07": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R4-F08": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R4-F09": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R4-F10": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R5-F01": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R5-F02": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R5-F03": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R5-F04": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R5-F05": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R5-F06": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R5-F07": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R5-F08": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R5-F09": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R5-F10": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R5-F11": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R5-F12": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R5-F13": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R5-F14": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R5-F15": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R5-F16": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R6-P1-001": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R6-P1-002": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R6-P1-003": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R6-P1-004": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R6-P1-005": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R6-P1-006": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R6-P1-007": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R6-P1-008": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R6-P1-009": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R6-P1-010": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R6-P2-011": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R7-F01": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R7-F02": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R7-F03": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R7-F04": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R7-F05": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R7-F06": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R7-F07": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R7-F08": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R7-F09": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R7-F10": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R7-F11": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R7-F12": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R8-P1-001": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R8-P1-002": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R8-P1-003": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R8-P1-004": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R8-P1-005": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R8-P1-006": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R8-P1-007": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R8-P1-008": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R8-P1-009": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R8-P1-010": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R8-P2-011": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R8-P2-012": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R9-F01": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R9-F02": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R9-F03": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R9-F04": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R9-F05": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R9-F06": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R9-F07": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R9-F08": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R9-F09": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "R9-F10": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              }
+            }
+          },
+          "cluster_assessments": {
+            "properties": {
+              "C01": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "C03": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "C04": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "C06": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "C07": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "C08": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "C10": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "C12": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "C14": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "C15": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "C17": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              }
+            }
+          },
+          "xd_assessments": {
+            "properties": {
+              "XD-01": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "XD-02": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "XD-03": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "XD-04": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "XD-05": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "XD-06": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "XD-07": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "XD-08": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "XD-09": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "XD-10": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "XD-11": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "XD-12": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "XD-13": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "XD-14": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "XD-15": {
+                "properties": {
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              }
+            }
+          },
+          "audit_assessments": {
+            "properties": {
+              "P1-01": {
+                "properties": {
+                  "closure": {
+                    "const": "CLOSED"
+                  },
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "P1-02": {
+                "properties": {
+                  "closure": {
+                    "const": "CLOSED"
+                  },
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "P1-03": {
+                "properties": {
+                  "closure": {
+                    "const": "CLOSED"
+                  },
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "P1-04": {
+                "properties": {
+                  "closure": {
+                    "const": "CLOSED"
+                  },
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "P1-05": {
+                "properties": {
+                  "closure": {
+                    "const": "CLOSED"
+                  },
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "P1-06": {
+                "properties": {
+                  "closure": {
+                    "const": "CLOSED"
+                  },
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "P1-07": {
+                "properties": {
+                  "closure": {
+                    "const": "CLOSED"
+                  },
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "P1-08": {
+                "properties": {
+                  "closure": {
+                    "const": "CLOSED"
+                  },
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "P2-01": {
+                "properties": {
+                  "closure": {
+                    "const": "CLOSED"
+                  },
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "NEW-P1-01": {
+                "properties": {
+                  "closure": {
+                    "const": "CLOSED"
+                  },
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "NEW-P1-02": {
+                "properties": {
+                  "closure": {
+                    "const": "CLOSED"
+                  },
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "NEW-P1-03": {
+                "properties": {
+                  "closure": {
+                    "const": "CLOSED"
+                  },
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              },
+              "NEW-P1-04": {
+                "properties": {
+                  "closure": {
+                    "const": "CLOSED"
+                  },
+                  "assessment": {
+                    "const": "ADEQUATE"
+                  }
+                }
+              }
+            }
+          },
+          "new_findings": {
+            "maxItems": 0
+          },
+          "unresolved_design_conflicts": {
+            "const": 0
+          }
+        }
+      }
+    }
+  ]
+}

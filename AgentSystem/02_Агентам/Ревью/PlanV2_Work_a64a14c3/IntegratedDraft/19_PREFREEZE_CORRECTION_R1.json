@@ -1,0 +1,211 @@
+{
+  "schema_version": 1,
+  "state": "DRAFT_PREFREEZE",
+  "audit_reference": "independent prefreeze audit CHANGES_REQUIRED: 0 P0 / 8 P1 / 1 P2",
+  "correction_round": 1,
+  "required": 9,
+  "design_resolved": 9,
+  "corrections": [
+    {
+      "audit_id": "P1-01",
+      "severity": "P1",
+      "title": "Exact per-finding AT/NC/EV and immutable alias coverage",
+      "design_disposition": "DESIGN_RESOLVED",
+      "runtime_state": "NOT_RUN",
+      "plan_section_ids": [
+        "XD-C04",
+        "XD-C07",
+        "V09-C04"
+      ],
+      "acceptance_test_ids": [
+        "AT-XD-04"
+      ],
+      "negative_canary_ids": [
+        "NC-XD-04"
+      ],
+      "evidence_ids": [
+        "EV-XD-04"
+      ]
+    },
+    {
+      "audit_id": "P1-02",
+      "severity": "P1",
+      "title": "Non-circular exact-key review and quorum schemas",
+      "design_disposition": "DESIGN_RESOLVED",
+      "runtime_state": "NOT_RUN",
+      "plan_section_ids": [
+        "XD-C03",
+        "P90-C01"
+      ],
+      "acceptance_test_ids": [
+        "AT-XD-01"
+      ],
+      "negative_canary_ids": [
+        "NC-XD-01"
+      ],
+      "evidence_ids": [
+        "EV-XD-01"
+      ]
+    },
+    {
+      "audit_id": "P1-03",
+      "severity": "P1",
+      "title": "R5-F13 atomic DeepSeek budget/key/owner flow",
+      "design_disposition": "DESIGN_RESOLVED",
+      "runtime_state": "NOT_RUN",
+      "plan_section_ids": [
+        "V06-C05",
+        "V05-C03",
+        "V07-C02",
+        "V10-C01",
+        "V10-C02"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R5-F13"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R5-F13"
+      ],
+      "evidence_ids": [
+        "EV-F-R5-F13"
+      ]
+    },
+    {
+      "audit_id": "P1-04",
+      "severity": "P1",
+      "title": "TLS egress responsibility split",
+      "design_disposition": "DESIGN_RESOLVED",
+      "runtime_state": "NOT_RUN",
+      "plan_section_ids": [
+        "V04-C05"
+      ],
+      "acceptance_test_ids": [
+        "AT-XD-08"
+      ],
+      "negative_canary_ids": [
+        "NC-XD-08"
+      ],
+      "evidence_ids": [
+        "EV-XD-08"
+      ]
+    },
+    {
+      "audit_id": "P1-05",
+      "severity": "P1",
+      "title": "MOCK same bridge binary and real-lock exclusion",
+      "design_disposition": "DESIGN_RESOLVED",
+      "runtime_state": "NOT_RUN",
+      "plan_section_ids": [
+        "V04-C06",
+        "V06-C03",
+        "V06-C04"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R5-F14"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R5-F14"
+      ],
+      "evidence_ids": [
+        "EV-F-R5-F14"
+      ]
+    },
+    {
+      "audit_id": "P1-06",
+      "severity": "P1",
+      "title": "Immutable child status and scope mapping",
+      "design_disposition": "DESIGN_RESOLVED",
+      "runtime_state": "NOT_RUN",
+      "plan_section_ids": [
+        "XD-C04",
+        "XD-C05",
+        "XD-C07"
+      ],
+      "acceptance_test_ids": [
+        "AT-XD-04",
+        "AT-XD-05"
+      ],
+      "negative_canary_ids": [
+        "NC-XD-04",
+        "NC-XD-05"
+      ],
+      "evidence_ids": [
+        "EV-XD-04",
+        "EV-XD-05"
+      ]
+    },
+    {
+      "audit_id": "P1-07",
+      "severity": "P1",
+      "title": "Complete input/hash/checker custody",
+      "design_disposition": "DESIGN_RESOLVED",
+      "runtime_state": "NOT_RUN",
+      "plan_section_ids": [
+        "XD-C03",
+        "V09-C04"
+      ],
+      "acceptance_test_ids": [
+        "AT-XD-01",
+        "AT-XD-14"
+      ],
+      "negative_canary_ids": [
+        "NC-XD-01",
+        "NC-XD-14"
+      ],
+      "evidence_ids": [
+        "EV-XD-01",
+        "EV-XD-14"
+      ]
+    },
+    {
+      "audit_id": "P1-08",
+      "severity": "P1",
+      "title": "Complete masked owner CLI and black-box flow",
+      "design_disposition": "DESIGN_RESOLVED",
+      "runtime_state": "NOT_RUN",
+      "plan_section_ids": [
+        "V10-C01",
+        "V10-C02",
+        "V10-C04",
+        "XD-C06"
+      ],
+      "acceptance_test_ids": [
+        "AT-F-R10-F06"
+      ],
+      "negative_canary_ids": [
+        "NC-F-R10-F06"
+      ],
+      "evidence_ids": [
+        "EV-F-R10-F06"
+      ]
+    },
+    {
+      "audit_id": "P2-01",
+      "severity": "P2",
+      "title": "Exact backup-verifier identity and key isolation",
+      "design_disposition": "DESIGN_RESOLVED",
+      "runtime_state": "NOT_RUN",
+      "plan_section_ids": [
+        "V08-C04",
+        "V08-C02",
+        "V09-C04"
+      ],
+      "acceptance_test_ids": [
+        "AT-XD-12"
+      ],
+      "negative_canary_ids": [
+        "NC-XD-12"
+      ],
+      "evidence_ids": [
+        "EV-XD-12"
+      ]
+    }
+  ],
+  "authority": "NONAUTHORITATIVE_REMEDIATION_SUMMARY",
+  "provenance_warning": "Must not supply original/prospective audit claims, evidence or hashes.",
+  "legacy_source_incident": "C1-LEGACY-SOURCE-LOSS",
+  "prospective_supersession": {
+    "state": "PENDING_OWNER_SUPERSESSION",
+    "baseline": "24_PROSPECTIVE_AUDIT_R2_BASELINE.json"
+  }
+}

@@ -1,0 +1,338 @@
+{
+  "schema_version": 2,
+  "state": "DRAFT_PREFREEZE",
+  "review_subject": {
+    "scheme": "N8NAgents-non-circular-subject-v2",
+    "content_set_sha256": "7cbab1c8de24bad08d0eb0c492629522ca1c04cd28ac8a25cee852dd5515f1d5",
+    "subject_envelope_sha256": "74067913446bbcc1092e457d018ec83989d53e0cf5331ffdbb447cc4bc3e96cc"
+  },
+  "purpose": "Hash-bound correction-round mechanical validation transcript; not runtime evidence and not a release verdict.",
+  "runs": [
+    {
+      "checker_id": "NODE-INDEPENDENT-CORRECTION-A",
+      "checker_source": {
+        "path": "N8NAgents/02_Агентам/Ревью/PlanV2_Work_a64a14c3/IntegratedDraft/20_PREFREEZE_CHECKER_NODE.mjs",
+        "bytes": 13291,
+        "sha256": "d0117c9ef2f830fa9b570163858ec131a591142243a6ae6e352e52c6ee77c2b1",
+        "role": "checker_source"
+      },
+      "exact_command": "node \"N8NAgents/02_Агентам/Ревью/PlanV2_Work_a64a14c3/IntegratedDraft/20_PREFREEZE_CHECKER_NODE.mjs\"",
+      "working_directory": "N8NAgents/02_Агентам/Ревью/PlanV2_Work_a64a14c3/IntegratedDraft",
+      "started_utc": "2026-08-27T13:48:06.221Z",
+      "completed_utc": "2026-08-27T13:48:06.603Z",
+      "exit_code": 0,
+      "stdout_utf8": "{\"checker\":\"NODE-INDEPENDENT-CORRECTION-A\",\"runtime\":\"v24.15.0\",\"result\":\"PASS\",\"exit_code\":0,\"validated\":{\"dispositions\":114,\"blocking\":84,\"nonblocking\":30,\"tests\":129,\"canaries\":129,\"evidence\":129,\"aliases\":601,\"status_mappings\":306,\"clusters\":11,\"xd\":15,\"corrections\":9},\"mutation_canaries\":[{\"canary\":\"delete_finding\",\"exit_code\":101,\"result\":\"REJECTED\"},{\"canary\":\"duplicate_finding\",\"exit_code\":101,\"result\":\"REJECTED\"},{\"canary\":\"alter_severity\",\"exit_code\":103,\"result\":\"REJECTED\"},{\"canary\":\"alter_blocking\",\"exit_code\":104,\"result\":\"REJECTED\"},{\"canary\":\"alter_source_hash\",\"exit_code\":105,\"result\":\"REJECTED\"},{\"canary\":\"missing_section\",\"exit_code\":106,\"result\":\"REJECTED\"},{\"canary\":\"missing_test\",\"exit_code\":107,\"result\":\"REJECTED\"},{\"canary\":\"missing_evidence\",\"exit_code\":108,\"result\":\"REJECTED\"},{\"canary\":\"cluster_omission\",\"exit_code\":109,\"result\":\"REJECTED\"},{\"canary\":\"wrong_nc_rc\",\"exit_code\":145,\"result\":\"REJECTED\"},{\"canary\":\"wrong_nc_status\",\"exit_code\":145,\"result\":\"REJECTED\"},{\"canary\":\"wrong_mutation_started\",\"exit_code\":145,\"result\":\"REJECTED\"},{\"canary\":\"unmapped_alias\",\"exit_code\":132,\"result\":\"REJECTED\"},{\"canary\":\"duplicate_status_mapping\",\"exit_code\":134,\"result\":\"REJECTED\"},{\"canary\":\"required_optional_overlap\",\"exit_code\":137,\"result\":\"REJECTED\"},{\"canary\":\"schema_missing_finding_key\",\"exit_code\":139,\"result\":\"REJECTED\"},{\"canary\":\"schema_missing_go_condition\",\"exit_code\":140,\"result\":\"REJECTED\"},{\"canary\":\"quorum_missing_role\",\"exit_code\":141,\"result\":\"REJECTED\"},{\"canary\":\"duplicate_review_id\",\"exit_code\":161,\"result\":\"REJECTED\"},{\"canary\":\"duplicate_review_hash\",\"exit_code\":161,\"result\":\"REJECTED\"},{\"canary\":\"go_contradiction\",\"exit_code\":164,\"result\":\"REJECTED\"},{\"canary\":\"correction_omission\",\"exit_code\":142,\"result\":\"REJECTED\"},{\"canary\":\"r5_f13_mapping_loss\",\"exit_code\":143,\"result\":\"REJECTED\"}]}\n",
+      "stdout_sha256": "d0dc5cbbcb8c2c8363c6f1d23e5b24ea17e03471134d5c4b463fab352bed5bcb",
+      "stderr_utf8": "",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "parsed_result": {
+        "checker": "NODE-INDEPENDENT-CORRECTION-A",
+        "runtime": "v24.15.0",
+        "result": "PASS",
+        "exit_code": 0,
+        "validated": {
+          "dispositions": 114,
+          "blocking": 84,
+          "nonblocking": 30,
+          "tests": 129,
+          "canaries": 129,
+          "evidence": 129,
+          "aliases": 601,
+          "status_mappings": 306,
+          "clusters": 11,
+          "xd": 15,
+          "corrections": 9
+        },
+        "mutation_canaries": [
+          {
+            "canary": "delete_finding",
+            "exit_code": 101,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "duplicate_finding",
+            "exit_code": 101,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "alter_severity",
+            "exit_code": 103,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "alter_blocking",
+            "exit_code": 104,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "alter_source_hash",
+            "exit_code": 105,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "missing_section",
+            "exit_code": 106,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "missing_test",
+            "exit_code": 107,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "missing_evidence",
+            "exit_code": 108,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "cluster_omission",
+            "exit_code": 109,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "wrong_nc_rc",
+            "exit_code": 145,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "wrong_nc_status",
+            "exit_code": 145,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "wrong_mutation_started",
+            "exit_code": 145,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "unmapped_alias",
+            "exit_code": 132,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "duplicate_status_mapping",
+            "exit_code": 134,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "required_optional_overlap",
+            "exit_code": 137,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "schema_missing_finding_key",
+            "exit_code": 139,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "schema_missing_go_condition",
+            "exit_code": 140,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "quorum_missing_role",
+            "exit_code": 141,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "duplicate_review_id",
+            "exit_code": 161,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "duplicate_review_hash",
+            "exit_code": 161,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "go_contradiction",
+            "exit_code": 164,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "correction_omission",
+            "exit_code": 142,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "r5_f13_mapping_loss",
+            "exit_code": 143,
+            "result": "REJECTED"
+          }
+        ]
+      }
+    },
+    {
+      "checker_id": "PYTHON-INDEPENDENT-CORRECTION-B",
+      "checker_source": {
+        "path": "N8NAgents/02_Агентам/Ревью/PlanV2_Work_a64a14c3/IntegratedDraft/21_PREFREEZE_CHECKER_PYTHON.py",
+        "bytes": 13459,
+        "sha256": "bd0cd8a1eb9e9ff92da78ae97fec603dd62de01b67f6e7a99320272138e6a3a7",
+        "role": "checker_source"
+      },
+      "exact_command": "python \"N8NAgents/02_Агентам/Ревью/PlanV2_Work_a64a14c3/IntegratedDraft/21_PREFREEZE_CHECKER_PYTHON.py\"",
+      "working_directory": "N8NAgents/02_Агентам/Ревью/PlanV2_Work_a64a14c3/IntegratedDraft",
+      "started_utc": "2026-08-27T13:48:06.604Z",
+      "completed_utc": "2026-08-27T13:48:07.272Z",
+      "exit_code": 0,
+      "stdout_utf8": "{\"checker\":\"PYTHON-INDEPENDENT-CORRECTION-B\",\"runtime\":\"3.14.5\",\"result\":\"PASS\",\"exit_code\":0,\"validated\":{\"dispositions\":114,\"blocking\":84,\"nonblocking\":30,\"tests\":129,\"canaries\":129,\"evidence\":129,\"aliases\":601,\"status_mappings\":306,\"clusters\":11,\"xd\":15,\"corrections\":9},\"mutation_canaries\":[{\"canary\":\"delete_finding\",\"exit_code\":301,\"result\":\"REJECTED\"},{\"canary\":\"duplicate_finding\",\"exit_code\":301,\"result\":\"REJECTED\"},{\"canary\":\"alter_severity\",\"exit_code\":303,\"result\":\"REJECTED\"},{\"canary\":\"alter_blocking\",\"exit_code\":304,\"result\":\"REJECTED\"},{\"canary\":\"alter_source_hash\",\"exit_code\":305,\"result\":\"REJECTED\"},{\"canary\":\"missing_section\",\"exit_code\":306,\"result\":\"REJECTED\"},{\"canary\":\"missing_test\",\"exit_code\":307,\"result\":\"REJECTED\"},{\"canary\":\"missing_evidence\",\"exit_code\":308,\"result\":\"REJECTED\"},{\"canary\":\"cluster_omission\",\"exit_code\":309,\"result\":\"REJECTED\"},{\"canary\":\"wrong_nc_rc\",\"exit_code\":345,\"result\":\"REJECTED\"},{\"canary\":\"wrong_nc_status\",\"exit_code\":345,\"result\":\"REJECTED\"},{\"canary\":\"wrong_mutation_started\",\"exit_code\":345,\"result\":\"REJECTED\"},{\"canary\":\"unmapped_alias\",\"exit_code\":332,\"result\":\"REJECTED\"},{\"canary\":\"duplicate_status_mapping\",\"exit_code\":334,\"result\":\"REJECTED\"},{\"canary\":\"required_optional_overlap\",\"exit_code\":337,\"result\":\"REJECTED\"},{\"canary\":\"schema_missing_finding_key\",\"exit_code\":339,\"result\":\"REJECTED\"},{\"canary\":\"schema_missing_go_condition\",\"exit_code\":340,\"result\":\"REJECTED\"},{\"canary\":\"quorum_missing_role\",\"exit_code\":341,\"result\":\"REJECTED\"},{\"canary\":\"duplicate_review_id\",\"exit_code\":361,\"result\":\"REJECTED\"},{\"canary\":\"duplicate_review_hash\",\"exit_code\":361,\"result\":\"REJECTED\"},{\"canary\":\"go_contradiction\",\"exit_code\":364,\"result\":\"REJECTED\"},{\"canary\":\"correction_omission\",\"exit_code\":342,\"result\":\"REJECTED\"},{\"canary\":\"r5_f13_mapping_loss\",\"exit_code\":343,\"result\":\"REJECTED\"}]}\n",
+      "stdout_sha256": "7c6b082c32cb560cd8ec3fd7fc37f6f0c27a2719e9fbbc323483500ec45ea14a",
+      "stderr_utf8": "",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "parsed_result": {
+        "checker": "PYTHON-INDEPENDENT-CORRECTION-B",
+        "runtime": "3.14.5",
+        "result": "PASS",
+        "exit_code": 0,
+        "validated": {
+          "dispositions": 114,
+          "blocking": 84,
+          "nonblocking": 30,
+          "tests": 129,
+          "canaries": 129,
+          "evidence": 129,
+          "aliases": 601,
+          "status_mappings": 306,
+          "clusters": 11,
+          "xd": 15,
+          "corrections": 9
+        },
+        "mutation_canaries": [
+          {
+            "canary": "delete_finding",
+            "exit_code": 301,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "duplicate_finding",
+            "exit_code": 301,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "alter_severity",
+            "exit_code": 303,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "alter_blocking",
+            "exit_code": 304,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "alter_source_hash",
+            "exit_code": 305,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "missing_section",
+            "exit_code": 306,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "missing_test",
+            "exit_code": 307,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "missing_evidence",
+            "exit_code": 308,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "cluster_omission",
+            "exit_code": 309,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "wrong_nc_rc",
+            "exit_code": 345,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "wrong_nc_status",
+            "exit_code": 345,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "wrong_mutation_started",
+            "exit_code": 345,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "unmapped_alias",
+            "exit_code": 332,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "duplicate_status_mapping",
+            "exit_code": 334,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "required_optional_overlap",
+            "exit_code": 337,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "schema_missing_finding_key",
+            "exit_code": 339,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "schema_missing_go_condition",
+            "exit_code": 340,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "quorum_missing_role",
+            "exit_code": 341,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "duplicate_review_id",
+            "exit_code": 361,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "duplicate_review_hash",
+            "exit_code": 361,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "go_contradiction",
+            "exit_code": 364,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "correction_omission",
+            "exit_code": 342,
+            "result": "REJECTED"
+          },
+          {
+            "canary": "r5_f13_mapping_loss",
+            "exit_code": 343,
+            "result": "REJECTED"
+          }
+        ]
+      }
+    }
+  ],
+  "summary": {
+    "checker_count": 2,
+    "all_pass": true,
+    "mutation_canaries_per_checker": 23,
+    "total_mutation_executions": 46,
+    "all_mutations_rejected_nonzero": true
+  },
+  "scope_attestation": {
+    "runtime_tests_run": false,
+    "internet_accessed": false,
+    "project_repo_accessed": false,
+    "windows_changed": false,
+    "docker_changed": false,
+    "vps_or_provider_accessed": false,
+    "secrets_read_or_written": false,
+    "freeze_performed": false,
+    "commit_created": false
+  }
+}

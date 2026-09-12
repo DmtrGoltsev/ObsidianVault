@@ -1,0 +1,128 @@
+{
+  "schema_version": 2,
+  "record_kind": "N8NAGENTS_PREFREEZE_CUSTODY_RUN_R2",
+  "state": "DRAFT_PREFREEZE",
+  "authority_state": "PENDING_OWNER_SUPERSESSION",
+  "runtime_state": "NOT_RUN",
+  "subject": {
+    "plan": {
+      "path": "Inputs/CANONICAL_PLAN.md",
+      "bytes": 69598,
+      "sha256": "573ceb10ecda2af47b3bbe258c71cb43e5d8fdb7e92898ce7b78cb983bad8432"
+    },
+    "content_set_sha256": "b9a971c5800d8680d646912acf77d56802726c33e013d1ea9e7a1d13cb3449a5",
+    "subject_envelope_sha256": "7c6f4b6c8fd3b4729deb5ec913777477a8fa195055636971396869e80a163e20",
+    "manifest": {
+      "path": "17_INTEGRATION_DRAFT_MANIFEST.json",
+      "bytes": 34327,
+      "sha256": "50f38214d559d3e9f1f4ecbc7000fb6122defa2489345d693d7ce0bf49bb8295"
+    },
+    "validation_transcript_index_sha256": "dabe2f2087ca150e91b18bf32e61f72e32b3bc7989385273706d8d2c005dac7a"
+  },
+  "commands": {
+    "custody_node": "node 20_PREFREEZE_CHECKER_NODE.mjs",
+    "custody_python": "python 21_PREFREEZE_CHECKER_PYTHON.py",
+    "batch_node": "node 25_RAW_REVIEW_BATCH_VALIDATOR_NODE.mjs",
+    "batch_python": "python 26_RAW_REVIEW_BATCH_VALIDATOR_PYTHON.py"
+  },
+  "results": {
+    "custody_node": {
+      "verdict": "PASS",
+      "rc": 0,
+      "canaries": 45,
+      "transcript": {
+        "path": "Validation/CUSTODY_NODE_A.json",
+        "bytes": 18621,
+        "sha256": "a5a435c936a14d755f06de87c5b1db587152a6adf5e95cd9618329fac6f5df02"
+      },
+      "physical_windows_checks": [
+        "literal root",
+        "NFC/NFD/case collision",
+        "ADS",
+        "reparse",
+        "hardlink",
+        "unexpected file",
+        "stable bytes/hash"
+      ]
+    },
+    "custody_python": {
+      "verdict": "PASS",
+      "rc": 0,
+      "canaries": 45,
+      "transcript": {
+        "path": "Validation/CUSTODY_PYTHON_B.json",
+        "bytes": 18623,
+        "sha256": "51a619527c4b1c5b71999fe11871e645c6bfebe2120da336d26e47bf7ce7fed5"
+      },
+      "independent_physical_checks": [
+        "realpath containment",
+        "lstat/nlink",
+        "FindFirstStreamW ADS",
+        "unexpected file",
+        "stable bytes/hash"
+      ]
+    },
+    "raw_batch_node": {
+      "verdict": "PASS",
+      "rc": 0,
+      "positive_verdict": "GO",
+      "canaries": 20,
+      "transcript": {
+        "path": "Validation/RAW_BATCH_NODE_A.json",
+        "bytes": 3959,
+        "sha256": "bfbf8b16c5273f41096f805d0baa25faadc4dfe2070d24dcb3661c5dc6d6497f"
+      }
+    },
+    "raw_batch_python": {
+      "verdict": "PASS",
+      "rc": 0,
+      "positive_verdict": "GO",
+      "canaries": 20,
+      "transcript": {
+        "path": "Validation/RAW_BATCH_PYTHON_B.json",
+        "bytes": 3961,
+        "sha256": "41be95f9eb6a355903326d610c99873c2349ac3497004bdcd500c2c5834219db"
+      }
+    }
+  },
+  "canary_summary": {
+    "custody_distinct_per_checker": 45,
+    "false_quorum_variants_per_custody_checker": 5,
+    "raw_batch_per_validator": 20,
+    "all_expected_nonzero": true,
+    "false_accepts": 0
+  },
+  "corrections_observed": [
+    {
+      "id": "R2-CUSTODY-ENCODING-01",
+      "initial_failure": "STOP_ENCODING on Python CRLF stdout capture",
+      "correction": "parse successful stdout and canonicalize transcript UTF-8/no-BOM/LF/one-final-LF",
+      "regression_result": "PASS/PASS"
+    },
+    {
+      "id": "R2-CUSTODY-PATH-01",
+      "initial_failure": "PowerShell array binding and unavailable Get-FileHash in spawned host",
+      "correction": "one literal path per invocation and .NET SHA-256 stream hashing",
+      "regression_result": "PASS/PASS"
+    }
+  ],
+  "prohibitions_preserved": [
+    "no freeze",
+    "no read-only",
+    "no commit",
+    "no runtime",
+    "no Docker",
+    "no VPS",
+    "no provider UI",
+    "no secrets",
+    "no project repo"
+  ],
+  "blockers": [
+    {
+      "id": "OWNER-SUPERSESSION-ACTIVATION",
+      "status": "PENDING",
+      "effect_if_granted": "activate C2 prospective 13-item audit baseline only"
+    }
+  ],
+  "completed_utc": "2026-08-27T00:00:00Z"
+}

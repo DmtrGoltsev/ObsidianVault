@@ -1,0 +1,461 @@
+{
+  "schema_version": 1,
+  "state": "DRAFT_PREFREEZE",
+  "authority": "R2-C03/R2-C04 / CorrectionR2 A §6-§9",
+  "long_running_services": [
+    "postgres",
+    "n8n",
+    "mock-telegram",
+    "mock-llm",
+    "telegram-bridge",
+    "egress-telegram",
+    "deepseek-adapter",
+    "egress-deepseek"
+  ],
+  "one_shot_services": [
+    "db-bootstrap",
+    "db-migrate",
+    "n8n-volume-init",
+    "db-secret-apply",
+    "bridge-key-seed",
+    "real-arm-guard",
+    "backup-runner",
+    "backup-verifier",
+    "restore-postgres",
+    "restore-validator",
+    "gate-loader",
+    "gate-runner",
+    "validator-a",
+    "validator-b",
+    "evidence-collector"
+  ],
+  "networks": {
+    "db": {
+      "internal": true,
+      "members": [
+        "postgres",
+        "n8n",
+        "db-bootstrap",
+        "db-migrate",
+        "db-secret-apply",
+        "bridge-key-seed",
+        "real-arm-guard"
+      ]
+    },
+    "mock_tg": {
+      "internal": true,
+      "members": [
+        "telegram-bridge",
+        "mock-telegram"
+      ]
+    },
+    "mock_llm": {
+      "internal": true,
+      "members": [
+        "n8n",
+        "mock-llm"
+      ]
+    },
+    "telegram_ingress": {
+      "internal": true,
+      "members": [
+        "telegram-bridge",
+        "n8n"
+      ]
+    },
+    "telegram_proxy": {
+      "internal": true,
+      "members": [
+        "telegram-bridge",
+        "egress-telegram"
+      ]
+    },
+    "llm_ingress": {
+      "internal": true,
+      "members": [
+        "n8n",
+        "deepseek-adapter"
+      ]
+    },
+    "llm_proxy": {
+      "internal": true,
+      "members": [
+        "deepseek-adapter",
+        "egress-deepseek"
+      ]
+    },
+    "uplink": {
+      "internal": false,
+      "members": [
+        "egress-telegram",
+        "egress-deepseek"
+      ]
+    },
+    "backup_db": {
+      "internal": true,
+      "members": [
+        "postgres",
+        "backup-runner"
+      ]
+    },
+    "restore_db": {
+      "internal": true,
+      "members": [
+        "restore-postgres",
+        "restore-validator",
+        "n8n"
+      ]
+    }
+  },
+  "modes": {
+    "STOPPED": {
+      "services": [],
+      "edges": [],
+      "ports": []
+    },
+    "MOCK/RUN": {
+      "services": [
+        "postgres",
+        "n8n",
+        "mock-telegram",
+        "mock-llm",
+        "telegram-bridge"
+      ],
+      "edges": [
+        "postgres@db",
+        "n8n@db",
+        "n8n@telegram_ingress",
+        "telegram-bridge@telegram_ingress",
+        "telegram-bridge@mock_tg",
+        "mock-telegram@mock_tg",
+        "n8n@mock_llm",
+        "mock-llm@mock_llm"
+      ],
+      "ports": [
+        "n8n:127.0.0.1:5678/tcp"
+      ]
+    },
+    "PREARM_TG": {
+      "services": [
+        "telegram-bridge",
+        "egress-telegram"
+      ],
+      "edges": [
+        "telegram-bridge@telegram_proxy",
+        "egress-telegram@telegram_proxy",
+        "egress-telegram@uplink"
+      ],
+      "ports": []
+    },
+    "REAL_TG/RUN": {
+      "services": [
+        "postgres",
+        "n8n",
+        "telegram-bridge",
+        "egress-telegram"
+      ],
+      "edges": [
+        "postgres@db",
+        "n8n@db",
+        "n8n@telegram_ingress",
+        "telegram-bridge@telegram_ingress",
+        "telegram-bridge@telegram_proxy",
+        "egress-telegram@telegram_proxy",
+        "egress-telegram@uplink"
+      ],
+      "ports": [
+        "n8n:127.0.0.1:5678/tcp"
+      ]
+    },
+    "REAL_TG_DEEPSEEK/RUN": {
+      "services": [
+        "postgres",
+        "n8n",
+        "telegram-bridge",
+        "egress-telegram",
+        "deepseek-adapter",
+        "egress-deepseek"
+      ],
+      "edges": [
+        "postgres@db",
+        "n8n@db",
+        "n8n@telegram_ingress",
+        "telegram-bridge@telegram_ingress",
+        "telegram-bridge@telegram_proxy",
+        "egress-telegram@telegram_proxy",
+        "egress-telegram@uplink",
+        "n8n@llm_ingress",
+        "deepseek-adapter@llm_ingress",
+        "deepseek-adapter@llm_proxy",
+        "egress-deepseek@llm_proxy",
+        "egress-deepseek@uplink"
+      ],
+      "ports": [
+        "n8n:127.0.0.1:5678/tcp"
+      ]
+    }
+  },
+  "one_shot_phases": {
+    "BACKUP/CAPTURE": {
+      "services": [
+        "postgres",
+        "backup-runner"
+      ],
+      "network": "backup_db"
+    },
+    "BACKUP/VERIFY": {
+      "services": [
+        "backup-verifier"
+      ],
+      "network_mode": "none"
+    },
+    "BACKUP/COLLECT": {
+      "services": [
+        "evidence-collector"
+      ],
+      "network_mode": "none"
+    },
+    "RESTORE/PREFLIGHT_DB": {
+      "services": [
+        "restore-postgres"
+      ],
+      "network": "restore_db"
+    },
+    "RESTORE/VALIDATE": {
+      "services": [
+        "restore-postgres",
+        "restore-validator",
+        "n8n"
+      ],
+      "network": "restore_db"
+    },
+    "RESTORE/COLLECT": {
+      "services": [
+        "evidence-collector"
+      ],
+      "network_mode": "none"
+    },
+    "GATE/LOAD": {
+      "services": [
+        "gate-loader"
+      ],
+      "network_mode": "none"
+    },
+    "GATE/RUN": {
+      "services": [
+        "gate-runner"
+      ],
+      "network_mode": "none"
+    },
+    "GATE/VALIDATE-A": {
+      "services": [
+        "validator-a"
+      ],
+      "network_mode": "none"
+    },
+    "GATE/VALIDATE-B": {
+      "services": [
+        "validator-b"
+      ],
+      "network_mode": "none"
+    },
+    "GATE/COLLECT": {
+      "services": [
+        "evidence-collector"
+      ],
+      "network_mode": "none"
+    }
+  },
+  "same_bridge_identity_fields": [
+    "bridge_image_amd64_digest",
+    "bridge_binary_sha256",
+    "bridge_entrypoint_path",
+    "bridge_entrypoint_argv_prefix_sha256",
+    "bridge_config_schema_sha256",
+    "bridge_http_client_library_lock_sha256",
+    "bridge_ingress_envelope_schema_sha256"
+  ],
+  "http_positive_control": {
+    "id": "AT-HTTP-DIRECT-01",
+    "method": "POST",
+    "redirects": 0,
+    "response_status": 200,
+    "synthetic_route": true
+  },
+  "http_canaries": [
+    {
+      "canary_id": "NC-HTTP-METHOD-01",
+      "base_positive_control_id": "AT-HTTP-DIRECT-01",
+      "single_mutation": {
+        "json_pointer": "/request/method",
+        "from": [
+          "POST"
+        ],
+        "to": [
+          "GET",
+          "HEAD",
+          "PUT",
+          "CONNECT",
+          "case-or-ows-ambiguous"
+        ],
+        "count": 1
+      },
+      "expected": {
+        "decision": "STOP",
+        "status": "G_STOP_SECURITY",
+        "rc": 51,
+        "mutation_rule": "ZERO"
+      },
+      "oracle": "bridge_socket_count == 0 && provider_request_count == 0",
+      "evidence_id": "EV-HTTP-METHOD-01",
+      "runtime_state_now": "NOT_RUN"
+    },
+    {
+      "canary_id": "NC-HTTP-PATH-01",
+      "base_positive_control_id": "AT-HTTP-DIRECT-01",
+      "single_mutation": {
+        "json_pointer": "/request/path",
+        "from": [
+          "state-bound exact Telegram method"
+        ],
+        "to": [
+          "sibling",
+          "absolute-url",
+          "encoded-dot-or-separator",
+          "query",
+          "fragment",
+          "arbitrary"
+        ],
+        "count": 1
+      },
+      "expected": {
+        "decision": "STOP",
+        "status": "G_STOP_SECURITY",
+        "rc": 51,
+        "mutation_rule": "ZERO"
+      },
+      "oracle": "constructed_request_count == 0 && token_interpolation_count == 0",
+      "evidence_id": "EV-HTTP-PATH-01",
+      "runtime_state_now": "NOT_RUN"
+    },
+    {
+      "canary_id": "NC-HTTP-BODY-01",
+      "base_positive_control_id": "AT-HTTP-DIRECT-01",
+      "single_mutation": {
+        "json_pointer": "/request/body_schema",
+        "from": [
+          "exact closed key set"
+        ],
+        "to": [
+          "missing",
+          "unknown",
+          "duplicate",
+          "alternate-route",
+          "oversize",
+          "non-utf8",
+          "nan"
+        ],
+        "count": 1
+      },
+      "expected": {
+        "decision": "STOP",
+        "status": "G_STOP_SECURITY",
+        "rc": 51,
+        "mutation_rule": "ZERO"
+      },
+      "oracle": "reservation_count == 0 && db_count == 0 && provider_count == 0 && route_hash unchanged",
+      "evidence_id": "EV-HTTP-BODY-01",
+      "runtime_state_now": "NOT_RUN"
+    },
+    {
+      "canary_id": "NC-HTTP-REDIRECT-01",
+      "base_positive_control_id": "AT-HTTP-DIRECT-01",
+      "single_mutation": {
+        "json_pointer": "/response/status",
+        "from": [
+          200
+        ],
+        "to": [
+          301,
+          302,
+          303,
+          307,
+          308
+        ],
+        "count": 1
+      },
+      "expected": {
+        "decision": "FAIL",
+        "status": "G_FAIL_CONTAINMENT",
+        "rc": 42,
+        "mutation_rule": "ONE_OR_MORE"
+      },
+      "oracle": "original_endpoint_count == 1 && redirect_follow_count == 0 && second_socket_count == 0",
+      "evidence_id": "EV-HTTP-REDIRECT-01",
+      "runtime_state_now": "NOT_RUN"
+    }
+  ],
+  "bridge_canary_ids": [
+    "NC-BRIDGE-BINARY-01",
+    "NC-MOCK-REAL-LOCK-01",
+    "NC-REAL-MOCK-LOCK-01",
+    "NC-BRIDGE-DIRECT-01"
+  ],
+  "backup_verifier": {
+    "identity": {
+      "role": "backup-verifier",
+      "platform": "linux/amd64",
+      "image_digest_ref": "run-lock.json#/images/backup-verifier/amd64_digest",
+      "entrypoint_sha256_ref": "run-lock.json#/binaries/backup-verifier/sha256",
+      "resolution_rule": "exact lower-hex hashes required before BACKUP/VERIFY"
+    },
+    "uid_gid": "NONZERO_LOCKED",
+    "network_mode": "none",
+    "read_only_inputs": [
+      "sealed_ciphertext_generation",
+      "encrypted_manifest",
+      "exact_verifier_binary_spec",
+      "private_age_identity_one_file"
+    ],
+    "writable": [
+      "bounded_tmpfs",
+      "dedicated_typed_result"
+    ],
+    "forbidden_keys": [
+      "db_credential",
+      "n8n_key",
+      "provider_key",
+      "telegram_token",
+      "live_secret_root"
+    ],
+    "result_schema": "backup-verifier-result/v3",
+    "collector_key_visibility": false,
+    "publication_authority": "evidence-collector-only"
+  },
+  "backup_key_canary_ids": [
+    "NC-BACKUP-KEY-01",
+    "NC-BACKUP-KEY-02",
+    "NC-BACKUP-KEY-03",
+    "NC-BACKUP-KEY-04",
+    "NC-BACKUP-KEY-05",
+    "NC-BACKUP-KEY-06"
+  ],
+  "rendered_topology_tests": [
+    "RT-01",
+    "RT-02",
+    "RT-03",
+    "RT-04",
+    "RT-05",
+    "RT-06",
+    "RT-07",
+    "RT-08",
+    "RT-09",
+    "RT-10",
+    "RT-11",
+    "RT-12",
+    "RT-13",
+    "RT-14",
+    "RT-15"
+  ],
+  "runtime_state_now": "NOT_RUN"
+}

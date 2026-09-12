@@ -1,0 +1,281 @@
+{
+  "schema_version": 1,
+  "state": "DRAFT_PREFREEZE",
+  "authority_state": "PENDING_OWNER_SUPERSESSION",
+  "source_baseline": {
+    "path": "24_PROSPECTIVE_AUDIT_R2_BASELINE.json",
+    "items": 13,
+    "aggregate_sha256": "4cad6dc20a8d56f49370f2d56da69b2e439cd60588988af256f1da57220323f6"
+  },
+  "legacy_source_loss_permanent": true,
+  "correction_r1_summary_authoritative": false,
+  "items": {
+    "P1-01": {
+      "audit_id": "P1-01",
+      "source_item_sha256": "f0236b39efc7d60abea4f5fa1c1b2485170b96f3c72c4e155259986e38c7428c",
+      "severity": "P1",
+      "design_disposition": "DESIGN_RESOLVED_PENDING_INDEPENDENT_REVIEW",
+      "runtime_state": "NOT_RUN",
+      "plan_section_ids": [
+        "R2-C01"
+      ],
+      "acceptance_or_validator_test_ids": [
+        "AT-XD-02"
+      ],
+      "evidence_required": "EV-R2-P1-01",
+      "responsible_roles": [
+        "semantic-integration-reviewer",
+        "custody-quorum-reviewer"
+      ]
+    },
+    "P1-02": {
+      "audit_id": "P1-02",
+      "source_item_sha256": "213a45e5b9b8f573bfb48ada12129b431997be5d314f62f49df09f83646577fe",
+      "severity": "P1",
+      "design_disposition": "DESIGN_RESOLVED_PENDING_INDEPENDENT_REVIEW",
+      "runtime_state": "NOT_RUN",
+      "plan_section_ids": [
+        "R2-C06",
+        "R2-C07"
+      ],
+      "acceptance_or_validator_test_ids": [
+        "AT-XD-14"
+      ],
+      "evidence_required": "EV-R2-P1-02",
+      "responsible_roles": [
+        "semantic-integration-reviewer",
+        "custody-quorum-reviewer"
+      ]
+    },
+    "P1-03": {
+      "audit_id": "P1-03",
+      "source_item_sha256": "d4dce9367f05abe3ddffee4743b5ba05627a10e081789193c188196822b5093b",
+      "severity": "P1",
+      "design_disposition": "DESIGN_RESOLVED_PENDING_INDEPENDENT_REVIEW",
+      "runtime_state": "NOT_RUN",
+      "plan_section_ids": [
+        "V06-C05",
+        "V05-C03",
+        "V07-C02",
+        "V10-C01",
+        "V10-C02"
+      ],
+      "acceptance_or_validator_test_ids": [
+        "AT-F-R5-F13"
+      ],
+      "evidence_required": "EV-R2-P1-03",
+      "responsible_roles": [
+        "semantic-integration-reviewer",
+        "custody-quorum-reviewer"
+      ]
+    },
+    "P1-04": {
+      "audit_id": "P1-04",
+      "source_item_sha256": "f2d1d47702f65bd41ec0dbbbf572603fca4a850a488eee3551d99f197fc6b7d8",
+      "severity": "P1",
+      "design_disposition": "DESIGN_RESOLVED_PENDING_INDEPENDENT_REVIEW",
+      "runtime_state": "NOT_RUN",
+      "plan_section_ids": [
+        "R2-C02"
+      ],
+      "acceptance_or_validator_test_ids": [
+        "AT-F-R5-F10",
+        "AT-HTTP-DIRECT-01"
+      ],
+      "evidence_required": "EV-R2-P1-04",
+      "responsible_roles": [
+        "semantic-integration-reviewer",
+        "custody-quorum-reviewer"
+      ]
+    },
+    "P1-05": {
+      "audit_id": "P1-05",
+      "source_item_sha256": "6415d9634b1bd6adbad0c6e319a37227510aab9315745d27dd66de069e9a9b75",
+      "severity": "P1",
+      "design_disposition": "DESIGN_RESOLVED_PENDING_INDEPENDENT_REVIEW",
+      "runtime_state": "NOT_RUN",
+      "plan_section_ids": [
+        "R2-C02",
+        "R2-C03"
+      ],
+      "acceptance_or_validator_test_ids": [
+        "AT-F-R5-F14",
+        "RT-04",
+        "RT-05"
+      ],
+      "evidence_required": "EV-R2-P1-05",
+      "responsible_roles": [
+        "semantic-integration-reviewer",
+        "custody-quorum-reviewer"
+      ]
+    },
+    "P1-06": {
+      "audit_id": "P1-06",
+      "source_item_sha256": "88ee97037b68032d5ee7ac0fcc2af5d61bf4f2a8ca9523f55cc2297002f6d9db",
+      "severity": "P1",
+      "design_disposition": "DESIGN_RESOLVED_PENDING_INDEPENDENT_REVIEW",
+      "runtime_state": "NOT_RUN",
+      "plan_section_ids": [
+        "R2-C05"
+      ],
+      "acceptance_or_validator_test_ids": [
+        "AT-F-R8-P1-006"
+      ],
+      "evidence_required": "EV-R2-P1-06",
+      "responsible_roles": [
+        "semantic-integration-reviewer",
+        "custody-quorum-reviewer"
+      ]
+    },
+    "P1-07": {
+      "audit_id": "P1-07",
+      "source_item_sha256": "d3e6e301be50d6db71ab8ee17e940814c80216d79f4502b7858482f53310bb05",
+      "severity": "P1",
+      "design_disposition": "DESIGN_RESOLVED_PENDING_INDEPENDENT_REVIEW",
+      "runtime_state": "NOT_RUN",
+      "plan_section_ids": [
+        "R2-C06",
+        "R2-C07"
+      ],
+      "acceptance_or_validator_test_ids": [
+        "AT-XD-01",
+        "AT-XD-14"
+      ],
+      "evidence_required": "EV-R2-P1-07",
+      "responsible_roles": [
+        "semantic-integration-reviewer",
+        "custody-quorum-reviewer"
+      ]
+    },
+    "P1-08": {
+      "audit_id": "P1-08",
+      "source_item_sha256": "18a411043ac239df925f01bebb718ac58f6edc1e412b7aebad23cf2684d9558a",
+      "severity": "P1",
+      "design_disposition": "DESIGN_RESOLVED_PENDING_INDEPENDENT_REVIEW",
+      "runtime_state": "NOT_RUN",
+      "plan_section_ids": [
+        "V10-C01",
+        "V10-C02",
+        "V10-C04",
+        "XD-C06"
+      ],
+      "acceptance_or_validator_test_ids": [
+        "AT-F-R10-F06"
+      ],
+      "evidence_required": "EV-R2-P1-08",
+      "responsible_roles": [
+        "semantic-integration-reviewer",
+        "custody-quorum-reviewer"
+      ]
+    },
+    "P2-01": {
+      "audit_id": "P2-01",
+      "source_item_sha256": "24f71114d4efc100767bfddcaaae02faa9c0b0f4d36b780e0a2b5c1a1eaa38e5",
+      "severity": "P2",
+      "design_disposition": "DESIGN_RESOLVED_PENDING_INDEPENDENT_REVIEW",
+      "runtime_state": "NOT_RUN",
+      "plan_section_ids": [
+        "R2-C03",
+        "R2-C04"
+      ],
+      "acceptance_or_validator_test_ids": [
+        "AT-XD-12",
+        "RT-13"
+      ],
+      "evidence_required": "EV-R2-P2-01",
+      "responsible_roles": [
+        "semantic-integration-reviewer",
+        "custody-quorum-reviewer"
+      ]
+    },
+    "NEW-P1-01": {
+      "audit_id": "NEW-P1-01",
+      "source_item_sha256": "4b6ab7851a06cc6281af4e4dcf4cc38e94cd91d62be475a52fa9b50ab9722db2",
+      "severity": "P1",
+      "design_disposition": "DESIGN_RESOLVED_PENDING_INDEPENDENT_REVIEW",
+      "runtime_state": "NOT_RUN",
+      "plan_section_ids": [
+        "R2-C06"
+      ],
+      "acceptance_or_validator_test_ids": [
+        "FG-001",
+        "FG-002",
+        "FG-003",
+        "FG-004",
+        "FG-005"
+      ],
+      "evidence_required": "EV-R2-NEW-P1-01",
+      "responsible_roles": [
+        "semantic-integration-reviewer",
+        "custody-quorum-reviewer"
+      ]
+    },
+    "NEW-P1-02": {
+      "audit_id": "NEW-P1-02",
+      "source_item_sha256": "bb4b0e9c2bb5b51caa401f3679d650ac4927cc3ab4893dd4271a81675b5e4e9b",
+      "severity": "P1",
+      "design_disposition": "DESIGN_RESOLVED_PENDING_INDEPENDENT_REVIEW",
+      "runtime_state": "NOT_RUN",
+      "plan_section_ids": [
+        "R2-C05"
+      ],
+      "acceptance_or_validator_test_ids": [
+        "AT-F-R8-P1-006"
+      ],
+      "evidence_required": "EV-R2-NEW-P1-02",
+      "responsible_roles": [
+        "semantic-integration-reviewer",
+        "custody-quorum-reviewer"
+      ]
+    },
+    "NEW-P1-03": {
+      "audit_id": "NEW-P1-03",
+      "source_item_sha256": "c4746acdf713b94f3e2c5e56e73d36778b336a977ba54a3d0a4e0f5982336060",
+      "severity": "P1",
+      "design_disposition": "DESIGN_RESOLVED_PENDING_INDEPENDENT_REVIEW",
+      "runtime_state": "NOT_RUN",
+      "plan_section_ids": [
+        "R2-C03",
+        "R2-C04"
+      ],
+      "acceptance_or_validator_test_ids": [
+        "RT-04",
+        "RT-13"
+      ],
+      "evidence_required": "EV-R2-NEW-P1-03",
+      "responsible_roles": [
+        "semantic-integration-reviewer",
+        "custody-quorum-reviewer"
+      ]
+    },
+    "NEW-P1-04": {
+      "audit_id": "NEW-P1-04",
+      "source_item_sha256": "c4ecd31c1d6831e3d30486a76c9f4b3ae627893d1dccf5d7bfcdc665c8b4d841",
+      "severity": "P1",
+      "design_disposition": "DESIGN_RESOLVED_PENDING_INDEPENDENT_REVIEW",
+      "runtime_state": "NOT_RUN",
+      "plan_section_ids": [
+        "R2-C07"
+      ],
+      "acceptance_or_validator_test_ids": [
+        "CU-002",
+        "CU-003",
+        "CU-004",
+        "CU-012",
+        "CU-013",
+        "CU-014"
+      ],
+      "evidence_required": "EV-R2-NEW-P1-04",
+      "responsible_roles": [
+        "semantic-integration-reviewer",
+        "custody-quorum-reviewer"
+      ]
+    }
+  },
+  "counts": {
+    "required": 13,
+    "design_resolved_pending_review": 13,
+    "runtime_run": 0
+  },
+  "activation_gate": "DETACHED_OWNER_SUPERSESSION_DECISION_AFTER_FINAL_REHASH_AND_3_OF_3_APPROVAL"
+}

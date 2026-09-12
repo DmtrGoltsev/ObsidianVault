@@ -1,0 +1,148 @@
+{
+  "validator": "RAW-BATCH-PYTHON-B",
+  "result": "PASS",
+  "rc": 0,
+  "positive_verdict": "GO",
+  "canaries": [
+    {
+      "canary_id": "FG-001",
+      "expected_status": "STOP_QUORUM_BLOCKED_PRESENT",
+      "actual_status": "STOP_QUORUM_BLOCKED_PRESENT",
+      "rc": 27,
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "FG-002",
+      "expected_status": "STOP_DUPLICATE_REVIEW_ID",
+      "actual_status": "STOP_DUPLICATE_REVIEW_ID",
+      "rc": 25,
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "FG-003",
+      "expected_status": "STOP_DUPLICATE_REVIEW_HASH",
+      "actual_status": "STOP_DUPLICATE_REVIEW_HASH",
+      "rc": 25,
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "FG-004",
+      "expected_status": "STOP_ROLE_ID_MISMATCH",
+      "actual_status": "STOP_ROLE_ID_MISMATCH",
+      "rc": 25,
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "FG-005",
+      "expected_status": "STOP_SUBJECT_MISMATCH",
+      "actual_status": "STOP_SUBJECT_MISMATCH",
+      "rc": 22,
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "FG-006",
+      "expected_status": "STOP_MANIFEST_MISMATCH",
+      "actual_status": "STOP_MANIFEST_MISMATCH",
+      "rc": 22,
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "FG-007",
+      "expected_status": "STOP_COUNTER_OR_VERDICT_CONTRADICTION",
+      "actual_status": "STOP_COUNTER_OR_VERDICT_CONTRADICTION",
+      "rc": 27,
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "FG-008",
+      "expected_status": "STOP_COUNTER_OR_VERDICT_CONTRADICTION",
+      "actual_status": "STOP_COUNTER_OR_VERDICT_CONTRADICTION",
+      "rc": 27,
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "FG-009",
+      "expected_status": "STOP_CONTRADICTORY_GO",
+      "actual_status": "STOP_CONTRADICTORY_GO",
+      "rc": 27,
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "FG-010",
+      "expected_status": "STOP_CONTRADICTORY_GO",
+      "actual_status": "STOP_CONTRADICTORY_GO",
+      "rc": 27,
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "FG-011",
+      "expected_status": "STOP_REVIEW_SCHEMA_INVALID",
+      "actual_status": "STOP_REVIEW_SCHEMA_INVALID",
+      "rc": 24,
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "FG-012",
+      "expected_status": "STOP_REVIEW_SCHEMA_INVALID",
+      "actual_status": "STOP_REVIEW_SCHEMA_INVALID",
+      "rc": 24,
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "FG-013",
+      "expected_status": "STOP_AUDIT_CLAIM_MISMATCH",
+      "actual_status": "STOP_AUDIT_CLAIM_MISMATCH",
+      "rc": 24,
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "FG-014",
+      "expected_status": "STOP_REVIEW_SCHEMA_INVALID",
+      "actual_status": "STOP_REVIEW_SCHEMA_INVALID",
+      "rc": 24,
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "FG-015",
+      "expected_status": "STOP_REVIEW_SCHEMA_INVALID",
+      "actual_status": "STOP_REVIEW_SCHEMA_INVALID",
+      "rc": 24,
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "FG-016",
+      "expected_status": "STOP_REVIEW_SCHEMA_INVALID",
+      "actual_status": "STOP_REVIEW_SCHEMA_INVALID",
+      "rc": 24,
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "FG-017",
+      "expected_status": "STOP_DUPLICATE_JSON_KEY",
+      "actual_status": "STOP_DUPLICATE_JSON_KEY",
+      "rc": 24,
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "FG-018",
+      "expected_status": "STOP_CALLER_ASSERTED_VALIDITY",
+      "actual_status": "STOP_CALLER_ASSERTED_VALIDITY",
+      "rc": 24,
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "FG-019",
+      "expected_status": "STOP_QUORUM_STOP_PRESENT",
+      "actual_status": "STOP_QUORUM_STOP_PRESENT",
+      "rc": 27,
+      "result": "REJECTED"
+    },
+    {
+      "canary_id": "FG-020",
+      "expected_status": "STOP_INVALID_REVIEW_SET",
+      "actual_status": "STOP_INVALID_REVIEW_SET",
+      "rc": 24,
+      "result": "REJECTED"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "attestation_type": "exact_assistant_final_payload_provenance",
+  "artifact": {
+    "path": "N8NAgents/02_Агентам/Ревью/PlanV2_Work_a64a14c3/CorrectionR3/Inputs/R2_REJECT_3_RAW.md",
+    "bytes": 3084,
+    "sha256": "e8b955b2bddf4ba71896952adc34275e77d4f6798662e58c0f26570ba7b7855a",
+    "encoding": "UTF-8 without BOM",
+    "line_endings": "LF",
+    "final_lf_count": 1
+  },
+  "provenance": {
+    "reviewer_task_id": "/root/legacy_supersession_r3",
+    "original_prior_turn": "immediately preceding completed R3 exact-core ratification final response",
+    "payload_channel": "final",
+    "payload_starts_with": "R3 DECISION: `REJECT`",
+    "exact_verbatim": true,
+    "reconstruction_used": false,
+    "summary_used_as_source": false
+  },
+  "scope_attestation": {
+    "scope": "R2 rejection raw capture and its attestation only",
+    "files_created": [
+      "CorrectionR3/Inputs/R2_REJECT_3_RAW.md",
+      "CorrectionR3/Inputs/R2_REJECT_3_ATTESTATION.json"
+    ],
+    "other_files_changed": false,
+    "runtime_accessed_or_changed": false,
+    "network_accessed": false
+  }
+}

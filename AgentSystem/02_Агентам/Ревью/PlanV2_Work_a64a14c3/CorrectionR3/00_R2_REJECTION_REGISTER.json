@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "record_kind": "N8NAGENTS_R2_EXACT_SUBJECT_REJECTION_REGISTER",
+  "state": "REJECTED_R2",
+  "authority_state": "NOT_ACTIVE",
+  "runtime_state": "NOT_RUN",
+  "reconstruction_used": false,
+  "review_count": 3,
+  "accept_count": 0,
+  "reject_count": 3,
+  "review_subject": {
+    "plan_bytes": 69598,
+    "plan_sha256": "573ceb10ecda2af47b3bbe258c71cb43e5d8fdb7e92898ce7b78cb983bad8432",
+    "input_entries": 51,
+    "input_set_sha256": "ae3d855b5c1211bfbe5d45bc319abbbdea9c83eedfff58940935a70ca269696a",
+    "content_entries": 69,
+    "content_set_sha256": "b9a971c5800d8680d646912acf77d56802726c33e013d1ea9e7a1d13cb3449a5",
+    "subject_sha256": "7c6f4b6c8fd3b4729deb5ec913777477a8fa195055636971396869e80a163e20",
+    "manifest_bytes": 34327,
+    "manifest_sha256": "50f38214d559d3e9f1f4ecbc7000fb6122defa2489345d693d7ce0bf49bb8295"
+  },
+  "reviews": [
+    {
+      "slot": "R1",
+      "reviewer_task_id": "/root/legacy_supersession_r1",
+      "decision": "REJECT",
+      "raw": {
+        "path": "Inputs/R2_REJECT_1_RAW.md",
+        "bytes": 3772,
+        "sha256": "883f14143d5153a84ddd63085cb08991c708b66725c47deae1c4bc66406075ce"
+      },
+      "attestation": {
+        "path": "Inputs/R2_REJECT_1_ATTESTATION.json",
+        "bytes": 928,
+        "sha256": "7e981b8ecedfd16a1a2e2e307d8e80aad3a52c1765a60770cac73c13d2dfb11a"
+      }
+    },
+    {
+      "slot": "R2",
+      "reviewer_task_id": "/root/legacy_supersession_r2",
+      "decision": "REJECT",
+      "raw": {
+        "path": "Inputs/R2_REJECT_2_RAW.md",
+        "bytes": 4751,
+        "sha256": "b660837e7fbb9f8eb3c072bca6fb1db1988a2f9a909f682cd09c50c7d1b3c4f9"
+      },
+      "attestation": {
+        "path": "Inputs/R2_REJECT_2_ATTESTATION.json",
+        "bytes": 1055,
+        "sha256": "1dfd0cae064684d121a6b9dd335da938d99a75679c4f569c6518f0f6d2235444"
+      }
+    },
+    {
+      "slot": "R3",
+      "reviewer_task_id": "/root/legacy_supersession_r3",
+      "decision": "REJECT",
+      "raw": {
+        "path": "Inputs/R2_REJECT_3_RAW.md",
+        "bytes": 3084,
+        "sha256": "e8b955b2bddf4ba71896952adc34275e77d4f6798662e58c0f26570ba7b7855a"
+      },
+      "attestation": {
+        "path": "Inputs/R2_REJECT_3_ATTESTATION.json",
+        "bytes": 1115,
+        "sha256": "2852defc7a5ea8e64a26bc2f2391e313c499a0dda1fd5e785aa216ebb0b03288"
+      }
+    }
+  ],
+  "mandatory_defect_classes": [
+    {
+      "id": "R3-D01",
+      "severity": "P1",
+      "name": "CUSTODY_CANARIES_SYNTHETIC",
+      "statement": "The claimed 45-per-implementation custody canaries assign expected outcomes without applying isolated mutations and invoking the actual validator."
+    },
+    {
+      "id": "R3-D02",
+      "severity": "P1",
+      "name": "RAW_BATCH_VALIDATION_SYNTHETIC_ONLY",
+      "statement": "Raw-batch validators have no real file/CLI path and do not enforce the complete active review schema against an actual persisted batch."
+    },
+    {
+      "id": "R3-D03",
+      "severity": "P1",
+      "name": "CONSENSUS_ROLE_SPOOFABLE",
+      "statement": "Consensus role identity can be supplied by reviewer-controlled content instead of a trusted outer dispatch slot."
+    },
+    {
+      "id": "R3-D04",
+      "severity": "P1",
+      "name": "ACTIVE_B_SPEC_STILL_NINE",
+      "statement": "The active B specification still normatively requires the original nine-item audit contract instead of the exact thirteen-item successor contract."
+    },
+    {
+      "id": "R3-D05",
+      "severity": "P1",
+      "name": "DECISION_SET_INSIDE_CORE_CYCLE",
+      "statement": "The supersession decision set is inside CONTENT_SET and therefore transitively inside the ratified SUBJECT."
+    },
+    {
+      "id": "R3-D06",
+      "severity": "P1",
+      "name": "HISTORICAL_19_BYTES_MUTATED",
+      "statement": "Historical correction 19 is 4925/a1743625... instead of the fixed 4583/e62873c3... identity; added metadata belongs in a detached wrapper."
+    },
+    {
+      "id": "R3-D07",
+      "severity": "P1",
+      "name": "VALIDATION_TRANSCRIPTS_STALE_OR_WEAK",
+      "statement": "Validation transcripts omit the exact subject, command, cwd, runtime identity and timestamps needed to prevent reuse against another core."
+    },
+    {
+      "id": "R3-D08",
+      "severity": "P1",
+      "name": "PROVENANCE_NOT_FULLY_RECOMPUTED",
+      "statement": "The checker does not prove decoded span equality to claim, recompute each source_item_sha256 and recompute the ordered thirteen-item aggregate."
+    }
+  ],
+  "required_recovery_sequence": [
+    "build a new core without ratification bytes, decision-set or owner anchor",
+    "obtain three detached exact-core ratifications",
+    "create a detached trusted ratification index",
+    "create a detached owner anchor and activation request only after that index"
+  ],
+  "prohibited_claims": [
+    "R2_APPROVED",
+    "SUPERSESSION_ACTIVE",
+    "OWNER_ACTIVATION_ALLOWED_ON_R2_SUBJECT",
+    "PREFREEZE_PASS",
+    "RUNTIME_PASS"
+  ]
+}

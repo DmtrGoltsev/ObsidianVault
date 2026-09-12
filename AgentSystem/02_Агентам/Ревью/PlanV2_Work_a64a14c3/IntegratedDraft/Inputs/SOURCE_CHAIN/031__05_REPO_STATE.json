@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "captured_date": "2026-08-27",
+  "repository_branch": "codex/n8nagents-foundation",
+  "head": "11974a33fa78bb72598059671cef9465402ab091",
+  "index_changed_paths": 0,
+  "tracked_modified_paths": 12,
+  "untracked_paths": 9,
+  "total_allowlisted_dirty_paths": 21,
+  "outside_allowlist_paths": 0,
+  "candidate_frozen": false,
+  "new_commit_created": false,
+  "corrective_attempt_1_consumed": false,
+  "last_recorded_touchset_custody_sha256": "4cbe88744e80ee4e2b815ebf53cc4f124578930ee12f917070c0ee881453d4ed",
+  "tracked_modified": [
+    "N8NAgents/docs/deploy-rollback-manifest.md",
+    "N8NAgents/docs/local-verification-result.md",
+    "N8NAgents/docs/verification-matrix.md",
+    "N8NAgents/infra/phase-a-compose.sh",
+    "N8NAgents/infra/phase-a-release-gate.sh",
+    "N8NAgents/infra/verify-release-governance.sh",
+    "N8NAgents/scripts/package-reviewed-release.ps1",
+    "N8NAgents/scripts/test-package-reviewed-release.ps1",
+    "N8NAgents/scripts/test-release-governance.sh",
+    "N8NAgents/scripts/test-remote-package-gate.sh",
+    "N8NAgents/scripts/verify-static.ps1",
+    "N8NAgents/scripts/verify-static.sh"
+  ],
+  "untracked": [
+    "N8NAgents/infra/phase-a-runner-bootstrap.sh",
+    "N8NAgents/scripts/build-k4r-evidence.py",
+    "N8NAgents/scripts/build-reviewed-candidate.ps1",
+    "N8NAgents/scripts/lib/GitTreeValidation.psm1",
+    "N8NAgents/scripts/requirements-k4r.lock",
+    "N8NAgents/scripts/run-k4r-offline.ps1",
+    "N8NAgents/scripts/test-k4r-evidence.py",
+    "N8NAgents/scripts/test-phase-a-release-gate-linux.sh",
+    "N8NAgents/scripts/test-runner-bootstrap-linux.sh"
+  ],
+  "review_rule": "read-only context; do not edit, stage, commit, package or normalize line endings",
+  "secret_files_read": false
+}
