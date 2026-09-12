@@ -14,12 +14,12 @@
 
 - **ENV01 PASS:** final16 запущен на изолированном API26 AVD.
 - **ENV02 PASS:** normal same-cert update old release → final16 на API26 сохранил install identity, PIN-lock и private baseline task.
-- **EX018 NOT_RUN:** pending CREATE/UPDATE не заявлять. На API26 три штатных offline-control способа не дали фактического отключения сети: `svc wifi disable` завершился `Killed`; `wifi_on=0` сохранил Wi-Fi CONNECTED; airplane broadcast отклонён ACL. Четвёртую попытку не делать.
+- **EX018 PASS:** на физическом телефоне old NetworkPhase same-cert release с offline CREATE/UPDATE и естественным conflict обновлён одним `install -r` до final16 без wipe/downgrade. Scoped oracle подтвердил CREATE v1/audit1, UPDATE v2/audit2, actor idempotency1 и отсутствие conflict effect; final16 UI сохранил conflict notice/pending title/review. Краткий возврат owner0 мог автоматически синхронизировать очередь, ручной retry не запускался.
 - **EX010 PASS:** controlled enrollment recreation с валидной fixture identity/invite, ожиданием bootstrap и safe failure. Два bootstrap после recreation допустимы; нет double redeem, частичной session или secret persistence.
 - **EX024 PASS:** уникальный AndroidKeyStore P-256 alias: `privateKey.encoded==null`, подпись/verify, destroy; штатные aliases сохранены.
 - **PUSH02 PASS:** одна actual Firebase SDK rotation на QA_Stable35, новая регистрация enabled и `pending=false`; другие registrations неизменны. Обновление bearer/refresh/expiry является штатным refresh, не продуктовым FAIL.
 - **E2E06 PASS:** изолированный OWNER официально отозвал MEMBER device (204); server отключил target session/SSH/push, а final16 sync и reopen показали durable re-enrollment recovery без stale cached task и silent wipe. Это намеренно отозванная fixture, не дефект.
-- **VOI01/08 NOT_RUN:** требуется настоящая русская речь/акустика; не подменять UI или text tests.
+- **VOI01/08 PASS:** настоящая русская речь на физическом телефоне: один review→Use→Send завершился одной PRIVATE PLANNED задачей; ещё две распознанные фразы отменены, scoped readonly подтвердил отсутствие последующих run/dispatch/outbox/non-EX018 task effects.
 
 ## Лимиты и последнее состояние
 
