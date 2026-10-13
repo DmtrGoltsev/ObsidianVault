@@ -245,7 +245,7 @@ Release evidence: [[Док_Release_Android_Production_20260822]].
 
 ## Волна 14 (2026-06-19)
 
-Финальный статус: native iOS parity branch `codex/IOS` в `C:\Users\style\Documents\Codex\Финансы-ios` обновлен до статуса Windows static QA PASS без FAIL; base `origin/main` commit `66feadd94dbf936faec500f565638973ca270f64`. Native-only target остается `apps/ios`; PWA/Capacitor wrapper under `apps/web-pwa` не является parity target. Release sign-off заблокирован только Mac/Xcode gates: `swift`, `xcodebuild`, `xcodegen` unavailable.
+Исторический финальный статус волны: native iOS parity branch `codex/IOS` в бывшем worktree `C:\Users\style\Documents\Codex\Финансы-ios` была обновлена до Windows static QA PASS без FAIL; worktree больше не существует и не является рабочим входом. Base: `origin/main` commit `66feadd94dbf936faec500f565638973ca270f64`. Native-only target оставался `apps/ios`; PWA/Capacitor wrapper under `apps/web-pwa` не был parity target. Release sign-off был заблокирован Mac/Xcode gates: `swift`, `xcodebuild`, `xcodegen` unavailable.
 
 | ID | Описание | Область | Дата | Верифицирован |
 |----|----------|---------|------|---------------|

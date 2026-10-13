@@ -229,5 +229,5 @@ are superseded by this record.
   read-only endpoints 200.
 - Direct manual SSH/SCP was not used. Rollback was not required; release branch
   retained for the rollback window.
-- Sanitized downloaded run evidence outside Git:
-  `C:\Users\style\Documents\Codex\Finance-release-evidence\32604838031`.
+- Sanitized run evidence, импортированное в канонический репозиторий:
+  `artifacts/evidence/imported/2026-08-22/Finance-release-evidence/32604838031`.

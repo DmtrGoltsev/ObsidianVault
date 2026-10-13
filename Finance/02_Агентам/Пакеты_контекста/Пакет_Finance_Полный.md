@@ -4,7 +4,7 @@ id: "context-package-finance-full"
 проект: "Finance"
 название: "Пакет Finance — Полный контекст"
 создано: "2026-06-01"
-обновлено: "2026-08-23"
+обновлено: "2026-10-13"
 уверенность: "высокая"
 теги: ["пакет_контекста", "finance", "агрегация"]
 источники:
@@ -38,6 +38,14 @@ id: "context-package-finance-full"
 
 - [[Finance]] — главная заметка проекта
 
+## Текущее операционное состояние (2026-10-13)
+
+- Локальный source of truth: `C:\Users\style\Documents\Codex\Финансы`.
+- Каноническая ветка `main`, commit `34859e1e97a9128ec36db2560bb44774e83b98de`.
+- PR `#15` завершил откат advisor diagnostic/inventory support; PR `#16` перенёс нужные recovery/evidence-артефакты в `artifacts/`. Advisor-трек не является активной частью проекта.
+- Recovery bundles в `artifacts/recovery/2026-10-13-advisor-inventory-cleanup/bundles` предназначены только для аварийного восстановления. Их нельзя использовать как ветку, worktree или рабочий источник.
+- Общие доменные материалы об инвестициях и переводах остаются действующей частью Finance.
+
 ## Навигация
 
 - [[MOC_Finance]] — MOC-карта проекта
@@ -69,7 +77,7 @@ id: "context-package-finance-full"
 
 - [[Кворум_Finance]] — кворум-саммари с высокой уверенностью
 
-## Release context (2026-06-08)
+## Исторический release context (2026-06-08)
 
 | Область | Статус |
 |---------|--------|
@@ -79,7 +87,7 @@ id: "context-package-finance-full"
 | Previous Android UX fix commit | `16a8be832d7c7fbaacf03325325da63db357d450` (`fix(android): refine asset category interactions`), branch `newDis`, remote parity OK |
 | Previous Android final fix commit | `f5afcda40e12b881ccc31a6b32221b24327cdbd8` (`fix(android): complete legacy asset edit and IME handling`), branch `newDis`, remote parity OK |
 | Latest finance fix commit | `09ea6479451c61b3d06a412e5aaaecec534fc96a` (`fix(finance): compact investment asset categories`), branch `newDis`, remote parity OK |
-| Current release scope | UX simplification release; production frontend byte parity; backend redeploy waiver because final HEAD has no backend/db/api delta |
+| Историческая release scope | UX simplification release; production frontend byte parity; backend redeploy waiver because final HEAD has no backend/db/api delta |
 | Backend/API | `/finance-api/health` 200 `{status:ok}`; exact commit endpoint absent; route surface matches post-808/newDis |
 | PWA/frontend | `/finance/COMMIT` 200 -> `6ce31f53f6150050b4cb0dad8488254bd04ff31b`; `/finance/`, `/finance/sw.js`, manifest, JS/CSS byte-hash equal local `apps/web-pwa/dist` |
 | QA | Compact asset category backend targeted suite: `31 passed, 2 warnings`; Android `:app:testDebugUnitTest` successful; `:app:assembleDebug` successful; integration review P0/P1 clean; P2 staging risk handled by curated commit; PWA/backend/OpenAPI reports are historical unless stated otherwise |
@@ -92,7 +100,7 @@ Python 3.12 / FastAPI / PostgreSQL 16 / React 19 + Vite 7 PWA / Kotlin Jetpack C
 
 ## Стадия
 
-Production MVP functional GO (2026-05-19). Текущая поставка 2026-06-08 — `newDis` UX simplification + compact investment asset category/iconKey/analytics fix — закрыта с production frontend byte parity, backend redeploy waiver и latest finance addendum `09ea6479451c61b3d06a412e5aaaecec534fc96a`; подробности в [[Док_Release_NewDis_20260608]].
+Production MVP functional GO зафиксирован 2026-05-19. Текущая линия разработки — `main` на `34859e1e97a9128ec36db2560bb44774e83b98de`; поставка `newDis` 2026-06-08 ниже сохранена как историческое доказательство.
 
 ## Auth/session wave (2026-07-25)
 
@@ -187,7 +195,7 @@ Production MVP functional GO (2026-05-19). Текущая поставка 2026-
 - Allocation targets для новых allocations поддерживают expense categories и investment asset categories; account target больше не предлагается для новых allocations.
 - Миграция release: `20260607_0011_planning_allocation_asset_target.py`.
 - Android flow расширен выбором и созданием asset/investment из planning flow.
-- QA evidence по Planning лежит в [[Finance/01_Человеку/Доказательства/QA_Результаты#Волна 3 Аналитика - Планирование MVP (2026-06-06)]], [[Finance/01_Человеку/Доказательства/QA_Фиксы#Волна 4 (2026-06-07)]] и [[Finance/01_Человеку/Доказательства/QA_Фиксы#Волна 5 (2026-06-07)]]. Актуальные цифры текущей поставки: backend latest `238 passed, 8 warnings`, fixtures `8 passed`, Android build `BUILD SUCCESSFUL`.
+- QA evidence по Planning лежит в [[Finance/01_Человеку/Доказательства/QA_Результаты#Волна 3: Аналитика -> Планирование MVP (2026-06-06)]], [[Finance/01_Человеку/Доказательства/QA_Фиксы#Волна 4 (2026-06-07)]] и [[Finance/01_Человеку/Доказательства/QA_Фиксы#Волна 5 (2026-06-07)]]. Это исторический срез: backend latest `238 passed, 8 warnings`, fixtures `8 passed`, Android build `BUILD SUCCESSFUL`.
 
 ## Риски
 
@@ -229,7 +237,7 @@ P1-B02, P1-B03, tag misalignment; production deploy текущей постав�
   trusted short-lived Let's Encrypt IP certificate with renewal monitoring.
 - Mac/install handoff is in repo `docs/ios-native-mac-handoff.md`.
 - Test matrix: [[QA_ТестКейсы_Native_iOS_Personal_20260821]].
-- Results: [[Finance/01_Человеку/Доказательства/QA_Результаты#Wave 26 Personal-only/native iOS final regression (2026-08-21)]].
+- Results: [[Finance/01_Человеку/Доказательства/QA_Результаты#Wave 26: Personal-only/native iOS final regression (2026-08-21)]].
 - Persistent QA account remains `NEVER DELETE`; use
   [[QA_Учетная_Запись_Production_20260822]]. Never copy credentials to project
   repo/evidence/logs/chat.
@@ -253,7 +261,7 @@ P1-B02, P1-B03, tag misalignment; production deploy текущей постав�
   Android 17 Espresso framework incompatibility; production plain HTTP/TLS risk.
 - Source of truth: [[Док_Release_Android_Production_20260822]],
   [[QA_ТестКейсы_Android_Production_20260822]],
-  [[Finance/01_Человеку/Доказательства/QA_Результаты#Wave 27 Android production release (2026-08-22)]].
+  [[Finance/01_Человеку/Доказательства/QA_Результаты#Wave 27: Android production release (2026-08-22)]].
 ## Native iOS + production closure context (2026-08-23)
 
 - Deployed code: `db7ebdd41a35018ae59e1fc4f5c5e38f0ed37de6`.

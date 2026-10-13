@@ -5,7 +5,7 @@ id: "moc-finance"
 статус: "активно"
 владелец: "rocketflow-team"
 создано: "2026-06-01"
-обновлено: "2026-08-23"
+обновлено: "2026-10-13"
 уверенность: "высокая"
 теги: ["MOC", "finance", "навигация"]
 источники:
@@ -25,6 +25,7 @@ id: "moc-finance"
 ## Проект
 
 - [[Finance]] — главная заметка проекта
+- [[Finance#Канонический локальный репозиторий и откат advisor (2026-10-13)|Текущее операционное состояние]] — `main` на `34859e1e97a9128ec36db2560bb44774e83b98de`, advisor-трек удалён, recovery bundles архивные
 
 ## Под-MOC
 
@@ -66,7 +67,9 @@ _(роли агентов проекта — см. `Finance/02_Агентам/Р
 
 _(архитектурные и проектные решения — см. `Finance/01_Человеку/Решения/`)_
 
-## Доказательства
+## Исторические доказательства релизов 2026-06–08
+
+Записи ниже фиксируют состояние на дату каждого релиза и не заменяют текущий операционный блок в [[Finance]].
 
 - [[Finance/01_Человеку/Доказательства/QA_Результаты]] — результаты прогонов тестирования
 - [[Finance/01_Человеку/Доказательства/QA_Фиксы]] — журнал фиксов багов
@@ -80,13 +83,13 @@ _(архитектурные и проектные решения — см. `Fin
 - [[Док_Release_NewDis_20260608]] — sanitized closure/evidence по production frontend release `newDis`, commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b`; latest Android critical investment fix addendum 2026-06-12 records project commit `d8175116f5123b6a304d4bd22dc083f2725505a0`
 - [[Док_Release_Planning_MVP_20260607]] — concise evidence по production release `20260607T225457Z-819b5815`
 - Planning evidence — см. [[Finance/01_Человеку/Доказательства/QA_Фиксы#Волна 3 (2026-06-06)]], [[Finance/01_Человеку/Доказательства/QA_Фиксы#Волна 4 (2026-06-07)]], [[Finance/01_Человеку/Доказательства/QA_Фиксы#Волна 5 (2026-06-07)]] и [[Finance/01_Человеку/Доказательства/QA_Фиксы#Волна 6 (2026-06-07)]]
-- Release context — текущая поставка 2026-06-08: `newDis`; production frontend commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b`; latest finance fix commit `09ea6479451c61b3d06a412e5aaaecec534fc96a`; frontend `/finance/COMMIT` 200 и byte-hash parity с local `apps/web-pwa/dist`; backend health 200 с accepted backend redeploy waiver; backend targeted suite `31 passed, 2 warnings`; Android `:app:testDebugUnitTest` successful; `:app:assembleDebug` successful; integration review P0/P1 clean; debug APK SHA256 `D1734426439FF38627C230D454D04E66229655C8DF6FD651087DC065B7A30733`
-- Release context — текущая поставка 2026-06-07: Planning iteration MVP; project commit `819b5815fed8c81bfa6a6e6131e790429454c2e8`; release `20260607T225457Z-819b5815`; backend `/opt/finance/releases/20260607T225457Z-819b5815`; web `/var/www/finance/releases/20260607T225457Z-819b5815`; Alembic `20260607_0013 (head)`; backend `243 passed, 9 warnings`; Android unit/assemble PASS; health/static checks OK
-- Latest Android evidence — 2026-07-26 category search/category dialog/analytics POSTP2: [[Finance/01_Человеку/Доказательства/QA_Результаты#Wave 23 Android category search and analytics POSTP2 QA closure (2026-07-26)]], [[Finance/01_Человеку/Доказательства/QA_Фиксы#Wave 19 (2026-07-26)]]. APK `finance-android-prod-20260726-160500-CATEGORY-ANALYTICS-POSTP2-manual-install.apk`, SHA256 `188eae471e36f1cdfe2e4f92ce1f7da7e5fa1d1febb9c80ab5a96c494503d0b1`; backend deploy not required; emulator unavailable, manual e2e skipped.
-- Latest reports/Android evidence — 2026-07-26 monthly investment transfers summary: [[Finance/01_Человеку/Доказательства/QA_Результаты#Wave 24 Monthly investment transfers reports/Android QA closure (2026-07-26)]], [[Finance/01_Человеку/Доказательства/QA_Фиксы#Wave 20 (2026-07-26)]]. Business rule: `/reports/summary.investmentsTotal` is selected-period visible incoming `transfer` into investment asset account/category, not asset balance; Android uses summary only. APK `finance-android-prod-20260726-221828-MONTHLY-INVESTMENT-TRANSFERS-manual-install.apk`, SHA256 `46e85ee4e5c6b4b13cf84abd4da22dcffc2642d0e9afd7d6be16f5c40783a9ca`; backend production deploy REQUIRED and not done by this worker; emulator unavailable, manual launch skipped.
-- Latest PWA evidence — 2026-07-27 iPhone browser parity post-fix: [[Finance/01_Человеку/Доказательства/QA_Результаты#Wave 25 PWA iPhone browser parity post-fix QA closure (2026-07-27)]], [[Finance/01_Человеку/Доказательства/QA_Фиксы#Wave 21 (2026-07-27)]]. PWA unit/build PASS, local Playwright Chromium iPhone 14 smoke PASS for login/home/quick add/category overlay/analytics/top categories all; `TopCategoriesDialog` overlays FAB/bottom nav and inner list scrolls. Evidence `C:\Users\style\Documents\Codex\Финансы\MVP_EVIDENCE\pwa-iphone-parity-postfix-qa-20260727-005600\SUMMARY.md`; backend code unchanged; real iPhone/Safari, HTTPS secure-cookie and PWA/iOS OCR online-only risks remain.
-- Latest personal/native iOS evidence — 2026-08-21: [[Finance/01_Человеку/Доказательства/QA_Результаты#Wave 26 Personal-only/native iOS final regression (2026-08-21)]]. Branch `codex/ios-native-personal-parity-20260820`, commit `96aa5822`; backend/Android/PWA full gates PASS; GitHub iOS run `32523201106` PASS, Debug/Release + XCTest 47/47 + UI 1/1. Native code/CI ready; physical prod login BLOCKED pending trusted HTTPS. `apps/ios` is target; legacy Capacitor is not.
-- Latest Android production evidence — 2026-08-22: [[Finance/01_Человеку/Доказательства/QA_Результаты#Wave 27 Android production release (2026-08-22)]], [[Док_Release_Android_Production_20260822]]. Final source `43f4b178`, APK SHA-256 `b7244a339eb71bcb91dc8a02066e93bc219707691a350488315255a57f5cb1c4`, unit `167/167`, emulator targeted E2E PASS; backend Actions run `32540824773` PASS, frontend skipped, DB unchanged.
+- Release context — историческая поставка 2026-06-08: `newDis`; production frontend commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b`; latest finance fix commit `09ea6479451c61b3d06a412e5aaaecec534fc96a`; frontend `/finance/COMMIT` 200 и byte-hash parity с local `apps/web-pwa/dist`; backend health 200 с accepted backend redeploy waiver; backend targeted suite `31 passed, 2 warnings`; Android `:app:testDebugUnitTest` successful; `:app:assembleDebug` successful; integration review P0/P1 clean; debug APK SHA256 `D1734426439FF38627C230D454D04E66229655C8DF6FD651087DC065B7A30733`
+- Release context — историческая поставка 2026-06-07: Planning iteration MVP; project commit `819b5815fed8c81bfa6a6e6131e790429454c2e8`; release `20260607T225457Z-819b5815`; backend `/opt/finance/releases/20260607T225457Z-819b5815`; web `/var/www/finance/releases/20260607T225457Z-819b5815`; Alembic `20260607_0013 (head)`; backend `243 passed, 9 warnings`; Android unit/assemble PASS; health/static checks OK
+- Latest Android evidence — 2026-07-26 category search/category dialog/analytics POSTP2: [[Finance/01_Человеку/Доказательства/QA_Результаты#Wave 23: Android category search and analytics POSTP2 QA closure (2026-07-26)]], [[Finance/01_Человеку/Доказательства/QA_Фиксы#Wave 19 (2026-07-26)]]. APK `finance-android-prod-20260726-160500-CATEGORY-ANALYTICS-POSTP2-manual-install.apk`, SHA256 `188eae471e36f1cdfe2e4f92ce1f7da7e5fa1d1febb9c80ab5a96c494503d0b1`; backend deploy not required; emulator unavailable, manual e2e skipped.
+- Latest reports/Android evidence — 2026-07-26 monthly investment transfers summary: [[Finance/01_Человеку/Доказательства/QA_Результаты#Wave 24: Monthly investment transfers reports/Android QA closure (2026-07-26)]], [[Finance/01_Человеку/Доказательства/QA_Фиксы#Wave 20 (2026-07-26)]]. Business rule: `/reports/summary.investmentsTotal` is selected-period visible incoming `transfer` into investment asset account/category, not asset balance; Android uses summary only. APK `finance-android-prod-20260726-221828-MONTHLY-INVESTMENT-TRANSFERS-manual-install.apk`, SHA256 `46e85ee4e5c6b4b13cf84abd4da22dcffc2642d0e9afd7d6be16f5c40783a9ca`; backend production deploy REQUIRED and not done by this worker; emulator unavailable, manual launch skipped.
+- Latest PWA evidence — 2026-07-27 iPhone browser parity post-fix: [[Finance/01_Человеку/Доказательства/QA_Результаты#Wave 25: PWA iPhone browser parity post-fix QA closure (2026-07-27)]], [[Finance/01_Человеку/Доказательства/QA_Фиксы#Wave 21 (2026-07-27)]]. PWA unit/build PASS, local Playwright Chromium iPhone 14 smoke PASS for login/home/quick add/category overlay/analytics/top categories all; `TopCategoriesDialog` overlays FAB/bottom nav and inner list scrolls. Evidence `C:\Users\style\Documents\Codex\Финансы\MVP_EVIDENCE\pwa-iphone-parity-postfix-qa-20260727-005600\SUMMARY.md`; backend code unchanged; real iPhone/Safari, HTTPS secure-cookie and PWA/iOS OCR online-only risks remain.
+- Latest personal/native iOS evidence — 2026-08-21: [[Finance/01_Человеку/Доказательства/QA_Результаты#Wave 26: Personal-only/native iOS final regression (2026-08-21)]]. Branch `codex/ios-native-personal-parity-20260820`, commit `96aa5822`; backend/Android/PWA full gates PASS; GitHub iOS run `32523201106` PASS, Debug/Release + XCTest 47/47 + UI 1/1. Native code/CI ready; physical prod login BLOCKED pending trusted HTTPS. `apps/ios` is target; legacy Capacitor is not.
+- Latest Android production evidence — 2026-08-22: [[Finance/01_Человеку/Доказательства/QA_Результаты#Wave 27: Android production release (2026-08-22)]], [[Док_Release_Android_Production_20260822]]. Final source `43f4b178`, APK SHA-256 `b7244a339eb71bcb91dc8a02066e93bc219707691a350488315255a57f5cb1c4`, unit `167/167`, emulator targeted E2E PASS; backend Actions run `32540824773` PASS, frontend skipped, DB unchanged.
 - Latest native iOS/production evidence — 2026-08-23:
   [[Finance/01_Человеку/Доказательства/QA_Результаты#Wave 29 Native iOS and production release closure (2026-08-23)]],
   [[Док_Release_Native_iOS_Current_Parity_20260822]]. Integrated source

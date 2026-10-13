@@ -6,7 +6,7 @@ id: "moc-all-projects"
 аудитория: "общая"
 владелец: "rocketflow-team"
 создано: "2026-06-01"
-обновлено: "2026-08-29"
+обновлено: "2026-10-13"
 уверенность: "высокая"
 источники: ["README.md"]
 доказательства: []
@@ -29,7 +29,7 @@ id: "moc-all-projects"
 - **Тип:** ручной учёт личных и семейных финансов
 - **Стек:** Python/FastAPI + React PWA + Kotlin Android + PostgreSQL
 - **Стадия:** Production MVP functional GO (2026-05-19)
-- **Под-MOC:** [[MOC_Finance]]
+- **Навигация:** [[MOC_Finance]]
 
 ### [[Focus]]
 - **Тип:** планировщик задач и целей с green/red механикой
