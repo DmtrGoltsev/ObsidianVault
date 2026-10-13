@@ -144,8 +144,8 @@ Worker runs не заменяют final gate; code/CI-вывод основан 
   200 и scope `/finance/`; login 201; refresh 200 rotated; logout 204;
   post-logout 401; personal read-only endpoints 200.
 - Rollback не запускался; release branch сохранена.
-- Скачанное sanitized evidence вне Git:
-  `C:\Users\style\Documents\Codex\Finance-release-evidence\32604838031`.
+- Импортированное sanitized evidence внутри канонического репозитория:
+  `artifacts/evidence/imported/2026-08-22/Finance-release-evidence/32604838031`.
 
 ## Секреты
 
@@ -155,7 +155,7 @@ Production QA account уже хранится в
 
 ## Связи
 
-- [[Finance/01_Человеку/Доказательства/QA_Результаты#Wave 28 Native iOS current parity integration (2026-08-22)]]
+- [[Finance/01_Человеку/Доказательства/QA_Результаты#Wave 28 Native iOS final code approval (2026-08-22, historical predecessor)]]
 - [[Источник_Текущий_Статус]]
 - [[MOC_Finance]]
 - Project Mac Codex prompt:

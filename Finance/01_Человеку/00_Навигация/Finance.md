@@ -5,8 +5,8 @@ id: "project-finance"
 статус: "активно"
 владелец: "rocketflow-team"
 создано: "2026-06-01"
-обновлено: "2026-08-23"
-уверенность: "средняя"
+обновлено: "2026-10-13"
+уверенность: "высокая"
 теги: ["проект", "finance", "финансы", "учёт", "MVP"]
 источники:
   - "docs/product-mvp.md"
@@ -21,7 +21,16 @@ id: "project-finance"
 
 # Finance — ручной учёт личных финансов
 
-> ⚠️ **СКЕЛЕТ.** Эта заметка — каркас проекта на основе кворум-исследования (3 агента). Слой знаний (глоссарий, источники) заполнен. Delivery-слои (задачи, агенты, ADR, доказательства, пакеты контекста бэкенда/Android/PWA) отсутствуют. Не полный source of truth. Требуется достройка.
+> Эта заметка — каноническая точка входа в проект Finance. Разделы с датами 2026-06–08 ниже сохраняются как исторические срезы релизов и проверок.
+
+## Канонический локальный репозиторий и откат advisor (2026-10-13)
+
+- Канонический локальный корень: `C:\Users\style\Documents\Codex\Финансы`.
+- Каноническая ветка: `main`; текущий итоговый commit: `34859e1e97a9128ec36db2560bb44774e83b98de`.
+- PR `#15` удалил advisor diagnostic/inventory support; PR `#16` собрал артефакты внутри канонического репозитория. Advisor-трек отсутствует в активном коде и KB.
+- Архивы восстановления хранятся в `artifacts/recovery/2026-10-13-advisor-inventory-cleanup/bundles`. Это только аварийный архив, а не активный source of truth, worktree или основа для новых изменений.
+- Импортированные доказательства: `artifacts/evidence/imported/2026-09-22/finance-inventory-artifact-35785991360`, `artifacts/evidence/imported/2026-09-23/finance-native-footprint-evidence-35802936517` и `artifacts/evidence/imported/2026-08-22/Finance-release-evidence/32604838031`.
+- Старые внешние каталоги Codex удалены. Общие функции и документы об инвестициях и переводах не относятся к advisor-треку и сохранены.
 
 ## Цель
 
@@ -330,10 +339,10 @@ Search tags / keywords: Finance Production QA account; persistent production tes
 
 ## Ветки
 
-- `newDis` — текущая UX simplification/release branch; production frontend historical commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b`; backend/PWA date-only deploy commit `26b487d61b7d2d6de704f0a632bcb08ff7f240f7`; latest Android release integration commit `5a59f29335d307931f94e561b5120750bbfd260b`
-- `codex/finance-planning-mvp-gpt5` — кодовая ветка Planning MVP / production release `819b5815`
-- `fix/aggregate-parser-multiline-labels` — базовая ветка UI overhaul + bug fixes
-- `main` — стабильная
+- `main` — каноническая текущая ветка на `34859e1e97a9128ec36db2560bb44774e83b98de`.
+- `newDis` — историческая UX simplification/release branch; production frontend commit `6ce31f53f6150050b4cb0dad8488254bd04ff31b`; backend/PWA date-only deploy commit `26b487d61b7d2d6de704f0a632bcb08ff7f240f7`; Android release integration commit `5a59f29335d307931f94e561b5120750bbfd260b`.
+- `codex/finance-planning-mvp-gpt5` — историческая ветка Planning MVP / production release `819b5815`.
+- `fix/aggregate-parser-multiline-labels` — историческая базовая ветка UI overhaul + bug fixes.
 
 ## Правила поставки
 
@@ -445,7 +454,7 @@ Search tags / keywords: Finance Production QA account; persistent production tes
 ### Native iOS parity branch status (2026-06-19)
 
 - **Статус:** Windows static QA PASS для native iOS parity branch `codex/IOS`; FAIL не зафиксированы.
-- **Worktree/base:** `C:\Users\style\Documents\Codex\Финансы-ios`; base `origin/main` commit `66feadd94dbf936faec500f565638973ca270f64`.
+- **Исторический worktree/base:** `C:\Users\style\Documents\Codex\Финансы-ios`; каталог больше не существует и не является рабочим входом; base `origin/main` commit `66feadd94dbf936faec500f565638973ca270f64`.
 - **Native-only boundary:** parity target только `apps/ios` SwiftUI/UIKit; PWA/Capacitor under `apps/web-pwa` остается отдельным и не является iOS parity target.
 - **Реализовано:** API config hardening/Release guard; auth/register/session/logout wipe improvements; manual transactions date-only/payment filter fallback; capture editable amount/date online-only; payment account/assets/investment/icon preservation; analytics month/category/investments; planning fallback for exposed mutations; icon-only tabs; offline-first local JSON store, sync queue, manual sync, issues and Russian sync UI.
 - **Ограничение релиза:** native iOS release sign-off остается BLOCKED только Mac/Xcode gates: `swift`, `xcodebuild`, `xcodegen` unavailable. Future gates: XcodeGen, Debug/Release build, simulator/device flows, Keychain/cookie wipe, offline queue backend push/pull, OCR/copy online-only UX.
@@ -532,7 +541,7 @@ Search tags / keywords: Finance Production QA account; persistent production tes
 - **Regression:** backend 296 passed/6 skipped + Ruff; Android 143/143 + debug/unsigned release; PWA 69/69 + build + runtime audit + HTTP/service-worker guards.
 - **Personal-only:** mode selectors absent; API report/account/category/asset scopes personal; `Категории расходов` expense-only.
 - **Blocker:** native iOS code/CI ready, actual prod login BLOCKED до trusted HTTPS endpoint. Arbitrary ATS exception запрещён; варианты — собственный TLS domain или trusted short-lived Let's Encrypt IP certificate.
-- **QA:** [[QA_ТестКейсы_Native_iOS_Personal_20260821]], [[Finance/01_Человеку/Доказательства/QA_Результаты#Wave 26 Personal-only/native iOS final regression (2026-08-21)]].
+- **QA:** [[QA_ТестКейсы_Native_iOS_Personal_20260821]], [[Finance/01_Человеку/Доказательства/QA_Результаты#Wave 26: Personal-only/native iOS final regression (2026-08-21)]].
 - **Account:** использовать [[QA_Учетная_Запись_Production_20260822]], `NEVER DELETE`;
   credentials допустимы только в этом выделенном vault-документе и запрещены в
   project repo/evidence/logs.
@@ -568,7 +577,7 @@ Search tags / keywords: Finance Production QA account; persistent production tes
   rollback `/opt/finance/releases/20260726T220603Z-55f4ac53`.
 - **Docs:** [[Док_Release_Android_Production_20260822]],
   [[QA_ТестКейсы_Android_Production_20260822]],
-  [[Finance/01_Человеку/Доказательства/QA_Результаты#Wave 27 Android production release (2026-08-22)]].
+  [[Finance/01_Человеку/Доказательства/QA_Результаты#Wave 27: Android production release (2026-08-22)]].
 - **Остаточные риски:** full UI offline create/reconnect/sync не перезапущен на
   финальном APK; OCR real-image не выполнялся; Android 17 Espresso несовместим с
   framework image до assertions; production HTTP/TLS риск открыт.

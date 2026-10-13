@@ -4,7 +4,7 @@ id: "quorum-finance"
 проект: "Finance"
 название: "Кворум Finance — саммари высокой уверенности"
 создано: "2026-06-01"
-обновлено: "2026-06-01"
+обновлено: "2026-10-13"
 уверенность: "высокая"
 теги: ["кворум", "finance", "саммари"]
 источники:
@@ -77,10 +77,11 @@ Household, Personal, Shared, Membership (invited/active/left/revoked), Active me
 | Production | Self-hosted, nginx |
 | Staging | Упоминается |
 
-## Ветки
+## Ветки и локальный вход
 
-- `codex/auto-capture-drafts` — текущая
-- `main` — стабильная
+- `main` — единственная каноническая ветка; итоговый commit после PR `#16`: `34859e1e97a9128ec36db2560bb44774e83b98de`.
+- Канонический локальный корень: `C:\Users\style\Documents\Codex\Финансы`.
+- Advisor-ветки и старые Finance-worktree удалены или неактивны и не могут быть основой работы. Recovery bundles в `artifacts/recovery/2026-10-13-advisor-inventory-cleanup/bundles` — только архив.
 
 ## Ключевая документация
 
