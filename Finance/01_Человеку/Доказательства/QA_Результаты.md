@@ -856,7 +856,7 @@ id: "qa-results-finance"
 
 **Метод:** sanitized docs/source inventory по текущей native iOS ветке. Raw logs, raw screenshots, APK/build artifacts, `.xcresult`, OCR payloads, cookies, CSRF, passwords, tokens and secret values are excluded.
 
-**Scope (исторический):** native-only iOS parity branch `codex/IOS` ранее проверялась в `C:\Users\style\Documents\Codex\Финансы-ios`; этот worktree больше не существует и не является рабочим входом. Base: `origin/main` commit `66feadd94dbf936faec500f565638973ca270f64`. PWA/Capacitor wrapper under `apps/web-pwa` не является parity target.
+**Scope (исторический):** native-only iOS parity branch `codex/IOS` ранее проверялась в удалённом историческом iOS-worktree; этот worktree больше не существует и не является рабочим входом. Base: `origin/main` commit `66feadd94dbf936faec500f565638973ca270f64`. PWA/Capacitor wrapper under `apps/web-pwa` не является parity target.
 
 ### Сводка
 
