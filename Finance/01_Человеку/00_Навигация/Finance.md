@@ -29,7 +29,7 @@ id: "project-finance"
 - Каноническая ветка: `main`; текущий итоговый commit: `34859e1e97a9128ec36db2560bb44774e83b98de`.
 - PR `#15` удалил advisor diagnostic/inventory support; PR `#16` собрал артефакты внутри канонического репозитория. Advisor-трек отсутствует в активном коде и KB.
 - Архивы восстановления хранятся в `artifacts/recovery/2026-10-13-advisor-inventory-cleanup/bundles`. Это только аварийный архив, а не активный source of truth, worktree или основа для новых изменений.
-- Импортированные доказательства: `artifacts/evidence/imported/2026-09-22/finance-inventory-artifact-35785991360`, `artifacts/evidence/imported/2026-09-23/finance-native-footprint-evidence-35802936517` и `artifacts/evidence/imported/2026-08-22/Finance-release-evidence/32604838031`.
+- Импортированные доказательства: `artifacts/evidence/imported/2026-09-22/finance-inventory-artifact-35785991360`, [production inventory run `35799250576`](https://github.com/DmtrGoltsev/finance/actions/runs/35799250576), `artifacts/evidence/imported/2026-09-23/finance-native-footprint-evidence-35802936517` и `artifacts/evidence/imported/2026-08-22/Finance-release-evidence/32604838031`.
 - Старые внешние каталоги Codex удалены. Общие функции и документы об инвестициях и переводах не относятся к advisor-треку и сохранены.
 
 ## Цель
@@ -454,7 +454,7 @@ Search tags / keywords: Finance Production QA account; persistent production tes
 ### Native iOS parity branch status (2026-06-19)
 
 - **Статус:** Windows static QA PASS для native iOS parity branch `codex/IOS`; FAIL не зафиксированы.
-- **Исторический worktree/base:** `C:\Users\style\Documents\Codex\Финансы-ios`; каталог больше не существует и не является рабочим входом; base `origin/main` commit `66feadd94dbf936faec500f565638973ca270f64`.
+- **Исторический worktree/base:** удалённый исторический iOS-worktree ветки `codex/IOS`; каталог больше не существует и не является рабочим входом; base `origin/main` commit `66feadd94dbf936faec500f565638973ca270f64`.
 - **Native-only boundary:** parity target только `apps/ios` SwiftUI/UIKit; PWA/Capacitor under `apps/web-pwa` остается отдельным и не является iOS parity target.
 - **Реализовано:** API config hardening/Release guard; auth/register/session/logout wipe improvements; manual transactions date-only/payment filter fallback; capture editable amount/date online-only; payment account/assets/investment/icon preservation; analytics month/category/investments; planning fallback for exposed mutations; icon-only tabs; offline-first local JSON store, sync queue, manual sync, issues and Russian sync UI.
 - **Ограничение релиза:** native iOS release sign-off остается BLOCKED только Mac/Xcode gates: `swift`, `xcodebuild`, `xcodegen` unavailable. Future gates: XcodeGen, Debug/Release build, simulator/device flows, Keychain/cookie wipe, offline queue backend push/pull, OCR/copy online-only UX.

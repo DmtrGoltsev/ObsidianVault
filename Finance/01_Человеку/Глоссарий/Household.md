@@ -20,6 +20,6 @@ id: "term-household"
 
 **Связанные термины:**
 - [[Personal_Shared]] — разделение personal/shared данных
-- [[Membership]] — членство в household (invited/active/left/revoked)
+- **Членство** — статус участия в household (invited/active/left/revoked)
 
 **Источник:** `docs/architecture/domain-model.md`
